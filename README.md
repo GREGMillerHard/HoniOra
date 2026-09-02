@@ -13,9 +13,21 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v169, updated 2026-09-02.
+This package corresponds to HONIORA_site_v173, updated 2026-09-02.
 
 Recent changes in this version:
+- On the lite (mobile) site, the two hex nav buttons ("Reserve Protocol" and "Reserve Test Tube") are up to 50% bigger: 138px on the main lite range (750px-wide screens and up, from 92px) and up to 93px on phones (from 62px, by roughly 800px-wide screens, past the point where phones hand off to the main lite layout). On the narrowest phones (360-430px) they hold close to their existing size, same physical-space tradeoff as previous rounds: the screen just isn't wide enough for a 50%-bigger hex plus the logo plus the burger icon without them touching. Also reduced the gap between the glass video and the "Upgrade your ritual." headline underneath it on the stacked mobile/tablet hero layout, from about 57px down to about 18px. Checked from 360px up through 1400px: no overlap with the logo or burger anywhere, no horizontal overflow, logo stays perfectly centred, and desktop (1401px+) is unchanged.
+
+v172 changes:
+- Removed the line break in the "Introducing Jenerise Cr.01" intro paragraph, between "...Olympic athletes in 1992." and "Jenerise Cr-01 Creatine Monohydrate is built to stricter...". It now flows as one continuous paragraph instead of two forced lines.
+
+v171 changes:
+- Removed item "03" from the Creatine "What it does" list ("Room for a real creatine dose... Two 38 mm tablets carry it in one dissolve, and twenty-six other named actives besides."). The old item 04 ("Paired with the vascular and gut stack...") is renumbered to 03, so the section now runs 01 through 03 with no gap.
+
+v170 changes:
+- Removed item "05" from the Creatine "What it does" list ("Sourced from creatine's own pioneer... Cr-01 comes from Jenerise, founded by Steve Jennings..."). The section now runs 01 through 04. Nothing else in that section changed, and the Jenerise/Steve Jennings sourcing story is still told elsewhere on the page (the Cr-01 ingredient row and the Stack matrix), just not repeated a second time here.
+
+v169 changes:
 - On the lite (mobile) site, the nav bar itself is taller (92px, up from 78px on the main lite range; 76px, up from 64px, on phones), the HONIORA wordmark is bigger (58px, up from 48px on the main lite range; 38px, up from 36px, on phones), and the two hex buttons are bigger too (92px, up from 78px on the main lite range; up to 62px, up from 56px, by 500px-wide phones). On the narrowest phones (360-430px) the hexes hold roughly their existing size rather than growing, since the bigger logo now takes up more of the space between it and the burger icon and there just isn't room for both to grow at that width without them touching. Checked from 360px up through 1300px: no overlap with the logo or burger anywhere, no horizontal overflow, logo stays perfectly centred, and desktop (1401px+) is unchanged.
 
 v168 changes:
