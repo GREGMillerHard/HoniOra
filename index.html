@@ -941,7 +941,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .navbar{height:88px}
   /* scales down smoothly on very narrow phones (≤~375px) so the hexes never crowd the
      burger button (the bigger logo above eats into that clearance too); 62px by 500px+ */
-  .hexbtn-m img{height:clamp(29px,11.6vw,100px)}
+  .hexbtn-m img{height:clamp(29px,11.6vw,93px)}
   .hexbtn-m.nav-hex-mobile-left{margin-right:clamp(1.5px,0.15vw,10px)}
   .hexbtn-m.nav-hex-mobile-right{margin-left:clamp(1.5px,0.15vw,10px)}
   section[id]{scroll-margin-top:104px}
@@ -1023,6 +1023,25 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .closing h2{font-size:clamp(34px,10vw,52px)}
   .legal{font-size:10.5px}
 }
+/* wider portrait phones (391-560px) have real slack next to the burger that the narrowest
+   phones don't -- grow the hexes further in two steps rather than one straight vw curve,
+   since a single slope safe enough for a 360px-wide screen barely moves by 560px. */
+@media(min-width:391px) and (max-width:480px){
+  .hexbtn-m img{height:clamp(46px,14vw,72px)}
+}
+@media(min-width:481px) and (max-width:560px){
+  .hexbtn-m img{height:clamp(74px,19vw,110px)}
+}
+/* phones rotated to landscape have plenty of width but very little height -- without this,
+   they'd inherit the tablet-width nav sizing above (up to 160px hexes, 110px bar), which is
+   far too big for a ~380-430px-tall viewport. Height, not width, is what's tight here. */
+@media(orientation:landscape) and (max-height:500px){
+  .navbar{height:70px}
+  .hexbtn-m img{height:clamp(40px,10vh,66px)}
+  .hexbtn-m.nav-hex-mobile-left{margin-right:8px}
+  .hexbtn-m.nav-hex-mobile-right{margin-left:8px}
+  section[id]{scroll-margin-top:86px}
+}
 @media(prefers-reduced-motion:reduce){
   *{animation:none !important;transition-duration:.01ms !important}
   .rv{opacity:1;transform:none}
@@ -1092,14 +1111,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#tablet">2 Tabs</a>
     <a href="#ritual">Ritual</a>
     <a href="#waitlist" style="color:var(--gold)">Join the Founding List</a>
-    <a href="#triad">Gut &middot; Heart &middot; Brain</a>
-    <a href="#matrix">The Stack</a>
     <a href="#rita">Rita Rocks</a>
     <a href="#lemon">Lemonwater?</a>
+    <a href="#honiblogtop">HoniBlog</a>
+    <a href="#matrix">The Stack</a>
+    <a href="#triad">Gut &middot; Heart &middot; Brain</a>
     <a href="#taste">Taste</a>
     <a href="javascript:void(0)" id="askHoniBtnMobile" style="color:var(--gold)">Ask Honi</a>
     <a href="#abouttop">About HoniCo</a>
-    <a href="#honiblogtop">HoniBlog</a>
   </div>
 </div>
 
