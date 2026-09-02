@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. A 15,220 mg daily serving led by 5,000 mg of creatine, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. A 15,320 mg daily serving led by 5,000 mg of creatine, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
 <meta property="og:description" content="2 tabs. 300 ml of cold water. Sixty seconds.">
@@ -103,7 +103,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* hex nav buttons: cropped from the physical coaster photoset, text baked into the image */
 .hexbtn{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0;cursor:pointer;
   transition:transform .3s cubic-bezier(.22,1,.36,1),filter .3s ease}
-.hexbtn img{display:block;height:82px;width:auto;pointer-events:none}
+.hexbtn img{display:block;height:82px;width:auto;pointer-events:none;
+  filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
 .hexbtn:hover,.hexbtn:focus-visible{transform:translateY(-3px)}
 /* tighten just the gap between the two paired hex buttons on each side (Reserve Protocol/
    Reserve Test Tube on the left, Ask Honi/Join List on the right), independent of the
@@ -150,7 +151,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    technique as the desktop nav) regardless of what's in the two side hexes. */
 .hexbtn-m.nav-hex-mobile-left,.hexbtn-m.nav-hex-mobile-right{display:none}
 .hexbtn-m{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0}
-.hexbtn-m img{display:block;height:clamp(108px,19.5vw,160px);width:auto;pointer-events:none}
+.hexbtn-m img{display:block;height:clamp(108px,19.5vw,160px);width:auto;pointer-events:none;
+  filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
 /* the link list (16 items) runs taller than the viewport on most phones, so the panel
    needs to actually scroll rather than just vertically-centering and clipping whatever
    doesn't fit; top padding clears the still-visible header/burger, bottom padding keeps
@@ -272,9 +274,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .hero-tag{margin-top:15px;font-size:min(1.95vw,27px);font-weight:700;color:var(--ink);
   letter-spacing:.012em;max-width:none;white-space:nowrap;line-height:1.28;
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
-.hero-precede{margin-bottom:16px;font-size:min(1.25vw,16px);font-weight:700;color:var(--ink-soft);
-  line-height:1.5;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
-.hero-precede .precede-lead{display:block;font-size:min(3.2vw,40px);color:var(--ink);margin-bottom:6px}
+.hero-precede{margin-bottom:16px;font-size:min(3.8vw,48px);font-weight:700;color:var(--ink-soft);
+  line-height:1.15;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
+.hero-precede .precede-lead{display:block;font-size:min(3.8vw,48px);color:var(--ink);margin-bottom:6px}
+.hero-precede .precede-body{font-size:min(1.25vw,16px);line-height:1.5}
 /* label and benefit sit on one line: LABEL: benefit */
 .keyact{list-style:none;margin:clamp(16px,1.9vh,22px) 0 0;padding:1px 0 1px 20px;
   border-left:2px solid var(--gold);display:grid;grid-template-columns:1fr 1fr;
@@ -875,8 +878,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hmsg{font-size:clamp(14px,2.6vw,19px)}
   .hact b{font-size:clamp(16px,2.9vw,22px)}
   .hero-tag{font-size:min(4vw,30px)}   /* single column: full width available */
-  .hero-precede{font-size:clamp(13px,3.3vw,16px)}
-  .hero-precede .precede-lead{font-size:clamp(26px,8.5vw,36px)}
+  .hero-precede{font-size:clamp(30px,9.8vw,42px)}
+  .hero-precede .precede-lead{font-size:clamp(30px,9.8vw,42px)}
+  .hero-precede .precede-body{font-size:clamp(13px,3.3vw,16px)}
   .hero-sub{white-space:normal;font-size:clamp(16px,2.4vw,20px);max-width:62ch}
   /* lite/mobile: stack the 3 stats and centre them as a group, instead of the desktop
      flex row (which wraps raggedly, left-aligned, once the column is this narrow) */
@@ -935,7 +939,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 /* ============ PHONES ============ */
 @media(max-width:560px){
-  :root{--pad:20px}
+  :root{--pad:26px}
 
   /* nav + hero */
   .navbar{height:88px}
@@ -1056,11 +1060,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap navbar">
     <div class="nav-cluster nav-cluster-left">
       <a href="#store" class="hexbtn hexbtn-first">
-        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="344" height="408">
+        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
         <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $6.00 a dose. Founding price locked for life, skip or cancel anytime.</span></span>
       </a>
       <a href="#store" class="hexbtn">
-        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="344" height="408">
+        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
         <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
       </a>
       <nav class="navlinks">
@@ -1080,20 +1084,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <a href="#honiblogtop">HoniBlog</a>
       </nav>
       <button type="button" class="hexbtn" id="askHoniBtn" aria-haspopup="dialog" aria-controls="askHoniModal">
-        <img src="nav-hex-ask-honi.png" alt="Ask Honi" width="358" height="408">
+        <img src="nav-hex-ask-honi.png" alt="Ask Honi" width="291" height="332">
         <span class="hexdrop"><span class="hexdrop-card"><b>Ask Honi</b>Chat with Honi, your HONIORA guide, for quick answers on ingredients, dosing, sourcing and the science.</span></span>
       </button>
       <a href="#waitlist" class="hexbtn hexbtn-last">
-        <img src="nav-hex-join-list.png" alt="Join the List" width="372" height="408">
+        <img src="nav-hex-join-list.png" alt="Join the List" width="292" height="331">
         <span class="hexdrop"><span class="hexdrop-card"><b>Join the List</b>Free to join the 2026 founding list. First access to the launch, plus founding-member pricing for life.</span></span>
       </a>
     </div>
     <a href="#store" class="hexbtn-m nav-hex-mobile-left" aria-label="Reserve the Monthly Protocol">
-      <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="344" height="408">
+      <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
     </a>
     <a href="#top" class="brand brand-mobile"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
     <a href="#store" class="hexbtn-m nav-hex-mobile-right" aria-label="Reserve a Single Pack test tube">
-      <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="344" height="408">
+      <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
     </a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   </div>
@@ -1162,6 +1166,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="hact"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><i class="hpop">Prebiotic &middot; Gut health matrix</i><s>1,000 mg</s></div>
           <div class="hact"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><i class="hpop">Metabolic &middot; GLP-1 support</i><s>1,000 mg</s></div>
           <div class="hact"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><i class="hpop">Metabolic &middot; GLP-1 &amp; glycemic support</i><s>200 mg</s></div>
+          <div class="hact"><b>Bifidobacterium adolescentis</b><i class="hpop">Synbiotic &middot; Gut barrier &amp; microbiome</i><s>10B CFU</s></div>
           <div class="hact"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><i class="hpop">Endothelial &middot; Vascular support</i><s>508 mg</s></div>
           <div class="hact"><b>cGP-Pro<sup class="rn">&reg;</sup> <span class="rn">(Cyclic Glycine-Proline)</span></b><i class="hpop">Micro-vascular &middot; Brain flow</i><s>100 mg</s></div>
           <div class="hact"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><i class="hpop">Micro-vascular flow</i><s>100 mg</s></div>
@@ -1180,7 +1185,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="wrap hero-grid">
     <div>
-      <p class="hero-precede rv"><span class="precede-lead">Upgrade your ritual.</span>HUGE pills and chalky, messy powders<br class="lite-br"> every morning?<br class="lite-br"> HoniOra's Solution:<br class="lite-br"> Two fizzy tablets, a glass of water and sixty seconds.</p>
+      <p class="hero-precede rv"><span class="precede-lead">UPGRADE YOUR RITUAL.</span><span class="precede-body">HUGE pills and/or chalky, messy powders <br> Every morning?</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body">2 fizzy tablets, 1 glass of water &amp; 60 seconds.</span></p>
       <h1 class="serif rv hero-logo">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
@@ -1194,12 +1199,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li>VasoDrive-AP<sup class="rn">&reg;</sup> peptide</li>
         <li>Careflow<sup class="rn">&reg;</sup> mango</li>
         <li>Eriomin<sup class="rn">&reg;</sup> lemon</li>
+        <li>Bifidobacterium adolescentis</li>
         <li>Landkind<sup class="rn">&reg;</sup> Rhodiola rosea</li>
         <li>Thaumatin<sup class="rn">&reg;</sup> Talin</li>
         <li>S7<sup class="rn">&reg;</sup> Plant Matrix</li>
       </ul>
       <div class="hero-meta rv">
-        <div><b>15,220<small style="font-size:14px"> mg</small></b><span>Per daily serving</span></div>
+        <div><b>15,320<small style="font-size:14px"> mg</small></b><span>Per daily serving</span></div>
         <div><b>5,000<small style="font-size:14px"> mg</small></b><span>Creatine per serving</span></div>
         <div><b>15</b><span>Full dose Natural actives, Zero blends</span></div>
       </div>
@@ -1273,8 +1279,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><img width="820" height="820" src="livaux_gold_kiwi.jpg" alt="Livaux gold kiwifruit" loading="lazy"><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>1,000 mg</s><i>Doubles <em>F. prausnitzii</em> in your gut within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
           <div class="ishot"><figure><img width="820" height="820" src="feijoa.jpg" alt="Feiolix feijoa" loading="lazy"><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>1,000 mg</s><i>Two routes to your own GLP-1: abscisic acid acting on gut L-cells, and a shift in the gut bacteria that prompt the same release. Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand.</i></figcaption></figure></div>
           <div class="ishot"><figure><img width="820" height="820" src="eriomin_lemon.jpg" alt="Eriomin lemon flavonoid extract" loading="lazy"><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract working a second, separate pathway onto your own GLP-1. Clinical trials at this same 200&nbsp;mg/day dose raised GLP-1 and lowered hyperglycemia, inflammation and improved gut microbiota in people with prediabetes.</i></figcaption></figure></div>
+          <div class="ishot"><figure><img width="820" height="820" src="bifidobacterium_adolescentis.jpg" alt="Bifidobacterium adolescentis probiotic culture, colourised micrograph" loading="lazy"><figcaption class="icap"><b>Bifidobacterium adolescentis</b><s>10 billion CFU</s><i>Microencapsulated live probiotic that ferments the formula's Livaux and M&#257;nuka prebiotic fibres into short-chain fatty acids and supports the gut lining's tight junctions.</i></figcaption></figure></div>
           <div class="ishot"><figure><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup></b><s>100 mg</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="400" height="400" src="S7.png" alt="S7 plant-based blend" loading="lazy"><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
+          <div class="ishot"><figure><img width="820" height="820" src="s7_leaf.jpg" alt="S7 plant-based blend" loading="lazy"><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
           <div class="ishot"><figure><img width="820" height="820" src="careflow_mango.jpg" alt="Careflow organic mango fruit powder" loading="lazy"><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
           <div class="ishot"><figure><img width="820" height="820" src="vasodrive_ap.jpg" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
           <div class="ishot"><figure><img width="820" height="820" src="landkind_pure_salidroside.jpg" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen for training stress and recovery.</i></figcaption></figure></div>
@@ -1417,7 +1424,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p class="plan-what">One tube. One week. <br> Experience how good they taste.</p>
         <ul class="plan-list">
           <li>1 tube &middot; 14 tablets &middot; 7 daily servings</li>
-          <li>The whole 27-active matrix, full dose</li>
+          <li>The whole 28-active matrix, full dose</li>
           <li>$52.50 credited to subscription</li>
           <li>Free USA shipping, always</li>
         </ul>
@@ -1618,7 +1625,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="pillar">
         <span class="n">ii</span>
         <h3>Room for real doses:</h3>
-        <p>Our two 38 mm diameter tablets carry what two capsules cannot: 15,220.00 mg, enough to hold Cr-01 Creatine at 5,000 mg, Livaux<sup class="rn">&reg;</sup> at 1,000 mg and Eriomin<sup class="rn">&reg;</sup> at 200 mg, full dosages, rather than the dusting that fits into a gummy or softgel.</p>
+        <p>Our two 38 mm diameter tablets carry what two capsules cannot: 15,320.00 mg, enough to hold Cr-01 Creatine at 5,000 mg, Livaux<sup class="rn">&reg;</sup> at 1,000 mg and Eriomin<sup class="rn">&reg;</sup> at 200 mg, full dosages, rather than the dusting that fits into a gummy or softgel.</p>
       </div>
       <div class="pillar">
         <span class="n">iii</span>
@@ -1711,7 +1718,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="src">VasoDrive-AP<sup class="rn">&reg;</sup> · 508 mg per serving</span>
       </div>
       <div class="stat">
-        <b data-count="27" data-suffix="">27</b>
+        <b data-count="28" data-suffix="">28</b>
         <h4>Named actives, zero blends</h4>
         <p>Every active in the HONI<i>ORA</i> SKU2 formula is individually named and dosed on the batch record, not hidden inside a proprietary blend.</p>
         <span class="src">Full bill of materials &middot; SKU2 batch record</span>
@@ -1767,6 +1774,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div><span class="fn">Metabolic<small>GLP-1 &amp; glycemic support</small></span></div>
         <div class="dose">200 mg</div>
         <div class="mech">A standardised extract of eriocitrin, the dominant flavonoid in lemon, working a separate pathway onto GLP-1 from Feiolix<sup class="rn">&reg;</sup> above rather than duplicating it. A crossover-randomised clinical trial at this same 200&nbsp;mg/day dose raised GLP-1 and lowered hyperglycemia and systemic inflammation markers; an earlier double-blind trial reported reversal of prediabetes; a third double-blind trial linked the same dose to improved gut microbiota composition in people with prediabetes.<br><a class="cite" href="https://doi.org/10.1002/ptr.6386" target="_blank" rel="noopener noreferrer">Ribeiro 2019 <span>Phytotherapy Research &middot; RCT &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/35796695/" target="_blank" rel="noopener noreferrer">Cesar 2022 <span>PMID 35796695 &middot; GLP-1 &amp; inflammation &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/37242433/" target="_blank" rel="noopener noreferrer">Ramos 2023 <span>PMID 37242433 &middot; Gut microbiota &nearr;</span></a></div>
+      </div>
+
+      <div class="row mgrid">
+        <div class="name">Bifidobacterium adolescentis<i>Microencapsulated, 100B CFU/g</i></div>
+        <div><span class="fn">Synbiotic<small>Gut barrier &amp; microbiome</small></span></div>
+        <div class="dose">10 billion CFU<small>100 mg raw material</small></div>
+        <div class="mech">A microencapsulated live probiotic strain, protected through high-speed compression and the tablet's own acid-base effervescent reconstitution so viable biomass survives to the gut. Works alongside the formula's existing Livaux<sup class="rn">&reg;</sup> and MGO M&#257;nuka/Fiberest<sup class="rn">&reg;</sup> prebiotic fibres, which this species ferments into short-chain fatty acids. Independent research on this species (not this specific branded ingredient) shows it restores tight-junction proteins (ZO-1, claudin) in the gut lining and eases functional constipation; a related strain-specific human trial in children with IBS improved symptom remission and bowel habits, though that population differs from ours.<br><a class="cite" href="https://doi.org/10.3390/ijms262412142" target="_blank" rel="noopener noreferrer">Post-voyage cohort 2025 <span>Int J Mol Sci &middot; Gut barrier &nearr;</span></a><a class="cite" href="https://doi.org/10.3389/fmicb.2024.1496280" target="_blank" rel="noopener noreferrer">Genome/colitis model 2024 <span>Front Microbiol &middot; Tight junctions &nearr;</span></a><a class="cite" href="https://doi.org/10.3390/microorganisms13030627" target="_blank" rel="noopener noreferrer">PRL2019 pediatric RCT 2025 <span>Microorganisms &middot; IBS, different strain &amp; population &nearr;</span></a><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
       <div class="row mgrid">
@@ -1933,7 +1947,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 27 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V5-140K-38MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
+    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 28 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V5-140K-38MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
     <p class="citenote rv"><b>About these references.</b> Each link opens the PubMed record for research on that ingredient or its active compound. These are studies of the ingredient, not of HONI<i>ORA</i>. HONI<i>ORA</i> has never been trialled as a finished product and no claim is made that these findings transfer to it. Doses, formats and populations in the linked work differ from ours, and some entries are reviews or preclinical studies rather than human trials. Read the record before drawing a conclusion. Rows marked &ldquo;citation to be added&rdquo; are newly added ingredients for this SKU2 formula: no fabricated citation has been attached to them, and a real one should be sourced and added before this page goes live. Where a branded ingredient has a supplier science page, a second link goes to it. Those pages are written by the company selling the ingredient, so treat them as supplier material rather than independent evidence.</p>
   </div>
 </section>
@@ -2112,7 +2126,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <h3 class="serif" style="font-size:32px;margin:16px 0 14px">14 tablets &middot; 7 servings</h3>
         <p style="color:var(--ink-2);font-size:15px">2 tabs per day in 300 ml of cold water. One tube covers a week. Made in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP, from New Zealand provenance ingredients.</p>
         <div class="spec">
-          <div><b>7,610.00 mg</b><span>Per tablet</span></div>
+          <div><b>7,660.00 mg</b><span>Per tablet</span></div>
           <div><b>38 mm</b><span>Round FFBE tablet</span></div>
           <div><b>&lt; 15% RH</b><span>Sealed tube humidity</span></div>
           <div><b>&lt; 5 ppm</b><span>Certified gluten-free</span></div>
@@ -2591,7 +2605,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 27 named actives into one effervescent serving, 15,220 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin), <b>Heart</b> (VasoDrive-AP, Careflow, S7, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 28 named actives into one effervescent serving, 15,320 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 2 tablets into 300 ml of cold water. The effervescent engine fully dissolves in under 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -2661,6 +2675,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        papers:[{t:"Ribeiro 2019, Phytotherapy Research · hyperglycemia and prediabetes reversal",u:"https://doi.org/10.1002/ptr.6386"},
                {t:"Cesar 2022, PMID 35796695 · GLP-1 and inflammation",u:"https://pubmed.ncbi.nlm.nih.gov/35796695/"},
                {t:"Ramos 2023, PMID 37242433 · gut microbiota",u:"https://pubmed.ncbi.nlm.nih.gov/37242433/"}]},
+      {k:["probiotic","bifidobacterium","adolescentis","synbiotic","gut bacteria","cfu","microbiome"],
+       a:"Bifidobacterium adolescentis is a live probiotic strain, microencapsulated to survive both the high-speed tableting process and the tablet's own acid-base effervescent reaction, so viable cells reach your gut. It's dosed at 10 billion CFU per serving. It works alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF, which this species ferments into short-chain fatty acids. Independent research on the species (not this specific branded ingredient) has shown it restores tight-junction proteins in the gut lining and eases functional constipation, and a related strain in a pediatric trial improved IBS symptom remission and bowel habits, though that trial's children population differs from ours. As with every ingredient here, these are species or strain-level trials, not a trial of the finished HONIORA product.",
+       src:"Supplied as a microencapsulated powder, 100 billion CFU per gram raw material. No specific supplier brand name is stated on the batch record for this ingredient, so I won't invent one.",
+       papers:[{t:"Post-voyage cohort 2025 · gut barrier, tight junctions",u:"https://doi.org/10.3390/ijms262412142"},{t:"Genome/colitis model 2024 · tight junctions, inflammation",u:"https://doi.org/10.3389/fmicb.2024.1496280"},{t:"PRL2019 pediatric RCT 2025 · IBS symptoms (different strain & population)",u:"https://doi.org/10.3390/microorganisms13030627"}]},
       {k:["manuka","fiberest","honey","mgo"],
        a:"MGO stands for methylglyoxal, the compound identified as manuka honey's dominant antibacterial constituent, and 850+ marks a high-potency grade. In HONIORA it's paired with the Fiberest HF fibre matrix, which feeds beneficial gut barrier microbes and keeps the honey crystals stable through compression, on top of methylglyoxal's own pathogen-clearing effect. HONIORA's Mānuka honey is drawn from New Zealand's Mānuka belt across the East Cape, Bay of Plenty and Waikato: HoniCo itself is based in the Bay of Plenty, its most potent honey is harvested in the Mānuka forests of Te Urewera near the East Cape, and the team has ties to Waikato too. All three are genuine, recognised Mānuka-producing regions in New Zealand. MGO 850+ Mānuka honey crystals and Fiberest HF fibre are dosed together at 1,500 mg.",
        src:"Supplier: HoniCo Direct, New Zealand, HONIORA's own Mānuka honey supply chain.",

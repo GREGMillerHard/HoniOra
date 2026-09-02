@@ -3,7 +3,7 @@
 ## What's in this package
 
 - `index.html` — the entire site (markup, CSS, and JS all in one file).
-- Every image, video, and icon file — hero shots, nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the HoniBlog founder photo (`blog-founder-happy-place.jpg`), the HoniBlog Article 02 video still (`blog-kiwi-slimland.jpg`), the HoniBlog Article 03 video still (`blog-jenerise-origins.jpg`), the HoniBlog Article 04 video still (`blog-manuka-benefits.jpg`), and all 13 ingredient photos used in the Stack section — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
+- Every image, video, and icon file — hero shots, nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the HoniBlog founder photo (`blog-founder-happy-place.jpg`), the HoniBlog Article 02 video still (`blog-kiwi-slimland.jpg`), the HoniBlog Article 03 video still (`blog-jenerise-origins.jpg`), the HoniBlog Article 04 video still (`blog-manuka-benefits.jpg`), and all 14 ingredient photos used in the Stack section (including the new `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
 
 ## How to host it
 
@@ -13,9 +13,83 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v173, updated 2026-09-02.
+This package corresponds to HONIORA_site_v193, updated 2026-09-02.
 
 Recent changes in this version:
+- Tightened the Bifidobacterium adolescentis ingredient-scroll caption: dropped "that survives compression and the effervescent reaction" so it now reads "Microencapsulated live probiotic that ferments the formula's Livaux and Mānuka prebiotic fibres into short-chain fatty acids and supports the gut lining's tight junctions." Also dropped "own" before Livaux.
+
+v192 changes:
+- Replaced the Bifidobacterium adolescentis ingredient-scroll photo with the version you sent: a cleaner, sharp-edged circular crop of the same bacteria micrograph, matching the other ingredient tiles' hard-edge circle style more closely than the soft-feathered version used before. Same filename, so no other part of the page needed touching.
+
+v191 changes:
+- Corrected D-Allulose back to 110 mg/tab (220 mg/serving). v190 had it at 60 mg, based on a misread of the MBR PDF's table on my part, not an actual formula change. You then sent a clean CSV export of the same Rev 5.7 bill of materials confirming D-Allulose is 110.00 mg/tab, unchanged from Rev 5.6 — corrected on the one site location that carries this figure (stack-matrix table).
+
+v190 changes:
+- Formula updated to Rev 5.7 per the new MBR PDF you uploaded (HONIORA_MBR_MakersNutrition_v5.7_140k_38mm.pdf): added Bifidobacterium adolescentis, a microencapsulated probiotic, 50 mg/tab (10 billion CFU per 2-tablet serving). Ingredient count 27→28 everywhere it's stated (hero stat, stat card, Store plan card, AskHoni KB, stack-matrix closing note), unit tablet weight 7,610.00→7,660.00 mg, daily serving 15,220→15,320 mg. Added a new stack-matrix table row, a new AskHoni chat entry, a new item in the hero ingredient list and the header ticker, and a new circular ingredient-scroll photo (you supplied a colourised bacteria micrograph; cropped and soft-edge-masked to match the site's existing circular-photo treatment, same style as the Landkind tile). Science citations independently verified, not taken from your pasted marketing copy: a 2025 human/mouse study (Int J Mol Sci, DOI 10.3390/ijms262412142) on a seafarer cohort showing the species restores gut-lining tight-junction proteins; a 2024 genomic/colitis-model study (Front Microbiol, DOI 10.3389/fmicb.2024.1496280) with the same tight-junction finding plus reduced inflammatory markers; and a 2025 pediatric IBS RCT of a specific strain, PRL2019 (Microorganisms, DOI 10.3390/microorganisms13030627) — flagged on-site as a different strain and a children's population, not a direct match for this product. The "crowds out pathogens" and "second GLP-1 pathway" style claims from your pasted copy were not used as-is since I couldn't independently verify them for this species; the copy instead states the SCFA-fermentation and tight-junction mechanisms that are verified.
+
+**Data flag, still open, please check with Makers Nutrition:** with D-Allulose correctly at 110 mg/tab, summing all 28 per-tablet line items comes to 7,610.00 mg, not the 7,660.00 mg the MBR states as its own header/total-row unit weight — a 50 mg/tab gap. This is the same unresolved gap flagged at Rev 5.6 (it was never about D-Allulose), carried forward unchanged. The site is synced to the stated total, 7,660.00 mg, as the working assumption, same as every revision since Rev 5.6, but this hasn't been confirmed with Makers Nutrition.
+
+v189 changes:
+- Rebuilt all four gold nav hex buttons (Reserve Protocol, Reserve Test Tube, Ask Honi, Join List) from scratch: cropped everything outside the dark keyline border away, so the beveled outer band and the leftover shadow blob from the old artwork are gone, leaving a clean tight hexagon with just the border. Added a real soft drop shadow underneath each button (CSS-based, so it sits correctly under the button at all times, not just on hover). Checked at 360px through 1600px, no overflow.
+
+v188 changes:
+- Reduced the font size of two lines in the hero sub-copy back down: "HUGE pills and/or chalky, messy powders / Every morning?" and "2 fizzy tablets, 1 glass of water & 60 seconds." are now back to a smaller secondary-text size (16px on desktop, scaling down to 13px on narrow phones). "HoniOra's Solution:" and "UPGRADE YOUR RITUAL." stay large and matched to each other, so the solution line still stands out clearly between the now-smaller surrounding lines. Checked from 360px through 1600px, no overflow.
+
+v187 changes:
+- The full four-line sub-copy ("HUGE pills and/or chalky, messy powders / Every morning? / HoniOra's Solution: / 2 fizzy tablets, 1 glass of water & 60 seconds.") is now the same size as "UPGRADE YOUR RITUAL." above it, at every breakpoint (confirmed the computed sizes match exactly). Also tightened the line spacing on that block since a size this large needed less breathing room between lines than the old small-print value. Checked from 360px through 1600px, no overflow.
+
+v186 changes:
+- "HoniOra's Solution:" in the hero sub-copy is now the same font size as "MĀNUKA CREATINE PROTOCOL" at every breakpoint (confirmed the computed sizes match exactly, from 15px on narrow phones up to 30px on tablet), so it stands out from the rest of that sentence instead of blending in at the smaller body size. Checked from 360px through 1600px, no overflow or wrapping issues.
+
+v185 changes:
+- The line breaks in "HUGE pills and/or chalky, messy powders / Every morning? / HoniOra's Solution: / 2 fizzy tablets, 1 glass of water & 60 seconds." now show everywhere, including desktop. Previously they only showed on mobile/tablet and desktop collapsed it into one flowing paragraph; now the four lines are always visible. Checked at 360px, 390px and 1600px, no overflow.
+
+v184 changes:
+- "Upgrade your ritual." is now "UPGRADE YOUR RITUAL." (all caps).
+- The sub-copy now capitalizes "Every" ("...powders Every morning?..."), matching the wording you sent. Checked at 360px, 390px, and 1600px, no overflow or wrapping issues.
+
+v183 changes:
+- Checked the font on "Upgrade your ritual." against "MĀNUKA CREATINE PROTOCOL": they were already the same family and weight (Arial, bold), computed and confirmed in the browser, so no font change was needed there.
+- Increased the size of "Upgrade your ritual.": up to 48px on desktop (was 40px) and up to 42px on mobile/tablet (was 36px), checked from 360px through 1600px wide with no wrapping or overflow issues.
+- Updated the hero sub-copy under it to: "HUGE pills and/or chalky, messy powders every morning? HoniOra's Solution: 2 fizzy tablets, 1 glass of water & 60 seconds." (was "HUGE pills and chalky, messy powders every morning? HoniOra's Solution: Two fizzy tablets, a glass of water and sixty seconds."). Kept the same mobile-only line breaks the previous version had (desktop still reads as one flowing paragraph).
+
+v182 changes:
+- Replaced the S7 Plant Blend ingredient photo (was a small blue logo graphic, S7.png) with the circular leaf photo you provided (s7_leaf.jpg), sized and framed the same way as the rest of the ingredient grid (820x820, matching the Careflow/Cr-01/cGP-Pro style) instead of the old smaller logo treatment.
+
+v181 changes:
+- Fixed a glitch in the matte gold hex buttons from v180: the soft drop-shadow blur baked into the original plaque images had picked up a gold tint when recoloured, showing up as faint gold flecks/streaks in the transparent area around each hex. Rebuilt all four buttons straight from the original source photos with a tight, clean edge, so the transparent background around each hex is genuinely clean now, no flecks, no stray tint.
+- Replaced the Careflow Mango Fruit ingredient photo with the new mango-on-mint-circle image you provided, cropped to just the circle and its contents (mango, stem and leaf) with the surrounding white background cut away, matching the tight circular-thumbnail style the other ingredient photos use.
+
+v180 changes:
+- All four nav hex buttons (Reserve Protocol, Reserve Test Tube, Ask Honi, Join List) recoloured from white/cream to a flat matte gold. The dark trim line and text stayed as they were for contrast, so the labels are still easy to read. This is a straight recolour of the plaque images themselves (not a CSS filter), applied on both the desktop 4-hex layout and the mobile 2-hex layout, so it's consistent everywhere the buttons appear.
+- Checked the spacing between hex 1/2 (Reserve Protocol/Reserve Test Tube) and hex 3/4 (Ask Honi/Join List) on desktop: they were already identical at every width from 1401px up (both pairs use the same tightened gap), so no spacing change was needed there, just confirmed it stayed correct after the recolour.
+
+v179 changes:
+- On phones (≤560px), page content now has a wider side margin: 26px, up from 20px. Text blocks, citation lists, ingredient cards and the taste-score table all sit further from the screen edges instead of running close to them. Nothing else changed (the nav bar and hex buttons keep their own separate spacing, untouched by this). Checked from 360px through 1450px, no overflow anywhere.
+
+v178 changes:
+- On the mobile nav menu, "Join the Founding List" is now "Join Founding List" (fits on one line at every phone width instead of wrapping).
+- Moved "Ask Honi" and "About HoniCo" to the bottom of the RIGHT-hand mobile menu column, after HoniBlog. The left column is now 8 items (Reserve the Protocol through Taste), the right column 8 (2 Tabs through About HoniCo). Checked from 360px through 1000px, no overflow.
+
+v177 changes:
+- Moved The Stack, Gut · Heart · Brain, Taste, Ask Honi, and About HoniCo to the bottom of the LEFT-hand column of the mobile menu (previously they'd been placed at the bottom of the right-hand column). The left column is now 10 items, the right column 6. Checked from 360px through 1000px: the longer column still fits comfortably with no overflow.
+
+Recent changes in this version:
+- Fixed the hex nav sizing so it actually shows up on vertical (portrait) phones, not just when rotated to landscape. Previously the v175 size increase only applied once the screen got wide enough to enter the "tablet" nav layout, which portrait phones almost never reach, so portrait phones looked unchanged. Now portrait phones get their own two-step growth curve: hexes stay at their existing safe size on the narrowest phones (360-390px, where there's no room to grow without touching the burger icon), then grow meaningfully from 391px up to 560px wide, capping around 106-118px on the widest phones, versus 65px before. Checked from 360px to 560px, no overlap with the burger anywhere.
+- Fixed landscape phones getting oversized. Rotating a phone to landscape used to push it past the 560px "phones" width and into the tablet-sized nav (up to 160px hexes, 110px bar), which was far too big for a short landscape screen. Landscape phones (width taller than they are, but under 500px tall) now get their own compact sizing, 70px bar and hexes around 40-43px, similar to portrait. Tablets and desktops in landscape (which have much more height, 600px+) are unaffected and keep the full-size nav. Checked several real phone landscape sizes (iPhone SE through iPhone Pro Max) plus iPad/desktop landscape to confirm the cutoff doesn't catch anything it shouldn't.
+- Reordered the right-hand column of the two-column mobile menu: The Stack, Gut · Heart · Brain, Taste, Ask Honi, and About HoniCo now sit together at the bottom of that column, in that order, after the other links (2 Tabs, Ritual, Join the Founding List, Rita Rocks, Lemonwater?, HoniBlog), which keep their previous relative order above them. The left column is unchanged.
+
+v175 changes:
+- On the lite (mobile) site, the two hex nav buttons are bigger again on the main lite range (750px-wide and up): the cap is now 160px, up from 138px. On phones (≤560px) they hold at their existing size: tested raising the cap there too, but the vw-driven curve never actually reaches even the old cap within that width range, so there was nothing to gain, and the narrowest phones (360-390px) are already at the physical limit where hex, logo, and burger icon can coexist without touching.
+- The nav bar itself is taller again: 110px on the main lite range (up from 92px), 88px on phones (up from 76px), with the hero's top padding and section scroll-offsets adjusted to match so nothing sits under the taller bar.
+- The mobile burger slide-out menu is now two columns instead of one long list, so it reads in half the scroll depth. Left column: Reserve the Protocol, Protocol, Mānuka Honey, Science, Function. Right column: everything else, in its previous order (2 Tabs, Ritual, Join the Founding List, Gut · Heart · Brain, The Stack, Rita Rocks, Lemonwater?, Taste, Ask Honi, About HoniCo, HoniBlog). Link targets, colours, and scroll behaviour are unchanged, just the layout.
+- The Rita Ora feature photo is now cropped to a 4:3 frame on the lite/mobile and tablet layout (up to 1000px wide): Rita stays fully in view on the left, and the baked-in "HONIORA / Super Star Rita Ora" text stays fully in view, uncropped, top-right. The crop only trims empty background off the left edge of the original photo. Desktop (1001px+) keeps the original full-width photo with the text overlay panel, completely unchanged.
+- Checked the whole nav (hex size, bar height) from 360px up through 1450px: no overlap anywhere, no horizontal overflow, logo stays centred, and desktop nav is unaffected.
+
+v174 changes:
+- On the lite (mobile) site, the burger slide-out menu list is reordered: "Reserve the Protocol" and "Join the Founding List" (previously near the bottom of the 16-link list) now sit at positions 3 and 4, right after "2 Tabs" and "Ritual". Everything else keeps its previous relative order, just shifted down to make room. Nothing else about the menu (styling, scroll behaviour, link targets) changed.
+
+v173 changes:
 - On the lite (mobile) site, the two hex nav buttons ("Reserve Protocol" and "Reserve Test Tube") are up to 50% bigger: 138px on the main lite range (750px-wide screens and up, from 92px) and up to 93px on phones (from 62px, by roughly 800px-wide screens, past the point where phones hand off to the main lite layout). On the narrowest phones (360-430px) they hold close to their existing size, same physical-space tradeoff as previous rounds: the screen just isn't wide enough for a 50%-bigger hex plus the logo plus the burger icon without them touching. Also reduced the gap between the glass video and the "Upgrade your ritual." headline underneath it on the stacked mobile/tablet hero layout, from about 57px down to about 18px. Checked from 360px up through 1400px: no overlap with the logo or burger anywhere, no horizontal overflow, logo stays perfectly centred, and desktop (1401px+) is unchanged.
 
 v172 changes:
