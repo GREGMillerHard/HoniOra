@@ -13,9 +13,12 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v168, updated 2026-09-02.
+This package corresponds to HONIORA_site_v169, updated 2026-09-02.
 
 Recent changes in this version:
+- On the lite (mobile) site, the nav bar itself is taller (92px, up from 78px on the main lite range; 76px, up from 64px, on phones), the HONIORA wordmark is bigger (58px, up from 48px on the main lite range; 38px, up from 36px, on phones), and the two hex buttons are bigger too (92px, up from 78px on the main lite range; up to 62px, up from 56px, by 500px-wide phones). On the narrowest phones (360-430px) the hexes hold roughly their existing size rather than growing, since the bigger logo now takes up more of the space between it and the burger icon and there just isn't room for both to grow at that width without them touching. Checked from 360px up through 1300px: no overlap with the logo or burger anywhere, no horizontal overflow, logo stays perfectly centred, and desktop (1401px+) is unchanged.
+
+v168 changes:
 - The mobile-nav "Reserve Protocol" and "Reserve Test Tube" hexes are bigger again (78px, up from 64px on the main lite range, and up to 56px on phones, from 50px), and a real cascade bug is fixed along the way: the phone-only size and spacing rules were losing to the wider lite-range rules because of a specificity mismatch, so shrinking the hexes down for narrow phones was silently not working. Fixed the selector specificity and re-tuned the phone-width sizing and spacing so the bigger hexes still clear the burger icon and the logo with no overlap and no horizontal overflow, checked from 360px up through 1300px. Also centred the "15,220 mg / 5,000 mg / 15" stats row under the hero on mobile: it used to wrap raggedly, left-aligned, once the layout stacks to one column, now it stacks as one centred group like everything else in that section, on desktop it's unchanged.
 
 v167 changes:
