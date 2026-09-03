@@ -921,6 +921,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hero-precede .precede-rest{font-size:clamp(16px,4vw,20px)}
   .hero-precede .precede-body{font-size:clamp(16px,4vw,20px)}
   .hero-precede .precede-solution{font-size:clamp(30px,9.8vw,42px)}
+  /* this one line has to fit without wrapping at every phone width down to 320px,
+     so it gets its own smaller, width-tied size instead of sharing .precede-body's */
+  .hero-precede .precede-fit{white-space:nowrap;font-size:clamp(11px,calc((100vw - 90px) / 20),20px)}
   .hero-sub{white-space:normal;font-size:clamp(16px,2.4vw,20px);max-width:62ch}
   /* lite/mobile: stack the 3 stats and centre them as a group, instead of the desktop
      flex row (which wraps raggedly, left-aligned, once the column is this narrow) */
@@ -958,6 +961,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    side-by-side layout itself. */
 @media(min-width:1001px) and (max-width:1400px){
   .hero-lower{padding-right:max(var(--pad),220px)}
+  .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
 }
 /* the hex-button + centred-logo nav needs real width; below this it collapses to the burger.
    raised from 1360 to 1400 for the 50%-larger wordmark. Adding a 6th link (HoniCo, then
@@ -1069,7 +1073,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hide-sm{display:none}
   .plan{padding:24px 20px}
   .plan-price b{font-size:42px}
+  /* .storenote p carries flex:1 1 220px for the desktop row layout, where 220px is a
+     minimum WIDTH. Flipping the container to column here makes that same flex-basis
+     apply to the column's main axis instead, forcing every paragraph to a 220px-tall
+     box regardless of its real content height -- that's the huge gaps between the three
+     notes on phones. Reset the basis to the content's own height once stacked. */
   .storenote{flex-direction:column;gap:14px}
+  .storenote p{flex:0 1 auto}
 
   /* ritual, pack, form */
   .timer{max-width:74vw}
@@ -1236,7 +1246,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="wrap hero-grid">
     <div>
-      <p class="hero-precede rv"><span class="precede-rest"><span class="precede-body">HUGE pills and/or chalky, messy powders <br> Every morning?</span> <br> <span class="precede-lead">UPGRADE YOUR RITUAL.</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body">2 fizzy tablets, 1 glass of water &amp; 60 seconds.</span></span></p>
+      <p class="hero-precede rv"><span class="precede-rest"><span class="precede-body">HUGE pills and/or chalky, messy powders <br> Every morning?</span> <br> <span class="precede-lead">UPGRADE YOUR RITUAL.</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></p>
       <h1 class="serif rv hero-logo">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
