@@ -744,7 +744,17 @@ textarea{resize:vertical;min-height:64px}
   background:transparent;border:1px solid var(--line);color:var(--ink);font-size:20px;line-height:1;cursor:pointer;
   transition:background .25s,color .25s}
 .askhoni-close:hover{background:var(--ink);color:#fff}
-.askhoni-thread{flex:1 1 auto;overflow-y:auto;padding:18px 24px;display:flex;flex-direction:column;gap:12px;min-height:160px}
+.askhoni-thread{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  padding:18px 24px;display:flex;flex-direction:column;gap:12px;min-height:160px;
+  scrollbar-width:thin;scrollbar-color:var(--ink-soft) transparent}
+/* the thread already scrolls (overflow-y:auto), but with no visible scrollbar and a
+   long answer running right up against the chips row below it, it read as cut off
+   rather than scrollable. a real, always-there scrollbar makes the affordance obvious
+   on both lite and desktop. */
+.askhoni-thread::-webkit-scrollbar{width:7px}
+.askhoni-thread::-webkit-scrollbar-track{background:transparent}
+.askhoni-thread::-webkit-scrollbar-thumb{background:var(--ink-soft);border-radius:4px}
+.askhoni-thread::-webkit-scrollbar-thumb:hover{background:var(--ink)}
 .ah-msg{max-width:88%;font-size:14px;line-height:1.58;padding:11px 15px;border-radius:3px}
 .ah-msg.user{align-self:flex-end;background:var(--ink);color:#fff}
 .ah-msg.bot{align-self:flex-start;background:var(--paper-3);color:var(--ink-2)}
@@ -877,8 +887,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .rita-copy{position:static;width:100%;background:var(--paper);padding:28px 20px}
   /* stacked: tighter gap between the glass video and the "Upgrade your ritual" copy
      below it than the desktop side-by-side gap (which would otherwise leak through
-     via .hero-lower's flex gap once it wraps to a column) */
-  .hero-lower{flex-direction:column;gap:8px}
+     via .hero-lower's flex gap once it wraps to a column). padding-right also drops
+     back to the normal side padding here: the desktop value (max(var(--pad),430px))
+     exists to reserve room for the side-by-side text column, which no longer applies
+     once this section is stacked -- left at its desktop value it was squeezing the
+     headline copy down to a sliver, wrapping it onto more lines than desktop shows
+     for the same text. */
+  .hero-lower{flex-direction:column;gap:8px;padding-right:var(--pad)}
   /* .hero-lower only has padding on its right (reserved for the desktop text column),
      so this column stretches flush to the screen's left edge with nothing to balance
      it on the right, and it renders visibly left of true centre. margin-right cancels
@@ -932,6 +947,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .lg summary{font-size:18px;padding:20px 0}
   .lgbody p{font-size:13.5px}
 }
+/* 1001-1400px: the hero still uses the desktop side-by-side layout here (that only
+   stacks at 1000px and below), but the nav already treats this whole range as lite
+   (it collapses to the burger below 1400px). In that gap, .hero-lower's desktop
+   padding-right -- max(var(--pad),430px), reserved room for the text column at full
+   desktop width -- left the headline copy squeezed into a sliver barely 130-220px
+   wide, wrapping "UPGRADE YOUR RITUAL." and the line below it onto more lines than
+   desktop shows for the same text. Easing that reservation just in this range gives
+   the copy roughly the same breathing room desktop has, without touching the
+   side-by-side layout itself. */
+@media(min-width:1001px) and (max-width:1400px){
+  .hero-lower{padding-right:max(var(--pad),220px)}
+}
 /* the hex-button + centred-logo nav needs real width; below this it collapses to the burger.
    raised from 1360 to 1400 for the 50%-larger wordmark. Adding a 6th link (HoniCo, then
    HoniBlog) made the right-hand cluster wider than its grid track at this breakpoint,
@@ -954,7 +981,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
 }
 @media(max-width:600px){
-  .hero-lower{padding-right:var(--pad)}
   body{font-size:16px}
   .stats,.mfacts,form .fields,.footgrid,.spec{grid-template-columns:1fr}
   /* phones: crop to a usable band so the product does not shrink to a strip */
