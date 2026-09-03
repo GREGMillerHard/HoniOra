@@ -13,9 +13,20 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v193, updated 2026-09-02.
+This package corresponds to HONIORA_site_v199, updated 2026-09-03.
 
 Recent changes in this version:
+- All 14 ingredient-scroll circle photos are now the same visual size. The image frames were already identical, but the actual circle drawn inside each one filled a different amount of that frame (from about 65% up to 98%), so some ingredients looked noticeably bigger than others. Rescaled and recentred every one to a consistent 88% fill. Also squared up thaumatin.jpg, which was 820x786 instead of 820x820, the only one that wasn't a true square file.
+- On the lite (mobile) site: the hero glass loop video is 75% bigger (285px tall cap to 499px), and it's now genuinely centred instead of sitting left of centre. The old centring relied on padding that only existed on the right side of its container (reserved for the desktop text column), so this column had nothing balancing it on the left. Fixed by cancelling that reserved space out for this column specifically, and capped the new size responsively so it still centres cleanly without overflowing on narrower phones. Every current iPhone width (375px and up) gets the full 499px.
+- The lite (mobile) site now always opens on screen one, the hero. A reload or a shared link with something like #tablet in the URL will no longer land mid-page on a phone. Desktop link behaviour is unchanged.
+
+v198 changes:
+- Fixed the real cause of the oversized gap between "HUGE pills and/or chalky, messy powders" and "Every morning?" (and every other line in that hero body text block). It wasn't the line-height on those lines themselves, it was an invisible layout quirk: since only "UPGRADE YOUR RITUAL." is a proper block element, the rest of the paragraph was inheriting that headline's own large 48px/1.15 line spacing as a baseline "strut" for every line, even though the visible text is only 22px. Wrapped that trailing block in its own container with its own font-size and line-height so it no longer borrows the headline's spacing. Line gaps are now the size they were actually styled to be, both lines and paragraph breaks. "HoniOra's Solution:" keeps its original large size, unaffected.
+
+v195 changes:
+- Tightened the gap between "UPGRADE YOUR RITUAL." and "HUGE pills and/or chalky, messy powders" in the hero headline. That line break was a block break plus a 6px margin stacked on top, reading as more than one line break. Removed the margin so it's now a single line break, same as the rest of that headline.
+
+v193 changes:
 - Tightened the Bifidobacterium adolescentis ingredient-scroll caption: dropped "that survives compression and the effervescent reaction" so it now reads "Microencapsulated live probiotic that ferments the formula's Livaux and Mānuka prebiotic fibres into short-chain fatty acids and supports the gut lining's tight junctions." Also dropped "own" before Livaux.
 
 v192 changes:

@@ -3,6 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Always open on screen one (the hero) on lite/mobile widths. Runs synchronously,
+   before the browser restores any previous scroll position or jumps to a URL hash,
+   so a reload or a shared link never lands mid-page on a phone. Desktop is untouched. */
+(function(){
+  if (window.matchMedia && window.matchMedia('(max-width:1400px)').matches){
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+})();
+</script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
 <meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. A 15,320 mg daily serving led by 5,000 mg of creatine, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
@@ -867,10 +879,19 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      below it than the desktop side-by-side gap (which would otherwise leak through
      via .hero-lower's flex gap once it wraps to a column) */
   .hero-lower{flex-direction:column;gap:8px}
-  .hero-img-col{order:1;flex:0 0 auto;max-width:none;padding:22px 20px 2px;gap:10px}
-  .hero-img-col img,.hero-img-col video{object-position:center top;margin:0 auto}
+  /* .hero-lower only has padding on its right (reserved for the desktop text column),
+     so this column stretches flush to the screen's left edge with nothing to balance
+     it on the right, and it renders visibly left of true centre. margin-right cancels
+     that reserved space back out so this column's own box spans the full width, then
+     its own symmetric padding centres the glass for real. */
+  .hero-img-col{order:1;flex:0 0 auto;max-width:none;margin-right:calc(-1 * var(--pad));padding:22px 20px 2px;gap:10px}
+  .hero-img-col img,.hero-img-col video{object-position:center center;margin:0 auto}
   .hero-img-col{transform:none}
-  .hero-img-col .hero-glass-img{max-height:285px;transform:none}
+  /* 285px * 1.75 = 499px, the target. Capped against the column's own available
+     width (video's native ratio is 606:904) so on narrower phones it still centres
+     cleanly instead of outgrowing its box and skewing off to one side. Every current
+     iPhone width (375px and up) comfortably clears the cap and gets the full 499px. */
+  .hero-img-col .hero-glass-img{max-height:min(499px, calc((100vw - 40px) * 1.4917));transform:none}
   .hero-img-col .hero-pack-img{max-height:145px}
   .hero-grid{order:2;transform:none;padding-top:8px}
   .hero-lower .hero-grid{padding-left:var(--pad);padding-right:var(--pad)}
