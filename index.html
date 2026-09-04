@@ -163,8 +163,28 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    technique as the desktop nav) regardless of what's in the two side hexes. */
 .hexbtn-m.nav-hex-mobile-left,.hexbtn-m.nav-hex-mobile-right{display:none}
 .hexbtn-m{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0}
+.hexbtn-m-link{display:block;line-height:0}
 .hexbtn-m img{display:block;height:clamp(108px,19.5vw,160px);width:auto;pointer-events:none;
   filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
+/* touch-friendly info toggle on each mobile hex: taps the small "i" badge to open the
+   same info card the desktop hexes show on hover, without hijacking a tap on the hex
+   image itself (that still goes straight to #store, unchanged). Hover-capable pointers
+   (trackpad/stylus on a tablet-width viewport) also get it on hover, no tap needed. */
+.hexinfo{position:absolute;top:2px;right:2px;z-index:2;width:clamp(18px,4.6vw,24px);height:clamp(18px,4.6vw,24px);
+  border-radius:50%;background:rgba(250,247,240,.92);border:1px solid rgba(21,23,15,.22);color:var(--ink-soft);
+  font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:clamp(11px,2.9vw,14px);
+  line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 3px 8px rgba(21,23,15,.18);transition:background .25s ease,color .25s ease}
+.hexbtn-m.info-open .hexinfo,.hexinfo:hover,.hexinfo:focus-visible{background:var(--gold);color:#fff;border-color:var(--gold)}
+.hexbtn-m .hexdrop{z-index:65}
+.nav-hex-mobile-left .hexdrop{left:0;transform:translateY(-6px)}
+.nav-hex-mobile-right .hexdrop{left:auto;right:0;transform:translateY(-6px)}
+.hexbtn-m.info-open .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
+.nav-hex-mobile-left.info-open .hexdrop,.nav-hex-mobile-right.info-open .hexdrop{transform:translateY(0)}
+@media(hover:hover){
+  .hexbtn-m:hover .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
+  .nav-hex-mobile-left:hover .hexdrop,.nav-hex-mobile-right:hover .hexdrop{transform:translateY(0)}
+}
 /* the link list (16 items) runs taller than the viewport on most phones, so the panel
    needs to actually scroll rather than just vertically-centering and clipping whatever
    doesn't fit; top padding clears the still-visible header/burger, bottom padding keeps
@@ -964,6 +984,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hero-lower{padding-right:max(var(--pad),220px)}
   .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
 }
+/* lite/mobile only: drop the "HUGE pills and/or chalky, messy powders / Every morning?"
+   line and its trailing break entirely. Desktop keeps it -- same shared paragraph, this
+   just hides that one wrapped span below the nav's own mobile breakpoint (1400px), so the
+   headline starts straight at "UPGRADE YOUR RITUAL." on phones and tablets. */
+@media(max-width:1400px){
+  .hero-precede .precede-huge{display:none}
+}
 /* the hex-button + centred-logo nav needs real width; below this it collapses to the burger.
    raised from 1360 to 1400 for the 50%-larger wordmark. Adding a 6th link (HoniCo, then
    HoniBlog) made the right-hand cluster wider than its grid track at this breakpoint,
@@ -1154,13 +1181,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="hexdrop"><span class="hexdrop-card"><b>Join the List</b>Free to join the 2026 founding list. First access to the launch, plus founding-member pricing for life.</span></span>
       </a>
     </div>
-    <a href="#store" class="hexbtn-m nav-hex-mobile-left" aria-label="Reserve the Monthly Protocol">
-      <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
-    </a>
+    <div class="hexbtn-m nav-hex-mobile-left">
+      <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
+        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
+      </a>
+      <button type="button" class="hexinfo" aria-label="About the Monthly Protocol" aria-haspopup="true" aria-expanded="false">i</button>
+      <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $6.00 a dose. Founding price locked for life, skip or cancel anytime.</span></span>
+    </div>
     <a href="#top" class="brand brand-mobile"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
-    <a href="#store" class="hexbtn-m nav-hex-mobile-right" aria-label="Reserve a Single Pack test tube">
-      <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
-    </a>
+    <div class="hexbtn-m nav-hex-mobile-right">
+      <a href="#store" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
+        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
+      </a>
+      <button type="button" class="hexinfo" aria-label="About the Single Pack" aria-haspopup="true" aria-expanded="false">i</button>
+      <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
+    </div>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   </div>
 </header>
@@ -1247,7 +1282,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="wrap hero-grid">
     <div>
-      <p class="hero-precede rv"><span class="precede-rest"><span class="precede-body">HUGE pills and/or chalky, messy powders <br> Every morning?</span> <br> <span class="precede-lead">UPGRADE YOUR RITUAL.</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></p>
+      <p class="hero-precede rv"><span class="precede-rest"><span class="precede-huge"><span class="precede-body">HUGE pills and/or chalky, messy powders <br> Every morning?</span> <br></span> <span class="precede-lead">UPGRADE YOUR RITUAL.</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></p>
       <h1 class="serif rv hero-logo">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
@@ -2557,6 +2592,37 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var hdr = document.getElementById('hdr');
   var onScroll = function(){ hdr.classList.toggle('stuck', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* mobile hex info badges (Reserve Protocol / Reserve Test Tube): tap the "i" to
+     show the same info card the desktop hexes reveal on hover, tap it again (or
+     anywhere else, or Escape) to close. Doesn't touch the hex image's own link. */
+  document.querySelectorAll('.hexbtn-m').forEach(function(hex){
+    var btn = hex.querySelector('.hexinfo');
+    if(!btn) return;
+    btn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var open = !hex.classList.contains('info-open');
+      document.querySelectorAll('.hexbtn-m.info-open').forEach(function(other){
+        if(other !== hex){ other.classList.remove('info-open'); other.querySelector('.hexinfo').setAttribute('aria-expanded','false'); }
+      });
+      hex.classList.toggle('info-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.hexbtn-m')) return;
+    document.querySelectorAll('.hexbtn-m.info-open').forEach(function(hex){
+      hex.classList.remove('info-open');
+      hex.querySelector('.hexinfo').setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    document.querySelectorAll('.hexbtn-m.info-open').forEach(function(hex){
+      hex.classList.remove('info-open');
+      hex.querySelector('.hexinfo').setAttribute('aria-expanded','false');
+    });
+  });
 
   var burger = document.getElementById('burger'), mm = document.getElementById('mm');
   burger.addEventListener('click', function(){
