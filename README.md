@@ -13,7 +13,21 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v224, updated 2026-09-04.
+This package corresponds to HONIORA_site_v228, updated 2026-09-04.
+
+Recent changes in this version:
+- Mānuka Honey section: the golden bee mark above the headline is bigger (clamp 160-250px, was 128-200px). Scoped to just this bee, so the separate "1% for the Bees" badge elsewhere on the page, which shares the same CSS class, is untouched at its original size. Headline text changed from "Mānuka honey / Does far more than sweeten." to "Mānuka Honey / A biological powerhouse".
+
+Recent changes in this version:
+- The hero title, "HONIORA" and "MĀNUKA CREATINE PROTOCOL" beneath it, is bigger at every screen size. Color and both typefaces (the serif logo, the sans tag line) are unchanged, only size went up, by roughly 15% across desktop, lite, and mobile. The tag line still auto-matches the logo's exact rendered width above 1400px (unaffected, that script just picked up the new size), and I bumped its own separate size rules for the lite tier (1001-1400px) and both mobile tiers so it stays in the same proportion to the logo everywhere. Checked 390px, 820px, 1200px and 1600px: no wrapping, no overflow, no horizontal scrollbar introduced.
+- The Mānuka vista banner caption ("FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD") now uses the same light-weight sans-serif treatment as the site's other headlines (h1/h2: Arial/Helvetica Neue, weight 300) instead of a bold weight. Only the font-family and font-weight changed; the fill-to-width script, size, color and shadow are untouched.
+- On the ingredient scroller, the Braincurrant tile moved from beside Landkind (near the end) to directly after Feiolix. Its description text also changed to match the wording supplied: it now ends "...naturally rich in anthocyanins. Natural support for focus, memory and mood balance." (was "...The supplier cites support for focus, memory and mood balance."). Name, dose, and image are unchanged. Confirmed only one copy exists and the tile order now reads Cr-01, MGO, Livaux, Feiolix, Braincurrant, Eriomin, cGP-Pro, S7, Careflow, VasoDrive-AP, Bifidobacterium adolescentis, Landkind, Yuzu, Passionfruit, Thaumatin.
+
+Recent changes in this version:
+- On the ingredient scroller, the Bifidobacterium adolescentis tile moved again, this time to right after VasoDrive-AP (its previous spot was beside Feiolix). Only its position changed, photo/dose/description untouched. Confirmed only one copy exists and the tile order now reads Cr-01, MGO, Livaux, Feiolix, Eriomin, cGP-Pro, S7, Careflow, VasoDrive-AP, Bifidobacterium adolescentis, Landkind, Braincurrant, Yuzu, Passionfruit, Thaumatin.
+
+Recent changes in this version:
+- The Mānuka vista banner caption is now "FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD" (was "FROM THE LAND OF THE LONG WHITE CLOUD"). The longer wording doesn't fit on one line at a legible size on narrow phones, so the fill script was extended: it still spans the full width as one line down to 640px, and below that, where holding one line would force the text under a 14px floor, it now lets the line wrap to two instead of shrinking further or quietly overflowing past the image edge (which the old script would have done with this longer string). Checked 320px through 1920px: no overflow anywhere, wraps cleanly to two centred lines at 320-430px, one full-width line everywhere above 640px.
 
 Recent changes in this version:
 - On the ingredient scroller (the horizontal photo strip under the Stack section), the Bifidobacterium adolescentis tile moved from after S7 (its original spot, added there in an earlier version) to right beside Feiolix, immediately before Eriomin. Only its position changed, its photo, dose, and description are all untouched. Confirmed only one copy exists in the markup and the tile order now reads Cr-01, MGO, Livaux, Feiolix, Bifidobacterium adolescentis, Eriomin, cGP-Pro, S7, Careflow, VasoDrive-AP, Landkind, Braincurrant, Yuzu, Passionfruit, Thaumatin.
