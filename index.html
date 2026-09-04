@@ -162,25 +162,20 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    live in .nav-cluster-left. The logo stays truly centred (a 1fr/auto/1fr grid, same
    technique as the desktop nav) regardless of what's in the two side hexes. */
 .hexbtn-m.nav-hex-mobile-left,.hexbtn-m.nav-hex-mobile-right{display:none}
-.hexbtn-m{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0}
+.hexbtn-m{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0;
+  transition:transform .3s cubic-bezier(.22,1,.36,1)}
 .hexbtn-m-link{display:block;line-height:0}
 .hexbtn-m img{display:block;height:clamp(108px,19.5vw,160px);width:auto;pointer-events:none;
   filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
-/* touch-friendly info toggle on each mobile hex: taps the small "i" badge to open the
-   same info card the desktop hexes show on hover, without hijacking a tap on the hex
-   image itself (that still goes straight to #store, unchanged). Hover-capable pointers
-   (trackpad/stylus on a tablet-width viewport) also get it on hover, no tap needed. */
-.hexinfo{position:absolute;top:2px;right:2px;z-index:2;width:clamp(18px,4.6vw,24px);height:clamp(18px,4.6vw,24px);
-  border-radius:50%;background:rgba(250,247,240,.92);border:1px solid rgba(21,23,15,.22);color:var(--ink-soft);
-  font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:clamp(11px,2.9vw,14px);
-  line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;
-  box-shadow:0 3px 8px rgba(21,23,15,.18);transition:background .25s ease,color .25s ease}
-.hexbtn-m.info-open .hexinfo,.hexinfo:hover,.hexinfo:focus-visible{background:var(--gold);color:#fff;border-color:var(--gold)}
+/* the whole button doubles in size on hover/focus instead of a separate tap target --
+   scaling from the edge nearest the logo (not dead centre) so it grows outward into the
+   open header space on either side rather than climbing over the logo itself. */
+.nav-hex-mobile-left{transform-origin:right center}
+.nav-hex-mobile-right{transform-origin:left center}
+.hexbtn-m:hover,.hexbtn-m:focus-within{transform:scale(2);z-index:70}
 .hexbtn-m .hexdrop{z-index:65}
 .nav-hex-mobile-left .hexdrop{left:0;transform:translateY(-6px)}
 .nav-hex-mobile-right .hexdrop{left:auto;right:0;transform:translateY(-6px)}
-.hexbtn-m.info-open .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
-.nav-hex-mobile-left.info-open .hexdrop,.nav-hex-mobile-right.info-open .hexdrop{transform:translateY(0)}
 @media(hover:hover){
   .hexbtn-m:hover .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
   .nav-hex-mobile-left:hover .hexdrop,.nav-hex-mobile-right:hover .hexdrop{transform:translateY(0)}
@@ -215,6 +210,17 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   object-fit:contain;object-position:center top;display:block;margin:0 auto}
 .hero-img-col .hero-glass-img{max-height:68vh;transform:translateY(75px)}
 .hero-img-col .hero-pack-img{max-height:54vh;transform:translateX(calc(23.4vw - clamp(24px,3.6vw,60px))) translateY(100px)}
+/* rotated 90deg CW (lying on its side, cap to the right), sized against the
+   glass's own rendered height using the real-world ratio of a tube (~13cm) to
+   a pint glass (~15cm) -- the closest thing to "life size" achievable on a
+   screen of unknown physical density. .hero-lower uses align-items:stretch,
+   so this column is actually stretched tall to match .hero-grid's real height
+   (the full ingredient list + stats + CTA on the right run much longer than
+   just the video), leaving real leftover space below the video, not just a
+   thin margin. Auto top/bottom margins on the tube itself soak up that
+   leftover space evenly, centering it in the true gap between the glass and
+   wherever this column actually ends, instead of a hand-guessed fixed value. */
+.hero-img-col .hero-tube-shot{width:58vh;height:auto;margin:auto 0}
 .hero-pillars{order:3;flex:0 0 100%;max-width:1040px;
   margin-top:clamp(40px,5vh,72px);margin-bottom:clamp(40px,5vh,72px);
   margin-left:calc(50vw - 520px);margin-right:0;
@@ -308,9 +314,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
 .hero-precede{margin-bottom:16px;font-size:min(3.8vw,48px);font-weight:700;color:var(--ink-soft);
   line-height:1.15;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
-.hero-precede .precede-lead{font-size:min(3.8vw,48px);line-height:1.15;color:var(--ink)}
+.hero-precede .precede-lead{font-size:min(11.2vw,144px);line-height:1.15;color:var(--ink);white-space:nowrap;display:inline-block;font-style:italic}
 .hero-precede .precede-rest{display:block;font-size:min(1.8vw,22px);line-height:1.25}
 .hero-precede .precede-body{font-size:min(1.8vw,22px);line-height:1.25;color:var(--ink)}
+#precedeHuge{white-space:nowrap;display:inline-block}
 .hero-precede .precede-solution{font-size:min(3.8vw,48px);line-height:1.15;color:var(--ink)}
 /* label and benefit sit on one line: LABEL: benefit */
 .keyact{list-style:none;margin:clamp(16px,1.9vh,22px) 0 0;padding:1px 0 1px 20px;
@@ -844,6 +851,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .store-pack-img{flex:0 0 auto;width:clamp(260px,30vw,460px);height:auto;display:block}
 @media(max-width:820px){
   .store-head-row{flex-direction:column;align-items:flex-start;gap:22px}
+  /* .sec-head's flex-basis:480px means something completely different once the row
+     above switches to a column: on the desktop row it sets this box's *width*, but
+     in a column flex container flex-basis governs the main-axis size, which is now
+     *height* -- so that same 480px was forcing .sec-head to a minimum 480px tall
+     regardless of how little text it actually held, leaving a large empty gap below
+     the copy before the pack photo. Reset to its natural content height here. */
+  .store-head-row .sec-head{flex:1 1 auto}
   .store-pack-img{width:clamp(200px,62vw,320px);align-self:center}
 }
 .storegrid{display:grid;grid-template-columns:1.12fr 1fr;gap:clamp(16px,1.6vw,24px);align-items:stretch}
@@ -902,9 +916,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 /* ---------- responsive ---------- */
 @media(max-width:1000px){
   .hero{min-height:0}    /* stacked, so a full viewport minimum just adds dead space */
-  .rita-feature{display:flex;flex-direction:column}
-  .rita-feature img{aspect-ratio:4/3;object-fit:cover;object-position:right center}
-  .rita-copy{position:static;width:100%;background:var(--paper);padding:28px 20px}
+  /* lite gets its own vertical Rita photo (swapped in above via <picture>), shot with
+     a plain column running down the left side and Rita positioned centre-right, so --
+     unlike the old approach of stacking the quote below a cropped desktop photo -- the
+     quote now overlays directly on the photo here too, same as desktop, just narrower
+     and confined to that left-hand column so it never runs over her. The photo's real
+     pixel ratio is exactly 4:5, so aspect-ratio:4/5 reserves its layout space with zero
+     actual cropping. */
+  .rita-feature img{aspect-ratio:4/5;object-fit:cover;object-position:center top}
+  .rita-copy{width:min(38%,270px);padding:20px 12px 20px clamp(16px,5vw,26px);
+    background:linear-gradient(100deg,rgba(250,247,240,.97) 0%,rgba(250,247,240,.9) 40%,rgba(250,247,240,0) 88%)}
+  .rita-quote{font-size:13px;line-height:1.55}
   /* stacked: tighter gap between the glass video and the "Upgrade your ritual" copy
      below it than the desktop side-by-side gap (which would otherwise leak through
      via .hero-lower's flex gap once it wraps to a column). padding-right also drops
@@ -929,6 +951,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      and gets the full 399px. */
   .hero-img-col .hero-glass-img{max-height:min(399px, calc((100vw - 40px) * 1.4917));transform:none}
   .hero-img-col .hero-pack-img{max-height:145px}
+  /* same life-size ratio as desktop (tube ~0.85x the glass's own rendered height),
+     tied to the same glass-height formula so it scales together with it, then laid
+     on its side (rotated), with equal margin above and below to centre it in the
+     gap before the headline copy that follows */
+  .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:22px 0}
   .hero-grid{order:2;transform:none;padding-top:8px}
   .hero-lower .hero-grid{padding-left:var(--pad);padding-right:var(--pad)}
   .hero-pillars{order:3;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
@@ -938,7 +965,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hact b{font-size:clamp(16px,2.9vw,22px)}
   .hero-tag{font-size:min(4vw,30px)}   /* single column: full width available */
   .hero-precede{font-size:clamp(30px,9.8vw,42px)}
-  .hero-precede .precede-lead{font-size:clamp(30px,9.8vw,42px)}
+  .hero-precede .precede-lead{font-size:clamp(44px,14vw,62px)}
   .hero-precede .precede-rest{font-size:clamp(16px,4vw,20px)}
   .hero-precede .precede-body{font-size:clamp(16px,4vw,20px)}
   .hero-precede .precede-solution{font-size:clamp(30px,9.8vw,42px)}
@@ -1185,7 +1212,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
         <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
       </a>
-      <button type="button" class="hexinfo" aria-label="About the Monthly Protocol" aria-haspopup="true" aria-expanded="false">i</button>
       <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $6.00 a dose. Founding price locked for life, skip or cancel anytime.</span></span>
     </div>
     <a href="#top" class="brand brand-mobile"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
@@ -1193,7 +1219,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
         <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
       </a>
-      <button type="button" class="hexinfo" aria-label="About the Single Pack" aria-haspopup="true" aria-expanded="false">i</button>
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
     </div>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
@@ -1279,10 +1304,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="hero-lower">
     <div class="hero-img-col">
       <video class="hero-glass-img" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
+      <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
-      <p class="hero-precede rv"><span class="precede-rest"><span class="precede-huge"><span class="precede-body">HUGE pills and/or chalky, messy powders <br> Every morning?</span> <br></span> <span class="precede-lead">UPGRADE YOUR RITUAL.</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></p>
+      <p class="hero-precede rv"><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>RITUAL</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></p>
       <h1 class="serif rv hero-logo">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
@@ -1541,7 +1567,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <!-- ================= RITA ROCKS ================= -->
 <section id="rita">
   <div class="rita-feature">
-    <img width="2722" height="1536" src="rita-ora-feature.jpg" alt="HONIORA feature: Super Star Rita Ora" loading="lazy">
+    <picture>
+      <source media="(max-width:1000px)" srcset="rita-ora-feature-lite.jpg">
+      <img width="2722" height="1536" src="rita-ora-feature.jpg" alt="HONIORA feature: Super Star Rita Ora" loading="lazy">
+    </picture>
     <div class="rita-copy">
       <p class="rita-quote">&ldquo;This whole <a href="https://www.womenshealthmag.com/uk/health/a63630566/how-to-age-well-biohacking-longevity-tips/" target="_blank" rel="noopener noreferrer">longevity</a> thing, is it a trend now or something?&rdquo; Rita Ora asks me. Her deadpan delivery leaves in its wake a few seconds where I wonder if I should confirm that, yes, the multi-trillion dollar industry that sits under the longevity umbrella is, indeed, a big deal. But if I&rsquo;m in the dark about the degree to which the singer, songwriter and actor is a card-carrying member of wellness, along with its favourite pastime, life extension, she doesn&rsquo;t leave me there for long. Several minutes later, Rita&rsquo;s health habits committed to both memory and Dictaphone, I suspect that this whole longevity thing has a new poster woman.</p>
       <p class="rita-byline">By <a href="https://www.womenshealthmag.com/uk/author/700057/lauren-clark/" target="_blank" rel="noopener noreferrer">Lauren Clark</a> &middot; Women&rsquo;s Health &middot; Published 10 March 2026</p>
@@ -2589,40 +2618,96 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 (function(){
   'use strict';
 
+  /* Two lines in the hero copy are forced to stay on a single visual line (or, for
+     precedeLead, a fixed set of lines) rather than wrapping wherever the browser
+     finds space: "UPGRADE / YOUR / RITUAL" (one word per line, via the <br> tags in
+     the markup) and "HUGE pills and/or chalky, messy powders....Every morning?"
+     (one unbroken line, desktop only -- it's hidden below the 1400px lite
+     breakpoint). Both sit in a column whose width changes a lot across desktop
+     widths, so a single hand-tuned font-size can't be trusted to always fit. This
+     is the safety net, not the primary layout: for each, measure its real rendered
+     width against its actual available column width at runtime, and only scale the
+     font down, never up, just enough that nothing overflows. A hidden element (the
+     HUGE-pills line on lite) measures 0 and is left alone. Re-runs on
+     resize/orientation change and once the webfont swaps in, since either can
+     change how wide the text renders. */
+  var fitOneLine = function(id, minSize){
+    var el = document.getElementById(id);
+    if(!el) return;
+    // walk up to the nearest block-level ancestor: a plain inline wrapper (like
+    // .precede-huge, which only exists to hold this span plus its trailing <br>)
+    // always reports clientWidth 0, so it can't be measured against directly.
+    var container = el.parentElement;
+    while(container && container.clientWidth === 0 && container !== document.body){
+      container = container.parentElement;
+    }
+    if(!container) return;
+    el.style.fontSize = ''; // back to the CSS-declared (max) size before measuring
+    var available = container.clientWidth;
+    var natural = el.scrollWidth;
+    if(available > 0 && natural > available){
+      var cssSize = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = Math.max(minSize || 14, Math.floor(cssSize * (available / natural) * 0.98)) + 'px';
+    }
+  };
+  var fitHeroLines = function(){
+    fitOneLine('precedeLead', 14);
+    /* this one's a much longer phrase sharing the same narrow column, so it needs
+       room to shrink further than precedeLead ever should before it'd stop fitting
+       on its one line -- 8px is still legible fine print, and only the tightest
+       part of the desktop range (just above the 1400px breakpoint) ever needs it;
+       by ~1900px+ it's back up near its normal 22px size. */
+    fitOneLine('precedeHuge', 8);
+  };
+
+  /* On desktop, "MĀNUKA CREATINE PROTOCOL" matches the exact rendered pixel
+     width of "HONIORA" above it. Both already scale with the viewport, but off
+     independent hand-tuned vw formulas in two different typefaces (a serif display
+     face for the logo, a plain sans for the tag), so their widths only ever lined
+     up by coincidence, not by design. Measuring instead of guessing a formula:
+     build two off-screen probes carrying each element's *real* computed font
+     (family, size, weight, style, letter-spacing all included, which a canvas
+     measureText call would miss), read their true rendered width, then scale the
+     tag's font-size by the ratio between the two. Desktop only (above the 1400px
+     lite breakpoint) -- below that, the tag already has its own separate,
+     unrelated size rules per breakpoint, left exactly as they were. */
+  var measureRenderedWidth = function(text, sourceEl){
+    var probe = document.createElement('span');
+    var cs = getComputedStyle(sourceEl);
+    probe.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap;'
+      + 'font-family:' + cs.fontFamily + ';font-size:' + cs.fontSize + ';font-weight:' + cs.fontWeight
+      + ';font-style:' + cs.fontStyle + ';letter-spacing:' + cs.letterSpacing;
+    probe.textContent = text;
+    document.body.appendChild(probe);
+    var w = probe.getBoundingClientRect().width;
+    document.body.removeChild(probe);
+    return w;
+  };
+  var matchHeroTagWidth = function(){
+    var tag = document.querySelector('.hero-tag');
+    var logo = document.querySelector('.hero-logo');
+    if(!tag || !logo) return;
+    tag.style.fontSize = ''; // back to the CSS-declared size before measuring/re-measuring
+    if(window.innerWidth <= 1400) return; // lite has its own separate rules, untouched
+    var logoSpan = logo.querySelector('span');
+    var logoWidth = measureRenderedWidth('HONI', logo)
+      + (logoSpan ? measureRenderedWidth(logoSpan.textContent, logoSpan) : 0);
+    var tagNaturalWidth = measureRenderedWidth(tag.textContent, tag);
+    if(logoWidth > 0 && tagNaturalWidth > 0){
+      var tagSize = parseFloat(getComputedStyle(tag).fontSize);
+      tag.style.fontSize = (tagSize * (logoWidth / tagNaturalWidth)) + 'px';
+    }
+  };
+
+  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); };
+  fitHeroAll();
+  window.addEventListener('resize', fitHeroAll, {passive:true});
+  window.addEventListener('orientationchange', fitHeroAll);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitHeroAll); }
+
   var hdr = document.getElementById('hdr');
   var onScroll = function(){ hdr.classList.toggle('stuck', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
-
-  /* mobile hex info badges (Reserve Protocol / Reserve Test Tube): tap the "i" to
-     show the same info card the desktop hexes reveal on hover, tap it again (or
-     anywhere else, or Escape) to close. Doesn't touch the hex image's own link. */
-  document.querySelectorAll('.hexbtn-m').forEach(function(hex){
-    var btn = hex.querySelector('.hexinfo');
-    if(!btn) return;
-    btn.addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      var open = !hex.classList.contains('info-open');
-      document.querySelectorAll('.hexbtn-m.info-open').forEach(function(other){
-        if(other !== hex){ other.classList.remove('info-open'); other.querySelector('.hexinfo').setAttribute('aria-expanded','false'); }
-      });
-      hex.classList.toggle('info-open', open);
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  });
-  document.addEventListener('click', function(e){
-    if(e.target.closest('.hexbtn-m')) return;
-    document.querySelectorAll('.hexbtn-m.info-open').forEach(function(hex){
-      hex.classList.remove('info-open');
-      hex.querySelector('.hexinfo').setAttribute('aria-expanded','false');
-    });
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key !== 'Escape') return;
-    document.querySelectorAll('.hexbtn-m.info-open').forEach(function(hex){
-      hex.classList.remove('info-open');
-      hex.querySelector('.hexinfo').setAttribute('aria-expanded','false');
-    });
-  });
 
   var burger = document.getElementById('burger'), mm = document.getElementById('mm');
   burger.addEventListener('click', function(){
