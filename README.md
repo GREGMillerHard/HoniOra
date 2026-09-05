@@ -3,7 +3,7 @@
 ## What's in this package
 
 - `index.html` — the entire site (markup, CSS, and JS all in one file).
-- Every image, video, and icon file — hero shots, nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the Rita Rocks feature photos (`rita-ora-feature.jpg` for desktop, `rita-ora-feature-lite.jpg` for the lite site), the HoniBlog founder photo (`blog-founder-happy-place.jpg`), the HoniBlog Article 02 video still (`blog-kiwi-slimland.jpg`), the HoniBlog Article 03 video still (`blog-jenerise-origins.jpg`), the HoniBlog Article 04 video still (`blog-manuka-benefits.jpg`), and all 14 ingredient photos used in the Stack section (including the new `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
+- Every image, video, and icon file — hero shots, the hero glass video (`hero-glass.mp4`/`.webm` for desktop, `hero-glass-lite.mp4`/`.webm` for the lite site), nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the Rita Rocks feature photos (`rita-ora-feature.jpg` for desktop, `rita-ora-feature-lite.jpg` for the lite site), the HoniBlog founder photo (`blog-founder-happy-place.jpg`), the HoniBlog Article 02 video still (`blog-kiwi-slimland.jpg`), the HoniBlog Article 03 video still (`blog-jenerise-origins.jpg`), the HoniBlog Article 04 video still (`blog-manuka-benefits.jpg`), and all 14 ingredient photos used in the Stack section (including the new `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
 
 ## How to host it
 
@@ -13,7 +13,13 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v238, updated 2026-09-05.
+This package corresponds to HONIORA_site_v240, updated 2026-09-05.
+
+Recent changes in this version:
+- The hero video is back on the lite site, and fast: a new, purpose-made encode, `hero-glass-lite.mp4` / `hero-glass-lite.webm`, downscaled to 400px wide (the size it actually displays at on a phone) and re-compressed at a lower bitrate. 267KB / 388KB versus the desktop file's 2.6MB / 1.2MB, a roughly 85-90% cut. Autoplay is back on for every device: the lite site picks this small file automatically (the same `<source media>` technique already used for the Mānuka banner and Rita Rocks lite images), so it loads and starts playing quickly without competing with everything else on the page.
+
+Recent changes in this version:
+- Found why the lite site was slow, and why the tube, the beekeeper banner and Rita Rocks seemed not to load: the hero video (tablets fizzing in the glass) had `autoplay` and `preload="auto"` on every device, so it started pulling down several megabytes the instant the page opened even on a phone, eating the bandwidth everything further down the page was waiting on. It now only preloads and plays on desktop and the 1001-1400px tablet layout; on the lite site it downloads nothing at all and just shows its static poster frame permanently, freeing up the connection for the images that actually need it. Also found and removed a second, older piece of code that was calling `.play()` on this same video unconditionally on every device (an earlier iOS Safari fix) -- it would have silently started downloading the video on the lite site regardless of the new gating above, so it had to go too.
 
 Recent changes in this version:
 - Found the real cause of the jump/double-up right where the beekeeper (Mānuka) banner ends and the ingredient scroll section begins: the banner's image was lazy-loaded, and its "finished loading" event was wired to force a ScrollTrigger recalculation. Since that image sits right before the pinned scroll section, it was finishing its lazy load exactly while the visitor was scrolling into that section, and recalculating a pinned ScrollTrigger mid-scrub snaps it to a corrected position, which reads as a jump or a momentary doubled-up frame. The banner image now loads eagerly (no more `loading="lazy"` on it) and no longer triggers a recalculation on load, so it's fully loaded and settled long before anyone scrolls near it. This is the exact same failure mode already avoided for the ingredient tile images themselves (see the code comment next to it), just missed on the banner image at the time.

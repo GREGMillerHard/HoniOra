@@ -1336,7 +1336,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   <div class="hero-lower">
     <div class="hero-img-col">
-      <video class="hero-glass-img" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
+      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
       <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="wrap hero-grid">
@@ -3662,6 +3662,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (typeof gsap === 'undefined') fallback();
   }, 4000);
 })();
+
+/* ---------- hero glass video: a real, much lighter file for the lite site ----------
+   The lite site was slow to load, and the tube, the M&#257;nuka banner and Rita Rocks
+   (all further down the page) were slow to appear, because this video was pulling
+   down the same several-megabyte, full-resolution file on every device, phones on
+   a slow connection included, eating the bandwidth everything else was waiting on.
+   Turning the video off entirely on the lite site fixed that but lost the video
+   there. This instead gives the lite site its own much smaller encode --
+   hero-glass-lite.mp4/.webm, downscaled to the size the video actually displays at
+   on a phone and re-compressed, ~267KB / ~388KB versus the desktop file's 2.6MB /
+   1.2MB -- picked automatically by the <source media="(max-width:1000px)"> entries
+   above, the same technique already used for the M&#257;nuka banner and Rita Rocks
+   lite images. Autoplay and preload="auto" are back on for every device, since the
+   lite file is now light enough not to be a problem. */
 
 /* ---------- hero keylines: gold connectors, tube to each active ingredient,
    drawn in sequentially as the visitor scrolls back UP through the hero.
