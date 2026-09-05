@@ -13,9 +13,28 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v243, updated 2026-09-05.
+This package corresponds to HONIORA_site_v249, updated 2026-09-05.
 
 Recent changes in this version:
+- Replaced all four hex nav button graphics (Reserve Protocol, Reserve Test Tube, Ask Honi, Join List) with new gold artwork built to match the wax-seal photo you sent: a raised outer rim, a beveled edge down into a recessed inner medallion, engraved-looking text, and a small original flourish above and below it, lit and shaded so it reads as a stamped gold disc rather than a flat photo. These are original artwork built from scratch (not a recolour of your reference photo, since that one carries another company's name and design), matching its style: hexagon shape, deep bevel, engraved text. Same filenames as before so no other part of the page needed touching. Compressed to about 32KB each, actually lighter than the old photos.
+- AI note: Higgsfield generation was still out of credits (0.5 of the needed 2), so these were built procedurally instead of generated.
+
+Recent changes in this version:
+- Main site (desktop/tablet) hex nav buttons: sized down a touch (82px &rarr; 74px) and redone to look more 3D, like a wax stamp. Drop-shadow follows the hex's own PNG silhouette rather than a rectangle, layered as a faint light rim on the upper-left edge (a bevel catching light) plus a tight dark contact shadow and a soft wide one further out for lift, with a touch more contrast/saturation so it reads as dense wax rather than a flat photo. Hover lifts and scales it up slightly with deeper shadows for the same effect, more pronounced.
+
+Recent changes in this version:
+- 14/The Company: swapped the order of the "01" and "02" boxes so the "Who we are" company spiel now comes first, with the team portrait photo directly after it. Numbers travel with position (Who we are is now 01, the portrait is now 02), 03 (map) and 04 (360 view) unchanged.
+
+Recent changes in this version:
+- 11/The Taste heading: "HONIORA SKU2 Organoleptic Profile." &rarr; "HONIORA Organoleptic Profile." (dropped "SKU2").
+
+Recent changes in this version:
+- Removed the "About these references" note under the Clinical Thresholds ingredient table.
+
+Recent changes in this version:
+- Moved Braincurrant next to cGP-Pro in the ingredient scroller (they're both New Zealand blackcurrant-based, so they now sit as a pair).
+- Fixed the real reason the ingredient tile images were slow on the lite site: all 14 photos in that row (creatine, Mānuka crystal, Livaux kiwifruit, Feiolix feijoa, Braincurrant, cGP-Pro, S7, Careflow mango, VasoDrive-AP, Bifidobacterium, Landkind salidroside, yuzu, passionfruit, thaumatin) were the same 820x820 file at every screen size, despite showing at well under 250px wide on a phone. Each now has a lite-specific version sized for that display width, picked automatically the same way as the other lite images on the page. Combined size for all 14 dropped from about 1.97MB to about 290KB on the lite site, roughly an 85% cut.
+- Rita Rocks: on the lite site, the pull-quote/byline/"Read the full feature" block now sits directly under her photo, full width, instead of overlapping down the left side of it. Desktop is unchanged (still the text-over-photo treatment).
 - Mānuka banner caption reverted to always one line, lite site included: it now shrinks to fit the width (down to a 10px floor if it has to) rather than wrapping to two lines. Confirmed one line down to a 320px-wide phone.
 - Found the real cause of the lite site's slow/stalling images: several photos on the page were the full desktop file at every screen size, several times larger than they're ever displayed on a phone. `hero-packshot-cutout.png` (the five-tube pack shot) was 1.9MB for a box that displays around 240px wide on mobile; `manuka-coast.jpg` was 1.1MB for a similar story; the globe map was 772KB in two places, one of which had no lazy-loading at all and was downloading on every visit whether the map was ever opened or not. All four now have a lite-specific version sized and compressed for how big they actually render on a phone (hero-packshot-cutout: 1.9MB &rarr; ~120KB, manuka-coast: 1.1MB &rarr; ~130KB, globe: 772KB &rarr; ~60KB), picked automatically via the same `<source media>` technique used everywhere else on the site, plus the missing lazy-load fixed on the globe's lightbox copy.
 - The 09/Stack "In The Mix" banner now has its own lite version too, using the MIX_LITE.jpg you sent (1000x615, 95KB) instead of the full 2678px desktop file.

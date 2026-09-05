@@ -115,15 +115,27 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* hex nav buttons: cropped from the physical coaster photoset, text baked into the image */
 .hexbtn{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0;cursor:pointer;
   transition:transform .3s cubic-bezier(.22,1,.36,1),filter .3s ease}
-.hexbtn img{display:block;height:82px;width:auto;pointer-events:none;
-  filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
-.hexbtn:hover,.hexbtn:focus-visible{transform:translateY(-3px)}
+.hexbtn img{display:block;height:74px;width:auto;pointer-events:none;
+  /* wax-stamp emboss: drop-shadow (unlike box-shadow) follows the PNG's own alpha
+     silhouette, so it traces the hex outline exactly rather than a rectangle.
+     Stacking three: a faint light "rim" offset up-left fakes a bevel catching light
+     on that edge, a tight dark one right underneath grounds it to the surface, and a
+     soft wide one further out gives it lift, like a stamped disc sitting proud of the
+     page. contrast+saturate deepen the colour so it reads as dense wax, not a flat photo. */
+  filter:contrast(1.06) saturate(1.1)
+    drop-shadow(-1px -1px 0 rgba(255,255,255,.4))
+    drop-shadow(0 2px 2px rgba(21,23,15,.35))
+    drop-shadow(0 12px 20px rgba(21,23,15,.24))}
+.hexbtn:hover,.hexbtn:focus-visible{transform:translateY(-4px) scale(1.04)}
 /* tighten just the gap between the two paired hex buttons on each side (Reserve Protocol/
    Reserve Test Tube on the left, Ask Honi/Join List on the right), independent of the
    .nav-cluster gap that also spaces the hex buttons from the text nav links */
 .nav-cluster-left .hexbtn:not(.hexbtn-first){margin-left:-8px}
 #askHoniBtn{margin-right:-8px}
-.hexbtn:hover img,.hexbtn:focus-visible img{filter:drop-shadow(0 10px 16px rgba(21,23,15,.28))}
+.hexbtn:hover img,.hexbtn:focus-visible img{filter:contrast(1.09) saturate(1.16)
+    drop-shadow(-1px -1px 0 rgba(255,255,255,.5))
+    drop-shadow(0 3px 3px rgba(21,23,15,.4))
+    drop-shadow(0 20px 30px rgba(21,23,15,.32))}
 /* hover/focus popouts under each hex button: info card, dropping down.
    the outer .hexdrop starts flush at top:100% (zero gap) so the mouse never
    crosses dead space between the button and the card, only losing hover
@@ -432,6 +444,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   transition:opacity .45s cubic-bezier(.22,1,.36,1)}
 .ishot figure{margin:0;transform:scale(.5);transform-origin:center bottom;
   transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.ishot-pic{display:contents}
 .ishot img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;display:block;
   filter:saturate(.86) contrast(.97);transition:filter .5s ease}
 .ishot{opacity:.34}
@@ -956,9 +969,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      and confined to that left-hand column so it never runs over her. The photo's real
      pixel ratio is exactly 4:5, so aspect-ratio:4/5 reserves its layout space with zero
      actual cropping. */
+  /* stacked: the quote block now sits in normal flow directly under the photo
+     (it's the second child in the DOM already) rather than overlaying its left
+     side, so position goes back to static/full-width and the gradient scrim
+     (needed only to keep text readable over the photo) is dropped for a plain
+     solid background. */
+  .rita-feature{display:flex;flex-direction:column}
   .rita-feature img{aspect-ratio:4/5;object-fit:cover;object-position:center top}
-  .rita-copy{width:min(38%,270px);padding:20px 12px 20px clamp(16px,5vw,26px);
-    background:linear-gradient(100deg,rgba(250,247,240,.97) 0%,rgba(250,247,240,.9) 40%,rgba(250,247,240,0) 88%)}
+  .rita-copy{position:static;inset:auto;width:100%;padding:20px clamp(16px,5vw,26px);
+    background:var(--paper)}
   .rita-quote{font-size:13px;line-height:1.55}
   /* stacked: tighter gap between the glass video and the "Upgrade your ritual" copy
      below it than the desktop side-by-side gap (which would otherwise leak through
@@ -1209,11 +1228,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap navbar">
     <div class="nav-cluster nav-cluster-left">
       <a href="#store" class="hexbtn hexbtn-first">
-        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
+        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="815" height="707">
         <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $6.00 a dose. Founding price locked for life, skip or cancel anytime.</span></span>
       </a>
       <a href="#store" class="hexbtn">
-        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
+        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="815" height="707">
         <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
       </a>
       <nav class="navlinks">
@@ -1233,24 +1252,24 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <a href="#honiblogtop">HoniBlog</a>
       </nav>
       <button type="button" class="hexbtn" id="askHoniBtn" aria-haspopup="dialog" aria-controls="askHoniModal">
-        <img src="nav-hex-ask-honi.png" alt="Ask Honi" width="291" height="332">
+        <img src="nav-hex-ask-honi.png" alt="Ask Honi" width="815" height="707">
         <span class="hexdrop"><span class="hexdrop-card"><b>Ask Honi</b>Chat with Honi, your HONIORA guide, for quick answers on ingredients, dosing, sourcing and the science.</span></span>
       </button>
       <a href="#waitlist" class="hexbtn hexbtn-last">
-        <img src="nav-hex-join-list.png" alt="Join the List" width="292" height="331">
+        <img src="nav-hex-join-list.png" alt="Join the List" width="815" height="707">
         <span class="hexdrop"><span class="hexdrop-card"><b>Join the List</b>Free to join the 2026 founding list. First access to the launch, plus founding-member pricing for life.</span></span>
       </a>
     </div>
     <div class="hexbtn-m nav-hex-mobile-left">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
-        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="293" height="332">
+        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="815" height="707">
       </a>
       <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $6.00 a dose. Founding price locked for life, skip or cancel anytime.</span></span>
     </div>
     <a href="#top" class="brand brand-mobile"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
     <div class="hexbtn-m nav-hex-mobile-right">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
-        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="292" height="332">
+        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="815" height="707">
       </a>
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
     </div>
@@ -1436,21 +1455,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="iband">
       <div class="iband-vp">
         <div class="iband-track" id="ibandTrack">
-          <div class="ishot"><figure><img width="820" height="820" src="creatine_HCL.jpg" alt="Cr-01 creatine crystals" loading="lazy"><figcaption class="icap"><b>Cr-01 Creatine</b><s>5,000 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01, third-party verified by SGS at 99.96% purity.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="manuka_crystal.jpg" alt="MGO 850+ Manuka honey crystals" loading="lazy"><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF</b><s>1,500 mg</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF fibre matrix substrate feeds your beneficial gut barrier microbes.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="livaux_gold_kiwi.jpg" alt="Livaux gold kiwifruit" loading="lazy"><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>1,000 mg</s><i>Doubles <em>F. prausnitzii</em> in your gut within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="feijoa.jpg" alt="Feiolix feijoa" loading="lazy"><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>1,000 mg</s><i>Two routes to your own GLP-1: abscisic acid acting on gut L-cells, and a shift in the gut bacteria that prompt the same release. Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="Braincurrant New Zealand blackcurrant" loading="lazy"><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="eriomin_lemon.jpg" alt="Eriomin lemon flavonoid extract" loading="lazy"><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract working a second, separate pathway onto your own GLP-1. Clinical trials at this same 200&nbsp;mg/day dose raised GLP-1 and lowered hyperglycemia, inflammation and improved gut microbiota in people with prediabetes.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup></b><s>100 mg</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="s7_leaf.jpg" alt="S7 plant-based blend" loading="lazy"><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="careflow_mango.jpg" alt="Careflow organic mango fruit powder" loading="lazy"><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="vasodrive_ap.jpg" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="bifidobacterium_adolescentis.jpg" alt="Bifidobacterium adolescentis probiotic culture, colourised micrograph" loading="lazy"><figcaption class="icap"><b>Bifidobacterium adolescentis</b><s>10 billion CFU</s><i>Microencapsulated live probiotic that ferments the formula's Livaux and M&#257;nuka prebiotic fibres into short-chain fatty acids and supports the gut lining's tight junctions.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="landkind_pure_salidroside.jpg" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="yuzu.jpg" alt="Yuzu" loading="lazy"><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 30 mg</s><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="820" src="passionfruit.jpg" alt="Passionfruit" loading="lazy"><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 80 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
-          <div class="ishot"><figure><img width="820" height="786" src="thaumatin.jpg" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.jpg"><img width="820" height="820" src="creatine_HCL.jpg" alt="Cr-01 creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr-01 Creatine</b><s>5,000 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01, third-party verified by SGS at 99.96% purity.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.jpg"><img width="820" height="820" src="manuka_crystal.jpg" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF</b><s>1,500 mg</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF fibre matrix substrate feeds your beneficial gut barrier microbes.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.jpg"><img width="820" height="820" src="livaux_gold_kiwi.jpg" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>1,000 mg</s><i>Doubles <em>F. prausnitzii</em> in your gut within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.jpg"><img width="820" height="820" src="feijoa.jpg" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>1,000 mg</s><i>Two routes to your own GLP-1: abscisic acid acting on gut L-cells, and a shift in the gut bacteria that prompt the same release. Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.jpg"><img width="820" height="820" src="eriomin_lemon.jpg" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract working a second, separate pathway onto your own GLP-1. Clinical trials at this same 200&nbsp;mg/day dose raised GLP-1 and lowered hyperglycemia, inflammation and improved gut microbiota in people with prediabetes.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.jpg"><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.jpg"><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup></b><s>100 mg</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.jpg"><img width="820" height="820" src="s7_leaf.jpg" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.jpg"><img width="820" height="820" src="careflow_mango.jpg" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.jpg"><img width="820" height="820" src="vasodrive_ap.jpg" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="bifidobacterium_adolescentis-lite.jpg"><img width="820" height="820" src="bifidobacterium_adolescentis.jpg" alt="Bifidobacterium adolescentis probiotic culture, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>Bifidobacterium adolescentis</b><s>10 billion CFU</s><i>Microencapsulated live probiotic that ferments the formula's Livaux and M&#257;nuka prebiotic fibres into short-chain fatty acids and supports the gut lining's tight junctions.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.jpg"><img width="820" height="820" src="landkind_pure_salidroside.jpg" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.jpg"><img width="820" height="820" src="yuzu.jpg" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 30 mg</s><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.jpg"><img width="820" height="820" src="passionfruit.jpg" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 80 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.jpg"><img width="820" height="786" src="thaumatin.jpg" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
         </div>
       </div>
     </div>
@@ -2123,7 +2142,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
 
     <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 28 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V5-140K-38MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
-    <p class="citenote rv"><b>About these references.</b> Each link opens the PubMed record for research on that ingredient or its active compound. These are studies of the ingredient, not of HONI<i>ORA</i>. HONI<i>ORA</i> has never been trialled as a finished product and no claim is made that these findings transfer to it. Doses, formats and populations in the linked work differ from ours, and some entries are reviews or preclinical studies rather than human trials. Read the record before drawing a conclusion. Rows marked &ldquo;citation to be added&rdquo; are newly added ingredients for this SKU2 formula: no fabricated citation has been attached to them, and a real one should be sourced and added before this page goes live. Where a branded ingredient has a supplier science page, a second link goes to it. Those pages are written by the company selling the ingredient, so treat them as supplier material rather than independent evidence.</p>
   </div>
 </section>
 
@@ -2204,7 +2222,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow dim">11 / The Taste</p>
-      <h2 class="serif">HONI<i>ORA</i> SKU2 <em>Organoleptic Profile.</em></h2>
+      <h2 class="serif">HONI<i>ORA</i> <em>Organoleptic Profile.</em></h2>
       <p class="lede">A structured flavour evaluation: Aromatics, palate evolution, and a scored attribute breakdown.</p>
     </div>
 
@@ -2373,8 +2391,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
 
     <div class="aboutgrid rv">
-      <div class="abox wide teamwide">
+      <div class="abox wide">
         <span class="abox-n">01</span>
+        <img width="2438" height="2926" src="honico-1pct-for-bees.png" alt="1% for the Bees badge" class="who-mark">
+        <h3>Who we are</h3>
+        <p>We are a small NZ honey company based in the Bay of Plenty. HoniCo was born from our deep passion for Wellness, all things M&#257;nuka honey and our VIB friends, The Bees (ng&#257; p&#299;). We focus on Authentic Superior M&#257;nuka products that support and heal naturally. The Bay of Plenty is the main Kiwifruit and Feijoa growing region. As the name suggests it is an ideal environment for subtropical fruit and horticulture and Apiculture (beekeeping). Temperate maritime climate. High sunshine hours. Mild winters. Warm summers. Consistent rainfall. Volcanic soils rich in nutrients with natural shelter from prevailing winds. Nearby to the east is the remote and rugged Te Urewera range and East Cape: The first place on Earth to see the sunrise every day. This is where some of our finest, most potent M&#257;nuka honey is harvested by the artisan beekeepers that live in this beautiful region. Scott lives over the Kaimai range near Hobbiton in the Waikato, home of the mighty Chiefs Super Rugby team.</p>
+        <p class="who-pledge"><b>HoniCo is dedicated to supporting Bees and Apiculture, and we pledge 1% of all profits to Bee welfare and research initiatives.</b></p>
+      </div>
+      <div class="abox wide teamwide">
+        <span class="abox-n">02</span>
         <img width="2200" height="1074" src="team-honico.jpg" alt="HoniCo Team NZ. Gregory Miller-Hard, Founder and CEO, startup investor, photographer, kiwifruit orchardist and farmer. Laura Clinton, R&amp;D and QA, quality assurance specialist, prototype management, compliance and R&amp;D for market deliverance. Nicole Miller-Hard, Founder and Marketing, environmental press agency founder, writer, animal welfare activist, wildlife and horse sanctuary owner. Scott Smith, Medical Herbalist and Naturopath, clinician and product development in the natural healthcare industry for almost 20 years. Odette Miller-Hard, Brand Design, artist, photographer and visual coder, BFA Fine Arts." loading="lazy" class="team-photo">
         <div class="teamlist sr-only">
           <div><b>Gregory Miller-Hard</b><i>Founder &amp; CEO</i><span>Startup investor, photographer, kiwifruit orchardist &amp; farmer.</span></div>
@@ -2383,13 +2408,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div><b>Scott Smith</b><i>Medical Herbalist &amp; Naturopath</i><span>Clinician and product development in the natural healthcare industry for almost 20 years.</span></div>
           <div><b>Odette Miller-Hard</b><i>Brand Design</i><span>Artist, photographer &amp; visual coder, BFA Fine Arts.</span></div>
         </div>
-      </div>
-      <div class="abox wide">
-        <span class="abox-n">02</span>
-        <img width="2438" height="2926" src="honico-1pct-for-bees.png" alt="1% for the Bees badge" class="who-mark">
-        <h3>Who we are</h3>
-        <p>We are a small NZ honey company based in the Bay of Plenty. HoniCo was born from our deep passion for Wellness, all things M&#257;nuka honey and our VIB friends, The Bees (ng&#257; p&#299;). We focus on Authentic Superior M&#257;nuka products that support and heal naturally. The Bay of Plenty is the main Kiwifruit and Feijoa growing region. As the name suggests it is an ideal environment for subtropical fruit and horticulture and Apiculture (beekeeping). Temperate maritime climate. High sunshine hours. Mild winters. Warm summers. Consistent rainfall. Volcanic soils rich in nutrients with natural shelter from prevailing winds. Nearby to the east is the remote and rugged Te Urewera range and East Cape: The first place on Earth to see the sunrise every day. This is where some of our finest, most potent M&#257;nuka honey is harvested by the artisan beekeepers that live in this beautiful region. Scott lives over the Kaimai range near Hobbiton in the Waikato, home of the mighty Chiefs Super Rugby team.</p>
-        <p class="who-pledge"><b>HoniCo is dedicated to supporting Bees and Apiculture, and we pledge 1% of all profits to Bee welfare and research initiatives.</b></p>
       </div>
       <div class="abox wide mapwide">
         <span class="abox-n">03</span>
