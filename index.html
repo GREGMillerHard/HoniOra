@@ -344,6 +344,17 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .keyact.flat li{font-style:normal;font-size:clamp(12.5px,1vw,14.5px);letter-spacing:.005em;
   color:var(--ink-soft);font-weight:700;position:relative;padding-left:18px}
 .keyact.flat li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:1px;background:var(--gold)}
+/* gold keylines: thin animated connectors running from each active ingredient
+   back to the tube's cap end, drawn in one by one as the visitor scrolls back UP
+   through the hero (see the hero-keylines script near the end of the page).
+   Absolutely positioned over the whole .hero-lower row so one line can cross out
+   of the image column into the text column; pointer-events:none keeps it clear
+   of clicks on the buttons/links sitting underneath it. Same markup and script
+   drive this at every breakpoint, including the stacked mobile/lite layout --
+   the coordinates are measured from the real, current layout, not assumed. */
+.hero-keylines{position:absolute;top:0;left:0;pointer-events:none;z-index:4}
+.hero-keylines path{fill:none;stroke:var(--gold);stroke-width:1;opacity:.62;
+  transition:stroke-dashoffset .55s ease}
 /* exactly two lines: the <br> is the only break, so it must never wrap */
 .hero-sub{margin-top:18px;font-size:min(1.28vw,18.5px)}
 .hero-meta{display:flex;flex-wrap:wrap;margin-top:22px;border-top:1px solid var(--line)}
@@ -2494,11 +2505,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     <article class="blogpost rv" style="margin-top:56px">
       <p class="blogpost-meta">Article 03 &middot; Ingredients</p>
-      <h3 class="serif blogpost-title">Jenerise: Creatine's Origins &mdash; Essential for All, Not Just Athletes!</h3>
+      <h3 class="serif blogpost-title">Rachael Jennings @ Jenerise UK: Creatine &mdash; The Lifelong Supplement for Women's Health & Longevity</h3>
 
-      <figure class="blogpost-fig video-fig" data-yt="RnSxf7aFNxA" style="aspect-ratio:1266/2280">
-        <img width="1266" height="2280" src="blog-jenerise-origins.jpg" alt="YouTube Shorts still from Jenerise: a presenter mid-sentence with the on-screen caption 'creatine is', from the video Creatine's Origins: Essential for All, Not Just Athletes!" loading="lazy">
-        <a class="blogplay" href="https://youtube.com/shorts/RnSxf7aFNxA?si=u959-NZ1iNGv5zP3" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: Jenerise, Creatine's Origins, Essential for All, Not Just Athletes">
+      <figure class="blogpost-fig video-fig" data-yt="gMFTkdwvEbs" style="aspect-ratio:1238/2200">
+        <img width="1238" height="2200" src="blog-jenerise-womens-health.jpg" alt="YouTube Shorts still of Rachael Jennings mid-sentence with the on-screen caption 'Creatine', from the video Creatine, The Lifelong Supplement for Women's Health and Longevity" loading="lazy">
+        <a class="blogplay" href="https://youtube.com/shorts/gMFTkdwvEbs?si=sobXs7ZIj7GSLFQE" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: Rachael Jennings at Jenerise UK, Creatine, The Lifelong Supplement for Women's Health and Longevity">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
         </a>
       </figure>
@@ -3631,6 +3642,192 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   setTimeout(function(){
     if (typeof gsap === 'undefined') fallback();
   }, 4000);
+})();
+
+/* ---------- hero keylines: gold connectors, tube to each active ingredient,
+   drawn in sequentially as the visitor scrolls back UP through the hero.
+   Plain vanilla JS/CSS only (IntersectionObserver + a CSS transition), no
+   external library. Whole thing is wrapped in try/catch so a failure here
+   can never take out anything else on the page, and logs to the console so
+   it's diagnosable instead of just silently doing nothing. */
+(function(){
+  'use strict';
+  try {
+
+  var container = document.querySelector('.hero-lower');
+  var tube = container && container.querySelector('.hero-tube-shot');
+  var items = container ? container.querySelectorAll('.hero-actives li') : [];
+  if (!container || !tube || !items.length){
+    console.warn('[hero-keylines] required elements not found, skipping');
+    return;
+  }
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canObserve = ('IntersectionObserver' in window);
+
+  var svg, paths = [];
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var STAGGER_MS = 90;
+
+  /* measures the tube's real cap-end position and each ingredient's real
+     position -- reading the ACTUAL computed position of that ingredient's own
+     small gold tick (.keyact.flat li::before) straight from the browser
+     rather than assuming a fixed offset, so every line lands exactly on its
+     ingredient even if that tick's own CSS ever changes -- and (re)builds one
+     curved path per ingredient between them, in the coordinate space of
+     .hero-lower itself (already position:relative). Re-run on resize/load/
+     fonts-ready since both the row layout (side-by-side) and the stacked
+     mobile/lite layout put these elements in very different real positions,
+     and web fonts loading late can nudge that position after first paint. */
+  function build(){
+    var containerRect = container.getBoundingClientRect();
+    var w = container.offsetWidth, h = container.offsetHeight;
+    if (!w || !h) return false; // container not laid out yet -- caller retries later
+    if (!svg){
+      svg = document.createElementNS(SVGNS, 'svg');
+      svg.setAttribute('class', 'hero-keylines');
+      svg.setAttribute('aria-hidden', 'true');
+      container.appendChild(svg);
+    }
+    svg.setAttribute('width', w);
+    svg.setAttribute('height', h);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    paths = [];
+
+    var tubeRect = tube.getBoundingClientRect();
+    var ax = tubeRect.right - containerRect.left;   // the tube's cap end
+    var ay = tubeRect.top + tubeRect.height / 2 - containerRect.top;
+
+    Array.prototype.forEach.call(items, function(li, i){
+      var liRect = li.getBoundingClientRect();
+      var tickTop, tickLeft;
+      try {
+        var tick = getComputedStyle(li, '::before');
+        tickTop = parseFloat(tick.top);
+        tickLeft = parseFloat(tick.left);
+      } catch (e) { /* some engines don't support pseudo-element computed styles */ }
+      if (isNaN(tickTop)) tickTop = parseFloat(getComputedStyle(li).fontSize) * 0.6;
+      if (isNaN(tickLeft)) tickLeft = 0;
+      var ex = liRect.left - containerRect.left + tickLeft;   // the exact spot the ingredient's own gold tick sits on
+      var ey = liRect.top - containerRect.top + tickTop;
+      var midX = ax + (ex - ax) * 0.5;
+      var d = 'M' + ax + ',' + ay + ' C' + midX + ',' + ay + ' ' + midX + ',' + ey + ' ' + ex + ',' + ey;
+      var path = document.createElementNS(SVGNS, 'path');
+      path.setAttribute('d', d);
+      path.style.transitionDelay = (i * STAGGER_MS) + 'ms';
+      svg.appendChild(path);
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = reduced ? 0 : len; // reduced-motion: just always show them, no animation
+      path._len = len;
+      paths.push(path);
+    });
+    return true;
+  }
+
+  /* `shown` is the logical state (are the lines currently supposed to be
+     visible), independent of whatever a geometry rebuild does to the DOM --
+     a rebuild must never just blindly hide the lines, since it can happen
+     at any time, including while the visitor is actively looking at them. */
+  var shown = false;
+
+  function setInstant(toZero){
+    if (!paths.length) return;
+    paths.forEach(function(p){ p.style.transition = 'none'; });
+    void svg.getBoundingClientRect(); // force the 'none' transition to commit first
+    paths.forEach(function(p){ p.style.strokeDashoffset = toZero ? '0' : p._len; });
+    void svg.getBoundingClientRect();
+    paths.forEach(function(p){ p.style.transition = ''; }); // restore the CSS transition for next time
+  }
+  function play(){
+    shown = true;
+    paths.forEach(function(p){ p.style.strokeDashoffset = '0'; }); // animated: the CSS transition is active
+  }
+  /* snaps back to hidden instantly (no stagger, no visible retreat) so the
+     next scroll-up replays cleanly from the start */
+  function reset(){
+    shown = false;
+    if (reduced) return; // reduced-motion: they stay drawn permanently, nothing to reset
+    setInstant(false);
+  }
+  /* re-applies whatever `shown` currently is, instantly and with no
+     transition -- this is what a geometry rebuild calls, never play()/
+     reset() directly, so truing up the line positions can't itself toggle
+     whether the visitor currently sees them */
+  function resync(){
+    if (reduced) return;
+    setInstant(shown);
+  }
+
+  /* this is the very first section on the page -- nothing sits above it --
+     so the ONLY way it can ever be re-entered after the visitor has left it
+     is by scrolling back UP from further down the page. No need to track
+     scroll direction separately: any re-entry after the first, already-in-
+     view state at load IS a scroll-up. That also sidesteps any race between
+     a scroll listener and the observer callback. */
+  var firstCheck = true, isIn = false;
+  function onIntersect(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        if (!isIn && !firstCheck && !reduced) play();
+        isIn = true;
+      } else {
+        if (isIn) reset();
+        isIn = false;
+      }
+      firstCheck = false;
+    });
+  }
+
+  function boot(){
+    var ok = build();
+    if (!ok){
+      // container had no size yet (e.g. images/fonts still resolving) -- try again shortly
+      setTimeout(boot, 200);
+      return;
+    }
+    if (canObserve && !reduced){
+      var io = new IntersectionObserver(onIntersect, { threshold: .15 });
+      io.observe(container);
+    }
+    var rebuildTimer;
+    function scheduleRebuild(){
+      clearTimeout(rebuildTimer);
+      rebuildTimer = setTimeout(function(){ build(); resync(); }, 150);
+    }
+    window.addEventListener('resize', scheduleRebuild, { passive: true });
+    window.addEventListener('orientationchange', scheduleRebuild);
+    window.addEventListener('load', scheduleRebuild);
+    if (document.fonts && document.fonts.ready){ document.fonts.ready.then(scheduleRebuild); }
+    if (!tube.complete){ tube.addEventListener('load', scheduleRebuild); }
+    /* several separate elements in the hero (the headline, the tag line, the
+       ingredient list itself, the CTAs...) each carry the site-wide .rv
+       scroll-reveal treatment and fade/slide into their final position on
+       their own independently staggered delay -- so their settled position
+       isn't there yet at first build. scheduleRebuild's own 150ms debounce
+       means any number of these finishing in quick succession collapses into
+       one rebuild, 150ms after the LAST one, which is exactly what's wanted:
+       true up geometry once everything has actually settled, however many
+       separate transitions that took. Stop listening after a few seconds so
+       a much later, unrelated transition (a CTA button hover, say) can't
+       rebuild-and-reset mid-visit and hide lines the visitor just scrolled
+       up to see; the fixed-delay call below is just a backstop in case no
+       transitionend ever fires (e.g. this device has no matching .rv reveal
+       to begin with). */
+    container.addEventListener('transitionend', scheduleRebuild);
+    setTimeout(function(){ container.removeEventListener('transitionend', scheduleRebuild); }, 4000);
+    setTimeout(scheduleRebuild, 1800);
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive'){
+    setTimeout(boot, 0);
+  } else {
+    window.addEventListener('DOMContentLoaded', boot);
+  }
+
+  } catch (err) {
+    console.error('[hero-keylines] failed to initialise:', err);
+  }
 })();
 </script>
 </body>
