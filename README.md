@@ -13,7 +13,10 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v250, updated 2026-09-05.
+This package corresponds to HONIORA_site_v251, updated 2026-09-05.
+
+Recent changes in this version:
+- Found and fixed a real bug you spotted: the Join List popup was pointing at Ask Honi instead. Both end buttons (Reserve Protocol on the left, Join List on the right) have popup cards nearly 2.5x wider than the hex button itself, so they're deliberately shifted sideways to avoid running off the edge of the screen, sitting mostly under the NEXT button over rather than centred on their own trigger. The little arrow on the card was still centred on the card's own middle by default, so it ended up pointing at that neighbour (Ask Honi) instead of the button that actually opened it (Join List). Re-centred the arrow on the real trigger's own middle for both end buttons, confirmed with hover tests: Join List's popup now visibly points at Join List, and I found and fixed the same latent issue on Reserve Protocol (was pointing toward Reserve Test Tube) while I was in there. The two middle buttons (Reserve Test Tube, Ask Honi) were already correct and untouched.
 
 Recent changes in this version:
 - Redid the four gold hex nav badges a shade darker and richer (was reading a bit bright/yellow-gold, now a deeper bronze-gold), same wax-stamp bevel and engraving otherwise.
