@@ -3,7 +3,7 @@
 ## What's in this package
 
 - `index.html` — the entire site (markup, CSS, and JS all in one file).
-- Every image, video, and icon file — hero shots, the hero glass video (`hero-glass.mp4`/`.webm` for desktop, `hero-glass-lite.mp4`/`.webm` for the lite site), nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the Rita Rocks feature photos (`rita-ora-feature.jpg` for desktop, `rita-ora-feature-lite.jpg` for the lite site), the HoniBlog founder photo (`blog-founder-happy-place.jpg`), the HoniBlog Article 02 video still (`blog-kiwi-slimland.jpg`), the HoniBlog Article 03 video still (`blog-jenerise-origins.jpg`), the HoniBlog Article 04 video still (`blog-manuka-benefits.jpg`), and all 14 ingredient photos used in the Stack section (including the new `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
+- Every image, video, and icon file — hero shots, the hero glass video (`hero-glass.mp4`/`.webm` for desktop, `hero-glass-lite.mp4`/`.webm` for the lite site), the "In The Mix" Stack section banner (`matrix-stack-header.jpg`), nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the Rita Rocks feature photos (`rita-ora-feature.jpg` for desktop, `rita-ora-feature-lite.jpg` for the lite site), the HoniBlog founder photo (`blog-founder-happy-place.jpg`), the HoniBlog Article 02 video still (`blog-kiwi-slimland.jpg`), the HoniBlog Article 03 video still (`blog-jenerise-origins.jpg`), the HoniBlog Article 04 video still (`blog-manuka-benefits.jpg`), and all 14 ingredient photos used in the Stack section (including the new `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
 
 ## How to host it
 
@@ -13,7 +13,17 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v240, updated 2026-09-05.
+This package corresponds to HONIORA_site_v242, updated 2026-09-05.
+
+Recent changes in this version:
+- Added the "In The Mix" banner graphic (`matrix-stack-header.jpg`) to the top of the 09 / The Stack section, above the "The HONIORA recipe" heading. Full width up to 1040px, centred, scales down cleanly on the lite site. Used the file from the GitHub link (near-identical to what was pasted in chat, just a different JPEG export of the same design).
+
+Recent changes in this version:
+- Store section headline: "FOUNDERS OFFER." &rarr; "HONI FOUNDERS LIMITED OFFER."
+- Store section intro line: "hold it for you" &rarr; "reserve it for you", "Sign up to the HONIORA protocol" &rarr; "Sign up for our HONIORA protocol".
+- Ritual section intro line: added "delicious" before "and ready to drink" (fixed from the pasted "delicous" to the correct spelling).
+- "Fast-dissolving, easy to absorb" section paragraph rewritten per the new copy: now specifies "The 2 HONIORA tablets", "in your water", and ends "so your gut absorbs the actives quickly and they reach your bloodstream."
+- Checked "08 / Clinical Thresholds" and its headline against the pasted copy: already word-for-word identical on the live page, nothing to change there.
 
 Recent changes in this version:
 - The hero video is back on the lite site, and fast: a new, purpose-made encode, `hero-glass-lite.mp4` / `hero-glass-lite.webm`, downscaled to 400px wide (the size it actually displays at on a phone) and re-compressed at a lower bitrate. 267KB / 388KB versus the desktop file's 2.6MB / 1.2MB, a roughly 85-90% cut. Autoplay is back on for every device: the lite site picks this small file automatically (the same `<source media>` technique already used for the Mānuka banner and Rita Rocks lite images), so it loads and starts playing quickly without competing with everything else on the page.
