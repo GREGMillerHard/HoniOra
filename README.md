@@ -13,7 +13,20 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v235, updated 2026-09-05.
+This package corresponds to HONIORA_site_v238, updated 2026-09-05.
+
+Recent changes in this version:
+- Found the real cause of the jump/double-up right where the beekeeper (Mānuka) banner ends and the ingredient scroll section begins: the banner's image was lazy-loaded, and its "finished loading" event was wired to force a ScrollTrigger recalculation. Since that image sits right before the pinned scroll section, it was finishing its lazy load exactly while the visitor was scrolling into that section, and recalculating a pinned ScrollTrigger mid-scrub snaps it to a corrected position, which reads as a jump or a momentary doubled-up frame. The banner image now loads eagerly (no more `loading="lazy"` on it) and no longer triggers a recalculation on load, so it's fully loaded and settled long before anyone scrolls near it. This is the exact same failure mode already avoided for the ingredient tile images themselves (see the code comment next to it), just missed on the banner image at the time.
+
+Recent changes in this version:
+- Lite site: the gold keylines (tube to ingredient) no longer deploy at all below the 1000px breakpoint. They still build and play normally on desktop and the 1001-1400px tablet layout, unchanged.
+- Checked HONIRITA.jpg (sent for Rita Rocks on the lite site) against what's already in the package: byte-for-byte identical to the deployed `rita-ora-feature-lite.jpg`. Already live, nothing to change.
+- Lite site: the Mānuka banner caption ("FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD") now breaks onto two centred lines below 1000px instead of being squeezed down to fit one. Desktop and tablet are unaffected, still one line.
+- Lite site: tapping one of the two gold hex buttons in the mobile nav bar (Reserve Protocol / Reserve Test Tube) now grows downward into the open header space instead of growing equally up and down from its centre, so the top of the hex no longer gets cropped by the header's own top edge. Also nudged down slightly on top of that for a bit more breathing room from the header.
+
+Recent changes in this version:
+- Checked ALIGN.png against the live site: it's a plain reference shot of the tube and ingredient list side by side (no lines drawn in it), and it matches the current layout exactly, tube on its side with the cap end toward the list, dash mark before each ingredient. Since it's a target for alignment rather than a finished asset, the keylines stay live-built rather than switching to a static image. That's still the right call: the JS version is already pixel-matched to this exact layout at every screen size including mobile, and keeps working if the ingredient list ever changes, which a flat picture wouldn't.
+- Checked the two Mānuka image links sent this session (150_Manuka_05-1600x1067.jpg for desktop, LITE_LWC.jpg for the lite site) against what's already in this package: both are byte-for-byte identical to the files already deployed (MANUKA_PAN.jpg and MANUKA_PAN_lite.jpg). Nothing to change there, both sizes are already live.
 
 Recent changes in this version:
 - Article 03's video still is finally the real one: a new file, `blog-jenerise-womens-health.jpg` (1238x2200), a genuine Shorts frame of Rachael Jennings mid-sentence with the on-screen "Creatine" caption and the Jenerise wordmark, from the new video. Sized the card's aspect-ratio to this image's own exact dimensions so nothing gets cropped by the fill-the-box treatment the other blog cards use. The old placeholder file, `blog-jenerise-origins.jpg`, is no longer referenced anywhere but is left in the folder rather than deleted, in case it's wanted elsewhere.

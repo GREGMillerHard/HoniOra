@@ -169,10 +169,13 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
 /* the whole button doubles in size on hover/focus instead of a separate tap target --
    scaling from the edge nearest the logo (not dead centre) so it grows outward into the
-   open header space on either side rather than climbing over the logo itself. */
-.nav-hex-mobile-left{transform-origin:right center}
-.nav-hex-mobile-right{transform-origin:left center}
-.hexbtn-m:hover,.hexbtn-m:focus-within{transform:scale(2);z-index:70}
+   open header space on either side rather than climbing over the logo itself. Anchored
+   to the TOP of that edge (not vertical centre) and nudged down a little on top of that,
+   so doubling in size grows downward into the open header space below instead of
+   upward past the header's own top edge, where it was getting cropped. */
+.nav-hex-mobile-left{transform-origin:right top}
+.nav-hex-mobile-right{transform-origin:left top}
+.hexbtn-m:hover,.hexbtn-m:focus-within{transform:translateY(14px) scale(2);z-index:70}
 .hexbtn-m .hexdrop{z-index:65}
 .nav-hex-mobile-left .hexdrop{left:0;transform:translateY(-6px)}
 .nav-hex-mobile-right .hexdrop{left:auto;right:0;transform:translateY(-6px)}
@@ -277,6 +280,13 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:300;
   font-size:clamp(20px,3.2vw,44px);line-height:1.2;letter-spacing:.01em;color:#fff;white-space:nowrap;
   text-shadow:0 2px 18px rgba(0,0,0,.38),0 1px 3px rgba(0,0,0,.3)}
+.manukapan-caption .cap-br{display:none}
+/* lite site: force the two natural halves of the line onto their own centred
+   row each, instead of one long nowrap line being squeezed down to fit */
+@media(max-width:1000px){
+  .manukapan-caption{white-space:normal}
+  .manukapan-caption .cap-br{display:block;content:""}
+}
 
 /* ---------- top marquee : the pain point, the promise, then every active, looping ----------
    two identical sets sit side by side and the track slides exactly one set width,
@@ -1398,9 +1408,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="manukapan">
   <picture>
     <source media="(max-width:1000px)" srcset="MANUKA_PAN_lite.jpg">
-    <img width="1600" height="1067" src="MANUKA_PAN.jpg" alt="Beekeepers tending hives on a clifftop over the New Zealand m&#257;nuka coast, ocean below" loading="lazy">
+    <img width="1600" height="1067" src="MANUKA_PAN.jpg" alt="Beekeepers tending hives on a clifftop over the New Zealand m&#257;nuka coast, ocean below">
   </picture>
-  <p class="manukapan-caption" id="manukapanCaption">FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD</p>
+  <p class="manukapan-caption" id="manukapanCaption">FROM AOTEAROA :<br class="cap-br"> THE LAND OF THE LONG WHITE CLOUD</p>
 </section>
 
 <!-- ================= THE UNIT : PINNED HORIZONTAL ================= -->
@@ -2737,6 +2747,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var cap = document.getElementById('manukapanCaption');
     if(!cap) return;
     cap.style.fontSize = ''; // back to the CSS-declared size before measuring/re-measuring
+    cap.style.whiteSpace = '';
+    /* lite site: the caption is a fixed two-line break (see .cap-br), not a
+       single line to be stretched full-width -- leave it at the CSS clamp
+       size and skip the single-line fit-to-width math below entirely. */
+    if (window.matchMedia('(max-width:1000px)').matches) return;
     cap.style.whiteSpace = 'nowrap';
     var cs = getComputedStyle(cap);
     var padding = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
@@ -3613,10 +3628,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (tabImg && !tabImg.complete){
       tabImg.addEventListener('load', function(){ ScrollTrigger.refresh(); });
     }
-    var manukaImg = document.querySelector('.manukapan img');
-    if (manukaImg && !manukaImg.complete){
-      manukaImg.addEventListener('load', function(){ ScrollTrigger.refresh(); });
-    }
+    /* the manuka banner image itself is no longer lazy (see its <img> tag) for
+       exactly the reason described in the ishot comment right below: refreshing
+       ScrollTrigger when a lazy image finishes loading, right as the visitor
+       scrolls past it into the very next section, snaps the pinned track to a
+       corrected position mid-scrub -- visible as a jump right where the banner
+       ends and the unit section begins. Loading it eagerly, well before the
+       visitor ever scrolls near it, means it's already complete by the time
+       any of this runs, so there's nothing left to refresh on here. */
     if (iTrack){
       /* each ishot has explicit width/height + aspect-ratio, so its box is fully
          sized before the bytes arrive -- loading in these images never changes
@@ -3664,6 +3683,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canObserve = ('IntersectionObserver' in window);
+  /* the lite site (this page's own mobile/stacked layout, everything at or
+     below the same 1000px breakpoint the MANUKA_PAN_lite / rita-ora-feature-
+     lite image swaps use) does not get these keylines at all -- the tube and
+     list stack vertically there with a lot more scroll distance between them,
+     so the lines would be long, sparse, and not worth the motion. */
+  var mqLite = window.matchMedia('(max-width:1000px)');
 
   var svg, paths = [];
   var SVGNS = 'http://www.w3.org/2000/svg';
@@ -3769,10 +3794,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   function onIntersect(entries){
     entries.forEach(function(entry){
       if (entry.isIntersecting){
-        if (!isIn && !firstCheck && !reduced) play();
+        if (!isIn && !firstCheck && !reduced && !mqLite.matches) play();
         isIn = true;
       } else {
-        if (isIn) reset();
+        if (isIn && !mqLite.matches) reset();
         isIn = false;
       }
       firstCheck = false;
@@ -3780,6 +3805,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   }
 
   function boot(){
+    if (mqLite.matches){
+      // lite/mobile layout -- skip entirely, but keep watching in case the
+      // viewport grows past 1000px later (a rotated tablet, a resized window)
+      watchForDesktop();
+      return;
+    }
     var ok = build();
     if (!ok){
       // container had no size yet (e.g. images/fonts still resolving) -- try again shortly
@@ -3817,6 +3848,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     container.addEventListener('transitionend', scheduleRebuild);
     setTimeout(function(){ container.removeEventListener('transitionend', scheduleRebuild); }, 4000);
     setTimeout(scheduleRebuild, 1800);
+  }
+
+  function watchForDesktop(){
+    function maybeStart(){
+      if (!mqLite.matches){
+        window.removeEventListener('resize', maybeStart);
+        window.removeEventListener('orientationchange', maybeStart);
+        boot();
+      }
+    }
+    window.addEventListener('resize', maybeStart, { passive: true });
+    window.addEventListener('orientationchange', maybeStart);
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive'){
