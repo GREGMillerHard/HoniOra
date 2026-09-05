@@ -13,7 +13,12 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package corresponds to HONIORA_site_v242, updated 2026-09-05.
+This package corresponds to HONIORA_site_v243, updated 2026-09-05.
+
+Recent changes in this version:
+- Mānuka banner caption reverted to always one line, lite site included: it now shrinks to fit the width (down to a 10px floor if it has to) rather than wrapping to two lines. Confirmed one line down to a 320px-wide phone.
+- Found the real cause of the lite site's slow/stalling images: several photos on the page were the full desktop file at every screen size, several times larger than they're ever displayed on a phone. `hero-packshot-cutout.png` (the five-tube pack shot) was 1.9MB for a box that displays around 240px wide on mobile; `manuka-coast.jpg` was 1.1MB for a similar story; the globe map was 772KB in two places, one of which had no lazy-loading at all and was downloading on every visit whether the map was ever opened or not. All four now have a lite-specific version sized and compressed for how big they actually render on a phone (hero-packshot-cutout: 1.9MB &rarr; ~120KB, manuka-coast: 1.1MB &rarr; ~130KB, globe: 772KB &rarr; ~60KB), picked automatically via the same `<source media>` technique used everywhere else on the site, plus the missing lazy-load fixed on the globe's lightbox copy.
+- The 09/Stack "In The Mix" banner now has its own lite version too, using the MIX_LITE.jpg you sent (1000x615, 95KB) instead of the full 2678px desktop file.
 
 Recent changes in this version:
 - Added the "In The Mix" banner graphic (`matrix-stack-header.jpg`) to the top of the 09 / The Stack section, above the "The HONIORA recipe" heading. Full width up to 1040px, centred, scales down cleanly on the lite site. Used the file from the GitHub link (near-identical to what was pasted in chat, just a different JPEG export of the same design).

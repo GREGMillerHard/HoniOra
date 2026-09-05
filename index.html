@@ -281,12 +281,6 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-size:clamp(20px,3.2vw,44px);line-height:1.2;letter-spacing:.01em;color:#fff;white-space:nowrap;
   text-shadow:0 2px 18px rgba(0,0,0,.38),0 1px 3px rgba(0,0,0,.3)}
 .manukapan-caption .cap-br{display:none}
-/* lite site: force the two natural halves of the line onto their own centred
-   row each, instead of one long nowrap line being squeezed down to fit */
-@media(max-width:1000px){
-  .manukapan-caption{white-space:normal}
-  .manukapan-caption .cap-br{display:block;content:""}
-}
 
 /* ---------- top marquee : the pain point, the promise, then every active, looping ----------
    two identical sets sit side by side and the track slides exactly one set width,
@@ -535,6 +529,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .stat p{font-size:13px;color:#9FA294;line-height:1.62}
 .stat .src{display:block;margin-top:14px;font-size:11px;color:rgba(232,196,104,.7);letter-spacing:.06em}
 .mphoto{position:relative;margin-top:clamp(24px,3vw,36px);border-radius:2px;overflow:hidden}
+.mphoto-pic{display:contents}
 .mphoto img{width:100%;height:auto;display:block}
 .mphoto::after{content:'';position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,0));pointer-events:none}
 .mphoto .cap{position:absolute;left:clamp(14px,2vw,24px);bottom:clamp(12px,1.6vw,20px);color:#fff;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.7);z-index:1}
@@ -545,6 +540,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .mfact p{font-size:13px;color:#9FA294;line-height:1.6}
 
 /* ---------- matrix ---------- */
+.matrix-banner-pic{display:contents}
 .matrix-banner{display:block;width:100%;height:auto;max-width:1040px;margin:0 auto clamp(32px,4.5vw,56px)}
 .matrix{border-top:1px solid var(--line)}
 .mgrid{display:grid;grid-template-columns:minmax(180px,1.25fr) minmax(150px,.95fr) 128px minmax(280px,2.4fr);gap:24px}
@@ -767,6 +763,7 @@ textarea{resize:vertical;min-height:64px}
 .abox.mapwide{min-height:0}
 .map-trigger{display:block;margin:4px auto 0;max-width:520px;width:100%;
   background:none;border:0;padding:0;cursor:pointer;position:relative;text-align:left}
+.map-photo-pic{display:contents}
 .map-photo{width:100%;height:auto;border-radius:2px;display:block;
   border:1px solid var(--line);transition:border-color .3s,box-shadow .3s}
 .map-trigger:hover .map-photo{border-color:rgba(21,23,15,.3);box-shadow:0 18px 40px -26px rgba(21,23,15,.5)}
@@ -781,6 +778,7 @@ textarea{resize:vertical;min-height:64px}
   padding:5vh 5vw;background:rgba(15,16,10,.88);opacity:0;pointer-events:none;
   transition:opacity .3s ease}
 .lightbox.open{opacity:1;pointer-events:auto}
+.lightbox picture{display:contents}
 .lightbox-img{max-width:100%;max-height:90vh;width:auto;height:auto;border-radius:3px;
   box-shadow:0 40px 90px -30px rgba(0,0,0,.6);
   transform:scale(.96);transition:transform .3s ease}
@@ -882,6 +880,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .store .sec-head{margin-bottom:0}
 .store-head-row{display:flex;align-items:center;gap:clamp(28px,4vw,64px);margin-bottom:clamp(38px,4.6vw,58px)}
 .store-head-row .sec-head{flex:1 1 480px;min-width:0}
+.store-pack-pic{display:contents}
 .store-pack-img{flex:0 0 auto;width:clamp(260px,30vw,460px);height:auto;display:block}
 @media(max-width:820px){
   .store-head-row{flex-direction:column;align-items:flex-start;gap:22px}
@@ -1285,7 +1284,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <div class="lightbox" id="mapLightbox" role="dialog" aria-modal="true" aria-label="Expanded map">
   <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close expanded map">&times;</button>
-  <img width="1060" height="1060" src="GLOBE2.png" alt="Globe map of the South Pacific highlighting New Zealand, with the Bay of Plenty, East Cape, Waikato and Hobbiton marked on the North Island" class="lightbox-img">
+  <picture>
+    <source media="(max-width:1000px)" srcset="GLOBE2-lite.png">
+    <img width="1060" height="1060" src="GLOBE2.png" alt="Globe map of the South Pacific highlighting New Zealand, with the Bay of Plenty, East Cape, Waikato and Hobbiton marked on the North Island" class="lightbox-img" loading="lazy">
+  </picture>
 </div>
 
 <div class="askhoni-modal" id="askHoniModal" role="dialog" aria-modal="true" aria-label="Ask Honi, your HONIORA guide">
@@ -1411,7 +1413,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <source media="(max-width:1000px)" srcset="MANUKA_PAN_lite.jpg">
     <img width="1600" height="1067" src="MANUKA_PAN.jpg" alt="Beekeepers tending hives on a clifftop over the New Zealand m&#257;nuka coast, ocean below">
   </picture>
-  <p class="manukapan-caption" id="manukapanCaption">FROM AOTEAROA :<br class="cap-br"> THE LAND OF THE LONG WHITE CLOUD</p>
+  <p class="manukapan-caption" id="manukapanCaption">FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD</p>
 </section>
 
 <!-- ================= THE UNIT : PINNED HORIZONTAL ================= -->
@@ -1554,7 +1556,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <h2 class="serif">HONI FOUNDERS LIMITED <em>OFFER</em>.</h2>
         <p class="lede">Choose the tier you want and we will reserve it for you, with no charge until launch and with free USA shipping always. <br>One test tube = one week = fourteen tablets. <br> Sign up for our HONI<i>ORA</i> protocol as a monthly subscriber and receive five tubes for the price of four every month, plus your free HONI<i>ORA</i> founders gift pack.</p>
       </div>
-      <img class="store-pack-img rv" src="hero-packshot-cutout.png" alt="HONIORA five-tube founding protocol pack" loading="lazy">
+      <picture class="store-pack-pic">
+        <source media="(max-width:1000px)" srcset="hero-packshot-cutout-lite.png">
+        <img class="store-pack-img rv" src="hero-packshot-cutout.png" alt="HONIORA five-tube founding protocol pack" loading="lazy">
+      </picture>
     </div>
 
     <div class="storegrid rv">
@@ -1669,7 +1674,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
     <div class="mphoto rv">
-      <img width="2400" height="1341" src="manuka-coast.jpg" alt="M&#257;nuka bushes, East Cape, New Zealand" loading="lazy">
+      <picture class="mphoto-pic">
+        <source media="(max-width:1000px)" srcset="manuka-coast-lite.jpg">
+        <img width="2400" height="1341" src="manuka-coast.jpg" alt="M&#257;nuka bushes, East Cape, New Zealand" loading="lazy">
+      </picture>
       <span class="cap">M&#257;nuka bushes &middot; East Cape, New Zealand</span>
     </div>
   </div>
@@ -1894,7 +1902,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <!-- ================= MATRIX ================= -->
 <section class="sec" id="matrix">
   <div class="wrap">
-    <img class="matrix-banner rv" src="matrix-stack-header.jpg" alt="In The Mix: our whole-system formula. A gold HONIORA tablet fizzing with bubbles, surrounded by honeycomb, gold kiwifruit, feijoa, mango and blackcurrants against a gold hexagon pattern." width="2678" height="1600" loading="lazy">
+    <picture class="matrix-banner-pic">
+      <source media="(max-width:1000px)" srcset="matrix-stack-header-lite.jpg">
+      <img class="matrix-banner rv" src="matrix-stack-header.jpg" alt="In The Mix: our whole-system formula. A gold HONIORA tablet fizzing with bubbles, surrounded by honeycomb, gold kiwifruit, feijoa, mango and blackcurrants against a gold hexagon pattern." width="2678" height="1600" loading="lazy">
+    </picture>
     <div class="sec-head rv">
       <p class="eyebrow dim">09 TheStack /</p>
       <h2 class="serif">The HONI<i>ORA</i> recipe</h2>
@@ -2384,7 +2395,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="abox-n">03</span>
         <h3>Where we're from</h3>
         <button type="button" class="map-trigger" id="mapTrigger" aria-label="Click to expand the map">
-          <img width="1060" height="1060" src="GLOBE2.png" alt="Globe map of the South Pacific highlighting New Zealand, with the Bay of Plenty, East Cape, Waikato and Hobbiton marked on the North Island" loading="lazy" class="map-photo">
+          <picture class="map-photo-pic">
+            <source media="(max-width:1000px)" srcset="GLOBE2-lite.png">
+            <img width="1060" height="1060" src="GLOBE2.png" alt="Globe map of the South Pacific highlighting New Zealand, with the Bay of Plenty, East Cape, Waikato and Hobbiton marked on the North Island" loading="lazy" class="map-photo">
+          </picture>
           <span class="map-hint">Click to expand &nearr;</span>
         </button>
       </div>
@@ -2749,26 +2763,19 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var cap = document.getElementById('manukapanCaption');
     if(!cap) return;
     cap.style.fontSize = ''; // back to the CSS-declared size before measuring/re-measuring
-    cap.style.whiteSpace = '';
-    /* lite site: the caption is a fixed two-line break (see .cap-br), not a
-       single line to be stretched full-width -- leave it at the CSS clamp
-       size and skip the single-line fit-to-width math below entirely. */
-    if (window.matchMedia('(max-width:1000px)').matches) return;
     cap.style.whiteSpace = 'nowrap';
     var cs = getComputedStyle(cap);
     var padding = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
     var available = cap.clientWidth - padding;
     var natural = measureRenderedWidth(cap.textContent, cap);
-    var FLOOR = 14, CEIL = 160;
+    var FLOOR = 10, CEIL = 160;
+    /* always stays on one line, lite site included -- if filling the width would
+       drop it below a sane legibility floor, hold the floor size and let the
+       text run right out to the box edge rather than wrapping to a second line. */
     if(available > 0 && natural > 0){
       var baseSize = parseFloat(cs.fontSize);
       var newSize = baseSize * (available / natural);
-      if(newSize < FLOOR){
-        cap.style.whiteSpace = 'normal';
-        cap.style.fontSize = FLOOR + 'px';
-      } else {
-        cap.style.fontSize = Math.min(newSize, CEIL) + 'px';
-      }
+      cap.style.fontSize = Math.max(FLOOR, Math.min(newSize, CEIL)) + 'px';
     }
   };
 
