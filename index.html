@@ -394,19 +394,26 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 }
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
 .hero h1{font-size:clamp(60px,10.6vw,152px);line-height:.9;letter-spacing:-.022em}
-/* the masthead block is centred in the copy column, the detail below stays left */
+/* the masthead block is centred in the copy column, the detail below stays left.
+   text-align:center is set here on the shared ancestors AND repeated below on every
+   individual line/span inside .hero-precede (precede-lead, precede-rest, precede-body,
+   precede-solution, #precedeHuge) rather than left to inherit -- belt and braces, so a
+   future rule reordering or specificity change can never leave one of those inline-block
+   spans (several of which hold more than one forced line via <br>, like precede-lead's
+   UPGRADE/YOUR/RITUAL) accidentally left-aligned at some screen width. */
 .hero .eyebrow,.hero h1,.hero-tag,.hero-precede{text-align:center}
 .hero h1 .thin{display:block;font-style:italic;color:var(--gold);font-size:.4em;letter-spacing:0;margin-top:.13em}
 /* never wraps: sized off the width of the hero copy column */
 .hero-tag{margin-top:15px;font-size:min(2.24vw,31px);font-weight:700;color:var(--ink);
-  letter-spacing:.012em;max-width:none;white-space:nowrap;line-height:1.28;
+  letter-spacing:.012em;max-width:none;white-space:nowrap;line-height:1.28;text-align:center;
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
 .hero-precede{margin-bottom:16px;font-size:min(3.8vw,48px);font-weight:700;color:var(--ink-soft);
-  line-height:1.15;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
-.hero-precede .precede-lead{font-size:min(11.2vw,144px);line-height:1.15;color:var(--ink);white-space:nowrap;display:inline-block;font-style:italic}
-.hero-precede .precede-rest{display:block;font-size:min(1.8vw,22px);line-height:1.25}
-.hero-precede .precede-body{font-size:min(1.8vw,22px);line-height:1.25;color:var(--ink)}
-#precedeHuge{white-space:nowrap;display:inline-block}
+  line-height:1.15;text-align:center;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
+.hero-precede .precede-lead{font-size:min(11.2vw,144px);line-height:1.15;color:var(--ink);white-space:nowrap;display:inline-block;font-style:italic;text-align:center}
+.hero-precede .precede-rest{display:block;font-size:min(1.8vw,22px);line-height:1.25;text-align:center}
+.hero-precede .precede-body{font-size:min(1.8vw,22px);line-height:1.25;color:var(--ink);text-align:center}
+.hero-precede .precede-solution{text-align:center}
+#precedeHuge{white-space:nowrap;display:inline-block;text-align:center}
 .hero-precede .precede-solution{font-size:min(3.8vw,48px);line-height:1.15;color:var(--ink)}
 /* label and benefit sit on one line: LABEL: benefit */
 .keyact{list-style:none;margin:clamp(16px,1.9vh,22px) 0 0;padding:1px 0 1px 20px;
@@ -988,6 +995,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .plan-price i{font-style:normal;font-size:13px;color:var(--ink-soft);font-weight:400}
 .plan-per{font-size:12.5px;color:var(--gold-deep);font-weight:600;letter-spacing:.02em}
 .plan-what{font-size:16px;color:var(--ink-2);font-weight:400;margin:18px 0 0;line-height:1.5}
+/* the Single Pack card's product shot: sits top-right of the price block, text on the
+   left. flex-wrap so it holds up at any width -- on a very narrow card the image just
+   wraps below the text instead of squeezing either one unreadably thin, rather than
+   needing its own dedicated breakpoint. */
+.plan-top{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:clamp(14px,3vw,28px)}
+.plan-top .plan-head{flex:1 1 200px;min-width:0}
+.plan-img{flex:0 0 auto;width:clamp(64px,9vw,108px);height:auto;display:block;
+  filter:drop-shadow(0 10px 20px -12px rgba(21,23,15,.4))}
 .plan-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line-soft);padding-top:18px}
 .plan-list li{font-size:13.5px;color:var(--ink-2);line-height:1.55;padding:7px 0 7px 20px;position:relative;font-weight:300}
 .plan-list li:before{content:"";position:absolute;left:0;top:14px;width:8px;height:1px;background:var(--gold)}
@@ -1223,7 +1238,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .tsrow.tsoverall{margin:6px 0 -1px;padding:18px}
   .aboutgrid{grid-template-columns:1fr;gap:14px}
   .storegrid{grid-template-columns:1fr;gap:14px}
-  .plan.feature{order:-1}
+  /* Single Pack now leads in the markup (swapped to sit left of Monthly Protocol on
+     desktop), so the old order:-1 that force-pinned Monthly Protocol to the top of the
+     stacked mobile view has been dropped -- both breakpoints now just follow DOM order,
+     Single Pack first, Monthly Protocol second, matching the desktop left/right order. */
 
   /* section rhythm */
   .sec{padding:64px 0}
@@ -1675,6 +1693,26 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     <div class="storegrid rv">
 
+      <div class="plan">
+        <div class="plan-top">
+          <div class="plan-head">
+            <p class="plan-name">Single Pack</p>
+            <div class="plan-price"><b>$52.50</b><i>USD one-off</i></div>
+            <p class="plan-per">$7.50 a dose.</p>
+            <p class="plan-what">One tube. One week. <br> Experience how good they taste.</p>
+          </div>
+          <img class="plan-img" src="plan-tube-single.jpg" alt="HONIORA single test tube, gold cap, HoniOra printed down the side" width="270" height="907" loading="lazy">
+        </div>
+        <ul class="plan-list">
+          <li>1 tube &middot; 14 tablets &middot; 7 daily servings</li>
+          <li>The whole 28-active matrix, full dose</li>
+          <li>$52.50 credited to subscription</li>
+          <li>Free USA shipping, always</li>
+        </ul>
+        <div class="plan-cta"><a href="#waitlist" class="btn ghost" data-plan="Single Pack &middot; USD 52.50">Reserve a single pack <span class="ar">&rarr;</span></a></div>
+      </div>
+
+
       <div class="plan feature">
         <span class="plan-badge">Best value &middot; One to share</span>
         <p class="plan-name">Monthly Protocol</p>
@@ -1690,21 +1728,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li>Free USA shipping, always</li>
         </ul>
         <div class="plan-cta"><a href="#waitlist" class="btn" data-plan="Monthly Protocol subscription &middot; USD 210">Reserve the protocol <span class="ar">&rarr;</span></a></div>
-      </div>
-
-
-      <div class="plan">
-        <p class="plan-name">Single Pack</p>
-        <div class="plan-price"><b>$52.50</b><i>USD one-off</i></div>
-        <p class="plan-per">$7.50 a dose.</p>
-        <p class="plan-what">One tube. One week. <br> Experience how good they taste.</p>
-        <ul class="plan-list">
-          <li>1 tube &middot; 14 tablets &middot; 7 daily servings</li>
-          <li>The whole 28-active matrix, full dose</li>
-          <li>$52.50 credited to subscription</li>
-          <li>Free USA shipping, always</li>
-        </ul>
-        <div class="plan-cta"><a href="#waitlist" class="btn ghost" data-plan="Single Pack &middot; USD 52.50">Reserve a single pack <span class="ar">&rarr;</span></a></div>
       </div>
 
     </div>
