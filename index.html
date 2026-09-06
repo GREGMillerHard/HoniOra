@@ -216,8 +216,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .hexbtn-m{display:block;position:relative;flex:none;line-height:0;background:none;border:0;padding:0;margin:0;
   transition:transform .3s cubic-bezier(.22,1,.36,1)}
 .hexbtn-m-link{display:block;line-height:0}
-.hexbtn-m img{display:block;height:clamp(108px,19.5vw,160px);width:auto;pointer-events:none;
+.hexbtn-m img,.hexbtn-m svg{display:block;height:clamp(108px,19.5vw,160px);width:auto;pointer-events:none;
   filter:drop-shadow(0 6px 12px rgba(21,23,15,.20))}
+.hexbtn-svg-t{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;
+  font-size:24px;fill:var(--gold-deep);letter-spacing:.01em}
 /* the whole button doubles in size on hover/focus instead of a separate tap target --
    scaling from the edge nearest the logo (not dead centre) so it grows outward into the
    open header space on either side rather than climbing over the logo itself. Anchored
@@ -234,23 +236,36 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hexbtn-m:hover .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
   .nav-hex-mobile-left:hover .hexdrop,.nav-hex-mobile-right:hover .hexdrop{transform:translateY(0)}
 }
-/* the link list (16 items) runs taller than the viewport on most phones, so the panel
+/* the link list (16 items) runs taller than the viewport on most phones, so each panel
    needs to actually scroll rather than just vertically-centering and clipping whatever
    doesn't fit; top padding clears the still-visible header/burger, bottom padding keeps
-   the last link off the screen edge once scrolled all the way down. Two side-by-side
-   columns (left = reserve/protocol/science group, right = everything else) so the list
-   reads in half the scroll depth of one long column. */
-.mobilemenu{position:fixed;inset:0;background:var(--paper);z-index:99;display:flex;flex-direction:row;align-items:flex-start;gap:clamp(14px,4vw,32px);padding:128px var(--pad) 48px;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(-100%);visibility:hidden;transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear .5s}
-.mobilemenu.open{transform:translateY(0);visibility:visible;transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear 0s}
+   the last link off the screen edge once scrolled all the way down. Two fully separate,
+   independently-collapsible menus now (left = reserve/protocol/science group, its own
+   burger and its own open state; right = everything else, its own burger and open
+   state) instead of one two-column panel opened by a single shared burger: opening the
+   left menu no longer opens the right one, and vice versa. Each .mm-col carries its own
+   "open" class and its own pointer-events (none while closed, so a closed panel never
+   blocks clicks on the page behind it, even though it's still technically covering that
+   half of the screen while translated off-canvas). .mobilemenu itself is just a
+   non-visual fixed wrapper now, purely for grouping -- it has no open/closed state of
+   its own. */
+.mobilemenu{position:fixed;inset:0;z-index:99;pointer-events:none}
+.mm-col{position:fixed;top:0;bottom:0;width:50%;background:var(--paper);
+  display:flex;flex-direction:column;gap:2px;min-width:0;padding:128px 22px 48px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;visibility:hidden;pointer-events:none;
+  transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear .5s}
+.mm-col.open{visibility:visible;pointer-events:auto;transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear 0s}
+.mm-col:first-child{left:0;transform:translateX(-100%);border-right:1px solid var(--line-soft)}
+.mm-col:last-child{right:0;transform:translateX(100%);border-left:1px solid var(--line-soft)}
+.mm-col.open{transform:translateX(0)}
 /* 561-1400px: the gold reserve hexes (.hexbtn-m img) scale up to 160px tall in this range,
-   well past the header's own 111px height, and the menu's 128px top padding above only
-   clears them on phones. Left unfixed, the hexes hang down over the first row of links
-   (Reserve the Protocol / 2 Tabs) since the header sits above the menu in z-index. Bump
-   the clearance here to the tallest the hexes ever get (160px) plus a margin. */
+   well past the header's own 111px height, and each panel's 128px top padding above only
+   clears them on phones. Left unfixed, the hexes hang down over the first link in each
+   panel (Reserve the Protocol / 2 Tabs) since the header sits above the menu in z-index.
+   Bump the clearance here to the tallest the hexes ever get (160px) plus a margin. */
 @media(min-width:561px) and (max-width:1400px){
-  .mobilemenu{padding-top:190px}
+  .mm-col{padding-top:190px}
 }
-.mm-col{display:flex;flex-direction:column;gap:2px;flex:1 1 0;min-width:0}
 .mobilemenu a{font-size:clamp(16px,4.6vw,26px);font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;padding:12px 0;border-bottom:1px solid var(--line-soft);line-height:1.2}
 
 /* ---------- hero ---------- */
@@ -1141,6 +1156,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .burger{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%)}
   .hexbtn-m.nav-hex-mobile-left{display:block;grid-column:1;justify-self:end;margin-right:clamp(2px,1.3vw,14px)}
   .hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
+  /* second burger, mirrored on the left edge -- each burger now opens only its own half
+     of the split menu instead of one burger opening both halves together. */
+  .burger-left{left:0;right:auto}
 }
 @media(max-width:600px){
   body{font-size:16px}
@@ -1158,7 +1176,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .navbar{height:88px}
   /* scales down smoothly on very narrow phones (≤~375px) so the hexes never crowd the
      burger button (the bigger logo above eats into that clearance too); 62px by 500px+ */
-  .hexbtn-m img{height:clamp(29px,11.6vw,93px)}
+  .hexbtn-m img,.hexbtn-m svg{height:clamp(29px,11.6vw,93px)}
   .hexbtn-m.nav-hex-mobile-left{margin-right:clamp(1.5px,0.15vw,10px)}
   .hexbtn-m.nav-hex-mobile-right{margin-left:clamp(1.5px,0.15vw,10px)}
   section[id]{scroll-margin-top:104px}
@@ -1250,17 +1268,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    phones don't -- grow the hexes further in two steps rather than one straight vw curve,
    since a single slope safe enough for a 360px-wide screen barely moves by 560px. */
 @media(min-width:391px) and (max-width:480px){
-  .hexbtn-m img{height:clamp(46px,14vw,72px)}
+  .hexbtn-m img,.hexbtn-m svg{height:clamp(46px,14vw,72px)}
 }
 @media(min-width:481px) and (max-width:560px){
-  .hexbtn-m img{height:clamp(74px,19vw,110px)}
+  .hexbtn-m img,.hexbtn-m svg{height:clamp(74px,19vw,110px)}
 }
 /* phones rotated to landscape have plenty of width but very little height -- without this,
    they'd inherit the tablet-width nav sizing above (up to 160px hexes, 110px bar), which is
    far too big for a ~380-430px-tall viewport. Height, not width, is what's tight here. */
 @media(orientation:landscape) and (max-height:500px){
   .navbar{height:70px}
-  .hexbtn-m img{height:clamp(40px,10vh,66px)}
+  .hexbtn-m img,.hexbtn-m svg{height:clamp(40px,10vh,66px)}
   .hexbtn-m.nav-hex-mobile-left{margin-right:8px}
   .hexbtn-m.nav-hex-mobile-right{margin-left:8px}
   section[id]{scroll-margin-top:86px}
@@ -1324,25 +1342,34 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#waitlist" class="hexnav-item hexbtn-last">JOIN<br>HONI
       <span class="hexdrop"><span class="hexdrop-card"><b>Join the List</b>Free to join the 2026 founding list. First access to the launch, plus founding-member pricing for life.</span></span>
     </a>
+    <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-expanded="false" aria-controls="mmLeft"><span></span><span></span></button>
     <div class="hexbtn-m nav-hex-mobile-left">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
-        <img src="nav-hex-reserve-protocol.png" alt="Reserve Protocol" width="815" height="707">
+        <svg class="hexbtn-svg" viewBox="0 0 208 180" role="img" aria-hidden="true" focusable="false">
+          <polygon points="52,4 156,4 204,90 156,176 52,176 4,90" fill="var(--paper)" stroke="var(--gold-deep)" stroke-width="7"/>
+          <text x="104" y="82" text-anchor="middle" textLength="118" lengthAdjust="spacingAndGlyphs" class="hexbtn-svg-t">RESERVE</text>
+          <text x="104" y="112" text-anchor="middle" textLength="128" lengthAdjust="spacingAndGlyphs" class="hexbtn-svg-t">PROTOCOL</text>
+        </svg>
       </a>
       <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $6.00 a dose. Founding price locked for life, skip or cancel anytime.</span></span>
     </div>
     <a href="#top" class="brand brand-mobile"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
     <div class="hexbtn-m nav-hex-mobile-right">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
-        <img src="nav-hex-reserve-testtube.png" alt="Reserve Test Tube" width="815" height="707">
+        <svg class="hexbtn-svg" viewBox="0 0 208 180" role="img" aria-hidden="true" focusable="false">
+          <polygon points="52,4 156,4 204,90 156,176 52,176 4,90" fill="var(--paper)" stroke="var(--gold-deep)" stroke-width="7"/>
+          <text x="104" y="82" text-anchor="middle" textLength="118" lengthAdjust="spacingAndGlyphs" class="hexbtn-svg-t">RESERVE</text>
+          <text x="104" y="112" text-anchor="middle" textLength="138" lengthAdjust="spacingAndGlyphs" class="hexbtn-svg-t">TEST TUBE</text>
+        </svg>
       </a>
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
     </div>
-    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+    <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-expanded="false" aria-controls="mmRight"><span></span><span></span></button>
   </div>
 </header>
 
-<div class="mobilemenu" id="mm">
-  <div class="mm-col">
+<div class="mobilemenu">
+  <div class="mm-col" id="mmLeft">
     <a href="#store" style="color:var(--gold)">Reserve the Protocol</a>
     <a href="#protocol">Protocol</a>
     <a href="#honeytop">M&#257;nuka Honey</a>
@@ -1352,7 +1379,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#triad">Gut &middot; Heart &middot; Brain</a>
     <a href="#taste">Taste</a>
   </div>
-  <div class="mm-col">
+  <div class="mm-col" id="mmRight">
     <a href="#tablet">2 Tabs</a>
     <a href="#ritual">Ritual</a>
     <a href="#waitlist" style="color:var(--gold)">Join Founding List</a>
@@ -2872,19 +2899,31 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var onScroll = function(){ hdr.classList.toggle('stuck', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
-  var burger = document.getElementById('burger'), mm = document.getElementById('mm');
-  burger.addEventListener('click', function(){
-    var open = mm.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  mm.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      mm.classList.remove('open');
-      burger.setAttribute('aria-expanded','false');
-      document.body.style.overflow='';
-    });
-  });
+  /* two fully independent menus now, each with its own burger: opening/closing one
+     never touches the other. body scroll stays locked as long as either is open, and
+     unlocks once both are closed. */
+  (function(){
+    var mmLeft = document.getElementById('mmLeft'), mmRight = document.getElementById('mmRight');
+    var burgerLeft = document.getElementById('burgerLeft'), burgerRight = document.getElementById('burgerRight');
+    function anyOpen(){ return mmLeft.classList.contains('open') || mmRight.classList.contains('open'); }
+    function syncScrollLock(){ document.body.style.overflow = anyOpen() ? 'hidden' : ''; }
+    function wire(burger, col){
+      burger.addEventListener('click', function(){
+        var open = col.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        syncScrollLock();
+      });
+      col.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          col.classList.remove('open');
+          burger.setAttribute('aria-expanded','false');
+          syncScrollLock();
+        });
+      });
+    }
+    wire(burgerLeft, mmLeft);
+    wire(burgerRight, mmRight);
+  })();
 
   /* ---------- accurate in-page anchor scrolling ----------
      every image on the page carries explicit width/height, so the browser

@@ -13,9 +13,16 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v257, updated 2026-09-06. Rita Ora photo on the lite site now shows in full, uncropped, with the section copy stacked underneath at full width.
+This package is HONIORA_site_v259, updated 2026-09-06. The lite nav now has two independent burgers, one per side, each opening only its own half of the split menu.
 
 Recent changes in this version:
+- The mobile menu's left and right halves (added in v258) were still opened and closed together by the single burger button on the right. Added a second burger on the left edge of the nav bar, mirroring the existing one, so each half is now a fully separate, independently-collapsible menu: the left burger opens/closes only the left panel (Reserve the Protocol, Protocol, Mānuka Honey, Science, Function, The Stack, Gut · Heart · Brain, Taste), the right burger opens/closes only the right panel (2 Tabs, Ritual, Join Founding List, Rita Rocks, Lemonwater?, HoniBlog, Ask Honi, About HoniCo). Either can be open while the other is closed, or both at once. Clicking a link closes only the panel it's in. Body scroll stays locked as long as either panel is open. Checked at 390px: left-only, right-only, and both-open all behave correctly, no horizontal overflow.
+
+Recent changes in v258:
+- The two "Reserve" hex buttons that flank the logo in the lite/tablet nav bar (Reserve Protocol on the left, Reserve Test Tube on the right) were solid dark-gold coin-style images with the text baked in (`nav-hex-reserve-protocol.png`, `nav-hex-reserve-testtube.png`). Replaced both with an inline SVG hex outline: brown stroke (`--gold-deep`), white/paper fill, with the actual label text ("RESERVE PROTOCOL" / "RESERVE TEST TUBE") rendered as real text inside rather than baked into an image. Same size at every breakpoint (the existing responsive clamp() sizing now applies to the svg instead of the img), same href (#store both), same aria-labels, same hover dropdown cards. No image files were touched.
+- Split the mobile dropdown menu (the one the hamburger opens) from one full-width panel with two columns side by side into two panels pinned to opposite edges of the screen (this version then went on to make those two panels independently collapsible, see above).
+
+Recent changes in v257:
 - Swapped `rita-ora-feature-lite.jpg` for the full, uncropped photo (same close-up shot, "HONIORA / Super Star Rita Ora" title text included) and changed how the lite layout handles it: previously the image was forced into a fixed 4:5 portrait box (`aspect-ratio:4/5;object-fit:cover`), which is what forced the crop in v256. That's removed now — the image displays at its own natural aspect ratio, full width, nothing cropped off. The quote/byline copy was already stacked below the image at this breakpoint (that part didn't need to change), so the net effect is: full photo, full width, copy underneath, full width, exactly as asked.
 
 Recent changes in v256:
