@@ -13,9 +13,12 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v259, updated 2026-09-06. The lite nav now has two independent burgers, one per side, each opening only its own half of the split menu.
+This package is HONIORA_site_v260, updated 2026-09-06. Added a "Reserve Test Tube" link to the top of the lite site's right-hand mobile menu.
 
 Recent changes in this version:
+- Added a new link at the very top of the right mobile menu list: "Reserve Test Tube", linking to `#store` (same destination as the Reserve Test Tube hex button), styled gold to match the other reserve/CTA links in that list (Join Founding List, Ask Honi).
+
+Recent changes in v259:
 - The mobile menu's left and right halves (added in v258) were still opened and closed together by the single burger button on the right. Added a second burger on the left edge of the nav bar, mirroring the existing one, so each half is now a fully separate, independently-collapsible menu: the left burger opens/closes only the left panel (Reserve the Protocol, Protocol, Mānuka Honey, Science, Function, The Stack, Gut · Heart · Brain, Taste), the right burger opens/closes only the right panel (2 Tabs, Ritual, Join Founding List, Rita Rocks, Lemonwater?, HoniBlog, Ask Honi, About HoniCo). Either can be open while the other is closed, or both at once. Clicking a link closes only the panel it's in. Body scroll stays locked as long as either panel is open. Checked at 390px: left-only, right-only, and both-open all behave correctly, no horizontal overflow.
 
 Recent changes in v258:
