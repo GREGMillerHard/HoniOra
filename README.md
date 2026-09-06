@@ -13,9 +13,16 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v263, updated 2026-09-06. Swapped the store section's two plan cards so Single Pack sits on the left (top, on lite) and Monthly Protocol is on the right (below, on lite).
+This package is HONIORA_site_v265, updated 2026-09-06. Replaced the store-section hero pack photo with the new gold-tube box shot.
 
 Recent changes in this version:
+- Replaced `hero-packshot-cutout.png` and `hero-packshot-cutout-lite.png` (the 5-tube gift box photo at the top of the store section) with the new supplied photo: gold box, all 5 gold tubes, HONIORA embossed on the box front. Background removed and edges feathered to match the site's existing transparent-cutout product shots, so it sits directly on the section's cream background with the same soft shadow look as before, no white box around it. Checked on desktop (1440px) and mobile (390px): clean edges, no overflow, matches the surrounding layout. Note: the box front photo includes "Supercalifragilisticexpialidocious" beneath the HONIORA logo, shipped as supplied at your request.
+
+v264 changes:
+- 07 Function section rewritten with line breaks: heading now reads "Fast-dissolving, / Easy to absorb." (each half on its own line, "Easy" capitalized). Body copy rewritten to "The 2 HONIORA tablets completely dissolve in 300ml water, / creating a delicious, potent, and invigorating hypotonic solution, / that is kind on and supports your gut / allowing absorption of all the actives to quickly reach your bloodstream." across four lines. Checked at 390px, 768px, and 1440px: no overflow, all four lines wrap cleanly.
+- Updated the MGO 850+ Mānuka / Fiberest® HF ingredient caption (the one above the manuka crystal photo): heading now reads "Fiberest® HF Crystals" (was "Fiberest® HF"), and the body sentence now reads "Fiberest® HF high fibre matrix substrate" (was "Fiberest® HF fibre matrix substrate", added "high").
+
+v263 changes:
 - Swapped the DOM order of the two plan cards in the store section: Single Pack now comes first (desktop: left column; lite: top of the stack), Monthly Protocol second (desktop: right column; lite: below). Previously Monthly Protocol led on both. Also removed the old `.plan.feature{order:-1}` rule that force-pinned Monthly Protocol to the top of the stacked lite view regardless of markup order — with Single Pack now leading in the markup, that rule would have silently put Monthly Protocol back on top on lite only, undoing the swap there while desktop showed it correctly. Both breakpoints now follow the same order. Checked at 390px and 1440px: Single Pack leads at both.
 
 Recent changes in v262:
