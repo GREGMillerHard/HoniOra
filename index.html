@@ -900,6 +900,24 @@ textarea{resize:vertical;min-height:64px}
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;
   font-size:26px;line-height:1;cursor:pointer;transition:background .3s}
 .lightbox-close:hover{background:rgba(255,255,255,.22)}
+.gift-trigger{display:inline-flex;align-items:center;gap:6px;margin:12px 0 4px;padding:8px 16px;
+  border:1px solid var(--gold-deep);border-radius:999px;background:transparent;color:var(--gold-deep);
+  font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;cursor:pointer;
+  transition:background .25s ease,color .25s ease,transform .25s ease}
+.gift-trigger:hover{background:var(--gold-deep);color:#fff;transform:translateY(-1px)}
+.gift-trigger .ar{transition:transform .25s ease}
+.gift-trigger:hover .ar{transform:translateX(3px)}
+.gift-link{display:inline;padding:0;border:0;background:none;font:inherit;color:var(--gold-deep);
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(178,140,60,.45);
+  transition:text-decoration-color .25s ease,color .25s ease}
+.gift-link:hover{text-decoration-color:var(--gold-deep);color:var(--ink)}
+.gift-lightbox-panel{width:min(400px,88vw);max-height:90vh;overflow:auto;background:#fff;border-radius:6px;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+.gift-cap{padding:20px 22px 16px;background:#fff;color:#111;text-align:center}
+.gift-cap b{display:block;font-family:'Fraunces',Georgia,serif;font-size:16px;letter-spacing:.01em;
+  color:#111;margin-bottom:6px}
+.gift-cap span{display:block;font-size:12.5px;line-height:1.5;color:#111;font-weight:400}
+.gift-lightbox-img{display:block;width:100%;height:auto}
 /* ---------- Ask Honi assistant ---------- */
 .askhoni-modal{position:fixed;inset:0;z-index:210;display:flex;align-items:center;justify-content:center;
   padding:5vh 4vw;background:rgba(15,16,10,.72);opacity:0;pointer-events:none;
@@ -1448,6 +1466,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </picture>
 </div>
 
+<div class="lightbox gift-lightbox" id="giftLightbox" role="dialog" aria-modal="true" aria-label="Free Founders gift pack">
+  <button type="button" class="lightbox-close" id="giftLightboxClose" aria-label="Close">&times;</button>
+  <div class="gift-lightbox-panel">
+    <div class="gift-cap"><b>Founders Subscription</b><span>Enjoy your free limited edition HONI<i>ORA</i> Founders Bee tumbler and test tube pack.</span></div>
+    <picture>
+      <source media="(max-width:1000px)" srcset="founders-gift-pack-lite.jpg">
+      <img width="640" height="1147" src="founders-gift-pack.jpg" alt="HONIORA Founders gift pack: a gold gift box open to reveal a bee-embossed glass tumbler and a gold HoniOra test tube" class="gift-lightbox-img" loading="lazy">
+    </picture>
+  </div>
+</div>
+
 <div class="askhoni-modal" id="askHoniModal" role="dialog" aria-modal="true" aria-label="Ask Honi, your HONIORA guide">
   <div class="askhoni-panel">
     <div class="askhoni-head">
@@ -1487,6 +1516,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="hact"><b>cGP-Pro<sup class="rn">&reg;</sup> <span class="rn">(Cyclic Glycine-Proline)</span></b><i class="hpop">Micro-vascular &middot; Brain flow</i><s>100 mg</s></div>
           <div class="hact"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><i class="hpop">Micro-vascular flow</i><s>100 mg</s></div>
           <div class="hact"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><i class="hpop">Endogenous nitric oxide</i><s>50 mg</s></div>
+          <div class="hact"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><i class="hpop">Antioxidant &middot; Blood lipid protection</i><s>300 mg</s></div>
           <div class="hact"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><i class="hpop">Adaptogen &middot; Stress response</i><s>60 mg</s></div>
           <div class="hact"><b>Braincurrant<sup class="rn">&reg;</sup></b><i class="hpop">Cognitive &middot; Mood &amp; focus</i><s>300 mg</s></div>
           <div class="hact"><b>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</b><i class="hpop">Alpha-wave &middot; Calm focus</i><s>200 mg</s></div>
@@ -1604,6 +1634,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.jpg"><img width="820" height="820" src="s7_leaf.jpg" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.jpg"><img width="820" height="820" src="careflow_mango.jpg" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.jpg"><img width="820" height="820" src="vasodrive_ap.jpg" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.jpg"><img width="820" height="820" src="hytolive_bev_olive.jpg" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONIORA delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="bifidobacterium_adolescentis-lite.jpg"><img width="820" height="820" src="bifidobacterium_adolescentis.jpg" alt="Bifidobacterium adolescentis probiotic culture, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>Bifidobacterium adolescentis</b><s>10 billion CFU</s><i>Microencapsulated live probiotic that ferments the formula's Livaux and M&#257;nuka prebiotic fibres into short-chain fatty acids and supports the gut lining's tight junctions.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.jpg"><img width="820" height="820" src="landkind_pure_salidroside.jpg" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.jpg"><img width="820" height="820" src="yuzu.jpg" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 15 mg</s><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
@@ -1712,7 +1743,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="sec-head rv">
         <p class="eyebrow">Pre-launch &middot; Reserve now</p>
         <h2 class="serif">HONI FOUNDERS LIMITED <em>OFFER</em>.</h2>
-        <p class="lede">Choose the tier you want and we will reserve it for you, with no charge until launch and with free USA shipping always. <br>One test tube = one week = fourteen tablets. <br> Sign up for our HONI<i>ORA</i> protocol as a monthly subscriber and receive five tubes for the price of four every month, plus your free HONI<i>ORA</i> founders gift pack.</p>
+        <p class="lede">Choose the tier you want and we will reserve it for you, with no charge until launch and with free USA shipping always. <br>One test tube = one week = fourteen tablets. <br> Sign up for our HONI<i>ORA</i> protocol as a monthly subscriber and receive five tubes for the price of four every month, plus <button type="button" class="gift-link js-gift-trigger" aria-haspopup="dialog" aria-controls="giftLightbox">your free HONI<i>ORA</i> founders gift pack</button>.</p>
       </div>
       <picture class="store-pack-pic">
         <source media="(max-width:1000px)" srcset="hero-packshot-cutout-lite.png">
@@ -1747,7 +1778,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p class="plan-name">Monthly Protocol</p>
         <div class="plan-price"><b>$210</b><i>USD / month</i></div>
         <p class="plan-per">$6.00 a dose. You save $52.50 a month.</p>
-        <p class="plan-what">Four tubes every month, plus an extra free tube (Five total). Yours to keep or to pass to someone you want to bring with you.</p>
+        <p class="plan-what">Four tubes every month, plus an extra free tube (Five total). Enjoy your bonus or share the love.</p>
+        <button type="button" class="gift-trigger js-gift-trigger" id="giftTrigger" aria-haspopup="dialog" aria-controls="giftLightbox">Free Founders gift pack <span class="ar">&rarr;</span></button>
         <ul class="plan-list">
           <li>5 tubes &middot; 70 tablets &middot; 35 daily servings</li>
           <li>The extra tube ships every month, not just the first</li>
@@ -2143,7 +2175,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">AlphaWave<sup class="rn">&reg;</sup> L-Theanine<i>Ethical Naturals / USP Direct Compression Grade</i></div>
         <div><span class="fn">Alpha-wave anchor<small>Calm focus</small></span></div>
         <div class="dose">200 mg</div>
-        <div class="mech">Upregulates alpha-wave neural activity and stimulates GABA, which is what keeps the creatine and vascular actives reading as clarity rather than agitation. A 28-day randomised, double-blind, placebo-controlled trial of AlphaWave<sup class="rn">&reg;</sup> L-Theanine found lower perceived stress and improved sleep quality and cognitive attention; an earlier single-dose crossover trial recorded higher frontal alpha brainwave power after 200 mg.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38758503/" target="_blank" rel="noopener noreferrer">Moulin 2024 <span>PMID 38758503 &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s40120-021-00284-x" target="_blank" rel="noopener noreferrer">Evans 2021 <span>Neurol Ther &middot; Crossover &nearr;</span></a><a class="cite sup" href="https://ethicalnaturals.com/products-manufacturing-services/alphawave-l-theanine/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Ethical Naturals &nearr;</span></a></div>
+        <div class="mech">Upregulates alpha-wave neural activity and stimulates GABA, which is what keeps the creatine and vascular actives reading as clarity rather than agitation. A 28-day randomised, double-blind, placebo-controlled trial of AlphaWave<sup class="rn">&reg;</sup> L-Theanine found lower perceived stress and improved sleep quality and cognitive attention; an earlier single-dose crossover trial recorded higher frontal alpha brainwave power after 200 mg. A third randomised, double-blind, placebo-controlled crossover trial, at this same 200 mg dose, found lower subjective stress and lower cortisol after a multitasking stressor; it found no cognitive-performance gain on that task itself, and its posterior alpha-wave increase showed up mainly in participants with higher trait anxiety.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38758503/" target="_blank" rel="noopener noreferrer">Moulin 2024 <span>PMID 38758503 &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s40120-021-00284-x" target="_blank" rel="noopener noreferrer">Evans 2021 <span>Neurol Ther &middot; Crossover &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/26797633/" target="_blank" rel="noopener noreferrer">White 2016 <span>Nutrients &middot; 200 mg dose match &nearr;</span></a><a class="cite sup" href="https://ethicalnaturals.com/products-manufacturing-services/alphawave-l-theanine/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Ethical Naturals &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
@@ -2230,10 +2262,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
 
       <div class="row mgrid compact">
-        <div class="name">D-Allulose<i>Direct Compression Grade</i></div>
-        <div><span class="fn">Organoleptic<small>Rare sugar &middot; bulking</small></span></div>
-        <div class="dose">300 mg</div>
-        <div class="mech">A rare sugar that tastes sweet but is largely not metabolised for calories, used here as a low-glycemic bulking agent alongside the concentrated sweeteners.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
+        <div class="name">Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract<i>Alvinesa (Spain) / Water-Soluble, 2% Hydroxytyrosol</i></div>
+        <div><span class="fn">Antioxidant<small>Olive polyphenol</small></span></div>
+        <div class="dose">300 mg<small>6 mg hydroxytyrosol</small></div>
+        <div class="mech">A water-soluble olive fruit extract standardised to 2% natural hydroxytyrosol, made by Alvinesa from an olive-oil production by-product. At this dose HONIORA delivers 6 mg of hydroxytyrosol per serving, above the 5 mg/day figure tied to the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress. Hytolive's own clinical study used a more concentrated grade at 150 mg/day, 15 mg hydroxytyrosol/day, so HONIORA's 6 mg/serving clears the EFSA threshold on its own but is 40% of that study's dose, not a match for it.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/40690822/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 40690822 &middot; Moratilla-Rivera 2025 &nearr;</span></a><a class="cite sup" href="https://www.alvinesa.com/en/hytolive-olive-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Alvinesa &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
@@ -2286,7 +2318,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 28 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V7.7-140K-25MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
+    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 28 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V7.9.1-140K-25MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
   </div>
 </section>
 
@@ -2832,10 +2864,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="legal">
       <p><strong>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</strong></p>
-      <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration: contains milk derivative</strong> (VasoDrive-AP<sup class="rn">&reg;</sup> casein lactotripeptides). Certified gluten-free below 5.0 ppm. Manufactured in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
+      <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration: contains milk derivative</strong> (VasoDrive-AP<sup class="rn">&reg;</sup> casein lactotripeptides). Certified gluten-free below 5.0 ppm. Manufactured in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
       <div class="footbottom">
         <span>&copy; 2026 HoniCo New Zealand. All rights reserved.</span>
-        <span>MBR-MN-HONIORA-V7.7-140K-25MM</span>
+        <span>MBR-MN-HONIORA-V7.9.1-140K-25MM</span>
       </div>
     </div>
   </div>
@@ -3072,6 +3104,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeBox(); });
   })();
 
+  /* ---------- founders gift pack lightbox ---------- */
+  (function(){
+    var trigs = document.querySelectorAll('.js-gift-trigger'),
+        box  = document.getElementById('giftLightbox'),
+        close = document.getElementById('giftLightboxClose');
+    if (!trigs.length || !box) return;
+    function openBox(){ box.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeBox(){ box.classList.remove('open'); document.body.style.overflow = ''; }
+    trigs.forEach(function(trig){ trig.addEventListener('click', openBox); });
+    close.addEventListener('click', closeBox);
+    box.addEventListener('click', function(e){ if (e.target === box) closeBox(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeBox(); });
+  })();
+
   /* ---------- Ask Honi assistant ---------- */
   (function(){
     var abtn = document.getElementById('askHoniBtn'),
@@ -3085,7 +3131,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 28 named actives into one effervescent serving, 10,949 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 28 named actives into one effervescent serving, 10,949 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 2 tablets into 300 ml of cold water. The effervescent engine fully dissolves in under 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -3125,15 +3171,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
                {t:"Conti et al. 2004 · IGF-1 as a vascular protective factor",u:"https://doi.org/10.1161/01.CIR.0000144309.87183.FB"},
                {t:"Adasheva & Serebryanaya 2024 · IGF signalling in the heart",u:"https://doi.org/10.1134/S0006297924080042"}]},
       {k:["l-theanine","theanine","alphawave","calm","focus"],
-       a:"L-Theanine (AlphaWave brand) upregulates alpha-wave neural activity and GABA, keeping the formula read as calm focus rather than jittery stimulation. A 28-day randomised, double-blind trial found lower perceived stress and improved sleep and attention. It's dosed at 200 mg.",
+       a:"L-Theanine (AlphaWave brand) upregulates alpha-wave neural activity and GABA, keeping the formula read as calm focus rather than jittery stimulation. A 28-day randomised, double-blind trial found lower perceived stress and improved sleep and attention. A separate crossover trial at HONIORA's exact 200 mg dose found lower subjective stress and lower cortisol after a stressor, though it found no improvement on the cognitive task itself, and the alpha-wave rise it recorded showed up mainly in people with higher trait anxiety. It's dosed at 200 mg.",
        src:"Manufacturer: Ethical Naturals, Inc., headquartered in Novato, California, USA, an NSF GMP-certified ingredient manufacturer specialising in L-theanine and botanical extracts.",
        map:"https://www.google.com/maps/search/?api=1&query=Novato%2C+California%2C+USA",
-       papers:[{t:"Moulin 2024",u:"https://pubmed.ncbi.nlm.nih.gov/38758503/"},{t:"Evans 2021, Neurol Ther",u:"https://doi.org/10.1007/s40120-021-00284-x"}]},
+       papers:[{t:"Moulin 2024",u:"https://pubmed.ncbi.nlm.nih.gov/38758503/"},{t:"Evans 2021, Neurol Ther",u:"https://doi.org/10.1007/s40120-021-00284-x"},{t:"White 2016, Nutrients · 200 mg dose match",u:"https://pubmed.ncbi.nlm.nih.gov/26797633/"}]},
       {k:["braincurrant","blackcurrant","mood"],
        a:"Braincurrant is a freeze-dried whole New Zealand blackcurrant powder, naturally rich in anthocyanins. It's grown in Canterbury, on the South Island, in the belt running from Ashburton down to Omihi, where cool nights off the Southern Alps and long sunshine hours are what the growers credit for the fruit's colour and anthocyanin load. NZ blackcurrant carries real independent research: improved endothelial function, better exercise recovery, improved insulin sensitivity, and eased visual fatigue, each in separate human studies (though the Braincurrant brand itself hasn't been independently trialled, and the supplier's own focus/memory/mood claim isn't independently confirmed). Blackcurrant itself (Ribes nigrum) is native to temperate northern Eurasia, a small, near-black berry naturally high in vitamin C, and it's the anthocyanin pigments giving it that colour that draw most of the research interest. It's dosed at 300 mg.",
        src:"Manufacturer: Anagenix, headquartered in Auckland, New Zealand, built on their Target Bio-Lock whole-fruit science.",
        map:"https://www.google.com/maps/search/?api=1&query=Canterbury%2C+New+Zealand",
        papers:[{t:"PMID 24742818 · Endothelial function",u:"https://pubmed.ncbi.nlm.nih.gov/24742818/"},{t:"PMID 34445035 · Exercise recovery",u:"https://pubmed.ncbi.nlm.nih.gov/34445035/"},{t:"Frontiers Nutr 2019 · Neutrophil function",u:"https://doi.org/10.3389/fnut.2019.00073"},{t:"PMID 32648022 · Insulin sensitivity",u:"https://pubmed.ncbi.nlm.nih.gov/32648022/"},{t:"PMID 11134978 · Dark adaptation",u:"https://pubmed.ncbi.nlm.nih.gov/11134978/"}]},
+      {k:["hytolive","olive","hydroxytyrosol","olive extract","olive polyphenol"],
+       a:"Hytolive Bev is a water-soluble olive fruit extract standardised to 2% natural hydroxytyrosol, made from an olive-oil production by-product rather than a separate crop. It's dosed at 300 mg per serving (150 mg/tab), delivering 6 mg of hydroxytyrosol, above the 5 mg/day figure tied to the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress. Hytolive's own clinical study used a more concentrated 10% grade at 150 mg/day (15 mg hydroxytyrosol/day) and ran 16 weeks in 49 adults with overweight and prediabetes, improving markers like oxidised LDL, protein and DNA oxidative damage, and inflammation (IL-6). HONIORA's 6 mg/serving clears the EFSA threshold on its own, but it's 40% of that clinical study's dose, not a match for it.",
+       src:"Manufacturer: Alvinesa Natural Ingredients, based in Daimiel, in the Ciudad Real province of Spain, which makes Hytolive from a by-product of its own olive oil production.",
+       map:"https://www.google.com/maps/search/?api=1&query=Daimiel%2C+Ciudad+Real%2C+Spain",
+       papers:[{t:"Moratilla-Rivera 2025, Clinical Nutrition · PMID 40690822",u:"https://pubmed.ncbi.nlm.nih.gov/40690822/"}]},
       {k:["landkind","salidroside","rhodiola","adaptogen"],
        a:"Landkind Pure Salidroside is a Rhodiola rosea extract made by precision fermentation rather than field harvesting, standardised to 98%+ purity versus roughly 1% in conventional root extracts, functioning as an adaptogen for everyday stress. It's dosed at 60 mg.",
        src:"Manufacturer: Gnosis by Lesaffre, part of the Lesaffre Group, headquartered in France with over 170 years in fermentation and biotechnology.",

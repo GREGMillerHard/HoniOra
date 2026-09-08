@@ -13,14 +13,50 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v270, updated 2026-09-08. The nav bar is now 40% shorter at every screen width, and the hero section's top padding was re-matched to the new header height so the zero-gap fix from v269 still holds.
+This package is HONIORA_site_v278, updated 2026-09-08. Formula unchanged. This version turns the store section's own gift-pack mention into a working popup link.
 
 Recent changes in this version:
-- Nav bar height cut 40% at all four sizes it's defined at: desktop 104px&rarr;62px, the 1400px hybrid/tablet range 110px&rarr;66px, phones (&le;560px) 88px&rarr;53px, and short-height landscape phones 70px&rarr;42px.
-- The hero section's top padding was recalculated to match each new header height plus its 1px border (63px, 67px, 54px, 43px respectively), so the header-to-ticker gap stays exactly 0px everywhere, same as v269.
-- Checked at 390px, 480px, 560px, 768px, 1000px, 1200px, 1280px, 1366px, 1440px and 1920px, plus the 800&times;420 landscape case: gap still 0.0px at every width, no horizontal overflow, and no nav content (logo, links, hex badges) gets clipped by the shorter bar. Screenshot-confirmed clean on desktop, tablet-width and mobile. Note: the large hex "Reserve Protocol" / "Reserve Test Tube" badges in the roughly 561-1400px tablet range already overflowed past the flat nav bar before this change (that's an existing design choice, not something this edit touched) — they now hang a little further past the shorter bar as a result, but the overlap itself isn't new.
+- "your free HONIORA founders gift pack" in the store section's lede paragraph is now a clickable inline link (gold underline, darkens to ink on hover) that opens the same Founders gift pack popup as the badge added in v275. Both triggers now share one lightbox instance, wired by a class rather than a single id, so either the badge or the inline link opens it.
+- Checked at 390px, 768px and 1440px: no horizontal overflow. Verified both triggers open the popup with a headless browser.
 
-Previous version (v269):
+Previous version (v277):
+- Added Hytolive to the hero marquee ticker (the scrolling strip of headline actives at the top of the page), positioned after S7 and before Landkind: "Hytolive Bev Olive Extract, Antioxidant &middot; Blood lipid protection, 300 mg". This ticker lists every headline branded active by name and dose; Hytolive was omitted when it was first added in v271-v272.
+- Added Hytolive to the AskHoni "what is honiora" summary answer's four-system ingredient breakdown, under Heart, alongside VasoDrive-AP, Careflow and S7.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v276):
+- Monthly Protocol plan card copy: "Yours to keep or to pass to someone you want to bring with you." &rarr; "Enjoy your bonus or share the love."
+- Checked at 390px and 1440px: no horizontal overflow.
+
+Previous version (v275):
+- Added a "Free Founders gift pack" badge to the Monthly Protocol plan card in the store section. It has a gold-outline rollover state (fills gold on hover) and opens a click popup showing the user's supplied product photo (a gift box holding a bee-embossed glass tumbler and a gold HoniOra test tube), with the caption "Founders Subscription: Enjoy your free limited edition HONIORA Founders Bee tumbler and test tube pack." in black at the top of the popup, above the photo. Built on the same lightbox pattern already used for the map image, with its own trigger, image and close button (`founders-gift-pack.jpg`, 640px wide, and `founders-gift-pack-lite.jpg`, 380px wide, for mobile).
+- Checked at 390px, 768px and 1440px: no horizontal overflow. Verified the badge's hover state and the popup open/close behavior with a headless browser.
+
+Previous version (v274):
+- Added White et al. 2016, Nutrients, PMID 26797633, to L-Theanine's citations (AskHoni KB entry and the stack-matrix row), alongside the existing Moulin 2024 and Evans 2021 references. Independently verified via the publisher's own page (PubMed itself returned a CAPTCHA wall to direct fetch): a randomised, double-blind, placebo-controlled crossover trial, 34 healthy adults, at HONIORA's exact 200 mg dose. It found lower subjective stress and lower cortisol after a multitasking stressor, but no cognitive-performance gain on the task itself, and its posterior alpha-wave increase showed up mainly in participants with higher trait anxiety, not correlated with the stress/cortisol drop. Both the KB entry and the stack-row copy state the mixed result plainly rather than only citing the positive finding.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v273):
+- The user supplied HONIORA_MBR_v7.9.1_Hytolive150mg_Corrected.pdf, a corrected version of the v7.9-150mg batch record. Independently re-summed: all 29 BOM lines still total exactly 5,474.50 mg/tab and 766.430 kg batch, unchanged from v7.9-150mg. The only substantive change is Section 3.A's text: it previously overstated Hytolive's yield as "15 mg active hydroxytyrosol per tablet equivalent to human clinical trials" (flagged as a confirmed 5x overstatement in the v7.9 evaluation); it now correctly states "3 mg active hydroxytyrosol per tablet (6 mg per serving)... fully satisfying EFSA blood lipid protection thresholds without clinical dosage equivalency overstatements" &mdash; matching the figure already independently verified and already used in the site copy since v271.
+- Because the site already carried the correct 6 mg/serving figure and never used the clinical-equivalency language, no ingredient copy changes were needed. The only site update is the batch-code placeholder, MBR-MN-HONIORA-V7.9-140K-25MM &rarr; MBR-MN-HONIORA-V7.9.1-140K-25MM, in both locations it appears (stack-matrix footnote, site footer), to match the corrected document now on file. Still a placeholder, not an official Document ID.
+- Checked at 390px and 1440px: no horizontal overflow.
+
+Previous version (v272):
+- Added a dedicated ishot gallery photo tile for Hytolive Bev Olive Extract, positioned after VasoDrive-AP. The product photo the user supplied had a fake baked-in transparency (a checkerboard pattern flattened into the pixels, not a real alpha channel), so it was reprocessed with real AI background removal, then composited onto a warm pastel gold circle disc on a white background, matching every other ingredient photo's circular framing in the scroller (`hytolive_bev_olive.jpg`, 820&times;820, and `hytolive_bev_olive-lite.jpg`, 480&times;480).
+- Added an AskHoni knowledge-base entry for Hytolive (keywords: hytolive, olive, hydroxytyrosol, olive extract, olive polyphenol), with the manufacturer (Alvinesa Natural Ingredients, Daimiel, Ciudad Real, Spain) and an independently-verified supporting citation: Moratilla-Rivera et al. 2025, Clinical Nutrition, PMID 40690822, the RCT behind Hytolive's antioxidant/anti-inflammatory claims (16 weeks, 49 adults with overweight and prediabetes, 15 mg/day hydroxytyrosol from a more concentrated 10% grade). The entry states plainly that HONIORA's 6 mg/serving clears the 5 mg/day EFSA threshold on its own but is 40% of that study's dose, not a match for it.
+- The stack-matrix Hytolive row's citation placeholder ("Ingredient science citation to be added") is now filled in with the same verified PMID 40690822 link plus a link to Alvinesa's own Hytolive product page, and the row copy adds the same honest dose-gap sentence used in the KB entry.
+- Removed an unused, mismatched leftover image (`hytolive.jpg`, an unrelated apple photo from an earlier mismatched upload) that was sitting in the package but never referenced by the page.
+- Checked at 390px, 768px and 1440px: no horizontal overflow, new tile and stack-row citation links render correctly.
+
+Previous version (v271):
+- Stack-matrix table: the D-Allulose row is replaced with Hytolive&reg; Bev Olive Extract, 300 mg/serving (150 mg/tab), Alvinesa (Spain), water-soluble, standardised to 2% natural hydroxytyrosol. Site copy states the honest, independently-verified figure: 6 mg hydroxytyrosol per serving, above the 5 mg/day threshold tied to the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress. No clinical-trial-equivalency language is used, since 6 mg/serving is well under the 15 mg/day dose actually used in Hytolive's cited human study (that study used a different, more concentrated 10% grade, not the 2% Bev grade in this formula).
+- D-Allulose is removed from the formula entirely (0 mg/tab, was 150 mg/tab at v7.7), confirmed by the user as a deliberate decision: thaumatin and glycyrrhizin are stated to provide sufficient sweetness without it.
+- Net effect on tablet spec: NONE. Hytolive's addition and D-Allulose's removal offset exactly, so unit weight (5,474.50 mg/tab), serving weight (10,949 mg), batch mass (766.430 kg) and die diameter (25mm) are all unchanged from the currently-published v7.7 figures. Named ingredient count stays at 28 (Hytolive takes D-Allulose's former slot rather than adding a 29th).
+- Batch-code placeholder updated from MBR-MN-HONIORA-V7.7-140K-25MM to MBR-MN-HONIORA-V7.9-140K-25MM in both locations it appears (stack-matrix footnote, site footer). Still a placeholder, not an official Document ID.
+- Hytolive added to the footer's trademark disclaimer list alongside the formula's other branded ingredients.
+- Checked at 390px, 768px and 1440px: no horizontal overflow, new row renders correctly.
+
+Previous version (v270):
 - The fixed header's true rendered height (navbar height plus its 1px bottom border) didn't match the hero section's top padding at several breakpoints, leaving a visible gap above the `.hrail` ticker. Fixed at four points: the desktop base rule (`padding-top` 134px&rarr;105px, matching the 104px navbar plus 1px border), the 1400px hybrid breakpoint (added `padding-top:111px`, matching that breakpoint's 110px navbar), the 560px phone breakpoint (`padding-top` 88px&rarr;89px, correcting a pre-existing 1px shortfall against the 88px phone navbar), and the short-height landscape breakpoint (added `padding-top:71px`, matching its 70px navbar).
 - Verified at 390px, 480px, 560px, 768px, 1000px, 1280px, 1366px, 1440px and 1920px, plus an 800&times;420 landscape check: the header's bottom edge and the ticker's top edge now sit at the exact same pixel at every width, gap 0.0px throughout, no horizontal overflow anywhere. Screenshot-confirmed clean on desktop (1440px) and mobile (390px): the ticker runs directly under the nav bar with no seam or overlap.
 
