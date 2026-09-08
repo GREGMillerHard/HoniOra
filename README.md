@@ -13,9 +13,21 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v279, updated 2026-09-08. Formula unchanged. This version adds a limited-edition qualifier and footnote to the Founders gift pack copy.
+This package is HONIORA_site_v282, updated 2026-09-08. Formula unchanged. This version is a copy edit only.
 
 Recent changes in this version:
+- Single Pack plan card copy: "Experience immediate benefits" &rarr; "Experience cumulative benefits", resolving the tension with The Protocol section's own framing (benefits build with daily, continual use).
+- Checked at 390px and 1440px: no horizontal overflow.
+
+Previous version (v281):
+- Single Pack plan card copy: "One tube. One week. Experience how good they taste." &rarr; "One tube. One week. Experience immediate benefits and the HONIORA great taste."
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v280):
+- Added Hytolive to "04 / Year round" in The Protocol section, alongside Magnesium Malate/Zinc Bisglycinate and Mānuka/Fiberest HF: "Olive polyphenol antioxidant support at every serving, clearing the EFSA threshold for protecting blood lipids from oxidative stress; the ingredient's own clinical study ran 16 weeks to show its benefits." This was the one narrative section on the site Hytolive hadn't been added to (it isn't a complete ingredient list, just under a dozen of the 28 actives get a timing callout there, so most ingredients including Hytolive don't have an acute onset claim to place in the earlier phases).
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v279):
 - Store section lede paragraph: "plus your free HONIORA founders gift pack" &rarr; "plus your free limited edition* HONIORA founders gift pack" (the asterisk sits inside the existing popup link).
 - Added a fourth storenote line matching the other three: "*Limited edition. Limited to the 1st 500 subscriptions."
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
