@@ -13,9 +13,14 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v278, updated 2026-09-08. Formula unchanged. This version turns the store section's own gift-pack mention into a working popup link.
+This package is HONIORA_site_v279, updated 2026-09-08. Formula unchanged. This version adds a limited-edition qualifier and footnote to the Founders gift pack copy.
 
 Recent changes in this version:
+- Store section lede paragraph: "plus your free HONIORA founders gift pack" &rarr; "plus your free limited edition* HONIORA founders gift pack" (the asterisk sits inside the existing popup link).
+- Added a fourth storenote line matching the other three: "*Limited edition. Limited to the 1st 500 subscriptions."
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v278):
 - "your free HONIORA founders gift pack" in the store section's lede paragraph is now a clickable inline link (gold underline, darkens to ink on hover) that opens the same Founders gift pack popup as the badge added in v275. Both triggers now share one lightbox instance, wired by a class rather than a single id, so either the badge or the inline link opens it.
 - Checked at 390px, 768px and 1440px: no horizontal overflow. Verified both triggers open the popup with a headless browser.
 
