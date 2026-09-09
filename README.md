@@ -3,7 +3,7 @@
 ## What's in this package
 
 - `index.html` — the entire site (markup, CSS, and JS all in one file).
-- Every image, video, and icon file — hero shots, the hero glass video (`hero-glass.mp4`/`.webm` for desktop, `hero-glass-lite.mp4`/`.webm` for the lite site), the "In The Mix" Stack section banner (`matrix-stack-header.jpg`), nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the Rita Rocks feature photos (`rita-ora-feature.jpg` for desktop, `rita-ora-feature-lite.jpg` for the lite site), the Single Pack product shot in the store section (`plan-tube-single.jpg`), the store section's 5-tube gift box hero shot (`hero-packshot-cutout.png` / `hero-packshot-cutout-lite.png`), the HoniBlog Article 01 founder photo (`blog-founder-happy-place.jpg`), Article 02 video still (`blog-rhodiola.jpg`), Article 03 video still (`blog-kiwi-slimland.jpg`), Article 04 video still (`blog-jenerise-womens-health.jpg`), Article 05 video still (`blog-manuka-benefits.jpg`), and all 14 ingredient photos used in the Stack section (including `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
+- Every image, video, and icon file — hero shots, the hero glass video (`hero-glass.mp4`/`.webm` for desktop, `hero-glass-lite.mp4`/`.webm` for the lite site), the "In The Mix" Stack section banner (`matrix-stack-header.jpg`), nav hex buttons, pillar icons, the nav bar wordmark (`honiora-logo.png`), the Mānuka vista banner, the Rita Rocks feature photos (`rita-ora-feature.jpg` for desktop, `rita-ora-feature-lite.jpg` for the lite site), the Single Pack product shot in the store section (`plan-tube-single.jpg`), the store section's 5-tube gift box hero shot (`hero-packshot-cutout.png` / `hero-packshot-cutout-lite.png`), the HoniBlog Article 01 founder photo (`blog-founder-happy-place.jpg`), Article 02 video still (`blog-rhodiola.jpg`), Article 03 video still (`blog-kiwi-slimland.jpg`), Article 04 video still (`blog-jenerise-womens-health.jpg`), Article 05 video still (`blog-manuka-benefits.jpg`), the Jenerise Cr.01 logo in the Creatine Dose section header (`jenerise-cr01-logo.png`), and all 14 ingredient photos used in the Stack section (including `bifidobacterium_adolescentis.jpg`) — sits flat in the same folder as `index.html`, referenced as plain filenames like `hero-glass.jpg` or `cGP-Pro_blackcurrant.jpg`. There is no `ingredients/` subfolder — everything is one level, beside `index.html`.
 
 ## How to host it
 
@@ -13,10 +13,31 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v292, updated 2026-09-09. Copy change: the Creatine section's 3,000 MG stat caption reworded and given a line break.
+This package is HONIORA_site_v297, updated 2026-09-09. Bug fix: a stale pre-reformulation creatine dose (5,000 mg) in the Creatine section body copy.
 
 Recent changes in this version:
-- Copy change: the "05 / The Creatine Dose" section's 3,000 MG stat caption read "Of Cr-01 Creatine per 2 tab serving, the daily dose recommended and taken daily by Steve and Rachael Jennings." Replaced with "Cr-01 Creatine per 2 tab serving, [line break] The dose recommended and taken daily by Steve and Rachael Jennings." at the user's direction: dropped the leading "Of," added a `<br>` so the sentence splits into two lines under the 3,000 MG figure, and simplified "the daily dose" to "The dose" (the "taken daily" phrase already carries the daily-use meaning). Same underlying claim as v290, still not independently verifiable as a real person's stated habit.
+- Bug fix: the "05 / The Creatine Dose" section's body paragraph (below the "What it does" list) read "...At 5,000 mg per serving, HONIORA carries a full daily creatine dose in a format that dissolves rather than requiring a separate powder scoop." 5,000 mg was the pre-v7.7 creatine dose (2,500 mg/tab x 2, the Rev 5.x figure); the current, live formula (v7.9.1) delivers 1,500 mg/tab, 3,000 mg/serving, same as the section's own 3,000 MG stat tile right above this paragraph. User caught the mismatch and supplied the corrected sentence: "...At 3,000 mg per serving, HONIORA delivers a balanced daily creatine dose in a fully dissolved format." Made exactly as specified. Grepped the file afterward: no other "5,000" creatine references remain anywhere on the site. Same lesson as the earlier 7.660g and stat-caption misses: a resync pass focused on stat tiles can leave a plain-prose restatement of the same figure stale in a nearby paragraph.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v296):
+- Copy change: the "05 / The Creatine Dose" section's 3,000 MG stat caption read "Cr-01 Creatine Monohydrate per 2 tab serving, [break] The dose recommended and taken daily [break] by Steve and Rachael Jennings." Replaced with just "Cr-01 Creatine Monohydrate" at the user's direction. The "Ingredient science Jenerise" link added in v295 was kept, now sitting directly under the shortened caption.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v295):
+- New asset: the official Jenerise Cr.01 logo (`jenerise-cr01-logo.png`, 864x864), placed centered between the "05 / The Creatine Dose" eyebrow and the "Introducing Jenerise Cr.01" heading.
+- Copy change: added a link to jenerise.com after the Creatine dose stat's quote, using the site's existing "Ingredient science" supplier-link pattern.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v294):
+- Copy change: the "05 / The Creatine Dose" section's 3,000 MG stat caption read "Cr-01 Creatine per 2 tab serving, [break] The dose recommended and taken daily by Steve and Rachael Jennings." Replaced with "Cr-01 Creatine Monohydrate per 2 tab serving, [break] The dose recommended and taken daily [break] by Steve and Rachael Jennings." at the user's direction.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v293):
+- Bug fix: at 390px and 768px, the "05 / The Creatine Dose" section's stat caption was wrapping "2 tab" onto one line and "serving," onto the next, splitting the phrase mid-unit. Replaced the plain spaces around "tab" in "per 2 tab serving," with non-breaking spaces (`2&nbsp;tab&nbsp;serving`).
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v292):
+- Copy change: the "05 / The Creatine Dose" section's 3,000 MG stat caption read "Of Cr-01 Creatine per 2 tab serving, the daily dose recommended and taken daily by Steve and Rachael Jennings." Replaced with "Cr-01 Creatine per 2 tab serving, [line break] The dose recommended and taken daily by Steve and Rachael Jennings." at the user's direction: dropped the leading "Of," added a `<br>` so the sentence splits into two lines under the 3,000 MG figure, and simplified "the daily dose" to "The dose."
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
 
 Previous version (v291):
