@@ -13,9 +13,18 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v282, updated 2026-09-08. Formula unchanged. This version is a copy edit only.
+This package is HONIORA_site_v284, updated 2026-09-09. Formula unchanged. Removes the fan-out diagram added in v283 from "09 / The Stack" section, since it duplicated the hero's own headline-actives list once that list was corrected.
 
 Recent changes in this version:
+- Removed the "fan-out" diagram (tube + 13 connector-line labels) that v283 added to the top of "09 / The Stack" section. With the hero's own headline-actives list now correctly showing Hytolive (see v283's bug fix below), the same 13-item list appearing twice on the page, once in the hero and again at the top of the Stack section, was redundant. Removed the markup, its CSS rules (`.fanout`, `.fanout-tube`, `.fanout-svg`, `.fanout-list`, `.fanout-cap`, and their mobile breakpoint), and the JS that drew the connector lines. The Stack section now goes straight from the section lede into the data table, as it did before v283.
+- Checked at 390px, 768px and 1440px: no horizontal overflow. Confirmed no leftover references to the removed fanout markup/CSS/JS anywhere in the file, and the section reads cleanly with the removal (no gap or stray spacing where the diagram was).
+
+Previous version (v283):
+- Bug fix: the hero section has its own "headline actives" list (`.hero-actives`, distinct from the scrolling marquee ticker fixed back in v277) that still read "Thaumatin&reg; Talin" instead of Hytolive. This is the first thing on the page, above the fold, so it's very likely what was actually being seen when Hytolive "wasn't displaying." Fixed to "Hytolive&reg; olive extract" in the same position (between Landkind and S7). Grepped the full file afterward to confirm every other Thaumatin mention left on the page is a genuine, still-correct reference to the real Thaumatin Pure Talin ingredient (gallery photo, stack-matrix row, trademark footer, taste-system copy, AskHoni), not a missed duplicate.
+- Added, then removed in v284 (see above): a native HTML/CSS/SVG "fan-out" diagram at the top of "09 / The Stack" section, prompted by the user pasting a separately-supplied marketing graphic (a tube with 13 actives fanned out on leader lines) and asking for it to be rebuilt into the site.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v282):
 - Single Pack plan card copy: "Experience immediate benefits" &rarr; "Experience cumulative benefits", resolving the tension with The Protocol section's own framing (benefits build with daily, continual use).
 - Checked at 390px and 1440px: no horizontal overflow.
 
