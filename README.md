@@ -13,10 +13,20 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v300, updated 2026-09-09. Copy change: item 01's headline in the Creatine "What it does" list joined onto one line, matching the other three items' layout.
+This package is HONIORA_site_v302, updated 2026-09-09. Copy changes: shortened the AskHoni Hytolive answer and tightened the AskHoni creatine-sourcing answer.
 
 Recent changes in this version:
-- Copy change: item 01 in the "What it does" list read with the bold lead split across two lines ("Optimal vitality<br>At every age") followed directly by the description on the same visual line. User supplied the revised structure: bold lead joined into one line ("Optimal vitality at every age"), followed by a line break, then the description starting on its own line. Changed the markup to `<strong>Optimal vitality at every age</strong><br> <span class="d">...</span>`. This also brings item 01 in line with how items 02-04 already read (bold lead, then body text starting on the next line) — verified visually at 390px.
+- Copy change: the AskHoni Hytolive KB entry's answer shortened. Dropped "rather than a separate crop" and removed the entire second half describing Hytolive's own clinical study (10% grade, 150 mg/day, 16-week/49-adult trial results) and the closing "HONIORA's 6 mg/serving clears the EFSA threshold on its own, but it's 40% of that clinical study's dose, not a match for it" comparison. The answer now ends after the EFSA-threshold sentence. Flagging for the record: that closing line was the one place this KB entry told the user HONIORA's dose falls short of the dose used in Hytolive's own cited clinical trial. Removing it doesn't create any factual error (everything that remains is still accurate) but it does drop a piece of dose-honesty context that earlier versions of this project deliberately added.
+- Copy change: the AskHoni creatine KB entry's `src` field ("Raw material: Jenerise Cr.01...") tightened at the user's direction. Removed "by the brand's own account" (so "he also launched Ergomax C150 in 1992" and "the first creatine monohydrate product" now read as a flat claim rather than a hedged one attributed to Jenerise's own marketing) and removed "No city or country HQ is published on their own site." The closing line changed from "No independent published citation has been attached to Cr-01 itself yet, so I won't invent one, though creatine generally is one of the most studied nutrients for cellular energy and healthy aging" to the shorter "Creatine is one of the most studied and trusted nutrients for cellular energy and healthy aging" — this drops the explicit "I won't invent one" caveat that flagged Cr-01 itself has no independent published citation (that fact is still true, it's just no longer stated). Flagging both changes since they remove hedging/caveat language this project had specifically added earlier.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+- Functionally verified with a headless browser: the "Tell me more about Hytolive?" chip and the "How much creatine per serving?" chip both return the exact updated text.
+
+Previous version (v301):
+- Copy change: the AskHoni chat widget's `AH_STARTERS` list (the ten suggested-question chips shown when the panel opens) had one chip labeled "Do you really live near Hobbiton?" that, when clicked, returned the Hytolive Bev answer rather than the real Hobbiton answer already in the AskHoni KB (the AskHoni matcher is a token-overlap search against each KB entry's `k:` keyword list, not a fixed chip-to-answer mapping, so a chip's wording has to actually score highest against the entry it's meant to trigger). User asked to change the chip's label to match what it returns rather than rewire the matching, so it now reads "Tell me more about Hytolive?" Verified functionally with a headless browser: clicking the relabeled chip returns the Hytolive Bev answer, starting "Hytolive Bev is a water-soluble olive fruit extract...". The real Hobbiton KB entry and its own answer are untouched and still reachable by typing a Hobbiton-related question directly.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v300):
+- Copy change: item 01 in the Creatine "What it does" list, bold lead joined onto one line ("Optimal vitality at every age"), matching how items 02-04 already read.
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
 
 Previous version (v299):
