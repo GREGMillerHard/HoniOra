@@ -13,9 +13,21 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v285, updated 2026-09-09. Formula unchanged. Popup behavior fix only.
+This package is HONIORA_site_v288, updated 2026-09-09. Copy change: the shortened manufacturing wording extended to the three remaining spots on the site.
 
 Recent changes in this version:
+- Copy change: the shortened manufacturing phrase introduced in v287 for the AskHoni answer, "manufactured in the USA in an NSF / USP certified GMP facility," now replaces "Made in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP" (and the equivalent "Manufactured in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP") in the three remaining places it appeared: the Pack section body copy, the Pack section's near-identical body copy in the "About the research" panel, and the closing legal disclaimer block. Surrounding text in each (New Zealand provenance ingredients, Prop 65 heavy-metal testing, gluten-free ppm figure, age/pregnancy warnings) was left in place since those are separate facts, not part of the facility-description phrase being shortened. Only the AskHoni map link (Google Maps search for Commack, New York) still ties the site to that specific location; no prose location or CMO name remains anywhere on the page now.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v287):
+- Copy change: the AskHoni KB entry keyed to "manufactur / made / factory / fda / cgmp / gmp" read "HONIORA is manufactured in the USA by Makers Nutrition, at their FDA-registered facility in Commack, New York, on Long Island, under 21 CFR Part 111 cGMP. It's certified gluten-free below 5.0 ppm." Replaced with "HONIORA is manufactured in the USA in an NSF / USP certified GMP facility." at the user's direction. Scoped to this single KB entry only at the time; the fuller wording still appeared in three other places on the site.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v286):
+- Bug fix: "THE UNIT" pinned-horizontal section (the second scrolling element on the page, right after the hero marquee ticker) had its lead panel reading "HONIORA tablets each contain 7.660 grams of full dose potent actives." 7,660 mg was the tablet weight from before the v7.7 reformulation adopted back at v267, when the per-tablet weight was cut to 5,474.50 mg (a 28.5% reduction, smaller 25mm die). Every other tablet-weight reference on the site was resynced at that time (hero-meta stat, pack section, meta description, AskHoni), but this one line in the Unit scroller was missed. Corrected to "5.4745 grams" (5,474.50 mg exactly, no rounding).
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v285):
 - Founders gift pack popup (opened from the store section's "Free Founders gift pack" badge or the "your free limited edition* HONIORA founders gift pack" inline link) now closes on a click anywhere inside it, not just the backdrop. Previously only a click on the dark backdrop itself, the &times; close button, or Escape would close it; a click on the panel, the caption text, or the product photo did nothing. Changed the click handler from backdrop-only (`e.target === box`) to the whole lightbox element, so any click inside closes it. The close button still works the same way (its click bubbles up to the same handler).
 - Checked at 390px, 768px and 1440px: no horizontal overflow. Verified with a headless browser: clicking the product image, the caption text, the close button, and the backdrop all close the popup; Escape still works; both trigger points (badge and inline link) still open it correctly.
 
