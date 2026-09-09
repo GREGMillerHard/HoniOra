@@ -13,10 +13,14 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v291, updated 2026-09-09. Copy change: the Creatine section's "well-studied, well-tolerated dose" list item tightened.
+This package is HONIORA_site_v292, updated 2026-09-09. Copy change: the Creatine section's 3,000 MG stat caption reworded and given a line break.
 
 Recent changes in this version:
-- Copy change: the "05 / The Creatine Dose" section's list item 02 read "A well-studied, well-tolerated dose. Creatine monohydrate and related forms sit behind decades of sports-science research at daily maintenance doses in the 3 to 5 g range. HONIORA delivers 3,000 mg per serving." Replaced with "A well-studied, well-tolerated dose. Creatine monohydrate is backed by extensive research at the 3,000 mg daily serving HONIORA delivers." at the user's direction. This still checks out: HONIORA's 3,000 mg (3 g) serving sits inside the 3-to-5 g maintenance-dose range the original copy cited, so tightening the sentence doesn't introduce a new, unverified claim, it just states the dose without also naming the wider range around it.
+- Copy change: the "05 / The Creatine Dose" section's 3,000 MG stat caption read "Of Cr-01 Creatine per 2 tab serving, the daily dose recommended and taken daily by Steve and Rachael Jennings." Replaced with "Cr-01 Creatine per 2 tab serving, [line break] The dose recommended and taken daily by Steve and Rachael Jennings." at the user's direction: dropped the leading "Of," added a `<br>` so the sentence splits into two lines under the 3,000 MG figure, and simplified "the daily dose" to "The dose" (the "taken daily" phrase already carries the daily-use meaning). Same underlying claim as v290, still not independently verifiable as a real person's stated habit.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v291):
+- Copy change: the "05 / The Creatine Dose" section's list item 02 read "A well-studied, well-tolerated dose. Creatine monohydrate and related forms sit behind decades of sports-science research at daily maintenance doses in the 3 to 5 g range. HONIORA delivers 3,000 mg per serving." Replaced with "A well-studied, well-tolerated dose. Creatine monohydrate is backed by extensive research at the 3,000 mg daily serving HONIORA delivers." at the user's direction. This still checks out: HONIORA's 3,000 mg (3 g) serving sits inside the 3-to-5 g maintenance-dose range the original copy cited.
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
 
 Previous version (v290):
