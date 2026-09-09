@@ -13,10 +13,14 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v288, updated 2026-09-09. Copy change: the shortened manufacturing wording extended to the three remaining spots on the site.
+This package is HONIORA_site_v289, updated 2026-09-09. Copy change: the AskHoni manufacturing answer's map link removed.
 
 Recent changes in this version:
-- Copy change: the shortened manufacturing phrase introduced in v287 for the AskHoni answer, "manufactured in the USA in an NSF / USP certified GMP facility," now replaces "Made in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP" (and the equivalent "Manufactured in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP") in the three remaining places it appeared: the Pack section body copy, the Pack section's near-identical body copy in the "About the research" panel, and the closing legal disclaimer block. Surrounding text in each (New Zealand provenance ingredients, Prop 65 heavy-metal testing, gluten-free ppm figure, age/pregnancy warnings) was left in place since those are separate facts, not part of the facility-description phrase being shortened. Only the AskHoni map link (Google Maps search for Commack, New York) still ties the site to that specific location; no prose location or CMO name remains anywhere on the page now.
+- Copy change: removed the "View on map ↗" link (Google Maps search for Commack, New York) that appeared under the AskHoni "manufactur / made / factory / fda / cgmp / gmp" answer. Deleted the entry's `map:` key entirely rather than blanking it, since the AskHoni render function already skips the map link when the key is absent (`if (map) mlinks.push(...)`), so no other code change was needed. This was the last trace of Commack, New York anywhere on the site; a full-file grep after the edit confirms zero remaining mentions of Commack, Makers Nutrition, or 21 CFR Part 111.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v288):
+- Copy change: the shortened manufacturing phrase introduced in v287 for the AskHoni answer, "manufactured in the USA in an NSF / USP certified GMP facility," now replaces "Made in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP" (and the equivalent "Manufactured in the USA at an FDA-registered facility under 21 CFR Part 111 cGMP") in the three remaining places it appeared: the Pack section body copy, the Pack section's near-identical body copy in the "About the research" panel, and the closing legal disclaimer block. Surrounding text in each (New Zealand provenance ingredients, Prop 65 heavy-metal testing, gluten-free ppm figure, age/pregnancy warnings) was left in place since those are separate facts, not part of the facility-description phrase being shortened.
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
 
 Previous version (v287):
