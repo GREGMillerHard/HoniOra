@@ -3115,8 +3115,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     function openBox(){ box.classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeBox(){ box.classList.remove('open'); document.body.style.overflow = ''; }
     trigs.forEach(function(trig){ trig.addEventListener('click', openBox); });
-    close.addEventListener('click', closeBox);
-    box.addEventListener('click', function(e){ if (e.target === box) closeBox(); });
+    box.addEventListener('click', closeBox);
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeBox(); });
   })();
 
