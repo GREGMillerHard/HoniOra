@@ -13,10 +13,22 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v297, updated 2026-09-09. Bug fix: a stale pre-reformulation creatine dose (5,000 mg) in the Creatine section body copy.
+This package is HONIORA_site_v300, updated 2026-09-09. Copy change: item 01's headline in the Creatine "What it does" list joined onto one line, matching the other three items' layout.
 
 Recent changes in this version:
-- Bug fix: the "05 / The Creatine Dose" section's body paragraph (below the "What it does" list) read "...At 5,000 mg per serving, HONIORA carries a full daily creatine dose in a format that dissolves rather than requiring a separate powder scoop." 5,000 mg was the pre-v7.7 creatine dose (2,500 mg/tab x 2, the Rev 5.x figure); the current, live formula (v7.9.1) delivers 1,500 mg/tab, 3,000 mg/serving, same as the section's own 3,000 MG stat tile right above this paragraph. User caught the mismatch and supplied the corrected sentence: "...At 3,000 mg per serving, HONIORA delivers a balanced daily creatine dose in a fully dissolved format." Made exactly as specified. Grepped the file afterward: no other "5,000" creatine references remain anywhere on the site. Same lesson as the earlier 7.660g and stat-caption misses: a resync pass focused on stat tiles can leave a plain-prose restatement of the same figure stale in a nearby paragraph.
+- Copy change: item 01 in the "What it does" list read with the bold lead split across two lines ("Optimal vitality<br>At every age") followed directly by the description on the same visual line. User supplied the revised structure: bold lead joined into one line ("Optimal vitality at every age"), followed by a line break, then the description starting on its own line. Changed the markup to `<strong>Optimal vitality at every age</strong><br> <span class="d">...</span>`. This also brings item 01 in line with how items 02-04 already read (bold lead, then body text starting on the next line) — verified visually at 390px.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v299):
+- Moved content: the "Optimal vitality / At every age" callout added in v298 to the section header moved to position 01 of the "What it does" list. Renumbered the three existing items 01/02/03 to 02/03/04.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v298):
+- Copy addition: added the "Optimal vitality / At every age" callout to the "05 / The Creatine Dose" section header, after the two existing lede paragraphs.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v297):
+- Bug fix: the "05 / The Creatine Dose" section's body paragraph read "...At 5,000 mg per serving..."; corrected to 3,000 mg, matching the adopted v7.9.1 formula and the section's own stat tile.
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
 
 Previous version (v296):
