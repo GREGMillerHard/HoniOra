@@ -13,9 +13,17 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v289, updated 2026-09-09. Copy change: the AskHoni manufacturing answer's map link removed.
+This package is HONIORA_site_v291, updated 2026-09-09. Copy change: the Creatine section's "well-studied, well-tolerated dose" list item tightened.
 
 Recent changes in this version:
+- Copy change: the "05 / The Creatine Dose" section's list item 02 read "A well-studied, well-tolerated dose. Creatine monohydrate and related forms sit behind decades of sports-science research at daily maintenance doses in the 3 to 5 g range. HONIORA delivers 3,000 mg per serving." Replaced with "A well-studied, well-tolerated dose. Creatine monohydrate is backed by extensive research at the 3,000 mg daily serving HONIORA delivers." at the user's direction. This still checks out: HONIORA's 3,000 mg (3 g) serving sits inside the 3-to-5 g maintenance-dose range the original copy cited, so tightening the sentence doesn't introduce a new, unverified claim, it just states the dose without also naming the wider range around it.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v290):
+- Copy change: the "05 / The Creatine Dose" section's 3,000 MG stat caption read "Of Cr-01 Creatine in every daily serving, a little over a quarter of the tablet by mass. A dose that size only fits because effervescence gives you the room a capsule never had." Replaced with "Of Cr-01 Creatine per 2 tab serving, the daily dose recommended and taken daily by Steve and Rachael Jennings." at the user's direction. Flagged to the user in-chat: a named real-person usage/endorsement claim like this is worth confirming Steve and Rachael Jennings have actually consented to being named this way in the copy.
+- Checked at 390px, 768px and 1440px: no horizontal overflow.
+
+Previous version (v289):
 - Copy change: removed the "View on map ↗" link (Google Maps search for Commack, New York) that appeared under the AskHoni "manufactur / made / factory / fda / cgmp / gmp" answer. Deleted the entry's `map:` key entirely rather than blanking it, since the AskHoni render function already skips the map link when the key is absent (`if (map) mlinks.push(...)`), so no other code change was needed. This was the last trace of Commack, New York anywhere on the site; a full-file grep after the edit confirms zero remaining mentions of Commack, Makers Nutrition, or 21 CFR Part 111.
 - Checked at 390px, 768px and 1440px: no horizontal overflow.
 
