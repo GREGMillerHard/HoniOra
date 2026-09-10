@@ -408,6 +408,15 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    spans (several of which hold more than one forced line via <br>, like precede-lead's
    UPGRADE/YOUR/RITUAL) accidentally left-aligned at some screen width. */
 .hero .eyebrow,.hero h1,.hero-tag,.hero-precede{text-align:center}
+/* "Born in New Zealand > Made in USA" must always read as one line, never wrap --
+   .hero .eyebrow's own white-space:normal (needed for other, longer hero eyebrows)
+   would otherwise let it break across two lines on narrow screens. Forced nowrap
+   here (id beats the class rule on specificity alone, no !important needed), paired
+   with the same measure-real-width-and-shrink-only JS safety net used elsewhere in
+   this hero (fitOneLine('bornMadeLine', ...) in the script below) so it shrinks just
+   enough to keep fitting instead of overflowing the column once nowrap stops it from
+   wrapping. */
+#bornMadeLine{white-space:nowrap}
 .hero h1 .thin{display:block;font-style:italic;color:var(--gold);font-size:.4em;letter-spacing:0;margin-top:.13em}
 /* never wraps: sized off the width of the hero copy column */
 .hero-tag{margin-top:15px;font-size:min(2.24vw,31px);font-weight:700;color:var(--ink);
@@ -928,11 +937,25 @@ textarea{resize:vertical;min-height:64px}
   background:var(--paper);border-radius:4px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);
   transform:scale(.97) translateY(8px);transition:transform .3s ease;overflow:hidden}
 .askhoni-modal.open .askhoni-panel{transform:scale(1) translateY(0)}
-.askhoni-head{position:relative;padding:14px 54px 12px 20px;border-bottom:1px solid var(--line);background:var(--paper-2)}
-.askhoni-title{font-family:'Fraunces',Georgia,serif;font-size:17px;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;gap:8px}
-.askhoni-sub{margin-top:4px;font-size:12px;line-height:1.45;color:var(--ink-2);font-weight:300}
-.askhoni-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;
-  background:transparent;border:1px solid var(--line);color:var(--ink);font-size:20px;line-height:1;cursor:pointer;
+/* head height cut ~40% from its original 14px/12px padding + 17px title + 12px/1.45
+   two-line sub (was ~93px measured, desktop and lite alike): tighter padding, a
+   smaller title, and a tighter sub line-height/margin get it to ~55-58px without
+   dropping either line below a legible size. .askhoni-close's own top offset is
+   pulled in to match, so it stays vertically balanced against the shorter head
+   rather than floating high above centre. */
+.askhoni-head{position:relative;padding:5px 54px 4px 20px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+/* justify-content:center alone only centers within askhoni-title's own box, and
+   that box inherits the head's asymmetric padding (20px left, 54px right, the
+   54 reserved so askhoni-sub's longer text clears the close button) -- centered
+   within that box lands ~17px left of the head's true centre, not centred on the
+   header as a whole. The negative right margin here cancels exactly that 34px
+   padding difference, widening the title's box back to a true 20px/20px frame
+   so centering inside it centers on the real header/panel centre instead.
+   askhoni-sub is untouched and keeps the full clearance it needs. */
+.askhoni-title{font-family:'Fraunces',Georgia,serif;font-size:14px;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:6px;margin-right:-34px}
+.askhoni-sub{margin-top:1px;font-size:10px;line-height:1.22;color:var(--ink-2);font-weight:300}
+.askhoni-close{position:absolute;top:5px;right:14px;width:26px;height:26px;border-radius:50%;
+  background:transparent;border:1px solid var(--line);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;
   transition:background .25s,color .25s}
 .askhoni-close:hover{background:var(--ink);color:#fff}
 .askhoni-thread{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
@@ -1536,7 +1559,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>RITUAL</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
-      <p class="eyebrow rv" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
+      <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
       <ul class="keyact flat hero-actives rv">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
         <li>Cr-01 Creatine Monohydrate</li>
@@ -2937,6 +2960,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        matchHeroTagWidth() below, which measures this element's *current* rendered
        size, so a shrink here is what the tag then matches. */
     fitOneLine('heroWordmark', 32);
+    /* "Born in New Zealand > Made in USA" is forced to a single line via
+       #bornMadeLine{white-space:nowrap} in the CSS above; without a shrink-to-fit
+       safety net that nowrap would just overflow the column on narrow screens
+       instead of wrapping. 8px matches precedeHuge's floor -- still legible as
+       fine print at the letter-spacing this eyebrow style uses. */
+    fitOneLine('bornMadeLine', 8);
   };
 
   /* On desktop, "MĀNUKA CREATINE PROTOCOL" matches the exact rendered pixel
@@ -3411,7 +3440,23 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       }
       d.innerHTML = html + extra;
       athread.appendChild(d);
-      athread.scrollTop = athread.scrollHeight;
+      /* A long bot answer is taller than the visible thread, so jumping straight to
+         scrollHeight (the very bottom) scrolls past the start of the reply -- the
+         reader lands on its last lines with no way to tell the top was skipped.
+         For a bot message, scroll just far enough that the message's own top edge
+         sits at the top of the visible thread instead, so every reply is always
+         read from its beginning. getBoundingClientRect (not offsetTop) is used so
+         this doesn't depend on which ancestor ends up as the positioned offsetParent.
+         The user's own question is short and always fits, so it keeps the normal
+         scroll-to-bottom behaviour, which is what keeps it visible while the bot's
+         reply is still pending. */
+      if (who === 'bot'){
+        var threadTop = athread.getBoundingClientRect().top;
+        var msgTop = d.getBoundingClientRect().top;
+        athread.scrollTop += (msgTop - threadTop);
+      } else {
+        athread.scrollTop = athread.scrollHeight;
+      }
     }
     function ahRespond(query){
       var m = ahMatch(query);
