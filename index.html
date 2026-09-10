@@ -1534,7 +1534,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="wrap hero-grid">
     <div>
       <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>RITUAL</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
-      <h1 class="serif rv hero-logo">HONI<span>ORA</span></h1>
+      <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
       <ul class="keyact flat hero-actives rv">
@@ -2922,6 +2922,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        part of the desktop range (just above the 1400px breakpoint) ever needs it;
        by ~1900px+ it's back up near its normal 22px size. */
     fitOneLine('precedeHuge', 8);
+    /* the HONIORA wordmark's clamp(60px,10.6vw,152px) is sized off the *viewport*,
+       not the actual copy column it sits in -- at viewport widths just above the
+       1400px lite breakpoint, the fixed 430px hero-lower right-padding plus the
+       62.7%-wide image column can squeeze that copy column down to ~300px while
+       the wordmark's vw formula is still nowhere near its 60px floor, so at those
+       widths the wordmark overflows its column and, unlike precedeLead/precedeHuge
+       above, had nothing stopping it from rendering past its box -- since it isn't
+       wrapped in a table like .precede-table, the overflow doesn't stay centered
+       in place, it grows the box rightward from the shared left edge, breaking
+       the shared center line every other hero line sits on. Same shrink-only,
+       measure-real-width safety net as the two lines above; 32px keeps it reading
+       as a wordmark rather than body text even at its smallest. Runs before
+       matchHeroTagWidth() below, which measures this element's *current* rendered
+       size, so a shrink here is what the tag then matches. */
+    fitOneLine('heroWordmark', 32);
   };
 
   /* On desktop, "MĀNUKA CREATINE PROTOCOL" matches the exact rendered pixel
