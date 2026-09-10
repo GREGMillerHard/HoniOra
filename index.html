@@ -464,11 +464,45 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .keyact.flat{grid-template-columns:1fr}
 .keyact.flat li{font-style:normal;font-size:clamp(12.5px,1vw,14.5px);letter-spacing:.005em;
   color:var(--ink-soft);font-weight:700;position:relative;padding-left:18px}
-.keyact.flat li::before{content:"";position:absolute;left:0;top:.6em;width:9px;height:1px;background:var(--gold)}
+.keyact.flat li::before{content:"";position:absolute;left:0;top:.694em;width:9px;height:1px;background:var(--gold)}
+/* .694em, not the round-number .6em this was authored with -- measured against the
+   actual rendered text (Range.getBoundingClientRect on each li's own text node,
+   see the hero-keylines script), the text's true vertical center sits at .694em
+   down from the li's top edge, not .6em. Small (about 1.3px at this font-size) but
+   consistent on every row, so at a glance across the whole list it reads as every
+   tick and gold line sitting slightly high of the text it points to. */
+@media(min-width:1001px){
+  .keyact.flat li::before{display:none}
+  /* (v311) desktop only -- above the 1000px breakpoint the hero-keylines SVG path
+     itself now draws this exact short mark as the tail end of its one continuous
+     curve (see TICK_LEN in that script), rather than stopping short of it and
+     leaving this separate, differently-styled CSS dash to cover the last 9px.
+     Two abutting elements at slightly different sub-pixel positions AND different
+     stroke weights/opacity (this dash was fully opaque; the SVG line runs at .62
+     opacity) read as a visible kink where they met, however precisely their
+     endpoints lined up -- drawing the whole mark as one stroke removes the seam
+     entirely rather than chasing ever-closer alignment between two separate
+     pieces. Mobile/lite keeps this CSS dash since it never gets an SVG line. */
+}
 /* the hero's own ingredient list is the only .keyact on the page and doesn't want
    the component's default 2px solid left border -- the gold keylines fan already
    marks that edge, so the border on top of it just reads as one heavy double line */
 .hero-actives{border-left:0;padding-left:0}
+/* ingredient list scroll-in: each <li> now reveals individually (rather than
+   the whole <ul> fading in as one block via the site-wide .rv class, which is
+   deliberately no longer on this <ul> -- see the hero-keylines script near
+   the end of the page) so the ingredient text appears in the same left-to-
+   right, top-to-bottom sequence, and on the same per-item stagger delay, as
+   the gold keylines already fanning out to each one. .active-in is toggled
+   by that same script, reusing its IntersectionObserver so both effects
+   stay perfectly in sync. Desktop-only, matching the keylines themselves
+   (see mqLite in that script) -- the lite/mobile media query below forces
+   the list fully visible with no animation there. */
+.hero-actives li{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.hero-actives li.active-in{opacity:1;transform:none}
+@media(max-width:1000px){
+  .hero-actives li{opacity:1;transform:none;transition:none}
+}
 /* gold keylines: thin animated connectors running from each active ingredient
    back to the tube's cap end, drawn in one by one as the visitor scrolls back UP
    through the hero (see the hero-keylines script near the end of the page).
@@ -500,7 +534,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .sec.deep h2,.sec.deep h3,.sec.deep h4{color:#F3F1E8}
 .sec.deep .lede{color:#B9BBAD}
 .sec-head{margin-bottom:56px}
-.cr01-logo{display:block;width:clamp(72px,9vw,104px);height:auto;margin:18px auto 0;border-radius:14px}
+.cr01-logo{display:block;width:clamp(144px,18vw,208px);height:auto;margin:18px auto 0;border-radius:14px} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px) */
 .sec-head h2{font-size:clamp(34px,5.4vw,68px);margin:18px 0 22px;max-width:20ch}
 .sec-head h2 em{font-style:italic;color:var(--gold)}
 /* headline that must never wrap: scales purely with viewport width */
@@ -586,7 +620,9 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-size:clamp(16px,1.9vw,29px);letter-spacing:-.016em;color:var(--ink);line-height:1.15}
 .upanel::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ink);flex:none}
 .upanel.lead{color:var(--ink)}
-.upanel.lead::before{width:12px;height:12px;background:var(--ink)}
+/* (v313) this used to bump the lead rows' dots to 12px, which is exactly the
+   "dots aren't the same size" mismatch reported on the lite site -- every dot
+   is the plain 8px .upanel::before above now, lead or not. */
 .unit-bar{height:2px;background:var(--line);width:min(300px,60vw);overflow:hidden}
 .unit-bar i{display:block;height:100%;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
 /* fallback when GSAP is unavailable or on small screens */
@@ -594,9 +630,29 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .unit.static .unit-vp{overflow:visible;padding:8px 0 0;border-bottom:0}
 .unit.static .unit-track{flex-direction:column;align-items:stretch;transform:none !important;padding:0 var(--pad);gap:0;width:100%}
 .unit.static .upanel{white-space:normal;border-bottom:1px solid var(--line);padding:19px 0;
-  font-size:clamp(17px,4.4vw,23px);align-items:flex-start}
-.unit.static .upanel::before{margin-top:.55em}
+  font-size:clamp(17px,4.4vw,23px);align-items:flex-start;
+  transition:color .4s ease}
+.unit.static .upanel::before{margin-top:.55em;transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .unit.static .unit-bar{display:none}
+/* (v313) lite-site scroll highlight: the desktop pinned scroll gives each
+   panel a "focus" cue as it passes; the static stacked list had nothing
+   equivalent. .upanel.active is toggled by the IntersectionObserver further
+   down as each row crosses a band near the middle of the screen, and is
+   removed again once the next row takes over -- expanding/highlighting the
+   line, then shrinking it back exactly as asked. Kept to a transform (not a
+   font-size change) so it never triggers a layout reflow of the rows below. */
+.unit.static .upanel.active{color:var(--gold-deep);transform:scale(1.045);transform-origin:0 50%}
+.unit.static .upanel.active::before{transform:scale(1.6)}
+/* (v313) lite-site ingredient icons: slide in from alternating sides as the
+   visitor scrolls each one into view. Guarded behind .pre-anim, which only
+   ever gets added by JS once it has confirmed IntersectionObserver support
+   and that reduced-motion is off -- if that script never runs, the icons
+   keep the plain always-visible rule above them and nothing is ever stuck
+   hidden. */
+.unit.static .ishot.pre-anim{opacity:0;transform:translateX(-34px);
+  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.unit.static .ishot.pre-anim:nth-child(even){transform:translateX(34px)}
+.unit.static .ishot.pre-anim.in{opacity:1;transform:none}
 
 
 /* ---------- problem ---------- */
@@ -1143,7 +1199,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      it on the right, and it renders visibly left of true centre. margin-right cancels
      that reserved space back out so this column's own box spans the full width, then
      its own symmetric padding centres the glass for real. */
-  .hero-img-col{order:1;flex:0 0 auto;max-width:none;margin-right:calc(-1 * var(--pad));padding:22px 20px 2px;gap:10px}
+  .hero-img-col{order:1;flex:0 0 auto;max-width:none;margin-right:calc(-1 * var(--pad));padding:22px 20px 2px;gap:4px}
+  /* (v312) gap tightened from 10px to 4px, and the tube's own top margin below
+     brought in from 22px to 4px -- together these are what pull the tube up
+     close under the glass, at the user's request. See the tube/headline
+     comment further down for why this also matters for getting "UPGRADE"
+     itself on screen without scrolling. */
   .hero-img-col img,.hero-img-col video{object-position:center center;margin:0 auto}
   .hero-img-col{transform:none}
   /* 285px * 1.75 = 499px, then 499px * 0.8 = 399px, the target. Capped against the
@@ -1157,8 +1218,16 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      tied to the same glass-height formula so it scales together with it, then laid
      on its side (rotated), with equal margin above and below to centre it in the
      gap before the headline copy that follows */
-  .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:22px 0}
-  .hero-grid{order:2;transform:none;padding-top:8px}
+  .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:4px 0 8px}
+  /* (v312) margin was 22px 0 (equal above/below, centring the tube in a bigger gap).
+     Now 4px above (close under the glass) and 8px below (still separates it from the
+     headline that follows, just not by as much) -- combined with the tighter flex
+     gap above and .hero-grid's own reduced padding-top just below, this and the
+     glass-to-tube change together are what bring "UPGRADE" (the first line of the
+     headline) up onto screen without scrolling on a real phone viewport, which is
+     shorter in practice than its CSS width/height alone suggests once the browser's
+     own address bar is accounted for. */
+  .hero-grid{order:2;transform:none;padding-top:0}
   .hero-lower .hero-grid{padding-left:var(--pad);padding-right:var(--pad)}
   .hero-pillars{order:3;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
   .hero-grid,.prob-grid,.ritual-grid,.formgrid{grid-template-columns:1fr}
@@ -1377,6 +1446,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .rv{opacity:1;transform:none}
   .pillar[data-edge] .pillar-body{opacity:1;transform:none}
   .pillar-icon[data-edge]{opacity:1;transform:none}
+  .hero-actives li{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -1560,12 +1630,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
-      <ul class="keyact flat hero-actives rv">
+      <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
         <li>Cr-01 Creatine Monohydrate</li>
+        <li>Balanced Hydration Matrix electrolytes</li>
         <li>Livaux<sup class="rn">&reg;</sup> gold kiwi</li>
         <li>Feiolix<sup class="rn">&reg;</sup> feijoa</li>
         <li>Braincurrant<sup class="rn">&reg;</sup></li>
+        <li>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</li>
         <li>cGP-Pro<sup class="rn">&reg;</sup> blackcurrant</li>
         <li>VasoDrive-AP<sup class="rn">&reg;</sup> peptide</li>
         <li>Careflow<sup class="rn">&reg;</sup> mango</li>
@@ -3973,6 +4045,109 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   }, 4000);
 })();
 
+/* ---------- 'The unit' lite-site static-list scroll highlight (v313) ----------
+   .unit.static is what renders on the lite site (<=1000px, or the true
+   GSAP/reduced-motion fallback at any width) -- a plain stacked list with no
+   scroll-linked cue at all, unlike the desktop pinned scroll's focus/scale
+   effect above. Whichever .upanel row's own centre is closest to the
+   vertical middle of the screen gets .active (highlighted/expanded, see the
+   CSS above); every other row has it removed in the same pass, so exactly
+   one line is ever highlighted at a time and it shrinks back the instant
+   focus moves to the next one -- the same "closest to the mid-line wins"
+   approach the ingredient-icon focus effect above already uses, just driven
+   by page scroll instead of the pinned GSAP scrub. An IntersectionObserver
+   on the section itself gates the scroll listener so this does no work
+   while the section is off-screen. Scoped to .unit.static so it never fires
+   while the desktop pinned mechanic owns the section, and skipped entirely
+   under prefers-reduced-motion. */
+(function(){
+  'use strict';
+  try {
+    var unitEl = document.querySelector('.unit');
+    var panels = unitEl ? Array.prototype.slice.call(unitEl.querySelectorAll('.unit-track .upanel')) : [];
+    /* watch the panel list's own wrapper, not the whole (much taller) .unit
+       section -- .unit also contains the ingredient-icon band further down,
+       so gating on .unit itself kept the last panel "active" long after the
+       list had scrolled out of view, for as long as the icon grid below it
+       was still on screen. */
+    var trackVp = unitEl ? (unitEl.querySelector('.unit-vp') || unitEl) : null;
+    if (!unitEl || !trackVp || !panels.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function isStatic(){ return unitEl.classList.contains('static'); }
+    function clearActive(){ panels.forEach(function(p){ p.classList.remove('active'); }); }
+
+    var nearViewport = false, queued = false;
+    function mark(){
+      queued = false;
+      if (!nearViewport || !isStatic()){ clearActive(); return; }
+      var mid = window.innerHeight * 0.5, best = null, bestD = Infinity;
+      panels.forEach(function(p){
+        var r = p.getBoundingClientRect();
+        var d = Math.abs((r.top + r.height / 2) - mid);
+        if (d < bestD){ bestD = d; best = p; }
+      });
+      panels.forEach(function(p){ p.classList.toggle('active', p === best); });
+    }
+    function queueMark(){
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(mark);
+    }
+
+    if ('IntersectionObserver' in window){
+      var vis = new IntersectionObserver(function(entries){
+        nearViewport = entries[0].isIntersecting;
+        queueMark();
+      }, { rootMargin: '20% 0px 20% 0px' });
+      vis.observe(trackVp);
+    } else {
+      nearViewport = true; // no IO support: just always evaluate on scroll
+    }
+
+    window.addEventListener('scroll', queueMark, { passive: true });
+    window.addEventListener('resize', queueMark, { passive: true });
+    queueMark();
+  } catch (e) {
+    console.warn('[unit-static-highlight] skipped', e);
+  }
+})();
+
+/* ---------- 'The unit' lite-site ingredient icon slide-in (v313) ----------
+   Same .unit.static context as just above, this time for the ingredient
+   icon grid: each .ishot slides in from alternating sides as it scrolls
+   into view, instead of the flat "just appears" static rendering. Adds
+   .pre-anim itself (rather than baking the hidden start state into CSS
+   unconditionally) so a script failure or missing IntersectionObserver
+   support leaves the icons on the always-visible fallback rule instead of
+   stuck invisible. Each icon reveals once and stays revealed. */
+(function(){
+  'use strict';
+  try {
+    var unitEl = document.querySelector('.unit');
+    var shots = document.querySelectorAll('.iband-track .ishot');
+    if (!unitEl || !shots.length || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function isStatic(){ return unitEl.classList.contains('static'); }
+
+    Array.prototype.forEach.call(shots, function(s){ s.classList.add('pre-anim'); });
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting && isStatic()){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+    Array.prototype.forEach.call(shots, function(s){ io.observe(s); });
+  } catch (e) {
+    console.warn('[unit-static-ishot-reveal] skipped', e);
+  }
+})();
+
 /* ---------- hero glass video: a real, much lighter file for the lite site ----------
    The lite site was slow to load, and the tube, the M&#257;nuka banner and Rita Rocks
    (all further down the page) were slow to appear, because this video was pulling
@@ -3988,8 +4163,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    lite file is now light enough not to be a problem. */
 
 /* ---------- hero keylines: gold connectors, tube to each active ingredient,
-   drawn in sequentially as the visitor scrolls back UP through the hero.
-   Plain vanilla JS/CSS only (IntersectionObserver + a CSS transition), no
+   drawn in sequentially as the ingredient list itself scrolls into view, AND
+   (as of v305) the ingredient list itself loading in on that same stagger --
+   each <li>'s text fades/slides up right as its own gold line finishes
+   drawing to it, via the .active-in class toggled alongside the paths below.
+   (as of v306) the trigger watches the list, not the whole hero block, so on
+   a normal-height screen the reveal waits for the visitor to scroll down to
+   the list instead of firing while they're still reading the headline above
+   it. Plain vanilla JS/CSS only (IntersectionObserver + a CSS transition), no
    external library. Whole thing is wrapped in try/catch so a failure here
    can never take out anything else on the page, and logs to the console so
    it's diagnosable instead of just silently doing nothing. */
@@ -3999,8 +4180,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   var container = document.querySelector('.hero-lower');
   var tube = container && container.querySelector('.hero-tube-shot');
+  var actives = container && container.querySelector('.hero-actives');
   var items = container ? container.querySelectorAll('.hero-actives li') : [];
-  if (!container || !tube || !items.length){
+  if (!container || !tube || !actives || !items.length){
     console.warn('[hero-keylines] required elements not found, skipping');
     return;
   }
@@ -4017,17 +4199,39 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var svg, paths = [];
   var SVGNS = 'http://www.w3.org/2000/svg';
   var STAGGER_MS = 90;
+  var TICK_LEN = 9; // (v311) matches the CSS dash's own width -- see where it's added below
 
   /* measures the tube's real cap-end position and each ingredient's real
-     position -- reading the ACTUAL computed position of that ingredient's own
-     small gold tick (.keyact.flat li::before) straight from the browser
-     rather than assuming a fixed offset, so every line lands exactly on its
-     ingredient even if that tick's own CSS ever changes -- and (re)builds one
-     curved path per ingredient between them, in the coordinate space of
-     .hero-lower itself (already position:relative). Re-run on resize/load/
-     fonts-ready since both the row layout (side-by-side) and the stacked
-     mobile/lite layout put these elements in very different real positions,
-     and web fonts loading late can nudge that position after first paint. */
+     position, and (re)builds one curved path per ingredient between them, in
+     the coordinate space of .hero-lower itself (already position:relative).
+     Re-run on resize/load/fonts-ready since both the row layout (side-by-
+     side) and the stacked mobile/lite layout put these elements in very
+     different real positions, and web fonts loading late can nudge that
+     position after first paint.
+     (v309) each line's endpoint is measured straight off the ingredient's own
+     TEXT (a Range around its first text node, see readTextCenterY below), not
+     off the little gold tick's (.keyact.flat li::before) computed CSS `top`
+     as earlier versions did. That pseudo-element read was one legitimate way
+     to do it, but it means "does the line land on the text" was only ever as
+     correct as "does the tick's own top:Nem value happen to match where the
+     text actually sits" -- and it didn't, by about .09em (~1.3px), on every
+     row, the kind of small-but-real gap that gets more visible zoomed in on a
+     real screen than it does in a quick headless check. Reading the text's
+     own real rendered position removes that gap entirely, by construction,
+     regardless of what the tick's own CSS says -- the tick's CSS (above) was
+     separately corrected to the same measured value so it still visually
+     sits on the line's endpoint, not because the line depends on it. */
+  function readTextCenterY(li){
+    var walker = document.createTreeWalker(li, NodeFilter.SHOW_TEXT);
+    var tn = walker.nextNode();
+    if (!tn) return null;
+    var range = document.createRange();
+    range.selectNodeContents(tn);
+    var rects = range.getClientRects();
+    if (!rects || !rects.length) return null;
+    var r = rects[0]; // first line of text, in case a long item name wraps
+    return r.top + r.height / 2;
+  }
   function build(){
     var containerRect = container.getBoundingClientRect();
     var w = container.offsetWidth, h = container.offsetHeight;
@@ -4049,35 +4253,52 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     /* first pass: read every ingredient's real (ex,ey) tick position before building
        any paths, so the shared vertical spine's top/bottom cap ticks (below) know the
-       true top-most and bottom-most row height to span, rather than an assumed range. */
+       true top-most and bottom-most row height to span, rather than an assumed range.
+
+       (v309) PRE_REVEAL_DROP_PX corrects for a second, larger alignment bug found
+       alongside the tick-offset one above: a not-yet-revealed <li> sits under
+       transform:translateY(10px) (see .hero-actives li in the CSS), which shifts
+       its real, measured position down by 10px -- getBoundingClientRect/Range
+       measurements both include the transform, so build() was capturing that
+       10px-too-low PRE-reveal position for any item not revealed yet. Nothing
+       forced a re-measure the instant an item's own reveal transition finished,
+       only later, generic rebuild triggers (a resize, fonts loading, etc.) or a
+       deferred catch-up rebuild timed to fire once the whole staggered reveal is
+       done -- so every line sat visibly 10px low of its own text for the several
+       seconds the reveal was still playing, only snapping to correct afterwards.
+       Subtracting this known, fixed offset for any item that hasn't reached
+       .active-in yet means build() always targets the item's FINAL resting
+       position, so the line is correctly placed from the very first frame it's
+       visible, not just eventually. Keep this in sync with the CSS value. */
+    var PRE_REVEAL_DROP_PX = 10;
     var pts = [];
     Array.prototype.forEach.call(items, function(li){
       var liRect = li.getBoundingClientRect();
-      var tickTop, tickLeft;
-      try {
-        var tick = getComputedStyle(li, '::before');
-        tickTop = parseFloat(tick.top);
-        tickLeft = parseFloat(tick.left);
-      } catch (e) { /* some engines don't support pseudo-element computed styles */ }
-      if (isNaN(tickTop)) tickTop = parseFloat(getComputedStyle(li).fontSize) * 0.6;
-      if (isNaN(tickLeft)) tickLeft = 0;
+      var textCenterY = null;
+      try { textCenterY = readTextCenterY(li); } catch (e) { /* fall through to the estimate below */ }
+      var ey = (textCenterY != null && !isNaN(textCenterY))
+        ? textCenterY - containerRect.top
+        : liRect.top - containerRect.top + parseFloat(getComputedStyle(li).fontSize) * .694; // matches the tick's own CSS top, see above
+      if (!li.classList.contains('active-in')) ey -= PRE_REVEAL_DROP_PX;
       pts.push({
-        ex: liRect.left - containerRect.left + tickLeft,   // the exact spot the ingredient's own gold tick sits on
-        ey: liRect.top - containerRect.top + tickTop
+        ex: liRect.left - containerRect.left,   // matches the tick's CSS left:0 exactly -- no ambiguity to measure there
+        ey: ey
       });
     });
     /* each ingredient's line fans straight out from the single point at the
        tube's cap end to that ingredient's own tick -- a classic single-point
        starburst, matching the reference mock, with no separate bracket/bar
-       drawn at the list end: the lines' own endpoints, landing exactly on
-       each ingredient's real tick position, are the only thing marking that
-       edge. ex/ey are read fresh off the actual layout on every build(), so
-       the endpoint tracks the true tick position (including any sub-pixel
-       rounding the browser applies to that row) rather than an assumed
-       constant -- that's what keeps every line landing exactly on its own
-       ingredient instead of drifting off by a fraction of a pixel. */
+       drawn at the list end. p.ex/p.ey (the text's own real left/center
+       position, read fresh off the actual layout on every build()) are the
+       exact spot the tick used to mark -- the path drawn below runs TICK_LEN
+       past that point, matching the length the CSS dash used to cover on
+       its own, so the curve's own tail now IS that mark, at the curve's own
+       stroke-width and opacity throughout, rather than handing off to a
+       separately-styled element for the last few pixels. (v311: this is why
+       the CSS dash is hidden on desktop above -- drawing it twice, once as
+       part of this path and once as that dash, would double it up.) */
     pts.forEach(function(p, i){
-      var ex = p.ex, ey = p.ey;
+      var ex = p.ex + TICK_LEN, ey = p.ey;
       var midX = ax + (ex - ax) * 0.5;
       var d = 'M' + ax + ',' + ay + ' C' + midX + ',' + ay + ' ' + midX + ',' + ey + ' ' + ex + ',' + ey;
       var path = document.createElementNS(SVGNS, 'path');
@@ -4090,6 +4311,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       path._len = len;
       paths.push(path);
     });
+    /* the ingredient TEXT reveals on this exact same per-item delay, so each
+       line finishes drawing right as its own ingredient's name appears --
+       one coherent "loading in" sequence instead of two unrelated effects.
+       Set fresh on every build() (cheap, idempotent) since a rebuild can
+       change the row order/positions on a breakpoint change. */
+    Array.prototype.forEach.call(items, function(li, i){
+      li.style.transitionDelay = (i * STAGGER_MS) + 'ms';
+    });
     return true;
   }
 
@@ -4101,20 +4330,39 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   function setInstant(toZero){
     if (!paths.length) return;
-    paths.forEach(function(p){ p.style.transition = 'none'; });
+    /* toggle transition-PROPERTY only (not the "transition" shorthand) to kill
+       the animation for this one instant update: setting the shorthand to
+       'none' and back to '' clears every longhand it expands to, INCLUDING
+       transition-delay -- which would silently wipe out each path/li's own
+       per-item stagger delay (set once, in build(), below) every time a
+       geometry resync runs, collapsing the whole staggered reveal into one
+       simultaneous jump. transition-property alone has no such side effect. */
+    paths.forEach(function(p){ p.style.transitionProperty = 'none'; });
+    Array.prototype.forEach.call(items, function(li){ li.style.transitionProperty = 'none'; });
     void svg.getBoundingClientRect(); // force the 'none' transition to commit first
     paths.forEach(function(p){ p.style.strokeDashoffset = toZero ? '0' : p._len; });
+    Array.prototype.forEach.call(items, function(li){ li.classList.toggle('active-in', toZero); });
     void svg.getBoundingClientRect();
-    paths.forEach(function(p){ p.style.transition = ''; }); // restore the CSS transition for next time
+    paths.forEach(function(p){ p.style.transitionProperty = ''; }); // restore the CSS transition for next time
+    Array.prototype.forEach.call(items, function(li){ li.style.transitionProperty = ''; });
   }
+  /* covers the full spread of the stagger (last item's delay) plus the
+     longer of the two transition durations (.55s path / .5s li) and a small
+     margin -- this is how long play()'s own animated sequence needs to run
+     undisturbed once, see firstPlayAt and guardedRebuild below. */
+  var REVEAL_SPAN = (items.length - 1) * STAGGER_MS + 700;
+  var firstPlayAt = 0;
   function play(){
     shown = true;
+    if (!firstPlayAt) firstPlayAt = performance.now();
     paths.forEach(function(p){ p.style.strokeDashoffset = '0'; }); // animated: the CSS transition is active
+    Array.prototype.forEach.call(items, function(li){ li.classList.add('active-in'); }); // ingredient text fades/slides in on the same stagger
   }
   /* snaps back to hidden instantly (no stagger, no visible retreat) so the
      next scroll-up replays cleanly from the start */
   function reset(){
     shown = false;
+    firstPlayAt = 0; // a future re-entry (scroll back up) is a fresh reveal, stagger and all
     if (reduced) return; // reduced-motion: they stay drawn permanently, nothing to reset
     setInstant(false);
   }
@@ -4126,29 +4374,66 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (reduced) return;
     setInstant(shown);
   }
+  /* the one gate every later geometry rebuild (trackDuringReveal's per-frame
+     loop, and scheduleRebuild's resize/font-load/orientation debounce, both
+     below) goes through instead of calling build()+resync() directly. build()
+     recreates every <path> element from scratch and resync() forces an
+     instant, no-transition jump to the final state -- exactly right for
+     truing up geometry after something shifts, but if either fires while
+     play()'s own staggered entrance is still actively animating on these
+     same elements, it cuts that animation short on whichever frame it
+     happens to land on, so every item/line ends up appearing to snap in at
+     once instead of one by one. While still inside that window this instead
+     reschedules itself for right after the reveal finishes, so nothing a
+     caller asked for is ever silently dropped, only deferred until it can't
+     collide with it. */
+  var deferredRebuildTimer;
+  function guardedRebuild(){
+    if (firstPlayAt && performance.now() - firstPlayAt < REVEAL_SPAN){
+      clearTimeout(deferredRebuildTimer);
+      deferredRebuildTimer = setTimeout(guardedRebuild, (firstPlayAt + REVEAL_SPAN) - performance.now() + 20);
+      return;
+    }
+    build(); resync();
+  }
 
-  /* this is the very first section on the page -- nothing sits above it --
-     so the ONLY way it can ever be re-entered after the visitor has left it
-     is by scrolling back UP from further down the page. No need to track
-     scroll direction separately: any re-entry after the first, already-in-
-     view state at load IS a scroll-up. That also sidesteps any race between
-     a scroll listener and the observer callback. Note this also covers the
-     very first load: a visitor who lands on the page with the hero already
-     in view (the overwhelmingly common case) must see the lines play in
-     immediately, not only after later scrolling away and back -- otherwise
-     the whole feature looks like it's simply missing/broken on a plain
-     page load. */
-  var firstCheck = true, isIn = false;
-  function onIntersect(entries){
+  /* (v306) two separate observers, on purpose, because "when does it start"
+     and "when does it reset" turned out to need different targets:
+
+     - ioReveal watches the ingredient LIST itself, at a HIGH threshold, and
+       only ever calls play() -- never reset(). On most laptop/desktop
+       screens the headline fills the first viewport and the list sits below
+       the fold at load, so this is what makes the reveal wait for the
+       visitor to actually scroll down to roughly where the ingredients are,
+       instead of firing the instant a sliver of the list (or, worse, a
+       sliver of the whole hero above it) first touches the bottom edge of
+       the screen. It still fires immediately with no scroll at all on a
+       screen tall enough to fit the whole hero at once.
+     - ioLeave watches the whole .hero-lower block, at the original LOW
+       threshold, and only ever calls reset(). This is deliberately the
+       generous, hard-to-leave target: once revealed, the list must stay
+       revealed while the visitor keeps scrolling normally past it and on
+       down the page -- it should only reset (so a scroll back UP replays it
+       cleanly) once they've scrolled essentially the whole hero out of
+       view, the same "have they left the hero" check v305 used. Gating
+       reset on the same high-threshold list target as the reveal would mean
+       the text disappears again the moment the list's top edge drifts just
+       past the viewport, while the visitor is still mid-scroll reading
+       further down the page -- not a reset, a flicker. */
+  var isIn = false; // whole-hero in/out state, drives reset() only
+  function onLeaveCheck(entries){
     entries.forEach(function(entry){
       if (entry.isIntersecting){
-        if (!isIn && !reduced && !mqLite.matches) play();
         isIn = true;
       } else {
         if (isIn && !mqLite.matches) reset();
         isIn = false;
       }
-      firstCheck = false;
+    });
+  }
+  function onRevealCheck(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting && !shown && !reduced && !mqLite.matches) play();
     });
   }
 
@@ -4166,8 +4451,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       return;
     }
     if (canObserve && !reduced){
-      var io = new IntersectionObserver(onIntersect, { threshold: .15 });
-      io.observe(container);
+      var ioLeave = new IntersectionObserver(onLeaveCheck, { threshold: .15 });
+      ioLeave.observe(container);
+      /* (v308) .95, raised again from v307's .85 at the user's request --
+         essentially the whole list has to be on screen before the reveal
+         starts. */
+      var ioReveal = new IntersectionObserver(onRevealCheck, { threshold: .95 });
+      ioReveal.observe(actives);
     }
     /* the ingredient list (and the headline, tag line, etc. around it) animate
        into their resting position via the site-wide .rv scroll-reveal -- a
@@ -4183,7 +4473,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       var revealTrackUntil = 0;
       function trackDuringReveal(){
         if (performance.now() > revealTrackUntil) return;
-        build(); resync();
+        guardedRebuild();
         requestAnimationFrame(trackDuringReveal);
       }
       var wasTracking = false;
@@ -4198,7 +4488,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var rebuildTimer;
     function scheduleRebuild(){
       clearTimeout(rebuildTimer);
-      rebuildTimer = setTimeout(function(){ build(); resync(); }, 150);
+      rebuildTimer = setTimeout(guardedRebuild, 150);
     }
     window.addEventListener('resize', scheduleRebuild, { passive: true });
     window.addEventListener('orientationchange', scheduleRebuild);
