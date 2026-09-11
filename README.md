@@ -13,9 +13,15 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v322, updated 2026-09-11. Trimmed the closing line of the Livaux section's dose-distinction disclaimer: "We think that distinction matters and would rather state it plainly than bury it." removed, leaving the factual dose statement on its own.
+This package is HONIORA_site_v323, updated 2026-09-11. Added a "Livaux" link to the lite/mobile site's left slide-out nav menu, directly below "Mānuka Honey", anchored to the new Livaux section.
 
 Recent changes in this version:
+- Content: added `<a href="#livaux">Livaux</a>` to `#mmLeft` (the lite site's left mobile menu column, opened by the left burger button), placed directly after "Mānuka Honey" and before "Function" per the user's request. No other links in either mobile menu column changed.
+- Verified: opened the left mobile menu at 390px and confirmed "Livaux" appears in the correct position (Protocol / Mānuka Honey / Livaux / Function / The Stack / Gut · Heart · Brain / Taste). Clicked the new link and confirmed it closes the menu and scrolls to the Livaux section, landing with its top correctly offset below the sticky header. Zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. All section ids still unique, eyebrow sequence still 01-17.
+
+Previous version (v322): Trimmed the closing line of the Livaux section's dose-distinction disclaimer: "We think that distinction matters and would rather state it plainly than bury it." removed, leaving the factual dose statement on its own.
+
+Changes in v322:
 - Content: in the "10 / Livaux Gold Kiwifruit" section's closing disclaimer paragraph, removed the trailing sentence "We think that distinction matters and would rather state it plainly than bury it." The paragraph now ends at "...not a trial of the finished HONIORA product or its 600 mg per-serving dose." No factual content changed -- the dose distinction itself (2,400 mg trial dose vs. 600 mg per-serving dose) is untouched, only the closing editorial line was cut.
 - Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Confirmed the sentence no longer appears anywhere in the section and the disclaimer paragraph still ends cleanly. All section ids still unique, eyebrow sequence still 01-17. No other content, nav, or styling touched.
 
