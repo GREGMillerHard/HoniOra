@@ -13,9 +13,16 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v325, updated 2026-09-11. Reworded the Livaux section's "Grown in the Bay of Plenty" fact: the variety is now named "Zespri Gold3" (was "Zesy002 (Gold3)"), and the region claim now reads that it's grown in the same North Island region as HoniCo's base, rather than the same region HoniCo's Mānuka honey comes from.
+This package is HONIORA_site_v326, updated 2026-09-11. Reworded the "05 / Morning Lemon Water" section's opening paragraph: "citrus acid on morning enamel" is now "citrus acid damage to tooth enamel", and flagged/softened a proposed closing claim that the drink "protects your precious teeth" (still acidic at pH 4.65-4.85) to "buffered to be gentler on your teeth" instead.
 
 Recent changes in this version:
+- Content: the lemon-water comparison paragraph changed from "The part lemon water gets wrong. Neat citrus acid on morning enamel is the known cost of the ritual. ... Bright and citrus-forward on the palate, buffered by the time it reaches your teeth." to "The part lemon water gets wrong: Neat citrus acid damage to tooth enamel is the known cost of the ritual. ... Bright and citrus-forward on the palate, buffered to be gentler on your teeth." (also changed the period after "wrong" to a colon, per the user's exact wording).
+- Flagged a proposed ending, "buffered to protect your precious teeth," before applying it: the finished drink still lands at pH 4.65 to 4.85, within the acidic range commonly associated with enamel erosion risk, so an outright protection claim would overstate what a still-acidic beverage supports. Presented three options; the user chose the softer, still-accurate phrasing ("gentler on your teeth") over the literal request or reverting to the original.
+- Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Confirmed the paragraph reads with "gets wrong:", "damage to tooth enamel", and "gentler on your teeth", and no longer contains the original phrasing or the unsubstantiated "protects" framing. All section ids still unique, eyebrow sequence still 01-17.
+
+Previous version (v325): Reworded the Livaux section's "Grown in the Bay of Plenty" fact: the variety is now named "Zespri Gold3" (was "Zesy002 (Gold3)"), and the region claim now reads that it's grown in the same North Island region as HoniCo's base, rather than the same region HoniCo's Mānuka honey comes from.
+
+Changes in v325:
 - Content: fact #01 in the "10 / Livaux Gold Kiwifruit" section changed from "...the Zesy002 (Gold3) variety, grown mainly in the Bay of Plenty: the same North Island region HoniCo's own Mānuka honey comes from." to "...the Zespri Gold3 variety, is grown mainly in the same North Island region as HoniCo's base." Applied exactly as the user specified.
 - Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Confirmed the sentence reads with "Zespri Gold3" and "HoniCo's base", and no longer contains "Zesy002" or the old Mānuka-honey framing. All section ids still unique, eyebrow sequence still 01-17. No other content, nav, or styling touched.
 
