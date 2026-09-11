@@ -13,9 +13,15 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v323, updated 2026-09-11. Added a "Livaux" link to the lite/mobile site's left slide-out nav menu, directly below "Mānuka Honey", anchored to the new Livaux section.
+This package is HONIORA_site_v324, updated 2026-09-11. Replaced the Livaux section's background photo with a new, higher-resolution version of the same sliced gold kiwifruit image the user supplied.
 
 Recent changes in this version:
+- Assets: replaced `livaux_kiwi_bg.jpg` and `livaux_kiwi_bg-lite.jpg` with versions converted from the user's new, higher-resolution (3840x1600) source photo of sliced gold kiwifruit, same 2.4:1 aspect ratio as before -- resized to 1920px wide (desktop, 219KB) and 900px wide (mobile lite, 57KB), same filenames, so no HTML or CSS changes were needed.
+- Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Reviewed full-page screenshots at 1440px and 390px: the new background renders correctly behind the `.livaux-box` frosted card at both widths, with the kiwifruit visible in full colour on both sides of the box at desktop width and at the top of the section at mobile width. All section ids still unique, eyebrow sequence still 01-17.
+
+Previous version (v323): Added a "Livaux" link to the lite/mobile site's left slide-out nav menu, directly below "Mānuka Honey", anchored to the new Livaux section.
+
+Changes in v323:
 - Content: added `<a href="#livaux">Livaux</a>` to `#mmLeft` (the lite site's left mobile menu column, opened by the left burger button), placed directly after "Mānuka Honey" and before "Function" per the user's request. No other links in either mobile menu column changed.
 - Verified: opened the left mobile menu at 390px and confirmed "Livaux" appears in the correct position (Protocol / Mānuka Honey / Livaux / Function / The Stack / Gut · Heart · Brain / Taste). Clicked the new link and confirmed it closes the menu and scrolls to the Livaux section, landing with its top correctly offset below the sticky header. Zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. All section ids still unique, eyebrow sequence still 01-17.
 
