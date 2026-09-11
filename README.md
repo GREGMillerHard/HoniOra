@@ -13,9 +13,15 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v327, updated 2026-09-11. Removed the lemon-water comparison paragraph ("The part lemon water gets wrong...") from the "05 / Morning Lemon Water" section entirely, along with its now-empty wrapper.
+This package is HONIORA_site_v328, updated 2026-09-11. Replaced the lite/mobile Livaux section background with a new portrait-orientation kiwifruit photo the user supplied; the desktop background is untouched.
 
 Recent changes in this version:
+- Assets: replaced `livaux_kiwi_bg-lite.jpg` only (the mobile crop swapped in below 1000px) with a version converted from the user's new portrait-orientation (1600x3840) source photo of sliced gold kiwifruit -- resized to 750px wide (1800px tall, 150KB). `livaux_kiwi_bg.jpg` (desktop, still the landscape photo from v324) was left untouched, per the user's "lite site" scoping.
+- Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Reviewed screenshots confirming the new portrait photo renders correctly behind the `.livaux-box` frosted card at 390px, and that the desktop background at 1440px is unchanged (still the original landscape crop). All section ids still unique, eyebrow sequence still 01-17.
+
+Previous version (v327): Removed the lemon-water comparison paragraph ("The part lemon water gets wrong...") from the "05 / Morning Lemon Water" section entirely, along with its now-empty wrapper.
+
+Changes in v327:
 - Content: removed the `.lemonnote` block and its paragraph ("The part lemon water gets wrong: Neat citrus acid damage to tooth enamel is the known cost of the ritual. The HONIORA engine runs a calibrated 1.55:1 acid-to-base ratio, which lands the finished drink at pH 4.65 to 4.85. Bright and citrus-forward on the palate, buffered to be gentler on your teeth.") from the end of the section, per the user's request. Removed the whole wrapping `<div class="lemonnote rv">` rather than leaving an empty div behind; confirmed `.lemonnote` was used nowhere else on the page before removing its CSS-adjacent markup.
 - Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Confirmed the paragraph and its wrapper no longer appear anywhere in the DOM (`.lemonnote` element count: 0), and the section now ends cleanly at the "Vascular protection and circulation" comparison row. All section ids still unique, eyebrow sequence still 01-17.
 
