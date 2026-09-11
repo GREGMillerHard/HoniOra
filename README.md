@@ -13,9 +13,15 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HONIORA_site_v324, updated 2026-09-11. Replaced the Livaux section's background photo with a new, higher-resolution version of the same sliced gold kiwifruit image the user supplied.
+This package is HONIORA_site_v325, updated 2026-09-11. Reworded the Livaux section's "Grown in the Bay of Plenty" fact: the variety is now named "Zespri Gold3" (was "Zesy002 (Gold3)"), and the region claim now reads that it's grown in the same North Island region as HoniCo's base, rather than the same region HoniCo's Mānuka honey comes from.
 
 Recent changes in this version:
+- Content: fact #01 in the "10 / Livaux Gold Kiwifruit" section changed from "...the Zesy002 (Gold3) variety, grown mainly in the Bay of Plenty: the same North Island region HoniCo's own Mānuka honey comes from." to "...the Zespri Gold3 variety, is grown mainly in the same North Island region as HoniCo's base." Applied exactly as the user specified.
+- Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Confirmed the sentence reads with "Zespri Gold3" and "HoniCo's base", and no longer contains "Zesy002" or the old Mānuka-honey framing. All section ids still unique, eyebrow sequence still 01-17. No other content, nav, or styling touched.
+
+Previous version (v324): Replaced the Livaux section's background photo with a new, higher-resolution version of the same sliced gold kiwifruit image the user supplied.
+
+Changes in v324:
 - Assets: replaced `livaux_kiwi_bg.jpg` and `livaux_kiwi_bg-lite.jpg` with versions converted from the user's new, higher-resolution (3840x1600) source photo of sliced gold kiwifruit, same 2.4:1 aspect ratio as before -- resized to 1920px wide (desktop, 219KB) and 900px wide (mobile lite, 57KB), same filenames, so no HTML or CSS changes were needed.
 - Verified: zero horizontal overflow and zero console/page errors at 360/390/414/1425/1440px. Reviewed full-page screenshots at 1440px and 390px: the new background renders correctly behind the `.livaux-box` frosted card at both widths, with the kiwifruit visible in full colour on both sides of the box at desktop width and at the top of the section at mobile width. All section ids still unique, eyebrow sequence still 01-17.
 
