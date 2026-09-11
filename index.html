@@ -664,6 +664,19 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .prob-list .x{color:var(--gold);font-size:12px;flex:none;padding-top:5px;letter-spacing:.1em;font-weight:600}
 .prob-list strong{font-weight:600}
 .prob-list .d{color:var(--ink-2)}
+/* full-bleed kiwifruit backdrop behind the whole Livaux section, shown at full
+   colour (no wash) -- legibility instead comes from the .livaux-box the copy
+   sits in. lite crop swaps in below 1000px. */
+#livaux{background-image:url("livaux_kiwi_bg.jpg");background-size:cover;background-position:center}
+@media(max-width:1000px){
+  #livaux{background-image:url("livaux_kiwi_bg-lite.jpg")}
+}
+/* big semi-transparent card the Livaux copy sits in, same frosted-glass
+   treatment as .bleed .cap's photo caption elsewhere on the site, scaled up
+   to hold the whole section's text. */
+.livaux-box{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-left:2px solid var(--gold);border-radius:4px;
+  padding:clamp(32px,5vw,64px) clamp(26px,5vw,72px);max-width:920px;margin:0 auto}
 
 /* ---------- pillars ---------- */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -1470,7 +1483,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#function" class="hexnav-item">FUNCTION
       <span class="hexdrop"><span class="hexdrop-card"><b>Function</b>Both tablets dissolve fully in water. Your gut absorbs the actives fast.</span></span>
     </a>
-    <a href="#store" class="hexnav-item">TEST<br>TUBE
+    <a href="#singlepack" class="hexnav-item">TEST<br>TUBE
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
     </a>
     <a href="#matrix" class="hexnav-item">STACK
@@ -1483,7 +1496,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#honeytop" class="hexnav-item">M&#257;NUKA<br>HONI
       <span class="hexdrop"><span class="hexdrop-card"><b>M&#257;nuka Honey</b>1,000 mg of MGO 850+ / UMF 20+ M&#257;nuka Honey Crystals in every dose, built on a crystal biobase.</span></span>
     </a>
-    <a href="#matrix" class="hexnav-item">LIVAUX
+    <a href="#livaux" class="hexnav-item">LIVAUX
       <span class="hexdrop"><span class="hexdrop-card"><b>Livaux Gold Kiwifruit</b>600 mg of Livaux gold kiwifruit. Doubles F. prausnitzii in your gut within 28 days.</span></span>
     </a>
     <a href="#abouttop" class="hexnav-item">ABOUT<br>HONICO
@@ -1514,7 +1527,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <a href="#top" class="brand brand-mobile"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
     <div class="hexbtn-m nav-hex-mobile-right">
-      <a href="#store" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
+      <a href="#singlepack" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
         <svg class="hexbtn-svg" viewBox="0 0 208 180" role="img" aria-hidden="true" focusable="false">
           <polygon points="52,4 156,4 204,90 156,176 52,176 4,90" fill="var(--paper)" stroke="var(--gold-deep)" stroke-width="7"/>
           <text x="104" y="82" text-anchor="middle" textLength="118" lengthAdjust="spacingAndGlyphs" class="hexbtn-svg-t">RESERVE</text>
@@ -1537,7 +1550,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#taste">Taste</a>
   </div>
   <div class="mm-col" id="mmRight">
-    <a href="#tablet">2 Tabs</a>
+    <a href="#protocol">2 Tabs</a>
     <a href="#ritual">Ritual</a>
     <a href="#waitlist" style="color:var(--gold)">Join Founding List</a>
     <a href="#rita">Rita Rocks</a>
@@ -1847,7 +1860,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     <div class="storegrid rv">
 
-      <div class="plan">
+      <div class="plan" id="singlepack">
         <div class="plan-top">
           <div class="plan-head">
             <p class="plan-name">Single Pack</p>
@@ -2419,11 +2432,32 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 </section>
 
+<!-- ================= LIVAUX GOLD KIWIFRUIT ================= -->
+<section class="sec" id="livaux">
+  <div class="wrap">
+    <div class="livaux-box rv">
+      <p class="eyebrow dim">10 / Livaux Gold Kiwifruit</p>
+      <h2 class="serif">Livaux Gold Kiwifruit: <em>A precision prebiotic, whole from the fruit.</em></h2>
+      <p class="lede">HONI<i>ORA</i> carries 600 mg of Livaux<sup class="rn">&reg;</sup> gold kiwifruit per serving. In a randomised controlled trial in functionally constipated adults, Livaux<sup class="rn">&reg;</sup> raised <em style="font-style:italic">Faecalibacterium prausnitzii</em>, a keystone anti-inflammatory gut bacterium, from 3.4% to 7.0% of the gut microbiome within 28 days, with 89% of participants showing a net increase.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/29152256/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 29152256 &nearr;</span></a></p>
+      <p class="lede">Unlike an isolated fibre prebiotic, Livaux<sup class="rn">&reg;</sup> is a whole-fruit powder. It carries the gold kiwifruit's own pectin, polyphenol and micronutrient matrix into the gut, rather than one extracted compound on its own.</p>
+
+      <ul class="prob-list">
+        <li><span class="x">01</span><div><strong>Grown in the Bay of Plenty.</strong> <span class="d">Livaux<sup class="rn">&reg;</sup> is made from 100% New Zealand gold kiwifruit, the Zesy002 (Gold3) variety, grown mainly in the Bay of Plenty: the same North Island region HoniCo's own M&#257;nuka honey comes from.<br><a class="cite" href="https://livaux.com/golden-kiwifruit/" target="_blank" rel="noopener noreferrer">Ingredient sourcing <span>livaux.com &nearr;</span></a></span></div></li>
+        <li><span class="x">02</span><div><strong>A whole-fruit matrix, not one isolated fibre.</strong> <span class="d">The ingredient's manufacturer reports 41 distinct bioactive phenolic compounds across 27 classes in the whole-fruit powder, against 9 compounds across 7 classes in plain inulin fibre, a common single-fibre prebiotic.<br><a class="cite" href="https://livaux.com/the-science-of-livaux/" target="_blank" rel="noopener noreferrer">Ingredient science <span>livaux.com &nearr;</span></a></span></div></li>
+        <li><span class="x">03</span><div><strong>Built to work alongside a live culture.</strong> <span class="d">The manufacturer's own testing puts as little as 25 to 50 mg of Livaux<sup class="rn">&reg;</sup> per billion CFU as enough to support probiotic growth and activity, well under the 600 mg full serving HONI<i>ORA</i> delivers.</span></div></li>
+        <li><span class="x">04</span><div><strong>Fed to a named probiotic, not left to chance.</strong> <span class="d">HONI<i>ORA</i> also carries Bifidobacterium adolescentis (10 billion CFU) and Fiberest<sup class="rn">&reg;</sup> HF fibre alongside Livaux<sup class="rn">&reg;</sup>. That probiotic ferments both prebiotic fibres into short-chain fatty acids, including butyrate, which nourishes the colonic lining and helps repair tight junctions, while M&#257;nuka's own methylglyoxal clears space in the gut for that population to grow into. The three are dosed as one connected system, not three separate additions.</span></div></li>
+      </ul>
+
+      <p class="small" style="margin-top:30px;max-width:78ch">The 3.4% to 7.0% result above comes from a 2017 randomised controlled trial in functionally constipated adults using 2,400 mg of Livaux<sup class="rn">&reg;</sup> per day for four weeks, not a trial of the finished HONI<i>ORA</i> product or its 600 mg per-serving dose. </p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= MORNING LEMON WATER ================= -->
 <section class="sec" id="lemon">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">10 / The Lemon Water Upgrade</p>
+      <p class="eyebrow dim">11 / The Lemon Water Upgrade</p>
       <h2 class="serif">Everything lemon water does <em>but a clinical dose.</em></h2>
       <p class="lede">Your morning lemon water is a good instinct built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and bathes your enamel in unbuffered acid on the way. HONI<i>ORA</i> runs the same four pathways with consistent beneficial amounts and without the enamel risk.</p>
     </div>
@@ -2495,7 +2529,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec tinted" id="taste">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">11 / The Taste</p>
+      <p class="eyebrow dim">12 / The Taste</p>
       <h2 class="serif">HONI<i>ORA</i> <em>Organoleptic Profile.</em></h2>
       <p class="lede">A structured flavour evaluation: Aromatics, palate evolution, and a scored attribute breakdown.</p>
     </div>
@@ -2583,7 +2617,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="pack">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">12 / Format</p>
+      <p class="eyebrow dim">13 / Format</p>
       <h2 class="serif oneline">One tube = One <em>week.</em></h2>
       <p class="lede">A rigid anodized aluminum or high-barrier polypropylene tube fitted with a desiccant-chambered spiral spring stopper that eliminates tablet rattle and keeps internal humidity below 15% RH.</p>
     </div>
@@ -2608,7 +2642,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap">
     <div class="formgrid">
       <div class="rv">
-        <p class="eyebrow">13 / Founding List</p>
+        <p class="eyebrow">14 / Founding List</p>
         <h2 class="serif" style="font-size:clamp(34px,4.8vw,58px);margin:18px 0 22px">First Drop, 2026.</h2>
         <p class="lede" style="font-size:17px">Our first commercial batch is open to the founding list before general release. Join us and get first access and lifetime founders subscription bonuses.</p>
         <p class="small" style="margin-top:28px">Questions before you sign up?<br><a href="mailto:hello@honi.co.nz" style="color:var(--gold);font-weight:500">hello@honi.co.nz</a></p>
@@ -2660,7 +2694,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec tinted" id="about">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow" id="abouttop">14 / The Company</p>
+      <p class="eyebrow" id="abouttop">15 / The Company</p>
       <h2 class="serif">About <em>HoniCo</em>.</h2>
     </div>
 
@@ -2718,7 +2752,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec legalsec" id="legal">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">15 / Legal</p>
+      <p class="eyebrow">16 / Legal</p>
       <h2 class="serif">The <em>fine print</em>.</h2>
       <p class="lede">Everything below is a working draft prepared for review. Fields in square brackets need your company details before launch.</p>
     </div>
@@ -2801,7 +2835,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="honiblog">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow" id="honiblogtop">16 / HoniBlog</p>
+      <p class="eyebrow" id="honiblogtop">17 / HoniBlog</p>
       <h2 class="serif">The <em>HoniBlog</em>.</h2>
     </div>
 
