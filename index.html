@@ -568,6 +568,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 #lemon .sec-head h2,#lemon .sec-head .lede,
 #taste .sec-head h2,#taste .sec-head .lede,
 #legal .sec-head h2,#legal .sec-head .lede{margin-left:auto;margin-right:auto}
+#honey .sec-head .lede{text-align:left}
 .unit-head h2{font-size:clamp(18px,2.2vw,29px);margin-top:7px}
 .unit-head h2 em{font-style:italic;color:var(--gold)}
 .unit-line{margin:clamp(12px,1.5vh,20px) auto 0;max-width:none;white-space:nowrap;
@@ -691,6 +692,14 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .pillar h3 .ing{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-deep);font-weight:600;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;margin-top:6px}
 .pillar p{font-size:15px;color:var(--ink-2)}
+
+/* ---------- ikigai-style four-pillar diagram: four overlapping gold rings
+   (Strength / Gut / Heart / Brain) converging on HoniOra at the centre ---------- */
+.matrix-ikigai{display:flex;justify-content:center;margin:10px 0 clamp(22px,3.4vw,38px)}
+.matrix-ikigai svg{width:100%;max-width:840px;height:auto;display:block}
+.ikigai-ring{fill:none;stroke:var(--gold);stroke-width:2}
+.ikigai-label{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:600;font-size:20px;fill:var(--ink);letter-spacing:.005em}
+.ikigai-center{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;font-size:19px;fill:var(--ink)}
 
 /* ---------- gut / heart / brain triad ---------- */
 .triad{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -949,7 +958,7 @@ textarea{resize:vertical;min-height:64px}
 #about .sec-head{text-align:center}
 #about .sec-head h2{margin-left:auto;margin-right:auto}
 .who-mark{height:clamp(128px,13.2vw,200px);width:auto;display:block;margin:0 auto 20px}
-#honeytop{height:clamp(160px,16.5vw,250px)}
+#honeytop{height:clamp(80px,8.25vw,125px);animation:beeBuzz .1s linear infinite,beeSwing 5.2s linear infinite;transform-origin:center}
 .abox.teamwide{min-height:0}
 .team-photo{width:100%;height:auto;border-radius:2px;display:block}
 .abox.mapwide{min-height:0}
@@ -1066,6 +1075,20 @@ textarea{resize:vertical;min-height:64px}
 .closing{text-align:center;padding:clamp(90px,13vw,172px) 0;position:relative;overflow:hidden}
 .closing h2{font-size:clamp(38px,7.4vw,96px);max-width:15ch;margin:0 auto 30px}
 .closing h2 em{font-style:italic;color:var(--gold)}
+.closing-bee-wrap{display:flex;justify-content:center;margin:0 auto clamp(28px,3.4vw,44px)}
+.closing-bee{height:clamp(170px,19vw,320px);width:auto;display:block;animation:beeBuzz .1s linear infinite,beeSwing 5.2s linear infinite;transform-origin:center}
+@keyframes beeBuzz{
+  0%,100%{translate:0 0}
+  25%{translate:.7px -.7px}
+  50%{translate:-.7px .6px}
+  75%{translate:.6px .7px}
+}
+@keyframes beeSwing{
+  0%{rotate:0deg}
+  25%{rotate:180deg}
+  75%{rotate:-180deg}
+  100%{rotate:0deg}
+}
 
 /* ---------- legal accordions ---------- */
 .legalsec{background:var(--paper-3)}
@@ -1582,7 +1605,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <div class="lightbox gift-lightbox" id="giftLightbox" role="dialog" aria-modal="true" aria-label="Free Founders gift pack">
   <button type="button" class="lightbox-close" id="giftLightboxClose" aria-label="Close">&times;</button>
   <div class="gift-lightbox-panel">
-    <div class="gift-cap"><b>Founders Subscription</b><span>Enjoy your free limited edition HONI<i>ORA</i> Founders Bee tumbler and test tube pack.</span></div>
+    <div class="gift-cap"><b>Founders Subscription</b><span>Enjoy your free limited edition<br>HONI<i>ORA</i> Founders Bee Tumbler &amp; Test Tube pack.</span></div>
     <picture>
       <source media="(max-width:1000px)" srcset="founders-gift-pack-lite.jpg">
       <img width="640" height="1147" src="founders-gift-pack.jpg" alt="HONIORA Founders gift pack: a gold gift box open to reveal a bee-embossed glass tumbler and a gold HoniOra test tube" class="gift-lightbox-img" loading="lazy">
@@ -1768,8 +1791,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow dim">01 / The Ritual</p>
-      <h2 class="serif oneline">Sixty seconds, <em>once a day.</em></h2>
-      <p class="lede">HONI<i>ORA</i> comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, living vitality grounded in pure New Zealand nature.</p>
+      <h2 class="serif oneline">Sixty seconds. <em>Then you own the day.</em></h2>
+      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop two tabs, let them fizz, and use the minute to set the day's first intention, before the phone, before the noise. Carpe diem starts small: one minute, chosen on purpose, every day.</p>
     </div>
     <div class="ritual-grid">
       <div class="rv">
@@ -1939,9 +1962,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <img id="honeytop" src="honico-bee-logo.png" alt="HoniCo golden bee mark" class="who-mark">
       <p class="eyebrow dim">03 / M&#257;nuka Honey</p>
-      <h2 class="serif">M&#257;nuka Honey: <em>A biological powerhouse</em></h2>
-      <p class="lede">HONI<i>ORA</i> delivers 1,000&nbsp;mg of MGO 850+ / UMF 20+ M&#257;nuka Honey Crystals in every dose, built on a high potency crystal biobase with efficient bioactives and significantly reduced honey sugars.</p>
-      <p class="lede"><b>Reduced Glycemic Burden.</b> The biobase process strips out most of the water and sugar naturally found in honey, concentrating methylglyoxal and complex polyphenols into a stable, dry crystalline format.</p>
+      <h2 class="serif">M&#257;nuka Honey:<br><em>A biological powerhouse</em><br></h2>
+      <p class="lede">HONI<i>ORA</i> delivers 1,000&nbsp;mg of MGO 850+ / UMF 20+ M&#257;nuka Honey built on a Fiberest<sup class="rn">&reg;</sup> HF Crystal matrix in every dose: It is a 1,500&nbsp;mg high potency crystal biobase with efficient bioactives and significantly reduced honey sugars.</p>
+      <p class="lede"><b>Reduced Glycemic Burden.</b> The biobase crystal process strips out most of the water naturally found in honey, concentrating all the honey's high methylglyoxal content and complex polyphenols into a stable, dry crystalline format.</p>
     </div>
     <div class="mphoto rv">
       <img width="2400" height="1160" src="manuka-bees.jpg" alt="Bees on honeycomb" loading="lazy">
@@ -2002,6 +2025,19 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">04 / The Strength, Gut, Heart, Brain Matrix</p>
       <h2 class="serif">Four systems. <em>One loop.</em></h2>
+      <div class="matrix-ikigai rv">
+        <svg viewBox="0 0 560 460" role="img" aria-label="Four overlapping gold rings, one for each pillar of the formula, Strength, Gut, Heart and Brain, converging on HoniOra at the centre">
+          <circle class="ikigai-ring" cx="280" cy="140" r="130"></circle>
+          <circle class="ikigai-ring" cx="360" cy="220" r="130"></circle>
+          <circle class="ikigai-ring" cx="280" cy="300" r="130"></circle>
+          <circle class="ikigai-ring" cx="200" cy="220" r="130"></circle>
+          <text class="ikigai-label" x="280" y="82" text-anchor="middle" dominant-baseline="central">Strength</text>
+          <text class="ikigai-label" x="418" y="220" text-anchor="middle" dominant-baseline="central">Gut</text>
+          <text class="ikigai-label" x="280" y="358" text-anchor="middle" dominant-baseline="central">Heart</text>
+          <text class="ikigai-label" x="142" y="220" text-anchor="middle" dominant-baseline="central">Brain</text>
+          <text class="ikigai-center" x="280" y="220" text-anchor="middle" dominant-baseline="central">HoniOra</text>
+        </svg>
+      </div>
       <p class="lede">Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, efficient vascular system delivery, and targeted micro-vascular brain support.</p>
     </div>
 
@@ -2626,7 +2662,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">13 / Format</p>
       <h2 class="serif oneline">One tube = One <em>week.</em></h2>
-      <p class="lede">A rigid anodized aluminum or high-barrier polypropylene tube fitted with a desiccant-chambered spiral spring stopper that eliminates tablet rattle and keeps internal humidity below 15% RH.</p>
+      <p class="lede">A Sanner BioBase<sup class="rn">&reg;</sup> tube, molded from bio-based polyethylene derived from sugarcane ethanol at over 90% renewable content, fitted with a silica gel desiccant closure rated for a 40% higher water vapor barrier and 30 to 40% longer shelf life than Sanner's standard polypropylene tube.<br><a class="cite" href="https://www.sanner-group.com/moisture-management/sanner-biobase" target="_blank" rel="noopener noreferrer">Packaging <span>sanner-group.com &nearr;</span></a></p>
     </div>
     <div class="rv">
       <div class="packcard">
@@ -2749,6 +2785,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <section class="closing">
   <div class="wrap" style="position:relative;z-index:2">
+    <div class="closing-bee-wrap rv"><img src="honico-bee-logo.png" alt="HoniCo golden bee emblem" class="closing-bee" width="468" height="546" loading="lazy"></div>
     <p class="eyebrow rv">Born in New Zealand &middot; Made in the USA</p>
     <h2 class="serif rv" style="margin-top:26px">Golden health <em>awakes.</em></h2>
     <div class="rv"><a href="#waitlist" class="btn">Join the founding list <span class="ar">&rarr;</span></a></div>
