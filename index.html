@@ -569,6 +569,28 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 #taste .sec-head h2,#taste .sec-head .lede,
 #legal .sec-head h2,#legal .sec-head .lede{margin-left:auto;margin-right:auto}
 #honey .sec-head .lede{text-align:left}
+/* the quadraxial caption's one deliberate <br> should be the ONLY break on
+   desktop -- the shared .lede 62ch cap was narrower than the 86-character
+   first half, wrapping it early and pushing the caption to 3 lines instead
+   of the intended 2. widened just this paragraph so both halves (86ch and
+   78ch) each fit on their own single line; reverts to the shared 62ch cap
+   below 1001px, where the section already stacks and a third wrap reads fine. */
+#triad .sec-head p.lede{max-width:64ch}
+@media (min-width:1001px){
+  #triad .sec-head p.lede{max-width:none;width:max-content}
+}
+/* utility: keep a short one-sentence .lede on a single line whenever the
+   section is wide enough to fit it, wrapping normally the moment it isn't --
+   e.g. the "Creatine is one of the most trusted..." line under 05 / The
+   Creatine Dose. Width-based (not white-space:nowrap) so it degrades to a
+   normal wrap rather than an overflow or a silent clip on narrower screens.
+   Scoped with the same #id + .sec-head prefix as any section-specific .lede
+   rule it needs to outrank (e.g. #problem's own max-width:min(83.2vw,1132px))
+   -- a bare .lede.oneline-fit rule would lose that specificity fight. */
+#problem .sec-head .lede.oneline-fit{max-width:64ch}
+@media (min-width:1260px){
+  #problem .sec-head .lede.oneline-fit{max-width:none;width:max-content}
+}
 .unit-head h2{font-size:clamp(18px,2.2vw,29px);margin-top:7px}
 .unit-head h2 em{font-style:italic;color:var(--gold)}
 .unit-line{margin:clamp(12px,1.5vh,20px) auto 0;max-width:none;white-space:nowrap;
@@ -697,9 +719,23 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    (Strength / Gut / Heart / Brain) converging on HoniOra at the centre ---------- */
 .matrix-ikigai{display:flex;justify-content:center;margin:10px 0 clamp(22px,3.4vw,38px)}
 .matrix-ikigai svg{width:100%;max-width:840px;height:auto;display:block}
-.ikigai-ring{fill:none;stroke:var(--gold);stroke-width:2}
-.ikigai-label{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:600;font-size:20px;fill:var(--ink);letter-spacing:.005em}
-.ikigai-center{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;font-size:19px;fill:var(--ink)}
+.ikigai-fills{isolation:isolate}
+.ikigai-ring{fill:var(--ikigai-c,none);fill-opacity:0;stroke:var(--gold);stroke-width:2;
+  mix-blend-mode:multiply;pointer-events:all;cursor:pointer;
+  transition:fill-opacity .45s ease}
+.ikigai-ring.seen{fill-opacity:.82}
+.ikigai-ring.ikigai-strength{--ikigai-c:#728529}
+.ikigai-ring.ikigai-gut{--ikigai-c:#F3701E}
+.ikigai-ring.ikigai-heart{--ikigai-c:#B21736}
+.ikigai-ring.ikigai-brain{--ikigai-c:#087282}
+.ikigai-core{fill:var(--gold);fill-opacity:0;pointer-events:none;transition:fill-opacity .45s ease .15s}
+.ikigai-core.seen{fill-opacity:.94}
+.ikigai-label{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:600;font-size:20px;fill:var(--ink);letter-spacing:.005em;
+  pointer-events:none;transition:fill .45s ease}
+.ikigai-label.seen{fill:#fff}
+.ikigai-center{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;font-size:19px;fill:var(--ink);
+  pointer-events:none;transition:fill .45s ease}
+.ikigai-center.seen{fill:#fff}
 
 /* ---------- gut / heart / brain triad ---------- */
 .triad{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -1745,20 +1781,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <!-- ================= THE UNIT : PINNED HORIZONTAL ================= -->
 <section class="unit" id="tablet">
   <div class="unit-stage">
-    <div class="unit-vp">
-      <div class="unit-track">
-        <div class="upanel lead">HONIORA tablets each contain 5.4745 grams of full dose potent actives.</div>
-        <div class="upanel lead">Formulated for daily year-round use</div>
-        <div class="upanel">Naturally sourced actives</div>
-        <div class="upanel">Gluten Free</div>
-        <div class="upanel">No Palm oil</div>
-        <div class="upanel">No fillers</div>
-        <div class="upanel">No heavy metals</div>
-        <div class="upanel">No artificial flavours or colors</div>
-        <div class="upanel">Non-GMO</div>
-      </div>
-    </div>
-
     <div class="iband">
       <div class="iband-vp">
         <div class="iband-track" id="ibandTrack">
@@ -1779,6 +1801,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.jpg"><img width="820" height="820" src="passionfruit.jpg" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.jpg"><img width="820" height="786" src="thaumatin.jpg" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
         </div>
+      </div>
+    </div>
+
+    <div class="unit-vp">
+      <div class="unit-track">
+        <div class="upanel lead">HONIORA tablets each contain 5.4745 grams of full dose potent actives.</div>
+        <div class="upanel lead">Formulated for daily year-round use</div>
+        <div class="upanel">Naturally sourced actives</div>
+        <div class="upanel">Gluten Free</div>
+        <div class="upanel">No Palm oil</div>
+        <div class="upanel">No fillers</div>
+        <div class="upanel">No heavy metals</div>
+        <div class="upanel">No artificial flavours or colors</div>
+        <div class="upanel">Non-GMO</div>
       </div>
     </div>
 
@@ -2025,20 +2061,23 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">04 / The Strength, Gut, Heart, Brain Matrix</p>
       <h2 class="serif">Four systems. <em>One loop.</em></h2>
-      <div class="matrix-ikigai rv">
-        <svg viewBox="0 0 560 460" role="img" aria-label="Four overlapping gold rings, one for each pillar of the formula, Strength, Gut, Heart and Brain, converging on HoniOra at the centre">
-          <circle class="ikigai-ring" cx="280" cy="140" r="130"></circle>
-          <circle class="ikigai-ring" cx="360" cy="220" r="130"></circle>
-          <circle class="ikigai-ring" cx="280" cy="300" r="130"></circle>
-          <circle class="ikigai-ring" cx="200" cy="220" r="130"></circle>
-          <text class="ikigai-label" x="280" y="82" text-anchor="middle" dominant-baseline="central">Strength</text>
-          <text class="ikigai-label" x="418" y="220" text-anchor="middle" dominant-baseline="central">Gut</text>
-          <text class="ikigai-label" x="280" y="358" text-anchor="middle" dominant-baseline="central">Heart</text>
-          <text class="ikigai-label" x="142" y="220" text-anchor="middle" dominant-baseline="central">Brain</text>
-          <text class="ikigai-center" x="280" y="220" text-anchor="middle" dominant-baseline="central">HoniOra</text>
+      <div class="matrix-ikigai rv" id="ikigaiDiagram">
+        <svg viewBox="0 0 560 460" role="img" aria-label="Four overlapping rings, one for each pillar of the formula, Strength, Gut, Heart and Brain, converging on HoniOra at the centre. Hover each ring to build its colour.">
+          <g class="ikigai-fills">
+            <circle class="ikigai-ring ikigai-brain" data-pillar="brain" cx="280" cy="140" r="130"></circle>
+            <circle class="ikigai-ring ikigai-gut" data-pillar="gut" cx="360" cy="220" r="130"></circle>
+            <circle class="ikigai-ring ikigai-strength" data-pillar="strength" cx="280" cy="300" r="130"></circle>
+            <circle class="ikigai-ring ikigai-heart" data-pillar="heart" cx="200" cy="220" r="130"></circle>
+          </g>
+          <path class="ikigai-core" id="ikigaiCore" d="M237.235,177.235 A130,130 0 0 1 322.765,177.235 A130,130 0 0 1 322.765,262.765 A130,130 0 0 1 237.235,262.765 A130,130 0 0 1 237.235,177.235 Z"></path>
+          <text class="ikigai-label" data-pillar-label="brain" x="280" y="82" text-anchor="middle" dominant-baseline="central">Brain</text>
+          <text class="ikigai-label" data-pillar-label="gut" x="418" y="220" text-anchor="middle" dominant-baseline="central">Gut</text>
+          <text class="ikigai-label" data-pillar-label="strength" x="280" y="358" text-anchor="middle" dominant-baseline="central">Strength</text>
+          <text class="ikigai-label" data-pillar-label="heart" x="142" y="220" text-anchor="middle" dominant-baseline="central">Heart</text>
+          <text class="ikigai-center" id="ikigaiCenterLabel" x="280" y="220" text-anchor="middle" dominant-baseline="central">HoniOra</text>
         </svg>
       </div>
-      <p class="lede">Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, efficient vascular system delivery, and targeted micro-vascular brain support.</p>
+      <p class="lede">Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, <br>efficient vascular system delivery, and targeted micro-vascular brain support.</p>
     </div>
 
     <div class="triad rv">
@@ -2098,7 +2137,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p><strong>cGP-Pro<sup class="rn">&reg;</sup> is where the loop closes.</strong> It frees IGF-1 from its binding protein, and free IGF-1 drives angiogenesis in the cerebral capillary bed, at 100&nbsp;mg per serving. Magnesium and zinc run underneath the other three axes as enzymatic cofactors, holding cellular processes steady wherever the work is happening.</p>
     </div>
 
-    <p class="small rv" style="margin-top:22px;max-width:80ch">This describes the mechanistic rationale behind how the formula was built. It is not a claim that the finished product has been trialled as a whole. The evidence sits with the individual branded ingredients, listed in full below. Citations for newly added ingredients are still being sourced and are marked as such in the stack below.</p>
+    <p class="small rv" style="margin-top:22px">This describes the mechanistic rationale behind how the formula was built. It is not a claim that the finished product has been trialled as a whole. The evidence sits with the individual branded ingredients, listed in full below. Citations for newly added ingredients are still being sourced and are marked as such in the stack below.</p>
   </div>
 </section>
 
@@ -2108,7 +2147,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p class="eyebrow dim">05 / The Creatine Dose</p>
       <img src="jenerise-cr01-logo.png" alt="Jenerise Cr.01 logo" class="cr01-logo" width="864" height="864" loading="lazy">
       <h2 class="serif threeline">Introducing Jenerise Cr.01<br><em>Super Creatine Monohydrate<br>By the Creatine OG Steve Jennings.</em></h2>
-      <p class="lede">Creatine is one of the most trusted and heavily researched ingredients in wellness today, used well beyond athletics.</p>
+      <p class="lede oneline-fit">Creatine is one of the most trusted and heavily researched ingredients in wellness today, used well beyond athletics.</p>
       <p class="lede">Sourced from creatine's own UK pioneer, Steve Jennings, who first introduced creatine monohydrate to Olympic athletes in 1992. Jenerise Cr-01 Creatine Monohydrate is built to stricter and higher standards than its competitors: independently tested and verified by SGS at 99.96% purity.</p>
     </div>
     <div class="prob-grid">
@@ -4609,6 +4648,47 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   } catch (err) {
     console.error('[hero-keylines] failed to initialise:', err);
+  }
+})();
+
+/* ---------- ikigai diagram: hover-to-build colour ---------- */
+(function(){
+  try {
+    var wrap = document.getElementById('ikigaiDiagram');
+    if (!wrap) return;
+    var rings = wrap.querySelectorAll('.ikigai-ring');
+    var centerLabel = document.getElementById('ikigaiCenterLabel');
+    var core = document.getElementById('ikigaiCore');
+    if (!rings.length) return;
+
+    function labelFor(pillar){
+      return wrap.querySelector('.ikigai-label[data-pillar-label="' + pillar + '"]');
+    }
+    function updateCenter(){
+      var allSeen = true;
+      rings.forEach(function(r){ if (!r.classList.contains('seen')) allSeen = false; });
+      if (centerLabel) centerLabel.classList.toggle('seen', allSeen);
+      if (core) core.classList.toggle('seen', allSeen);
+    }
+    rings.forEach(function(ring){
+      ring.addEventListener('mouseenter', function(){
+        ring.classList.add('seen');
+        var lbl = labelFor(ring.getAttribute('data-pillar'));
+        if (lbl) lbl.classList.add('seen');
+        updateCenter();
+      });
+    });
+    wrap.addEventListener('mouseleave', function(){
+      rings.forEach(function(ring){
+        ring.classList.remove('seen');
+        var lbl = labelFor(ring.getAttribute('data-pillar'));
+        if (lbl) lbl.classList.remove('seen');
+      });
+      if (centerLabel) centerLabel.classList.remove('seen');
+      if (core) core.classList.remove('seen');
+    });
+  } catch (err) {
+    console.error('[ikigai-hover] failed to initialise:', err);
   }
 })();
 </script>
