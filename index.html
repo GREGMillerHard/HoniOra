@@ -4844,8 +4844,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     function updateCenter(){
       var allSeen = true;
-      rings.forEach(function(r){ if (!r.classList.contains('seen')) allSeen = false; });
-      if (centerLabel) centerLabel.classList.toggle('seen', allSeen);
+      var anySeen = false;
+      rings.forEach(function(r){
+        if (r.classList.contains('seen')) { anySeen = true; } else { allSeen = false; }
+      });
+      /* HoniOra centre label switches to white as soon as any single ring rollover
+         starts (anySeen), rather than waiting for all four rings to be hovered.
+         The core shape's full gold reveal still waits for allSeen -- that's the
+         "build the colour" payoff -- but the label itself needs to read white
+         immediately since even one ring's fill shows through the still-transparent
+         core underneath it. */
+      if (centerLabel) centerLabel.classList.toggle('seen', anySeen);
       if (core) core.classList.toggle('seen', allSeen);
     }
     rings.forEach(function(ring){
