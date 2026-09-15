@@ -145,7 +145,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   transition:opacity .25s ease,transform .25s ease}
 .hexnav-item:hover .hexdrop,.hexnav-item:focus-within .hexdrop{transform:translateX(-50%) translateY(0)}
 .hexnav-item.hexbtn-first:hover .hexdrop,.hexnav-item.hexbtn-first:focus-within .hexdrop,
-.hexnav-item.hexbtn-last:hover .hexdrop,.hexnav-item.hexbtn-last:focus-within .hexdrop{transform:translateY(0)}
+.hexnav-item.hexbtn-last:hover .hexdrop,.hexnav-item.hexbtn-last:focus-within .hexdrop,
+.hexnav-item.hexbtn-nextlast:hover .hexdrop,.hexnav-item.hexbtn-nextlast:focus-within .hexdrop{transform:translateY(0)}
 .navlinks{display:flex;gap:clamp(6px,.65vw,10px);align-items:center;flex-wrap:nowrap;white-space:nowrap}
 .navlinks a{font-size:12px;letter-spacing:.045em;flex:none;text-transform:uppercase;color:var(--ink-soft);transition:color .3s;font-weight:500}
 .navlinks a:hover{color:var(--gold)}
@@ -191,6 +192,13 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    card flush to the button's edge would itself run off-screen; 24px of inward pull
    covers that worst case at every wider desktop width too. */
 .hexbtn-last .hexdrop{left:auto;right:0;transform:translateY(-6px)}
+/* whichever item sits one slot left of Join Honi (the true last item) is close
+   enough to that same tight right edge that its default centred card still runs
+   half under Join Honi's own button, reading as if the two cards belong to each
+   other. Give it the same right-anchored pull as .hexbtn-last so its card sits
+   fully under itself instead of bleeding into the neighbour's space -- currently
+   Honi Blog; was GLP-1 before the two swapped places. */
+.hexbtn-nextlast .hexdrop{left:auto;right:0;transform:translateY(-6px)}
 .hexbtn:hover .hexdrop,.hexbtn:focus-within .hexdrop{opacity:1;visibility:visible;pointer-events:auto;
   transition:opacity .25s ease,transform .25s ease}
 .hexbtn:hover .hexdrop,.hexbtn:focus-within .hexdrop{transform:translateX(-50%) translateY(0)}
@@ -209,9 +217,18 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    sitting mostly under the NEXT button over, with the arrow (centred on the card
    by default) pointing at that neighbour instead of the button that actually
    opened it. Re-centre just the arrow on the real trigger's own middle so it still
-   points at Reserve Protocol / Join List specifically, wherever the card body ends up. */
+   points at Reserve Protocol / whichever item is currently last, wherever the card
+   body ends up -- last was Join Honi (narrower button, right:16px) before it swapped
+   places with About HoniCo (wider button, right:25px). */
 .hexbtn-first .hexdrop-card::before{left:30px;transform:none}
-.hexbtn-last .hexdrop-card::before{left:auto;right:16px;transform:none}
+.hexbtn-last .hexdrop-card::before{left:auto;right:25px;transform:none}
+.hexbtn-nextlast .hexdrop-card::before{left:auto;right:36px;transform:none}
+/* forces a just-clicked hex nav item's popup shut immediately, overriding
+   :hover as well as :focus-within -- see the js-hexdrop-suppress comment
+   in the script for why :hover alone isn't enough here. Removed again the
+   moment the mouse leaves the trigger, so it never blocks a later hover. */
+.hexnav-item.js-hexdrop-suppress .hexdrop{opacity:0!important;visibility:hidden!important;
+  pointer-events:none!important;transition:none!important}
 .burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:8px}
 .burger span{display:block;width:24px;height:1.5px;background:var(--ink);margin:6px 0;transition:.3s}
 /* line breaks that should only apply on mobile/lite widths (the hero-precede copy);
@@ -1107,10 +1124,10 @@ textarea{resize:vertical;min-height:64px}
 .gift-lightbox-img{display:block;width:100%;height:auto}
 /* ---------- Ask Honi assistant ---------- */
 .askhoni-modal{position:fixed;inset:0;z-index:210;display:flex;align-items:center;justify-content:center;
-  padding:5vh 4vw;background:rgba(15,16,10,.72);opacity:0;pointer-events:none;
+  padding:12px 4vw;background:rgba(15,16,10,.72);opacity:0;pointer-events:none;
   transition:opacity .3s ease}
 .askhoni-modal.open{opacity:1;pointer-events:auto}
-.askhoni-panel{width:min(560px,92vw);max-height:86vh;display:flex;flex-direction:column;
+.askhoni-panel{width:min(560px,92vw);max-height:calc(100vh - 24px);display:flex;flex-direction:column;
   background:var(--paper);border-radius:4px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);
   transform:scale(.97) translateY(8px);transition:transform .3s ease;overflow:hidden}
 .askhoni-modal.open .askhoni-panel{transform:scale(1) translateY(0)}
@@ -1136,7 +1153,7 @@ textarea{resize:vertical;min-height:64px}
   transition:background .25s,color .25s}
 .askhoni-close:hover{background:var(--ink);color:#fff}
 .askhoni-thread{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-  padding:18px 24px;display:flex;flex-direction:column;gap:12px;min-height:160px;
+  padding:18px 24px;display:flex;flex-direction:column;gap:12px;min-height:320px;
   scrollbar-width:thin;scrollbar-color:var(--ink-soft) transparent}
 /* the thread already scrolls (overflow-y:auto), but with no visible scrollbar and a
    long answer running right up against the chips row below it, it read as cut off
@@ -1632,20 +1649,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#livaux" class="hexnav-item">LIVAUX
       <span class="hexdrop"><span class="hexdrop-card"><b>Livaux Gold Kiwifruit</b>600 mg of Livaux gold kiwifruit. Doubles F. prausnitzii in your gut within 28 days.</span></span>
     </a>
-    <a href="#abouttop" class="hexnav-item">ABOUT<br>HONICO
-      <span class="hexdrop"><span class="hexdrop-card"><b>About HoniCo</b>A small NZ honey company in the Bay of Plenty. We pledge 1 percent of profits to bee welfare.</span></span>
+    <a href="#waitlist" class="hexnav-item">JOIN<br>HONI
+      <span class="hexdrop"><span class="hexdrop-card"><b>Join the List</b>Free to join the 2026 founding list. First access to the launch, plus founding-member pricing for life.</span></span>
     </a>
-    <a href="#honiblogtop" class="hexnav-item">HONI BLOG
-      <span class="hexdrop"><span class="hexdrop-card"><b>The HoniBlog</b>Stories and science behind HONIORA, from ingredients to origins.</span></span>
+    <a href="#glp1" class="hexnav-item">GLP-1
+      <span class="hexdrop"><span class="hexdrop-card"><b>GLP-1</b>Four, natural pathways to boost your own GLP-1: Fiberest&reg; HF, Feiolix&reg; Feijoa x 2 and Eriomin&reg; Lemon Flavonoid.</span></span>
     </a>
     <button type="button" class="hexnav-item" id="askHoniBtn" aria-haspopup="dialog" aria-controls="askHoniModal">ASK<br>HONI
       <span class="hexdrop"><span class="hexdrop-card"><b>Ask Honi</b>Chat with Honi, your HONIORA guide, for quick answers on ingredients, dosing, sourcing and the science.</span></span>
     </button>
-    <a href="#glp1" class="hexnav-item">GLP-1
-      <span class="hexdrop"><span class="hexdrop-card"><b>GLP-1</b>Four, natural pathways to boost your own GLP-1: Fiberest&reg; HF, Feiolix&reg; Feijoa x 2 and Eriomin&reg; Lemon Flavonoid.</span></span>
+    <a href="#honiblogtop" class="hexnav-item hexbtn-nextlast">HONI BLOG
+      <span class="hexdrop"><span class="hexdrop-card"><b>The HoniBlog</b>Stories and science behind HONIORA, from ingredients to origins.</span></span>
     </a>
-    <a href="#waitlist" class="hexnav-item hexbtn-last">JOIN<br>HONI
-      <span class="hexdrop"><span class="hexdrop-card"><b>Join the List</b>Free to join the 2026 founding list. First access to the launch, plus founding-member pricing for life.</span></span>
+    <a href="#abouttop" class="hexnav-item hexbtn-last">ABOUT<br>HONICO
+      <span class="hexdrop"><span class="hexdrop-card"><b>About HoniCo</b>A small NZ honey company in the Bay of Plenty. We pledge 1 percent of profits to bee welfare.</span></span>
     </a>
     <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-expanded="false" aria-controls="mmLeft"><span></span><span></span></button>
     <div class="hexbtn-m nav-hex-mobile-left">
@@ -3445,6 +3462,29 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       history.pushState(null, '', hash);
     });
   })();
+
+  /* hex nav dropdown previews (.hexdrop) show on :hover/:focus-within. A click
+     clears the :focus-within half (blur, below) but NOT the :hover half -- the
+     header is position:fixed, so the button the visitor just clicked stays put
+     under their actual mouse cursor even after the page smooth-scrolls away,
+     and a real cursor doesn't move on its own just because the page did. Left
+     alone, that pins the popup open over whatever the click navigated to (or
+     the Ask Honi modal that just opened) until the visitor's mouse physically
+     leaves the button. js-hexdrop-suppress force-hides the dropdown the
+     instant its trigger is clicked, mouse hover included, and lifts again the
+     moment the mouse actually leaves that trigger, so the very next normal
+     hover still opens it -- this is a one-shot override on the click that just
+     happened, not a lasting change to how the dropdown behaves. */
+  document.addEventListener('click', function(e){
+    var item = e.target.closest('.hexnav-item');
+    if (!item) return;
+    item.blur();
+    item.classList.add('js-hexdrop-suppress');
+    item.addEventListener('mouseleave', function clearSuppress(){
+      item.classList.remove('js-hexdrop-suppress');
+      item.removeEventListener('mouseleave', clearSuppress);
+    });
+  });
 
   var bw = document.getElementById('bubbles');
   for (var i=0;i<24;i++){
