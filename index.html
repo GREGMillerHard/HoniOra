@@ -39,6 +39,7 @@
   --gold:#B0821F;
   --gold-deep:#8A6516;
   --gold-wash:rgba(196,153,48,.10);
+  --brown:#6B4423;
   --maxw:1260px;
   --pad:clamp(20px,5vw,64px);
 }
@@ -232,8 +233,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:8px}
 .burger span{display:block;width:24px;height:1.5px;background:var(--ink);margin:6px 0;transition:.3s}
 /* line breaks that should only apply on mobile/lite widths (the hero-precede copy);
-   normal <br> behaviour below the 1400px lite breakpoint, suppressed above it */
-@media(min-width:1401px){.lite-br{display:none}}
+   V3 Lite Desktop: the lite nav is the default at every width now (see the former
+   max-width:1400px nav block below, unconditional here), so this <br> stays in its
+   normal (shown) state everywhere too -- the old min-width:1401px query that hid it
+   above the desktop breakpoint is removed rather than kept dead in the file. */
 /* mobile-only Reserve Protocol / Reserve Test Tube hexes, one flanking each side of the
    logo on the nav bar itself. Hidden on desktop, where the full-size versions already
    live in .nav-cluster-left. The logo stays truly centred (a 1fr/auto/1fr grid, same
@@ -276,23 +279,33 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    non-visual fixed wrapper now, purely for grouping -- it has no open/closed state of
    its own. */
 .mobilemenu{position:fixed;inset:0;z-index:99;pointer-events:none}
-.mm-col{position:fixed;top:0;bottom:0;width:50%;background:var(--paper);
+.mm-col{position:fixed;top:0;bottom:0;width:50%;background:rgba(255,255,255,.15);
   display:flex;flex-direction:column;gap:2px;min-width:0;padding:128px 22px 48px;
   overflow-y:auto;-webkit-overflow-scrolling:touch;visibility:hidden;pointer-events:none;
   transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear .5s}
 .mm-col.open{visibility:visible;pointer-events:auto;transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear 0s}
-.mm-col:first-child{left:0;transform:translateX(-100%);border-right:1px solid var(--line-soft)}
+/* left panel's links are right-aligned (text-align, not flex align-items, so each
+   link's own box -- and its border-bottom divider -- still spans the full column
+   width) so its list reads toward the centre divider, matching how the right panel's
+   links already sit near centre (they're left-aligned within a box that starts at
+   the divider). Previously both were left-aligned, which put the left list hugging
+   the outer screen edge instead of mirroring the right one. */
+.mm-col:first-child{left:0;transform:translateX(-100%);border-right:1px solid var(--line-soft);text-align:right}
 .mm-col:last-child{right:0;transform:translateX(100%);border-left:1px solid var(--line-soft)}
 .mm-col.open{transform:translateX(0)}
-/* 561-1400px: the gold reserve hexes (.hexbtn-m img) scale up to 160px tall in this range,
+/* 561px+: the gold reserve hexes (.hexbtn-m img) scale up to 160px tall from this width on,
    well past the header's own 111px height, and each panel's 128px top padding above only
    clears them on phones. Left unfixed, the hexes hang down over the first link in each
    panel (Reserve the Protocol / 2 Tabs) since the header sits above the menu in z-index.
-   Bump the clearance here to the tallest the hexes ever get (160px) plus a margin. */
-@media(min-width:561px) and (max-width:1400px){
+   Bump the clearance here to the tallest the hexes ever get (160px) plus a margin.
+   V3 Lite Desktop: was capped at max-width:1400px (the old lite-nav-only range); the
+   upper bound is dropped since lite nav -- and these same hexes -- are now the default
+   at every desktop width, not just this band. */
+@media(min-width:561px){
   .mm-col{padding-top:190px}
 }
-.mobilemenu a{font-size:clamp(16px,4.6vw,26px);font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;padding:12px 0;border-bottom:1px solid var(--line-soft);line-height:1.2}
+.mobilemenu a{font-size:clamp(16px,4.6vw,26px);font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;padding:12px 0;border-bottom:1px solid var(--line-soft);line-height:1.2;color:#000;transition:color .3s}
+.mobilemenu a:hover,.mobilemenu a:focus-visible{color:var(--gold)}
 
 /* ---------- hero ---------- */
 /* padding equals the nav height exactly, so the marquee butts against it.
@@ -610,7 +623,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .sec.deep h2,.sec.deep h3,.sec.deep h4{color:#F3F1E8}
 .sec.deep .lede{color:#B9BBAD}
 .sec-head{margin-bottom:56px}
-.cr01-logo{display:block;width:clamp(144px,18vw,208px);height:auto;margin:18px auto 0;border-radius:14px} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px) */
+.cr01-logo{display:block;width:clamp(144px,18vw,208px);height:auto;margin:18px auto 0;border-radius:0} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px); rounded corners removed at the user's request */
 .sec-head h2{font-size:clamp(34px,5.4vw,68px);margin:18px 0 22px;max-width:20ch}
 .sec-head h2 em{font-style:italic;color:var(--gold)}
 /* headline that must never wrap: scales purely with viewport width */
@@ -635,7 +648,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   gap:clamp(10px,1.4vh,22px);padding:clamp(24px,3.4vh,48px) 0 clamp(18px,2.4vh,34px)}
 .unit-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 var(--pad);max-width:940px;margin:0 auto clamp(54px,7.4vh,96px)}
 #protocol .sec-head,#ritual .sec-head,#honey .sec-head,#triad .sec-head,#problem .sec-head,#science .sec-head,
-#function .sec-head,.sec.deep .sec-head,#matrix .sec-head,#lemon .sec-head,#taste .sec-head,
+.sec.deep .sec-head,#matrix .sec-head,#lemon .sec-head,#taste .sec-head,
 #legal .sec-head{text-align:center}
 #protocol .sec-head h2,#protocol .sec-head .lede,
 #ritual .sec-head h2,#ritual .sec-head .lede,
@@ -643,7 +656,6 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 #triad .sec-head h2,#triad .sec-head .lede,
 #problem .sec-head h2,#problem .sec-head .lede,
 #science .sec-head h2,#science .sec-head .lede,
-#function .sec-head h2,#function .sec-head .lede,
 .sec.deep .sec-head h2,.sec.deep .sec-head .lede,
 #matrix .sec-head h2,#matrix .sec-head .lede,
 #lemon .sec-head h2,#lemon .sec-head .lede,
@@ -788,8 +800,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 
 /* ---------- pillars ---------- */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-#function .pillars{grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto}
-#function .pillars .pillar{min-width:0}
+.pillars4{grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto}
+.pillars4 .pillar{min-width:0}
 .pillar{background:var(--paper);padding:clamp(28px,3.4vw,46px);transition:background .45s ease}
 .pillar:hover{background:var(--paper-3)}
 .sec.tinted .pillar{background:var(--paper)}
@@ -1267,8 +1279,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .plan:hover{border-color:rgba(21,23,15,.26);box-shadow:0 18px 44px -30px rgba(21,23,15,.5);transform:translateY(-3px)}
 .plan.feature{border-color:var(--gold);background:linear-gradient(180deg,var(--gold-wash) 0%,var(--paper) 46%)}
 .plan.feature:hover{border-color:var(--gold-deep)}
-.plan-badge{position:absolute;top:-11px;left:clamp(22px,2vw,32px);background:var(--gold);color:#fff;font-size:9.5px;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border-radius:2px}
 .plan-name{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink-soft)}
 .plan.feature .plan-name{color:var(--gold-deep)}
 .plan-price{display:flex;align-items:baseline;gap:7px;margin:16px 0 4px}
@@ -1288,7 +1298,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .plan-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line-soft);padding-top:18px}
 .plan-list li{font-size:13.5px;color:var(--ink-2);line-height:1.55;padding:7px 0 7px 20px;position:relative;font-weight:300}
 .plan-list li:before{content:"";position:absolute;left:0;top:14px;width:8px;height:1px;background:var(--gold)}
-.plan-cta{margin-top:auto;padding-top:26px}
+.plan-cta{margin-bottom:24px}
 .plan-cta .btn{width:100%;justify-content:center}
 .storenote{margin-top:clamp(26px,2.6vw,38px);border-top:1px solid var(--line);padding-top:22px;
   display:flex;gap:clamp(18px,2.6vw,44px);flex-wrap:wrap}
@@ -1300,7 +1310,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .rv.in{opacity:1;transform:none}
 
 /* ---------- lemon slice: rolls in from off-screen left, spinning like a coin on its edge,
-   to rest centered below the "11 / The Lemon Water Upgrade" title. Reuses the shared .rv
+   to rest centered below the "10 / The Lemon Water Upgrade" title. Reuses the shared .rv
    IntersectionObserver above -- only the transform differs. ---------- */
 .lemon-roll{display:flex;justify-content:center;margin:clamp(18px,3.6vw,32px) 0 clamp(22px,3.6vw,36px)}
 .lemon-roll img{width:clamp(110px,15vw,190px);height:auto;display:block;border-radius:50%}
@@ -1424,7 +1434,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .grouphead .ln{display:none}
   .stats,.mfacts{grid-template-columns:1fr 1fr}
   .pillars{grid-template-columns:1fr}
-  #function .pillars{grid-template-columns:1fr;max-width:none}
+  .pillars4{grid-template-columns:1fr;max-width:none}
   .mgrid{grid-template-columns:1fr 1fr;gap:12px 20px}
   .row .name{grid-column:1/-1}
   .row .mech{grid-column:1/-1;margin-top:4px}
@@ -1444,17 +1454,34 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    desktop shows for the same text. Easing that reservation just in this range gives
    the copy roughly the same breathing room desktop has, without touching the
    side-by-side layout itself. */
-@media(min-width:1001px) and (max-width:1400px){
+/* V3 Lite Desktop: upper bound dropped (was max-width:1400px) so the eased headline
+   reservation applies at every desktop width now, not just this one band -- consistent
+   with the nav switch-over below also losing its upper bound. */
+@media(min-width:1001px){
   .hero-lower{padding-right:max(var(--pad),220px)}
   .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
+  /* V3 Lite Desktop, size correction: the mini reserve hexes and mobile wordmark use
+     the same clamp()s from 561px up through this branch's new unconditional desktop
+     range -- fine on a real tablet-width screen, but at true desktop widths (1440px+)
+     the rest of the page (hero, headline) renders at full desktop scale while these
+     two were still capped at their tablet-era maximum (160px hexes, 58px logo),
+     reading oversized next to it. Sized down for 1001px and up specifically, so the
+     narrower 561-1000px tablet band (already shipped, already matches the user's own
+     reference) is untouched. Height fixed at 71px (66px navbar + 5px) rather than a
+     vw-scaled clamp() -- the user wants an exact 0px top / 5px bottom overhang, which
+     only holds at every width if the hex height doesn't drift with viewport; see the
+     top:0 (no vertical centring) positioning rule below for the other half of this. */
+  .hexbtn-m img,.hexbtn-m svg{height:71px}
+  .brand-mobile .brand-logo{height:46px}
+  .mm-col{padding-top:130px}
 }
 /* lite/mobile only: drop the "HUGE pills and/or chalky, messy powders / Every morning?"
-   line and its trailing break entirely. Desktop keeps it -- same shared paragraph, this
-   just hides that one wrapped span below the nav's own mobile breakpoint (1400px), so the
-   headline starts straight at "UPGRADE YOUR RITUAL." on phones and tablets. */
-@media(max-width:1400px){
-  .hero-precede .precede-huge{display:none}
-}
+   line and its trailing break entirely. Same shared paragraph, this just hides that one
+   wrapped span so the headline starts straight at "UPGRADE YOUR RITUAL."
+   V3 Lite Desktop: this used to stop above the nav's old max-width:1400px mobile
+   breakpoint; it's unconditional now since lite nav -- and this headline treatment --
+   are the default at every width in this branch. */
+.hero-precede .precede-huge{display:none}
 /* the hex-button + centred-logo nav needs real width; below this it collapses to the burger.
    raised from 1360 to 1400 for the 50%-larger wordmark. Adding a 6th link (HoniCo, then
    HoniBlog) made the right-hand cluster wider than its grid track at this breakpoint,
@@ -1463,22 +1490,49 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    rather than raising the breakpoint again (which would push the compact mobile nav onto
    very common ~1440-1600px laptop widths), the nav's own spacing (hex icon size, link
    gaps, letter-spacing) was tightened so 6 links + 2 hex buttons fit safely back within
-   1400px, with margin to spare down to ~1340px. */
-@media(max-width:1400px){
-  /* three-column grid (same 1fr/auto/1fr technique the desktop nav uses) so the centre
-     column, the logo, always sits at the true horizontal centre of the bar no matter
-     what's in the two flanking hex columns -- unlike a flex row with justify-content:
-     center, where the logo's centring point shifts depending on what else is present. */
-  .navbar{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr);align-items:center;height:66px;padding:0;position:relative}
-  .hero{padding-top:67px}   /* matches this breakpoint's 66px navbar + 1px header border */
-  .nav-cluster,.brand-center,.nav-cta,.hexnav-item,.hexnav-logo{display:none}
-  .brand-mobile{display:block;grid-column:2;justify-self:center}
-  .burger{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%)}
-  .hexbtn-m.nav-hex-mobile-left{display:block;grid-column:1;justify-self:end;margin-right:clamp(2px,1.3vw,14px)}
-  .hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
-  /* second burger, mirrored on the left edge -- each burger now opens only its own half
-     of the split menu instead of one burger opening both halves together. */
-  .burger-left{left:0;right:auto}
+   1400px, with margin to spare down to ~1340px.
+   V3 LITE DESKTOP BRANCH: this whole ruleset used to be gated to max-width:1400px --
+   the point where the full text-link hex nav no longer had room and collapsed to this
+   burger + mini-hex + sliding-panel "lite" nav. That gate is removed here: this lite nav
+   is now the permanent default at every desktop width too, per the user's request to make
+   the compact nav (as seen at ~1000-1400px / 250% browser zoom) the site's default
+   appearance rather than a narrow-viewport fallback. The full hex-text nav markup and its
+   own rules (.hexnav-item etc., defined earlier in this file) are left in place, just
+   permanently hidden below -- unused rather than deleted, in case a future version wants
+   the choice back. */
+.navbar{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr);align-items:center;height:66px;padding:0;position:relative}
+.hero{padding-top:67px}   /* matches this breakpoint's 66px navbar + 1px header border */
+.nav-cluster,.brand-center,.nav-cta,.hexnav-item,.hexnav-logo{display:none}
+.brand-mobile{display:block;grid-column:2;justify-self:center}
+.burger{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%)}
+.hexbtn-m.nav-hex-mobile-left{display:block;grid-column:1;justify-self:end;margin-right:clamp(2px,1.3vw,14px)}
+.hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
+/* second burger, mirrored on the left edge -- each burger now opens only its own half
+   of the split menu instead of one burger opening both halves together. */
+.burger-left{left:0;right:auto}
+/* V3 Lite Desktop: push the burgers and mini reserve hexes out past .wrap's own side
+   padding (var(--pad), up to 64px at this width) so they sit near the true browser-
+   window edge instead of the page's normal content margin, and make the hexes smaller
+   at the same time. Placed after the unconditional nav rules above (same selectors,
+   same specificity) so it wins the cascade at 1001px+ regardless of source order.
+   .navbar is position:relative with no padding of its own, so left/right:0 above was
+   relative to .navbar's left/right edge, which itself already sits var(--pad) in from
+   the true viewport edge -- an offset of -var(--pad) reaches exactly that true edge; a
+   small positive nudge back in (4px) keeps them just off the literal edge. The hexes
+   are pulled out of the grid flow (position:absolute, replacing their grid-column
+   placement) so they can sit outside the burgers without disturbing the centred logo,
+   which still balances evenly between the two now-empty flexible grid columns. */
+@media(min-width:1001px){
+  .burger{right:calc(-1 * var(--pad) + 4px)}
+  .burger-left{left:calc(-1 * var(--pad) + 4px);right:auto}
+  /* top:0, no vertical centring: the hex's own top edge lines up exactly with the
+     navbar's top edge (0px overhang above), and since the hex (71px) is 5px taller
+     than the 66px navbar, the extra 5px falls entirely below it -- an exact 0px
+     top / 5px bottom overhang rather than the symmetric split top:50% gave. */
+  .hexbtn-m.nav-hex-mobile-left{position:absolute;top:0;left:calc(-1 * var(--pad) + 54px);
+    margin-right:0}
+  .hexbtn-m.nav-hex-mobile-right{position:absolute;top:0;right:calc(-1 * var(--pad) + 54px);
+    margin-left:0}
 }
 @media(max-width:600px){
   body{font-size:16px}
@@ -1635,8 +1689,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#rita" class="hexnav-item">RITA<br>ROCKS
       <span class="hexdrop"><span class="hexdrop-card"><b>Rita Rocks</b>Rita Ora talks longevity and her own wellness routine, in Women's Health.</span></span>
     </a>
-    <a href="#function" class="hexnav-item">FUNCTION
-      <span class="hexdrop"><span class="hexdrop-card"><b>Function</b>Both tablets dissolve fully in water. Your gut absorbs the actives fast.</span></span>
+    <a href="#science" class="hexnav-item">DISSOLVE
+      <span class="hexdrop"><span class="hexdrop-card"><b>Dissolve, Then Drink</b>Fully dissolved in 60 seconds, fast to absorb, kind on your gut.</span></span>
     </a>
     <a href="#singlepack" class="hexnav-item">TEST<br>TUBE
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
@@ -1701,7 +1755,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#honeytop">M&#257;nuka Honey</a>
     <a href="#problem">Cr.01 Creatine</a>
     <a href="#livaux">Livaux</a>
-    <a href="#function">Function</a>
+    <a href="#triad">Four Systems</a>
+    <a href="#glp1">Natural GLP-1 Boost</a>
     <a href="#matrix">The Stack</a>
     <a href="#triad">Gut &middot; Heart &middot; Brain</a>
     <a href="#taste">Taste</a>
@@ -1709,11 +1764,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="mm-col" id="mmRight">
     <a href="#protocol">2 Tabs</a>
     <a href="#ritual">Ritual</a>
-    <a href="#waitlist" style="color:var(--gold)">Join Founding List</a>
+    <a href="#science">Dissolve</a>
+    <a href="#waitlist">Join Founding List</a>
     <a href="#rita">Rita Rocks</a>
     <a href="#lemon">Lemonwater?</a>
     <a href="#honiblogtop">HoniBlog</a>
-    <a href="javascript:void(0)" id="askHoniBtnMobile" style="color:var(--gold)">Ask Honi</a>
+    <a href="javascript:void(0)" id="askHoniBtnMobile">Ask Honi</a>
     <a href="#abouttop">About HoniCo</a>
   </div>
 </div>
@@ -2037,6 +2093,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="storegrid rv">
 
       <div class="plan" id="singlepack">
+        <div class="plan-cta"><a href="#waitlist" class="btn ghost" data-plan="Single Pack &middot; USD 52.50">Reserve a single pack <span class="ar">&rarr;</span></a></div>
         <div class="plan-top">
           <div class="plan-head">
             <p class="plan-name">Single Pack</p>
@@ -2052,12 +2109,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li>$52.50 credited to subscription</li>
           <li>Free USA shipping, always</li>
         </ul>
-        <div class="plan-cta"><a href="#waitlist" class="btn ghost" data-plan="Single Pack &middot; USD 52.50">Reserve a single pack <span class="ar">&rarr;</span></a></div>
       </div>
 
 
       <div class="plan feature">
-        <span class="plan-badge">Best value &middot; One to share</span>
+        <div class="plan-cta"><a href="#waitlist" class="btn" data-plan="Monthly Protocol subscription &middot; USD 210">Reserve the protocol <span class="ar">&rarr;</span></a></div>
         <p class="plan-name">Monthly Protocol</p>
         <div class="plan-price"><b>$210</b><i>USD / month</i></div>
         <p class="plan-per">$6.00 a dose. You save $52.50 a month.</p>
@@ -2071,7 +2127,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li>First access to every new drop</li>
           <li>Free USA shipping, always</li>
         </ul>
-        <div class="plan-cta"><a href="#waitlist" class="btn" data-plan="Monthly Protocol subscription &middot; USD 210">Reserve the protocol <span class="ar">&rarr;</span></a></div>
       </div>
 
     </div>
@@ -2307,63 +2362,56 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p>A delicious natural yuzu, passionfruit and golden kiwi profile, carried on whole-fruit powders and M&#257;nuka honey rather than anything added on top. Thaumatin<sup class="rn">&reg;</sup> Pure Talin augments the sweetness and blocks the bitter receptors the botanical extracts would otherwise trip.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ================= GUT HEART BRAIN ================= -->
-
-<!-- ================= FUNCTION ================= -->
-<section class="sec" id="function">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow dim">07 / Function</p>
+    <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
       <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
       <p class="lede">The 2 HONI<i>ORA</i> tablets completely dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>that is kind on and supports your gut <br>allowing absorption of all the actives to quickly reach your bloodstream.</p>
     </div>
-    <div class="pillars rv">
+    <div class="pillars pillars4 rv">
       <div class="pillar">
-        <span class="n">i</span>
+        <span class="n">iv</span>
         <h3>Better blood flow, better circulation <span class="ing">VasoDrive-AP<sup class="rn">&reg;</sup></span></h3>
         <p>Special peptides relax your blood vessels and reduce arterial stiffness. This opens up circulation so oxygen, clean energy, and nutrients reach your muscles, brain, and organs quickly.</p>
       </div>
       <div class="pillar">
-        <span class="n">ii</span>
+        <span class="n">v</span>
         <h3>Targeted brain flow and micro-circulation <span class="ing">cGP-Pro<sup class="rn">&reg;</sup></span></h3>
         <p>Cyclic Glycine-Proline directly supports the tiny blood vessels in your brain and coordinates key growth factors, like IGF-1. This helps keep your focus sharp, memory clear, and mental energy steady all day without nervous jitters.</p>
       </div>
       <div class="pillar">
-        <span class="n">iii</span>
+        <span class="n">vi</span>
         <h3>Cellular energy, every day <span class="ing">Cr-01 Creatine</span></h3>
         <p>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle and brain function whether you train hard or just get through your day. At 3,000 mg per serving it is the largest single active in the tablet. Sourced as Jenerise Cr.01&trade;, third-party verified by SGS at 99.96% purity and tested for contaminants many creatine suppliers do not disclose.</p>
       </div>
       <div class="pillar">
-        <span class="n">iv</span>
+        <span class="n">vii</span>
         <h3>Immune and enzymatic cofactor support <span class="ing">Zinc Bisglycinate<sup class="rn">&reg;</sup></span></h3>
         <p>A well-absorbed chelated zinc form. Zinc is a cofactor for hundreds of enzymes and sits behind normal immune function, paired here with Magnesium Malate for broader mineral cofactor coverage.</p>
       </div>
       <div class="pillar">
-        <span class="n">v</span>
+        <span class="n">viii</span>
         <h3>Metabolic and micro-vascular stability</h3>
         <p>Careflow<sup class="rn">&reg;</sup> and S7<sup class="rn">&reg;</sup> work the small-vessel end of the circulatory system, supporting steadier microvascular flow through the day.</p>
       </div>
       <div class="pillar">
-        <span class="n">vi</span>
+        <span class="n">ix</span>
         <h3>Zero grittiness or stomach upset</h3>
         <p>Engineered to dissolve 100% clear in under 90 seconds without artificial aftertastes, chalky residue, or gut bloating, making it effortless to drink every morning.</p>
       </div>
       <div class="pillar">
-        <span class="n">vii</span>
+        <span class="n">x</span>
         <h3>Stress response and recovery support <span class="ing">Landkind<sup class="rn">&reg;</sup> Pure Salidroside</span></h3>
         <p>A precision-fermented Rhodiola rosea extract standardised to 98%+ salidroside. Functions as an adaptogen, helping the body regulate its response to everyday physical and mental stress.</p>
       </div>
       <div class="pillar">
-        <span class="n">viii</span>
+        <span class="n">xi</span>
         <h3>Cognitive support and mood balance <span class="ing">Braincurrant<sup class="rn">&reg;</sup></span></h3>
         <p>A whole-fruit New Zealand blackcurrant powder from Anagenix, carrying the anthocyanins and polyphenols the fruit is naturally rich in. Independent NZ blackcurrant research (not run on this specific branded ingredient) covers exercise recovery, metabolic health and visual fatigue; the supplier's own focus, memory and mood claims for Braincurrant<sup class="rn">&reg;</sup> specifically remain unconfirmed independently.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ================= GUT HEART BRAIN ================= -->
 
 <!-- ================= GLP-1 ================= -->
 <section class="sec tinted" id="glp1">
@@ -2398,7 +2446,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec deep">
   <div class="wrap">
     <div class="sec-head rv" style="margin-bottom:44px">
-      <p class="eyebrow">08 / Clinical Thresholds</p>
+      <p class="eyebrow">07 / Clinical Thresholds</p>
       <h2 class="serif" style="font-size:clamp(30px,4.4vw,56px);max-width:24ch">Every dose amount matches or exceeds each ingredient's own trial data.</h2>
     </div>
     <div class="stats rv">
@@ -2439,7 +2487,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <img class="matrix-banner rv" src="matrix-stack-header.jpg" alt="In The Mix: our whole-system formula. A gold HONIORA tablet fizzing with bubbles, surrounded by honeycomb, gold kiwifruit, feijoa, mango and blackcurrants against a gold hexagon pattern." width="2678" height="1600" loading="lazy">
     </picture>
     <div class="sec-head rv">
-      <p class="eyebrow dim">09 TheStack /</p>
+      <p class="eyebrow dim">08 TheStack /</p>
       <h2 class="serif">The HONI<i>ORA</i> recipe</h2>
       <p class="lede">This is the entire stack, the mechanism behind them and the published research, each is full dose delivered in a two-tablet serving.</p>
     </div>
@@ -2662,7 +2710,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="livaux">
   <div class="wrap">
     <div class="livaux-box rv">
-      <p class="eyebrow dim">10 / Livaux Gold Kiwifruit</p>
+      <p class="eyebrow dim">09 / Livaux Gold Kiwifruit</p>
       <h2 class="serif">Livaux Gold Kiwifruit: <em>A precision prebiotic, whole from the fruit.</em></h2>
       <p class="lede">HONI<i>ORA</i> carries 600 mg of Livaux<sup class="rn">&reg;</sup> gold kiwifruit per serving, the same dose used in a 2025 randomised controlled trial in healthy adults. Over 28 days at that dose, Livaux<sup class="rn">&reg;</sup> significantly increased <em style="font-style:italic">Faecalibacterium prausnitzii</em>, a keystone anti-inflammatory gut bacterium, roughly doubling it in 70% of participants (p=0.047).<br><a class="cite" href="https://doi.org/10.1016/j.bcdf.2025.100468" target="_blank" rel="noopener noreferrer">Supporting research <span>McKeen et al. 2025 &nearr;</span></a></p>
       <p class="lede">Unlike an isolated fibre prebiotic, Livaux<sup class="rn">&reg;</sup> is a whole-fruit powder. It carries the gold kiwifruit's own pectin, polyphenol and micronutrient matrix into the gut, rather than one extracted compound on its own.</p>
@@ -2684,7 +2732,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="lemon">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">11 / The Lemon Water Upgrade</p>
+      <p class="eyebrow dim">10 / The Lemon Water Upgrade</p>
       <h2 class="serif">Everything lemon water does <em>but a clinical dose.</em></h2>
       <div class="lemon-roll rv"><img src="lemon-slice-cutout.png" alt="A cross-section slice of lemon" width="520" height="520" loading="lazy"></div>
       <p class="lede">Your morning lemon water is a good instinct built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and bathes your enamel in unbuffered acid on the way. HONI<i>ORA</i> runs the same four pathways with consistent beneficial amounts and without the enamel risk.</p>
@@ -2753,7 +2801,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec tinted" id="taste">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">12 / The Taste</p>
+      <p class="eyebrow dim">11 / The Taste</p>
       <h2 class="serif">HONI<i>ORA</i> <em>Organoleptic Profile.</em></h2>
       <p class="lede">A structured flavour evaluation: Aromatics, palate evolution, and a scored attribute breakdown.</p>
     </div>
@@ -2841,7 +2889,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="pack">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">13 / Format</p>
+      <p class="eyebrow dim">12 / Format</p>
       <h2 class="serif oneline">One tube = One <em>week.</em></h2>
       <p class="lede">A Sanner BioBase<sup class="rn">&reg;</sup> tube, molded from bio-based polyethylene derived from sugarcane ethanol at over 90% renewable content, fitted with a silica gel desiccant closure rated for a 40% higher water vapor barrier and 30 to 40% longer shelf life than Sanner's standard polypropylene tube.<br><a class="cite" href="https://www.sanner-group.com/moisture-management/sanner-biobase" target="_blank" rel="noopener noreferrer">Packaging <span>sanner-group.com &nearr;</span></a></p>
     </div>
@@ -2866,7 +2914,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap">
     <div class="formgrid">
       <div class="rv">
-        <p class="eyebrow">14 / Founding List</p>
+        <p class="eyebrow">13 / Founding List</p>
         <h2 class="serif" style="font-size:clamp(34px,4.8vw,58px);margin:18px 0 22px">First Drop, 2026.</h2>
         <p class="lede" style="font-size:17px">Our first commercial batch is open to the founding list before general release. Join us and get first access and lifetime founders subscription bonuses.</p>
         <p class="small" style="margin-top:28px">Questions before you sign up?<br><a href="mailto:hello@honi.co.nz" style="color:var(--gold);font-weight:500">hello@honi.co.nz</a></p>
@@ -2918,7 +2966,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec tinted" id="about">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow" id="abouttop">15 / The Company</p>
+      <p class="eyebrow" id="abouttop">14 / The Company</p>
       <h2 class="serif">About <em>HoniCo</em>.</h2>
     </div>
 
@@ -2973,94 +3021,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 </section>
 
-<!-- ================= LEGAL ================= -->
-<section class="sec legalsec" id="legal">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">16 / Legal</p>
-      <h2 class="serif">The <em>fine print</em>.</h2>
-      <p class="lede">Everything below is a working draft prepared for review. Fields in square brackets need your company details before launch.</p>
-    </div>
-
-    <div class="lgwrap rv">
-
-      <details class="lg" id="lg-privacy">
-        <summary>Privacy policy<i></i></summary>
-        <div class="lgbody">
-          <p><b>Who we are.</b> [Registered entity name], NZBN [number], of [registered address], New Zealand. Contact <a href="mailto:privacy@honi.co.nz">privacy@honi.co.nz</a>.</p>
-          <p><b>What we collect.</b> When you join the founding list we collect your name, email address, country, age range, the wellness goals you select, what you currently take, your intended volume and any free-text note. When you buy, our payment processor collects your billing and delivery details. We never see or store full card numbers.</p>
-          <p><b>Why we collect it.</b> To contact you before and at launch, to fulfil and support orders, to understand which product tiers people want, and to meet our tax and record-keeping obligations. We do not sell your data or share it with advertisers.</p>
-          <p><b>Sensitive information.</b> Health goals and age range are more sensitive than a plain email address. You may leave both blank and still join the list. We use them only in aggregate for product planning unless you ask us a question that requires otherwise.</p>
-          <p><b>Where it goes.</b> Your data is held by [hosting provider], [email platform] and [payment processor], which may store it outside New Zealand, including in [jurisdictions]. We require each to protect it to a comparable standard.</p>
-          <p><b>How long we keep it.</b> Founding-list records until you unsubscribe or [period]. Order records for [period], as required for tax and consumer-law purposes.</p>
-          <p><b>Your rights.</b> Under the New Zealand Privacy Act 2020 you may ask what we hold about you, ask us to correct it, and complain to the Office of the Privacy Commissioner. If you are in the EU, UK, California or another jurisdiction with its own regime, additional rights may apply. Email us and we will act within [timeframe].</p>
-          <p><b>Cookies.</b> This site currently loads Google Fonts and a script CDN, both of which receive your IP address. [Add analytics and marketing pixels here once installed, with a consent mechanism if required in your markets.]</p>
-          <p><b>Changes.</b> Last updated [date]. Material changes will be notified by email to anyone on the founding list.</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-terms">
-        <summary>Terms and conditions<i></i></summary>
-        <div class="lgbody">
-          <p><b>Agreement.</b> These terms govern your use of this site and any purchase from [Registered entity name] (&ldquo;HoniCo&rdquo;, &ldquo;we&rdquo;). By ordering you accept them.</p>
-          <p><b>Eligibility.</b> You must be 18 or older. HONI<i>ORA</i> is not intended for anyone under 18, or for people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use.</p>
-          <p><b>Founding list.</b> Joining the list is not an order and creates no obligation on either side. Prices shown are indicative for the first commercial batch and may change before launch.</p>
-          <p><b>Orders and pricing.</b> Prices are in US dollars and exclude any import duty your country charges. We may correct pricing or specification errors before dispatch and will contact you if we do. An order is accepted when we dispatch it, not when payment is taken.</p>
-          <p><b>Subscription.</b> The Monthly Protocol renews automatically every [interval] at the price shown at signup until you cancel. You may cancel at any time before the next renewal from [cancellation route]. Cancellation stops future shipments and does not refund a shipment already sent. [US buyers: confirm this section satisfies federal and state automatic-renewal disclosure requirements before launch.]</p>
-          <p><b>Shipping.</b> Free within the United States, no minimum. International orders are quoted at checkout. Risk passes to you on delivery. Estimated delivery times are indicative and not guaranteed.</p>
-          <p><b>Product information.</b> We take care with dosages, provenance and mechanism descriptions. Ingredient research cited on this site relates to the individual branded ingredients at the doses stated, not to the finished product.</p>
-          <p><b>Liability.</b> Nothing in these terms limits rights you have under the New Zealand Consumer Guarantees Act, the Fair Trading Act, or the equivalent law of your own country where that law applies. Subject to that, our liability for any claim is limited to the amount you paid for the goods concerned.</p>
-          <p><b>Governing law.</b> New Zealand law, subject to any mandatory consumer protection in your jurisdiction. [Confirm this position is workable for US sales.]</p>
-          <p><b>Contact.</b> [Registered entity name], [address]. Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>. Last updated [date].</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-refund">
-        <summary>Refund and cancellation<i></i></summary>
-        <div class="lgbody">
-          <p><b>Damaged, faulty or wrong items.</b> Tell us within [period] of delivery with a photograph and your order number. We replace or refund in full, including any shipping you paid. This sits alongside your rights under the Consumer Guarantees Act and equivalent law.</p>
-          <p><b>Change of mind.</b> Unopened tubes with the seal intact may be returned within [period] of delivery for a refund less [return shipping / restocking]. Opened tubes cannot be returned, because this is an ingestible product and we cannot verify storage conditions once the desiccant seal is broken.</p>
-          <p><b>Subscription cancellation.</b> Cancel at any time from [cancellation route], effective from the next billing date. We do not charge a cancellation fee. If a renewal is charged within [period] before you cancel and the tubes have not shipped, tell us and we will refund it.</p>
-          <p><b>Single pack credit.</b> If you buy a single pack and then choose to subscribe, the $52.50 you first paid is credited to your first subscription payment (applies once per customer and has no cash value). [Set an expiry window if you want one, and confirm your checkout can apply it.]</p>
-          <p><b>Non-delivery.</b> If a parcel does not arrive within [period] of dispatch we will replace it or refund it at your choice.</p>
-          <p><b>How to start a return.</b> Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a> with your order number. Do not send anything back before we reply. Refunds are made to the original payment method within [period] of us receiving the return.</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-ip">
-        <summary>Copyright and intellectual property<i></i></summary>
-        <div class="lgbody">
-          <p><b>This site.</b> &copy; 2026 [Registered entity name]. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
-          <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of [Registered entity name], claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
-          <p><b>The formulation.</b> The HONI<i>ORA</i> formulation, its ratios and the specification behind them are confidential and proprietary. Publishing a full bill of materials does not place it in the public domain or grant any licence to reproduce it.</p>
-          <p><b>Third-party marks.</b> Livaux, Feiolix, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
-          <p><b>Cited research.</b> Papers linked from the provenance matrix belong to their authors and publishers. We link to public records and reproduce no full text.</p>
-          <p><b>Infringement.</b> Email <a href="mailto:legal@honi.co.nz">legal@honi.co.nz</a> with details and we will respond within [period].</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-fda">
-        <summary>FDA and regulatory disclaimer<i></i></summary>
-        <div class="lgbody">
-          <p><b>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</b></p>
-          <p><b>Not a medicine.</b> HONI<i>ORA</i> is a dietary supplement, not a drug. It is not a substitute for prescribed medication, medical advice, or a varied diet.</p>
-          <p><b>About the research on this site.</b> Every clinical figure quoted comes from a published trial of an individual branded ingredient at the dose stated. HONI<i>ORA</i> has not been trialled as a finished product, and no claim is made that these findings transfer to it. Doses, formats and populations in the linked studies differ from ours. Some references are reviews or preclinical work rather than human trials.</p>
-          <p><b>Manufacture.</b> Made in the USA in an NSF / USP certified GMP facility, from New Zealand provenance ingredients. Batch tested by ICP-MS for heavy metals below California Proposition 65 limits. Certified gluten-free below 5.0 ppm.</p>
-          <p><b>Allergen.</b> Contains milk derivative (VasoDrive-AP&reg; casein lactotripeptides). Not suitable for anyone with a dairy allergy.</p>
-          <p><b>Who should not use it.</b> Anyone under 18, and anyone pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor first. Stop use and seek advice if you have an adverse reaction.</p>
-          <p><b>Other markets.</b> This product is sold in the United States. Regulatory status, permitted claims and ingredient approvals differ elsewhere. [Confirm the position for each market before selling into it, including New Zealand and Australia under the TGA.]</p>
-        </div>
-      </details>
-
-    </div>
-  </div>
-</section>
-
 <!-- ================= HONIBLOG ================= -->
 <section class="sec" id="honiblog">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow" id="honiblogtop">17 / HoniBlog</p>
+      <p class="eyebrow" id="honiblogtop">16 / HoniBlog</p>
       <h2 class="serif">The <em>HoniBlog</em>.</h2>
     </div>
 
@@ -3184,6 +3149,89 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 </section>
 
+<!-- ================= LEGAL ================= -->
+<section class="sec legalsec" id="legal">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">15 / Legal</p>
+      <h2 class="serif">The <em>fine print</em>.</h2>
+      <p class="lede">Everything below is a working draft prepared for review. Fields in square brackets need your company details before launch.</p>
+    </div>
+
+    <div class="lgwrap rv">
+
+      <details class="lg" id="lg-privacy">
+        <summary>Privacy policy<i></i></summary>
+        <div class="lgbody">
+          <p><b>Who we are.</b> [Registered entity name], NZBN [number], of [registered address], New Zealand. Contact <a href="mailto:privacy@honi.co.nz">privacy@honi.co.nz</a>.</p>
+          <p><b>What we collect.</b> When you join the founding list we collect your name, email address, country, age range, the wellness goals you select, what you currently take, your intended volume and any free-text note. When you buy, our payment processor collects your billing and delivery details. We never see or store full card numbers.</p>
+          <p><b>Why we collect it.</b> To contact you before and at launch, to fulfil and support orders, to understand which product tiers people want, and to meet our tax and record-keeping obligations. We do not sell your data or share it with advertisers.</p>
+          <p><b>Sensitive information.</b> Health goals and age range are more sensitive than a plain email address. You may leave both blank and still join the list. We use them only in aggregate for product planning unless you ask us a question that requires otherwise.</p>
+          <p><b>Where it goes.</b> Your data is held by [hosting provider], [email platform] and [payment processor], which may store it outside New Zealand, including in [jurisdictions]. We require each to protect it to a comparable standard.</p>
+          <p><b>How long we keep it.</b> Founding-list records until you unsubscribe or [period]. Order records for [period], as required for tax and consumer-law purposes.</p>
+          <p><b>Your rights.</b> Under the New Zealand Privacy Act 2020 you may ask what we hold about you, ask us to correct it, and complain to the Office of the Privacy Commissioner. If you are in the EU, UK, California or another jurisdiction with its own regime, additional rights may apply. Email us and we will act within [timeframe].</p>
+          <p><b>Cookies.</b> This site currently loads Google Fonts and a script CDN, both of which receive your IP address. [Add analytics and marketing pixels here once installed, with a consent mechanism if required in your markets.]</p>
+          <p><b>Changes.</b> Last updated [date]. Material changes will be notified by email to anyone on the founding list.</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-terms">
+        <summary>Terms and conditions<i></i></summary>
+        <div class="lgbody">
+          <p><b>Agreement.</b> These terms govern your use of this site and any purchase from [Registered entity name] (&ldquo;HoniCo&rdquo;, &ldquo;we&rdquo;). By ordering you accept them.</p>
+          <p><b>Eligibility.</b> You must be 18 or older. HONI<i>ORA</i> is not intended for anyone under 18, or for people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use.</p>
+          <p><b>Founding list.</b> Joining the list is not an order and creates no obligation on either side. Prices shown are indicative for the first commercial batch and may change before launch.</p>
+          <p><b>Orders and pricing.</b> Prices are in US dollars and exclude any import duty your country charges. We may correct pricing or specification errors before dispatch and will contact you if we do. An order is accepted when we dispatch it, not when payment is taken.</p>
+          <p><b>Subscription.</b> The Monthly Protocol renews automatically every [interval] at the price shown at signup until you cancel. You may cancel at any time before the next renewal from [cancellation route]. Cancellation stops future shipments and does not refund a shipment already sent. [US buyers: confirm this section satisfies federal and state automatic-renewal disclosure requirements before launch.]</p>
+          <p><b>Shipping.</b> Free within the United States, no minimum. International orders are quoted at checkout. Risk passes to you on delivery. Estimated delivery times are indicative and not guaranteed.</p>
+          <p><b>Product information.</b> We take care with dosages, provenance and mechanism descriptions. Ingredient research cited on this site relates to the individual branded ingredients at the doses stated, not to the finished product.</p>
+          <p><b>Liability.</b> Nothing in these terms limits rights you have under the New Zealand Consumer Guarantees Act, the Fair Trading Act, or the equivalent law of your own country where that law applies. Subject to that, our liability for any claim is limited to the amount you paid for the goods concerned.</p>
+          <p><b>Governing law.</b> New Zealand law, subject to any mandatory consumer protection in your jurisdiction. [Confirm this position is workable for US sales.]</p>
+          <p><b>Contact.</b> [Registered entity name], [address]. Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>. Last updated [date].</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-refund">
+        <summary>Refund and cancellation<i></i></summary>
+        <div class="lgbody">
+          <p><b>Damaged, faulty or wrong items.</b> Tell us within [period] of delivery with a photograph and your order number. We replace or refund in full, including any shipping you paid. This sits alongside your rights under the Consumer Guarantees Act and equivalent law.</p>
+          <p><b>Change of mind.</b> Unopened tubes with the seal intact may be returned within [period] of delivery for a refund less [return shipping / restocking]. Opened tubes cannot be returned, because this is an ingestible product and we cannot verify storage conditions once the desiccant seal is broken.</p>
+          <p><b>Subscription cancellation.</b> Cancel at any time from [cancellation route], effective from the next billing date. We do not charge a cancellation fee. If a renewal is charged within [period] before you cancel and the tubes have not shipped, tell us and we will refund it.</p>
+          <p><b>Single pack credit.</b> If you buy a single pack and then choose to subscribe, the $52.50 you first paid is credited to your first subscription payment (applies once per customer and has no cash value). [Set an expiry window if you want one, and confirm your checkout can apply it.]</p>
+          <p><b>Non-delivery.</b> If a parcel does not arrive within [period] of dispatch we will replace it or refund it at your choice.</p>
+          <p><b>How to start a return.</b> Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a> with your order number. Do not send anything back before we reply. Refunds are made to the original payment method within [period] of us receiving the return.</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-ip">
+        <summary>Copyright and intellectual property<i></i></summary>
+        <div class="lgbody">
+          <p><b>This site.</b> &copy; 2026 [Registered entity name]. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
+          <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of [Registered entity name], claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
+          <p><b>The formulation.</b> The HONI<i>ORA</i> formulation, its ratios and the specification behind them are confidential and proprietary. Publishing a full bill of materials does not place it in the public domain or grant any licence to reproduce it.</p>
+          <p><b>Third-party marks.</b> Livaux, Feiolix, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
+          <p><b>Cited research.</b> Papers linked from the provenance matrix belong to their authors and publishers. We link to public records and reproduce no full text.</p>
+          <p><b>Infringement.</b> Email <a href="mailto:legal@honi.co.nz">legal@honi.co.nz</a> with details and we will respond within [period].</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-fda">
+        <summary>FDA and regulatory disclaimer<i></i></summary>
+        <div class="lgbody">
+          <p><b>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</b></p>
+          <p><b>Not a medicine.</b> HONI<i>ORA</i> is a dietary supplement, not a drug. It is not a substitute for prescribed medication, medical advice, or a varied diet.</p>
+          <p><b>About the research on this site.</b> Every clinical figure quoted comes from a published trial of an individual branded ingredient at the dose stated. HONI<i>ORA</i> has not been trialled as a finished product, and no claim is made that these findings transfer to it. Doses, formats and populations in the linked studies differ from ours. Some references are reviews or preclinical work rather than human trials.</p>
+          <p><b>Manufacture.</b> Made in the USA in an NSF / USP certified GMP facility, from New Zealand provenance ingredients. Batch tested by ICP-MS for heavy metals below California Proposition 65 limits. Certified gluten-free below 5.0 ppm.</p>
+          <p><b>Allergen.</b> Contains milk derivative (VasoDrive-AP&reg; casein lactotripeptides). Not suitable for anyone with a dairy allergy.</p>
+          <p><b>Who should not use it.</b> Anyone under 18, and anyone pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor first. Stop use and seek advice if you have an adverse reaction.</p>
+          <p><b>Other markets.</b> This product is sold in the United States. Regulatory status, permitted claims and ingredient approvals differ elsewhere. [Confirm the position for each market before selling into it, including New Zealand and Australia under the TGA.]</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="wrap">
@@ -3197,7 +3245,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <a href="#tablet">The tablet</a>
         <a href="#ritual">The ritual</a>
         <a href="#honeytop">M&#257;nuka honey</a>
-        <a href="#function">Function</a>
+        <a href="#glp1">Natural GLP-1 Boost</a>
         <a href="#triad">Gut, heart, brain</a>
         <a href="#matrix">The science</a>
         <a href="#matrix">The formula</a>
@@ -3205,7 +3253,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
       <div>
         <h5>Contact</h5>
-        <a href="mailto:greg@honi.co.nz">greg@honi.co.nz</a>
+        <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>
         <a href="tel:+64272293787">+64 27 229 3787</a>
         <p>New Zealand</p>
       </div>
@@ -3374,13 +3422,26 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
   /* two fully independent menus now, each with its own burger: opening/closing one
-     never touches the other. body scroll stays locked as long as either is open, and
-     unlocks once both are closed. */
+     via its OWN burger never touches the other. body scroll stays locked as long as
+     either is open, and unlocks once both are closed.
+     V3 Lite Desktop: a link click is different from a burger click, though -- if
+     both panels happen to be open at once (each burger toggled independently) and
+     the visitor clicks a link in either one, both panels now close together, not
+     just the one the link was in. closeBoth() always clears both columns and both
+     burgers' aria-expanded; when only one panel was open, this is a no-op for the
+     already-closed one, so the single-panel case still behaves exactly as before. */
   (function(){
     var mmLeft = document.getElementById('mmLeft'), mmRight = document.getElementById('mmRight');
     var burgerLeft = document.getElementById('burgerLeft'), burgerRight = document.getElementById('burgerRight');
     function anyOpen(){ return mmLeft.classList.contains('open') || mmRight.classList.contains('open'); }
     function syncScrollLock(){ document.body.style.overflow = anyOpen() ? 'hidden' : ''; }
+    function closeBoth(){
+      mmLeft.classList.remove('open');
+      mmRight.classList.remove('open');
+      burgerLeft.setAttribute('aria-expanded','false');
+      burgerRight.setAttribute('aria-expanded','false');
+      syncScrollLock();
+    }
     function wire(burger, col){
       burger.addEventListener('click', function(){
         var open = col.classList.toggle('open');
@@ -3388,11 +3449,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         syncScrollLock();
       });
       col.querySelectorAll('a').forEach(function(a){
-        a.addEventListener('click', function(){
-          col.classList.remove('open');
-          burger.setAttribute('aria-expanded','false');
-          syncScrollLock();
-        });
+        a.addEventListener('click', closeBoth);
       });
     }
     wire(burgerLeft, mmLeft);
