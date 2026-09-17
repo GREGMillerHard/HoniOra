@@ -265,47 +265,12 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hexbtn-m:hover .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
   .nav-hex-mobile-left:hover .hexdrop,.nav-hex-mobile-right:hover .hexdrop{transform:translateY(0)}
 }
-/* the link list (16 items) runs taller than the viewport on most phones, so each panel
-   needs to actually scroll rather than just vertically-centering and clipping whatever
-   doesn't fit; top padding clears the still-visible header/burger, bottom padding keeps
-   the last link off the screen edge once scrolled all the way down. Two fully separate,
-   independently-collapsible menus now (left = reserve/protocol/science group, its own
-   burger and its own open state; right = everything else, its own burger and open
-   state) instead of one two-column panel opened by a single shared burger: opening the
-   left menu no longer opens the right one, and vice versa. Each .mm-col carries its own
-   "open" class and its own pointer-events (none while closed, so a closed panel never
-   blocks clicks on the page behind it, even though it's still technically covering that
-   half of the screen while translated off-canvas). .mobilemenu itself is just a
-   non-visual fixed wrapper now, purely for grouping -- it has no open/closed state of
-   its own. */
-.mobilemenu{position:fixed;inset:0;z-index:99;pointer-events:none}
-.mm-col{position:fixed;top:0;bottom:0;width:50%;background:rgba(255,255,255,.15);
-  display:flex;flex-direction:column;gap:2px;min-width:0;padding:128px 22px 48px;
-  overflow-y:auto;-webkit-overflow-scrolling:touch;visibility:hidden;pointer-events:none;
-  transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear .5s}
-.mm-col.open{visibility:visible;pointer-events:auto;transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear 0s}
-/* left panel's links are right-aligned (text-align, not flex align-items, so each
-   link's own box -- and its border-bottom divider -- still spans the full column
-   width) so its list reads toward the centre divider, matching how the right panel's
-   links already sit near centre (they're left-aligned within a box that starts at
-   the divider). Previously both were left-aligned, which put the left list hugging
-   the outer screen edge instead of mirroring the right one. */
-.mm-col:first-child{left:0;transform:translateX(-100%);border-right:1px solid var(--line-soft);text-align:right}
-.mm-col:last-child{right:0;transform:translateX(100%);border-left:1px solid var(--line-soft)}
-.mm-col.open{transform:translateX(0)}
-/* 561px+: the gold reserve hexes (.hexbtn-m img) scale up to 160px tall from this width on,
-   well past the header's own 111px height, and each panel's 128px top padding above only
-   clears them on phones. Left unfixed, the hexes hang down over the first link in each
-   panel (Reserve the Protocol / 2 Tabs) since the header sits above the menu in z-index.
-   Bump the clearance here to the tallest the hexes ever get (160px) plus a margin.
-   V3 Lite Desktop: was capped at max-width:1400px (the old lite-nav-only range); the
-   upper bound is dropped since lite nav -- and these same hexes -- are now the default
-   at every desktop width, not just this band. */
-@media(min-width:561px){
-  .mm-col{padding-top:190px}
-}
-.mobilemenu a{font-size:clamp(16px,4.6vw,26px);font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;padding:12px 0;border-bottom:1px solid var(--line-soft);line-height:1.2;color:#000;transition:color .3s}
-.mobilemenu a:hover,.mobilemenu a:focus-visible{color:var(--gold)}
+/* the full-height sliding two-column panel system (.mobilemenu/.mm-col, one half-
+   screen column per burger) that used to live here has been removed: it's fully
+   replaced by the compact .burger-drop rollover popup (defined further down, beside
+   the burgers themselves), which now works by hover AND by click/tap on every
+   screen size, not just as a hover preview on desktop. Removing it rather than just
+   disconnecting it, since nothing else referenced it. */
 
 /* ---------- hero ---------- */
 /* padding equals the nav height exactly, so the marquee butts against it.
@@ -1473,7 +1438,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      top:0 (no vertical centring) positioning rule below for the other half of this. */
   .hexbtn-m img,.hexbtn-m svg{height:71px}
   .brand-mobile .brand-logo{height:46px}
-  .mm-col{padding-top:130px}
 }
 /* lite/mobile only: drop the "HUGE pills and/or chalky, messy powders / Every morning?"
    line and its trailing break entirely. Same shared paragraph, this just hides that one
@@ -1510,21 +1474,82 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 /* second burger, mirrored on the left edge -- each burger now opens only its own half
    of the split menu instead of one burger opening both halves together. */
 .burger-left{left:0;right:auto}
-/* V3 Lite Desktop: push the burgers and mini reserve hexes out past .wrap's own side
-   padding (var(--pad), up to 64px at this width) so they sit near the true browser-
-   window edge instead of the page's normal content margin, and make the hexes smaller
-   at the same time. Placed after the unconditional nav rules above (same selectors,
+/* burger nav popup: the compact list each burger opens (gold .95-opacity fill,
+   black text, gold on hover, hairline divider between rows). This is now the
+   ONLY nav menu -- the old full-height sliding two-column panel it used to be
+   a hover preview for has been removed entirely (see the comment further up
+   where that ruleset used to live). It's a plain sibling of its burger (not a
+   child -- a <button> can't legally contain <a> elements), positioned with the
+   exact same left/right anchor the burger itself uses at each breakpoint so
+   the popup lines up directly under it.
+   Two ways in: hover shows it as a preview (hover-capable devices only, via
+   the @media(hover:hover) block below), and a click on the burger PINS it
+   open (.burger-drop.open, defined outside that media gate so it also works
+   by tap on touch devices) -- it then stays open regardless of mouse position
+   until a link inside is clicked (a choice is made) or the visitor clicks
+   anywhere else on the page, both handled in the JS burger-wiring block. Since
+   this is the real, only menu now, every link here is a normal focusable,
+   readable link -- no aria-hidden/tabindex="-1" shortcuts. */
+.burger-drop{position:absolute;top:100%;width:230px;max-height:calc(100vh - 90px);overflow-y:auto;
+  -webkit-overflow-scrolling:touch;background:rgba(176,130,31,.9);
+  display:flex;flex-direction:column;gap:2px;padding:16px 20px;
+  border:1px solid var(--line-soft);opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;
+  transform:translateY(-6px);z-index:65}
+.burger-drop-left{right:0}
+.burger-drop-right{left:0}
+.burger-drop a{font-size:15px;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
+  padding:9px 0;border-bottom:1px solid var(--line-soft);line-height:1.2;color:#000;transition:color .3s}
+.burger-drop a:last-child{border-bottom:0}
+/* click-pinned state: works at every width, hover-capable or not, so tapping a
+   burger on a touch device opens and holds the popup the same way clicking it
+   does with a mouse. */
+.burger-drop.open{opacity:1;visibility:visible;pointer-events:auto;
+  transition:opacity .25s ease,transform .25s ease;transform:translateY(0)}
+@media(hover:hover){
+  /* .burger sits vertically centred inside the 66px navbar while .burger-drop's
+     top:100% is measured from that same navbar's own bottom edge, not from the
+     shorter burger's own bottom -- leaving a ~14.5px dead zone between the two.
+     A mouse moving straight down off the burger toward the popup crosses that
+     zone, loses :hover, and (since pointer-events reverts to none the instant
+     .burger:hover stops matching) can never re-acquire hover once it reaches
+     the popup underneath -- the popup would just fade out from under the
+     cursor. Pulling the popup's top up by that same amount, on hover-capable
+     devices only, closes the gap so the hover handoff from burger to popup is
+     unbroken and a mouse user really can roll straight from one into the
+     other and pick a link with no click at all. Click/tap-pinning (the base
+     .burger-drop.open rule above) doesn't depend on this at all, so touch
+     devices -- and their differently-sized navbar at phone widths -- are
+     untouched. */
+  .burger-drop{top:calc(100% - 15px)}
+  .burger:hover + .burger-drop,.burger-drop:hover{opacity:1;visibility:visible;pointer-events:auto;
+    transition:opacity .25s ease,transform .25s ease;transform:translateY(0)}
+  .burger-drop a:hover,.burger-drop a:focus-visible{color:var(--gold)}
+}
+/* V3 Lite Desktop: push the mini reserve hexes out past .wrap's own side padding
+   (var(--pad), up to 64px at this width) so they sit near the true browser-window
+   edge instead of the page's normal content margin, and make the hexes smaller at
+   the same time. Placed after the unconditional nav rules above (same selectors,
    same specificity) so it wins the cascade at 1001px+ regardless of source order.
    .navbar is position:relative with no padding of its own, so left/right:0 above was
    relative to .navbar's left/right edge, which itself already sits var(--pad) in from
-   the true viewport edge -- an offset of -var(--pad) reaches exactly that true edge; a
-   small positive nudge back in (4px) keeps them just off the literal edge. The hexes
-   are pulled out of the grid flow (position:absolute, replacing their grid-column
-   placement) so they can sit outside the burgers without disturbing the centred logo,
-   which still balances evenly between the two now-empty flexible grid columns. */
+   the true viewport edge -- an offset of -var(--pad) reaches exactly that true edge.
+   The hexes are pulled out of the grid flow (position:absolute, replacing their
+   grid-column placement) so they can sit outside the burgers without disturbing the
+   centred logo, which still balances evenly between the two now-empty flexible grid
+   columns.
+   The burgers themselves now sit close in against the logo instead of out by the
+   hexes: positioned from centre (calc(50% + Npx)) rather than from the navbar edge,
+   with N = the logo's own half-width at this breakpoint (109px, from its fixed 46px
+   height and 1396:294 source aspect ratio) plus a flat 50px gap -- so each burger's
+   near edge lands 50px clear of the logo on its side, symmetric either way. */
 @media(min-width:1001px){
-  .burger{right:calc(-1 * var(--pad) + 4px)}
-  .burger-left{left:calc(-1 * var(--pad) + 4px);right:auto}
+  .burger{left:calc(50% + 159px);right:auto}
+  .burger-left{right:calc(50% + 159px);left:auto}
+  /* burger-drop rides along with its burger's new near-logo position -- same anchor
+     property and value, so the popup still lines up directly beneath it here too. */
+  .burger-drop-left{right:calc(50% + 159px);left:auto}
+  .burger-drop-right{left:calc(50% + 159px);right:auto}
   /* top:0, no vertical centring: the hex's own top edge lines up exactly with the
      navbar's top edge (0px overhang above), and since the hex (71px) is 5px taller
      than the 66px navbar, the extra 5px falls entirely below it -- an exact 0px
@@ -1723,7 +1748,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#abouttop" class="hexnav-item hexbtn-last">ABOUT<br>HONICO
       <span class="hexdrop"><span class="hexdrop-card"><b>About HoniCo</b>A small NZ honey company in the Bay of Plenty. We pledge 1 percent of profits to bee welfare.</span></span>
     </a>
-    <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-expanded="false" aria-controls="mmLeft"><span></span><span></span></button>
+    <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropLeft"><span></span><span></span></button>
+    <div class="burger-drop burger-drop-left" id="burgerDropLeft">
+      <a href="#protocol">Protocol</a>
+      <a href="#honeytop">M&#257;nuka Honey</a>
+      <a href="#problem">Cr.01 Creatine</a>
+      <a href="#livaux">Livaux</a>
+      <a href="#triad">Four Systems</a>
+      <a href="#glp1">Natural GLP-1 Boost</a>
+      <a href="#matrix">The Stack</a>
+      <a href="#triad">Gut &middot; Heart &middot; Brain</a>
+      <a href="#taste">Taste</a>
+    </div>
     <div class="hexbtn-m nav-hex-mobile-left">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
         <svg class="hexbtn-svg" viewBox="0 0 208 180" role="img" aria-hidden="true" focusable="false">
@@ -1745,34 +1781,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </a>
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
     </div>
-    <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-expanded="false" aria-controls="mmRight"><span></span><span></span></button>
+    <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropRight"><span></span><span></span></button>
+    <div class="burger-drop burger-drop-right" id="burgerDropRight">
+      <a href="#protocol">2 Tabs</a>
+      <a href="#ritual">Ritual</a>
+      <a href="#science">Dissolve</a>
+      <a href="#waitlist">Join Founding List</a>
+      <a href="#rita">Rita Rocks</a>
+      <a href="#lemon">Lemonwater?</a>
+      <a href="#honiblogtop">HoniBlog</a>
+      <a href="javascript:void(0)" id="askHoniBtnBurgerDrop">Ask Honi</a>
+      <a href="#abouttop">About HoniCo</a>
+    </div>
   </div>
 </header>
-
-<div class="mobilemenu">
-  <div class="mm-col" id="mmLeft">
-    <a href="#protocol">Protocol</a>
-    <a href="#honeytop">M&#257;nuka Honey</a>
-    <a href="#problem">Cr.01 Creatine</a>
-    <a href="#livaux">Livaux</a>
-    <a href="#triad">Four Systems</a>
-    <a href="#glp1">Natural GLP-1 Boost</a>
-    <a href="#matrix">The Stack</a>
-    <a href="#triad">Gut &middot; Heart &middot; Brain</a>
-    <a href="#taste">Taste</a>
-  </div>
-  <div class="mm-col" id="mmRight">
-    <a href="#protocol">2 Tabs</a>
-    <a href="#ritual">Ritual</a>
-    <a href="#science">Dissolve</a>
-    <a href="#waitlist">Join Founding List</a>
-    <a href="#rita">Rita Rocks</a>
-    <a href="#lemon">Lemonwater?</a>
-    <a href="#honiblogtop">HoniBlog</a>
-    <a href="javascript:void(0)" id="askHoniBtnMobile">Ask Honi</a>
-    <a href="#abouttop">About HoniCo</a>
-  </div>
-</div>
 
 
 <div class="lightbox" id="mapLightbox" role="dialog" aria-modal="true" aria-label="Expanded map">
@@ -2098,7 +2120,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="plan-head">
             <p class="plan-name">Single Pack</p>
             <div class="plan-price"><b>$52.50</b><i>USD one-off</i></div>
-            <p class="plan-per">$7.50 a dose.</p>
+            <p class="plan-per">$7.50 per day.</p>
             <p class="plan-what">One tube. One week. <br> Experience cumulative benefits <br> and the HONI<i>ORA</i> great taste.</p>
           </div>
           <img class="plan-img" src="plan-tube-single.jpg" alt="HONIORA single test tube, gold cap, HoniOra printed down the side" width="270" height="907" loading="lazy">
@@ -2116,7 +2138,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="plan-cta"><a href="#waitlist" class="btn" data-plan="Monthly Protocol subscription &middot; USD 210">Reserve the protocol <span class="ar">&rarr;</span></a></div>
         <p class="plan-name">Monthly Protocol</p>
         <div class="plan-price"><b>$210</b><i>USD / month</i></div>
-        <p class="plan-per">$6.00 a dose. You save $52.50 a month.</p>
+        <p class="plan-per">$6.00 per day. You save $52.50 a month.</p>
         <p class="plan-what">Four tubes every month, plus an extra free tube (Five total). Enjoy your bonus or share the love.</p>
         <button type="button" class="gift-trigger js-gift-trigger" id="giftTrigger" aria-haspopup="dialog" aria-controls="giftLightbox">Free Founders gift pack <span class="ar">&rarr;</span></button>
         <ul class="plan-list">
@@ -3421,39 +3443,61 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var onScroll = function(){ hdr.classList.toggle('stuck', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
-  /* two fully independent menus now, each with its own burger: opening/closing one
-     via its OWN burger never touches the other. body scroll stays locked as long as
-     either is open, and unlocks once both are closed.
-     V3 Lite Desktop: a link click is different from a burger click, though -- if
-     both panels happen to be open at once (each burger toggled independently) and
-     the visitor clicks a link in either one, both panels now close together, not
-     just the one the link was in. closeBoth() always clears both columns and both
-     burgers' aria-expanded; when only one panel was open, this is a no-op for the
-     already-closed one, so the single-panel case still behaves exactly as before. */
+  /* the two burgers each pin open their own .burger-drop popup -- the old
+     full-height sliding two-column panels (.mobilemenu/.mm-col) they used to
+     control are gone, and this popup is now the only nav menu, at every
+     screen width. Behaviour: hovering a burger previews its popup on
+     hover-capable devices, and moving the mouse straight down off the burger
+     into the popup itself keeps it visible (handled purely in CSS, see the
+     .burger-drop / .burger:hover + .burger-drop rules above), so a mouse
+     user can pick a link on rollover alone, with no click needed at all.
+     Clicking (or tapping) a burger PINS its popup open regardless of mouse
+     position, independently of the other burger -- both can be pinned open
+     at once, so the visitor can compare both lists before choosing. Clicking
+     a link in EITHER popup always closes BOTH (a choice has been made and
+     that nav is actioned), same as clicking one of the two mini reserve
+     hexes or clicking anywhere else on the page. No body-scroll lock here --
+     the popup is a small dropdown, not a full-screen panel. */
   (function(){
-    var mmLeft = document.getElementById('mmLeft'), mmRight = document.getElementById('mmRight');
     var burgerLeft = document.getElementById('burgerLeft'), burgerRight = document.getElementById('burgerRight');
-    function anyOpen(){ return mmLeft.classList.contains('open') || mmRight.classList.contains('open'); }
-    function syncScrollLock(){ document.body.style.overflow = anyOpen() ? 'hidden' : ''; }
-    function closeBoth(){
-      mmLeft.classList.remove('open');
-      mmRight.classList.remove('open');
+    var dropLeft = document.getElementById('burgerDropLeft'), dropRight = document.getElementById('burgerDropRight');
+    function closeAll(){
+      dropLeft.classList.remove('open');
+      dropRight.classList.remove('open');
       burgerLeft.setAttribute('aria-expanded','false');
       burgerRight.setAttribute('aria-expanded','false');
-      syncScrollLock();
     }
-    function wire(burger, col){
-      burger.addEventListener('click', function(){
-        var open = col.classList.toggle('open');
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        syncScrollLock();
+    function wire(burger, drop){
+      burger.addEventListener('click', function(e){
+        var wasOpen = drop.classList.contains('open');
+        if (wasOpen){
+          drop.classList.remove('open');
+          burger.setAttribute('aria-expanded','false');
+        } else {
+          drop.classList.add('open');
+          burger.setAttribute('aria-expanded','true');
+        }
+        e.stopPropagation();
       });
-      col.querySelectorAll('a').forEach(function(a){
-        a.addEventListener('click', closeBoth);
+      drop.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', closeAll);
       });
     }
-    wire(burgerLeft, mmLeft);
-    wire(burgerRight, mmRight);
+    wire(burgerLeft, dropLeft);
+    wire(burgerRight, dropRight);
+    /* the two top mini reserve hexes (RESERVE PROTOCOL / RESERVE TEST TUBE)
+       sit outside both popups -- clicking one while a popup is pinned open
+       should close it, same as clicking a link inside the popup itself. */
+    document.querySelectorAll('.hexbtn-m-link').forEach(function(a){
+      a.addEventListener('click', closeAll);
+    });
+    /* clicking anywhere outside an open popup (or its own burger) dismisses
+       it -- the click-outside-to-dismiss half of "remain on click ... till
+       choice is made". */
+    document.addEventListener('click', function(e){
+      if (e.target.closest('.burger-drop') || e.target.closest('.burger')) return;
+      closeAll();
+    });
   })();
 
   /* ---------- accurate in-page anchor scrolling ----------
@@ -3910,9 +3954,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     function ahClose(){ amod.classList.remove('open'); document.body.style.overflow = ''; }
 
+    /* abtn: desktop hexnav Ask Honi. abtn3: the compact burger-drop popup's Ask
+       Honi link -- now the only mobile/lite-nav entry point, since the old
+       full-height sliding panel (and its own askHoniBtnMobile link) is gone. */
     abtn.addEventListener('click', ahOpen);
-    var abtn2 = document.getElementById('askHoniBtnMobile');
-    if (abtn2) abtn2.addEventListener('click', ahOpen);
+    var abtn3 = document.getElementById('askHoniBtnBurgerDrop');
+    if (abtn3) abtn3.addEventListener('click', ahOpen);
     aclose.addEventListener('click', ahClose);
     amod.addEventListener('click', function(e){ if (e.target === amod) ahClose(); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && amod.classList.contains('open')) ahClose(); });
