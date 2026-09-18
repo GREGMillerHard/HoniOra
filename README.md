@@ -19,9 +19,14 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HoniOra V3 Lite Desktop v39, updated 2026-09-18. Updated the hero headline copy ("YOUR RITUAL" -> "YOUR WELLBEING", "fizzy" -> "effervescent"), applied on both desktop and mobile/tablet.
+This package is HoniOra V3 Lite Desktop v40, updated 2026-09-18. Filled in the registered address in the Legal section's privacy policy "Who we are" line. No layout or behaviour changes.
 
 Recent changes in this version:
+- Content, Legal section: replaced the `NZBN [number], of [registered address]` placeholder in the privacy policy's "Who we are" line with the supplied registered address -- "of Hallowes Park 306 Pahoia Road Whakamarama RD2 Bay Of Plenty 3172". The NZBN itself wasn't supplied, so that part of the old placeholder was dropped rather than left half-filled; add it with a follow-up request when it's available. No other bracketed fields in the Legal section were touched.
+- Verified: full width sweep across all twelve widths -- zero new overflow, same two pre-existing quirks as prior versions (text-only change, no CSS/JS touched).
+- Delivered as `HoniOra_V3_LiteDesktop.zip` (replaces the v39 package at the same filename).
+
+Prior changes (v39):
 - Content, hero headline: changed "UPGRADE / YOUR / RITUAL" to "UPGRADE / YOUR WELLBEING", added a blank line before "HoniOra's Solution:", and changed "2 fizzy tablets & 1 glass of water & 60 sec." to "2 effervescent tablets & 1 glass of water & 60 sec.", per the user's supplied copy. Applies at every breakpoint -- this line isn't scoped to desktop or mobile separately.
 - Fix, headline shrinking too far: `.precede-lead` (the big italic headline span) had `white-space:nowrap`, which doesn't affect a forced `<br>` line break but DOES stop the browser wrapping at an ordinary space -- harmless while every line was a single word ("UPGRADE"/"YOUR"/"RITUAL"), but "YOUR WELLBEING" has a space, so the shrink-to-fit safety net (`fitOneLine`) saw one long unbreakable line and shrank the whole headline's font size down hard to fit it, UPGRADE included, leaving it visibly smaller than "HoniOra's Solution:" below it. Changed to `white-space:normal` so the table cell's own fixed column width (already in place for other reasons) can wrap "YOUR WELLBEING" onto its own line instead, keeping the headline at its full intended size.
 - Verified: screenshots at 1920/1440/1024px and 390px (mobile) confirm the headline renders at full size with "YOUR WELLBEING" wrapping cleanly, correct hierarchy restored against "HoniOra's Solution:" below it, and the new, longer "2 effervescent tablets..." line still fits its box everywhere (the v35 shrink-to-fit fixes handled the extra length with no changes needed). Full-box overflow check and full width sweep across all twelve widths -- zero new overflow beyond the same two pre-existing, already-confirmed-unrelated quirks, no new console errors.
