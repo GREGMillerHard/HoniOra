@@ -19,9 +19,15 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
-This package is HoniOra V3 Lite Desktop v40, updated 2026-09-18. Filled in the registered address in the Legal section's privacy policy "Who we are" line. No layout or behaviour changes.
+This package is HoniOra V3 Lite Desktop v41, updated 2026-09-18. Fixed the lite/mobile nav dropdown menus: they were opening on the wrong side of the screen (swapped left/right) and were too wide on phones.
 
 Recent changes in this version:
+- Fix, nav dropdown swap: `.burger-drop-left` (the popup belonging to the LEFT burger, `#burgerLeft`, which controls the Protocol-themed menu) was anchored with `right:0`, and `.burger-drop-right` (the RIGHT burger's popup, the Founding/2-Tabs menu) was anchored with `left:0` -- the exact opposite of their own burgers' `left:0`/`right:0` anchors. That crossed anchoring is what opened the left burger's menu on the right side of the screen and the right burger's menu on the left. Swapped them so each popup now anchors to the same edge as its own burger (`.burger-drop-left{left:0}`, `.burger-drop-right{right:0}`) and opens directly beneath it. The 1001px+ "near-logo" breakpoint, which repositions both burgers and both popups together, was already internally consistent and untouched.
+- Fix, popups too wide on phones: `.burger-drop` had a flat `width:230px` at every width. On phones (both popups can be pinned open at once), two 230px popups left almost no gap between them -- on a ~390px-wide screen they very nearly met edge-to-edge in the middle, reading as one solid block rather than two menus. Changed to `width:min(230px,45vw)`, so the popup still measures a full 230px from ~511px upward (tablets, the lite-desktop range, and ordinary desktop monitors are visually unchanged) but scales down proportionally on narrower phones, leaving a clear gap between the two panels.
+- Verified: with both burgers clicked open together, measured each popup's live left/right edges at 390/430/561/768/1000px -- the left popup (Protocol content) now sits flush against the left burger and the right popup (2 Tabs/Founding content) sits flush against the right burger at every one of those widths, with a visible gap between them on phones. Screenshots at 390px and 1000px confirm this visually. Full width sweep across all twelve widths -- zero new overflow, same two pre-existing quirks as prior versions (561px/320px, unrelated to the nav).
+- Delivered as `HoniOra_V3_LiteDesktop.zip` (replaces the v40 package at the same filename).
+
+Prior changes (v40):
 - Content, Legal section: replaced the `NZBN [number], of [registered address]` placeholder in the privacy policy's "Who we are" line with the supplied registered address -- "of Hallowes Park 306 Pahoia Road Whakamarama RD2 Bay Of Plenty 3172". The NZBN itself wasn't supplied, so that part of the old placeholder was dropped rather than left half-filled; add it with a follow-up request when it's available. No other bracketed fields in the Legal section were touched.
 - Verified: full width sweep across all twelve widths -- zero new overflow, same two pre-existing quirks as prior versions (text-only change, no CSS/JS touched).
 - Delivered as `HoniOra_V3_LiteDesktop.zip` (replaces the v39 package at the same filename).

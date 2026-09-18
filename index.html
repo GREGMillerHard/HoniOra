@@ -1612,14 +1612,22 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    anywhere else on the page, both handled in the JS burger-wiring block. Since
    this is the real, only menu now, every link here is a normal focusable,
    readable link -- no aria-hidden/tabindex="-1" shortcuts. */
-.burger-drop{position:absolute;top:100%;width:230px;max-height:calc(100vh - 90px);overflow-y:auto;
+.burger-drop{position:absolute;top:100%;width:min(230px,45vw);max-height:calc(100vh - 90px);overflow-y:auto;
   -webkit-overflow-scrolling:touch;background:rgba(176,130,31,.9);
   display:flex;flex-direction:column;gap:2px;padding:16px 20px;
   border:1px solid var(--line-soft);opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;
   transform:translateY(-6px);z-index:65}
-.burger-drop-left{right:0}
-.burger-drop-right{left:0}
+/* each drop anchors to the SAME edge as its own burger (.burger-left sits at
+   left:0, base .burger sits at right:0 -- see above) so the popup opens directly
+   under the burger that controls it. These were previously crossed (burger-drop-left
+   anchored right:0, burger-drop-right anchored left:0), which opened the left
+   burger's menu on the right of the screen and vice versa -- fixed here.
+   width is now min(230px,45vw) rather than a flat 230px so on narrow phones the
+   two popups (which can both be pinned open at once) leave a visible gap between
+   them instead of nearly meeting edge-to-edge in the middle. */
+.burger-drop-left{left:0}
+.burger-drop-right{right:0}
 .burger-drop a{font-size:15px;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
   padding:9px 0;border-bottom:1px solid var(--line-soft);line-height:1.2;color:#000;transition:color .3s}
 .burger-drop a:last-child{border-bottom:0}
