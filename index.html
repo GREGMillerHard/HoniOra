@@ -393,6 +393,107 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* the still is the fallback: shown only if the video cannot or should not play */
 .glassbox video{display:block;object-fit:contain}
 
+/* V3 Lite Desktop: back to the original side-by-side hero layout (image column left,
+   copy column right -- the base, non-media-query rules just above already implement
+   this, so this block now overrides almost nothing about that structure), but with
+   the new gold-loop video playing as a full-width background behind BOTH columns for
+   the first screen, instead of a small boxed clip inside just the left column.
+   "the lite version" at <=1000px keeps its original stacked layout completely
+   untouched, per longstanding explicit request.
+   How the background works: .hero-lower becomes the positioning context
+   (position:relative). The <video> (class .hero-glass-img, still physically inside
+   .hero-img-col in the markup) is pulled out of that column's flow with
+   position:absolute -- .hero-img-col itself is set position:static here so the
+   video's containing block is .hero-lower instead (full row width, both columns),
+   not just the narrower left column. Sized width:100%;height:auto (its own natural
+   1280x720 ratio) and top:0;left:0 -- full row width, nothing cropped, natural
+   height (about 563px at 1001px wide, 1080px at 1920px wide), which reads as a
+   "first screen" backdrop without an artificial fixed-height box forcing a crop.
+   Given a negative z-index so it paints behind the row's own in-flow content
+   (the tube shot and the copy column both stay in normal flow, so they naturally
+   paint above a negative-z-index descendant with no z-index needed on them) --
+   .hero-lower's background is dropped to transparent so nothing opaque sits between
+   the video and the content above it.
+   .hero-img-col now only contains the tube shot in normal flow (the video is no
+   longer part of its box model), which keeps the hero-keylines script's tube
+   measurement working exactly as it always has.
+   .hero-img-col also carries transform:translateX(...) from the base rule above --
+   a non-none transform creates its own containing block for absolutely-positioned
+   descendants regardless of position:static, which would otherwise silently confine
+   the "full row width" video back down to just this narrow column. Reset to
+   transform:none here too, so .hero-lower (the nearest actually-positioned ancestor)
+   is what the video's absolute positioning resolves against. */
+@media(min-width:1001px){
+  /* kill the visible white stripe between the ticker rail and the video: .hero is a flex
+     column (.bubbles, .hrail, .hero-lower) with its own gap (clamp(12px,1.9vh,26px))
+     between children, and .bubbles is position:absolute so it doesn't consume any of that
+     gap -- the real gap sits entirely between .hrail and .hero-lower. It was always there,
+     just invisible before because .hero-lower/.hero-img-col carried the same opaque paper
+     background as .hero itself, so the gap read as more white against more white. Now that
+     the video starts right at .hero-lower's own top edge, that same gap shows through
+     .hero's white background as a stripe above the video. Zeroed here, desktop only. */
+  .hero{gap:0}
+  .hero-lower{background:transparent;position:relative;z-index:0}
+  .hero-img-col{position:static;background:transparent;transform:none}
+  .hero-img-col .hero-glass-img{
+    position:absolute;top:0;left:0;z-index:-1;
+    width:100%;height:auto;max-width:none;max-height:none;
+    object-fit:contain;transform:none;margin:0;
+  }
+  /* hero-pack-tube.png is a flat, opaque RGB product photo (no alpha channel) -- on the
+     old plain white page background its own white background blended in seamlessly and
+     was invisible; float it over the busy video and that same white background reads as
+     an ugly rectangle sitting on top of the image. Rather than editing the source asset,
+     push the tube down below the video's own natural bottom edge (~56.25vw, its 9:16
+     aspect ratio at the row's ~100vw width, plus a little breathing room) so it lands back
+     in the plain page background beneath the video, the same relationship it always had
+     in the original layout (sitting in the column's leftover space below the contained
+     image) -- just now measured against the background video's height instead. */
+  /* (v35) nudged a further 40px down from the tube's original clear-the-video value
+     (calc(56.25vw + 32px)) at the user's request, purely for visual balance against the
+     ingredient list below -- see the .hero-lower .hero-actives comment just below for why
+     the list needed a bigger, JS-computed change instead of the same kind of CSS nudge. */
+  .hero-img-col .hero-tube-shot{margin:0 auto;margin-top:calc(56.25vw + 72px)}
+  /* the ingredient list (.hero-actives) sits in the right-hand column and, like the tube
+     shot, needs pushing down clear of the video -- otherwise its lower rows land over the
+     video and the hero-keylines gold connector lines ("the fan") crossing to them do too.
+     The fan itself needs no separate fix: it's a JS-drawn SVG that measures the tube's and
+     each list item's real on-screen position live (see the hero-keylines script further
+     down) rather than using any fixed coordinates, so once both endpoints clear the video
+     the lines connecting them automatically clear it too.
+     (v35) This rule is now only the pre-JS/no-JS fallback -- the real value is computed
+     and overwritten every time by positionActives() in the hero-keylines script (search
+     for it there). Reason: unlike the tube (whose column has nothing else in it, so
+     margin-top measured from the video's own top is exactly right), .hero-actives sits in
+     NORMAL FLOW directly below .hero-copy-shift (the headline block) in the same column --
+     so the same calc(56.25vw + 32px) here doesn't push it to 32px below the VIDEO, it adds
+     a full extra video-height on top of wherever the headline's own (variable, breakpoint-
+     and webfont-dependent) height already put it, landing the list ~700-800px further down
+     the page than intended and opening the huge gap the user flagged ("move the tube down
+     and the ingredient list up"). positionActives() fixes this properly by measuring the
+     headline's real bottom edge and the video's real bottom edge live and computing the
+     exact margin needed to clear whichever is lower, by a small fixed gap -- correct at
+     every breakpoint without a fragile hardcoded vw offset standing in for the headline's
+     own height. Selector is .hero-lower .hero-actives, not just .hero-actives -- the base
+     .keyact rule (further down, same single-class specificity) sets a shorthand `margin`
+     that resets margin-top on any later-in-source-but-equal-specificity rule; the
+     descendant combinator here outranks it regardless of source order. */
+  .hero-lower .hero-actives{margin-top:calc(56.25vw + 32px)}
+  /* translucent box behind the hero copy so the headline/tag/eyebrow text (which does
+     still sit over the video, by design) stays legible against a busy, colour-varying
+     background instead of relying on the text's own colour/weight alone.
+     Scoped to .hero-copy-shift specifically, NOT .hero-grid>div:first-child -- that
+     outer div turns out to wrap the entire right column (headline, ingredient list,
+     stats, CTA buttons all together, confirmed via inspection), so backgrounding it
+     would draw one huge box behind content that's now well below the video too, where
+     a white box would just look like a stray rectangle on the plain page background. */
+  .hero-copy-shift{
+    background:rgba(255,255,255,.5);
+    padding:clamp(36px,5vw,72px);
+    border-radius:4px;
+  }
+}
+
 /* ---------- manuka vista banner : full-bleed ---------- */
 .manukapan{position:relative;width:100%;line-height:0}
 .manukapan picture{display:contents}
@@ -1422,6 +1523,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 /* V3 Lite Desktop: upper bound dropped (was max-width:1400px) so the eased headline
    reservation applies at every desktop width now, not just this one band -- consistent
    with the nav switch-over below also losing its upper bound. */
+/* V3 Lite Desktop, back to a side-by-side hero: restored to max(var(--pad),220px)
+   (the original eased value for this 1001px+ range) now that the hero is a two-column
+   row again -- the text column needs this reserved right-hand room once more. The
+   video is no longer a full-bleed block claiming the whole row; it's a background
+   layer behind both columns instead, so it doesn't need the row's full padding-free
+   width the way the v31/v32 full-bleed treatment did. */
 @media(min-width:1001px){
   .hero-lower{padding-right:max(var(--pad),220px)}
   .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
@@ -1883,13 +1990,25 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   <div class="hero-lower">
     <div class="hero-img-col">
-      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
+      <!-- V3 Lite Desktop: at 1001px+ this same element now shows the uploaded
+           GOLD_LOOP1.mp4 clip (a wider golden-hour shot, HONIORA glass fizzing
+           on a table at sunset) as a full-bleed hero background instead of the
+           original close-up glass video -- only the two unconditional (no
+           max-width:1000px) <source> entries below were changed, so the lite/
+           mobile experience at <=1000px is untouched and still plays the
+           original hero-glass-lite clip exactly as before. poster stays the
+           original hero-glass-poster.jpg (shared by both breakpoints) since a
+           <video> can only carry one poster regardless of which <source> ends
+           up active -- with autoplay+preload=auto the new clip replaces it
+           within a frame or two, not worth a second video element just to
+           avoid that brief mismatch. -->
+      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-gold-loop.webm" type="video/webm"><source src="hero-gold-loop.mp4" type="video/mp4"></video>
       <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>RITUAL</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>RITUAL</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
@@ -3316,6 +3435,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      HUGE-pills line on lite) measures 0 and is left alone. Re-runs on
      resize/orientation change and once the webfont swaps in, since either can
      change how wide the text renders. */
+  // container.clientWidth includes that element's own left+right padding (box-sizing:
+  // border-box means clientWidth already accounts for border-box, but padding is still
+  // INSIDE clientWidth, not subtracted from it) -- so a padded container (like
+  // .hero-copy-shift, which carries clamp(36px,5vw,72px) of padding) overstates the
+  // space actually available to its children by that padding amount. This subtracts it
+  // out so shrink-to-fit measurements below match the real visible width inside the box.
+  var innerWidthOf = function(container){
+    var cs = getComputedStyle(container);
+    var pad = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+    return Math.max(0, container.clientWidth - pad);
+  };
   var fitOneLine = function(id, minSize){
     var el = document.getElementById(id);
     if(!el) return;
@@ -3328,7 +3458,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     if(!container) return;
     el.style.fontSize = ''; // back to the CSS-declared (max) size before measuring
-    var available = container.clientWidth;
+    var available = innerWidthOf(container);
     var natural = el.scrollWidth;
     if(available > 0 && natural > available){
       var cssSize = parseFloat(getComputedStyle(el).fontSize);
@@ -3405,6 +3535,95 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
   };
 
+  /* "2 fizzy tablets & 1 glass of water & 60 sec." (#precedeFit) and "Born in
+     New Zealand > Made in USA" (#bornMadeLine) both used to be small fine
+     print sized off their own unrelated rules (a flat 10px for the former at
+     this breakpoint, .hero .eyebrow's min(1.3vw,16px) for the latter) --
+     nowhere near as wide as "MĀNUKA CREATINE PROTOCOL" above/below them in
+     the same centred column. This grows each one to match .hero-tag's own
+     rendered width (which matchHeroTagWidth above has already matched to the
+     HONIORA wordmark, so all three lines -- wordmark, tag, and these two --
+     end up the same width). Same measure-then-scale approach as
+     matchHeroTagWidth, just against a live element's current box instead of
+     an off-screen probe of a second element, since .hero-tag is already
+     on-page and already at its final size by the time this runs. Desktop
+     only (matching matchHeroTagWidth's own scope) -- below the 1400px lite
+     breakpoint .hero-tag isn't JS-matched to anything either, so there's no
+     reliable width here to grow toward, and both lines keep their existing
+     separate breakpoint rules untouched. Still clamped against the shared
+     column's real available width as a safety net, in case rounding or a
+     future copy change ever pushes the scaled result past it. */
+  var matchLinesToTagWidth = function(){
+    var fit = document.getElementById('precedeFit');
+    var born = document.getElementById('bornMadeLine');
+    var tag = document.querySelector('.hero-tag');
+    [fit, born].forEach(function(el){ if(el) el.style.fontSize = ''; });
+    // tag-width matching only makes sense once .hero-tag itself is JS-matched
+    // to the wordmark (desktop, >1400px -- see matchHeroTagWidth's own scope
+    // comment above). Below that, each line keeps its plain CSS-declared size
+    // as the starting point instead.
+    var wide = !!(tag && window.innerWidth > 1400);
+    var targetWidth = wide ? tag.getBoundingClientRect().width : 0;
+    [fit, born].forEach(function(el){
+      if(!el) return;
+      var cssSize = parseFloat(getComputedStyle(el).fontSize);
+      var scaled = cssSize;
+      if(wide && targetWidth > 0){
+        var naturalWidth = measureRenderedWidth(el.textContent, el);
+        if(naturalWidth > 0){ scaled = cssSize * (targetWidth / naturalWidth); }
+      }
+      el.style.fontSize = scaled + 'px';
+      // Safety net, now unconditional (not just at the >1400px tag-matched
+      // width): whatever size was just picked -- tag-matched, or just the
+      // plain CSS default below 1400px -- must never render wider than the
+      // real box actually has. This is what catches the 1001-1400px "hybrid"
+      // band specifically: .hero-copy-shift's own padding (see innerWidthOf
+      // above) eats hard into an already-narrow reserved column there, so the
+      // flat/CSS-declared sizes for these lines can overflow it even though
+      // nothing above tried to grow them. Measured against the real rendered
+      // box (getBoundingClientRect) rather than scrollWidth, since the size
+      // was just applied via inline style and may itself have wrapped.
+      var container = el.parentElement;
+      while(container && container.clientWidth === 0 && container !== document.body){
+        container = container.parentElement;
+      }
+      if(!container) return;
+      var containerInner = innerWidthOf(container);
+      if(containerInner > 0){
+        var renderedWidth = el.getBoundingClientRect().width;
+        // +1px tolerance: same sub-pixel rounding slack as before.
+        if(renderedWidth > containerInner + 1){
+          el.style.fontSize = Math.floor(scaled * (containerInner / renderedWidth) * 0.99) + 'px';
+        }
+      }
+    });
+  };
+  /* "HoniOra's Solution:" (.precede-solution) has no id and isn't matched to
+     anything -- it just grows with the viewport via a flat min(3.8vw,48px) CSS
+     rule. That's fine at full desktop widths where the reserved copy column is
+     wide, but in the 1001-1400px hybrid band the column (and the padded box
+     inside it) shrinks faster than 3.8vw does, so this line can overflow the
+     box's real edge with no JS ever touching it. Same shrink-to-fit safety net
+     as matchLinesToTagWidth's, just against the CSS size directly since there's
+     no wider target to match here. */
+  var capPrecedeSolution = function(){
+    var el = document.querySelector('.precede-solution');
+    if(!el) return;
+    el.style.fontSize = '';
+    var container = el.parentElement;
+    while(container && container.clientWidth === 0 && container !== document.body){
+      container = container.parentElement;
+    }
+    if(!container) return;
+    var containerInner = innerWidthOf(container);
+    if(!(containerInner > 0)) return;
+    var renderedWidth = el.getBoundingClientRect().width;
+    if(renderedWidth > containerInner + 1){
+      var cssSize = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = Math.floor(cssSize * (containerInner / renderedWidth) * 0.99) + 'px';
+    }
+  };
+
   /* scales "FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD" to span the full
      width of its own box (left:0/right:0 in the CSS, so clientWidth here already
      IS the available width minus the box's own padding) -- same measure-then-
@@ -3433,7 +3652,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
   };
 
-  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); fitManukaCaption(); };
+  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); matchLinesToTagWidth(); capPrecedeSolution(); fitManukaCaption(); };
   fitHeroAll();
   window.addEventListener('resize', fitHeroAll, {passive:true});
   window.addEventListener('orientationchange', fitHeroAll);
@@ -4628,7 +4847,27 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var r = rects[0]; // first line of text, in case a long item name wraps
     return r.top + r.height / 2;
   }
+  /* (v35) closes the "list starts ~700-800px below the video for no reason" gap: see
+     the long comment on .hero-lower .hero-actives in the CSS for why the plain CSS
+     margin-top can't get this right on its own (it stacks a full video-height on top
+     of the headline's own, variable height instead of measuring from the video's real
+     bottom edge). Runs first, every time build() runs, so every geometry rebuild this
+     script already does (resize, fonts loading, the .rv reveal settling, etc.) keeps
+     the list correctly positioned with zero extra wiring. Desktop only -- the lite/
+     mobile stacked layout uses its own plain flow and never gets a JS margin here. */
+  var ACTIVES_GAP = 56; // breathing room below the video/headline, whichever sits lower
+  function positionActives(){
+    if (mqLite.matches) return;
+    var video = container.querySelector('.hero-glass-img');
+    if (!video) return;
+    actives.style.marginTop = '0px'; // measure the list's true position immediately after the headline, no margin at all
+    var naturalTop = actives.getBoundingClientRect().top;
+    var videoBottom = video.getBoundingClientRect().bottom;
+    var extra = (videoBottom + ACTIVES_GAP) - naturalTop;
+    actives.style.marginTop = (extra > 0 ? extra : 0) + 'px';
+  }
   function build(){
+    positionActives();
     var containerRect = container.getBoundingClientRect();
     var w = container.offsetWidth, h = container.offsetHeight;
     if (!w || !h) return false; // container not laid out yet -- caller retries later
