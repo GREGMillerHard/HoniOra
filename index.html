@@ -449,10 +449,14 @@ footer .brand{font-size:15px;letter-spacing:.42em}
      in the plain page background beneath the video, the same relationship it always had
      in the original layout (sitting in the column's leftover space below the contained
      image) -- just now measured against the background video's height instead. */
-  /* (v35) nudged a further 40px down from the tube's original clear-the-video value
-     (calc(56.25vw + 32px)) at the user's request, purely for visual balance against the
-     ingredient list below -- see the .hero-lower .hero-actives comment just below for why
-     the list needed a bigger, JS-computed change instead of the same kind of CSS nudge. */
+  /* (v37) this is now only the pre-JS/no-JS fallback, same story as the
+     .hero-lower .hero-actives rule just below: positionTube() in the hero-keylines
+     script overwrites it on every geometry rebuild with a value that centres the
+     tube on the ingredient list's real, current height (a plain vw-based calc can't
+     react to how many rows the list has or how tall they render at a given
+     breakpoint). Kept at its v35 value (video-clear + 72px) as the floor JS will
+     never go above -- the tube must never creep back up over the video even if the
+     list is short. */
   .hero-img-col .hero-tube-shot{margin:0 auto;margin-top:calc(56.25vw + 72px)}
   /* the ingredient list (.hero-actives) sits in the right-hand column and, like the tube
      shot, needs pushing down clear of the video -- otherwise its lower rows land over the
@@ -3304,7 +3308,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <details class="lg" id="lg-privacy">
         <summary>Privacy policy<i></i></summary>
         <div class="lgbody">
-          <p><b>Who we are.</b> [Registered entity name], NZBN [number], of [registered address], New Zealand. Contact <a href="mailto:privacy@honi.co.nz">privacy@honi.co.nz</a>.</p>
+          <p><b>Who we are.</b> HoniCo NZ Ltd, NZBN [number], of [registered address], New Zealand. Contact <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>.</p>
           <p><b>What we collect.</b> When you join the founding list we collect your name, email address, country, age range, the wellness goals you select, what you currently take, your intended volume and any free-text note. When you buy, our payment processor collects your billing and delivery details. We never see or store full card numbers.</p>
           <p><b>Why we collect it.</b> To contact you before and at launch, to fulfil and support orders, to understand which product tiers people want, and to meet our tax and record-keeping obligations. We do not sell your data or share it with advertisers.</p>
           <p><b>Sensitive information.</b> Health goals and age range are more sensitive than a plain email address. You may leave both blank and still join the list. We use them only in aggregate for product planning unless you ask us a question that requires otherwise.</p>
@@ -3319,7 +3323,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <details class="lg" id="lg-terms">
         <summary>Terms and conditions<i></i></summary>
         <div class="lgbody">
-          <p><b>Agreement.</b> These terms govern your use of this site and any purchase from [Registered entity name] (&ldquo;HoniCo&rdquo;, &ldquo;we&rdquo;). By ordering you accept them.</p>
+          <p><b>Agreement.</b> These terms govern your use of this site and any purchase from HoniCo NZ Ltd (&ldquo;HoniCo&rdquo;, &ldquo;we&rdquo;). By ordering you accept them.</p>
           <p><b>Eligibility.</b> You must be 18 or older. HONI<i>ORA</i> is not intended for anyone under 18, or for people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use.</p>
           <p><b>Founding list.</b> Joining the list is not an order and creates no obligation on either side. Prices shown are indicative for the first commercial batch and may change before launch.</p>
           <p><b>Orders and pricing.</b> Prices are in US dollars and exclude any import duty your country charges. We may correct pricing or specification errors before dispatch and will contact you if we do. An order is accepted when we dispatch it, not when payment is taken.</p>
@@ -3328,7 +3332,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <p><b>Product information.</b> We take care with dosages, provenance and mechanism descriptions. Ingredient research cited on this site relates to the individual branded ingredients at the doses stated, not to the finished product.</p>
           <p><b>Liability.</b> Nothing in these terms limits rights you have under the New Zealand Consumer Guarantees Act, the Fair Trading Act, or the equivalent law of your own country where that law applies. Subject to that, our liability for any claim is limited to the amount you paid for the goods concerned.</p>
           <p><b>Governing law.</b> New Zealand law, subject to any mandatory consumer protection in your jurisdiction. [Confirm this position is workable for US sales.]</p>
-          <p><b>Contact.</b> [Registered entity name], [address]. Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>. Last updated [date].</p>
+          <p><b>Contact.</b> HoniCo NZ Ltd, [address]. Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>. Last updated [date].</p>
         </div>
       </details>
 
@@ -3347,8 +3351,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <details class="lg" id="lg-ip">
         <summary>Copyright and intellectual property<i></i></summary>
         <div class="lgbody">
-          <p><b>This site.</b> &copy; 2026 [Registered entity name]. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
-          <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of [Registered entity name], claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
+          <p><b>This site.</b> &copy; 2026 HoniCo NZ Ltd. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
+          <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of HoniCo NZ Ltd, claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
           <p><b>The formulation.</b> The HONI<i>ORA</i> formulation, its ratios and the specification behind them are confidential and proprietary. Publishing a full bill of materials does not place it in the public domain or grant any licence to reproduce it.</p>
           <p><b>Third-party marks.</b> Livaux, Feiolix, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
           <p><b>Cited research.</b> Papers linked from the provenance matrix belong to their authors and publishers. We link to public records and reproduce no full text.</p>
@@ -4866,8 +4870,37 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var extra = (videoBottom + ACTIVES_GAP) - naturalTop;
     actives.style.marginTop = (extra > 0 ? extra : 0) + 'px';
   }
+  /* (v37) the user asked for the tube shot moved down to roughly the vertical centre
+     of the ingredient list, rather than sitting level with the list's top few rows
+     (its old, fixed calc(56.25vw + 72px) position, unrelated to the list's own real
+     height or row count). Runs right after positionActives() -- needs the list's
+     FINAL position/height to centre against, not its pre-JS one -- and centres the
+     tube's own vertical middle on the list's, while never letting it creep back up
+     over the video: `minTop` (the tube's old plain-CSS clearance below the video)
+     is always the floor, `desiredTop` (the centring math) only ever pushes it lower
+     than that floor, never higher. Same "reset margin to 0, measure the true no-
+     margin position, compute the exact margin needed" pattern as positionActives(),
+     for the same reason: a fixed vw-based offset can't react to the list's real,
+     content-dependent height the way a live measurement can. */
+  var TUBE_MIN_GAP = 72; // the tube's original minimum clearance below the video -- see the CSS fallback rule
+  function positionTube(){
+    if (mqLite.matches) return;
+    var video = container.querySelector('.hero-glass-img');
+    if (!video) return;
+    tube.style.marginTop = '0px'; // measure the tube's true no-margin position first
+    var naturalTop = tube.getBoundingClientRect().top;
+    var videoBottom = video.getBoundingClientRect().bottom;
+    var minTop = videoBottom + TUBE_MIN_GAP;
+    var listRect = actives.getBoundingClientRect();
+    var tubeHeight = tube.getBoundingClientRect().height;
+    var desiredTop = (listRect.top + listRect.height / 2) - (tubeHeight / 2);
+    var finalTop = Math.max(minTop, desiredTop);
+    var extra = finalTop - naturalTop;
+    tube.style.marginTop = (extra > 0 ? extra : 0) + 'px';
+  }
   function build(){
     positionActives();
+    positionTube();
     var containerRect = container.getBoundingClientRect();
     var w = container.offsetWidth, h = container.offsetHeight;
     if (!w || !h) return false; // container not laid out yet -- caller retries later
