@@ -604,7 +604,18 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    growing it, and fitOneLine still sees the real available width to shrink against. */
 .precede-table{width:100%;table-layout:fixed;border-collapse:collapse;border:0;margin:0}
 .precede-table td{padding:0;border:0;text-align:center;overflow:visible}
-.hero-precede .precede-lead{font-size:min(13vw,168px);line-height:1.05;color:var(--ink);white-space:nowrap;display:inline-block;font-style:italic;font-weight:700;font-family:'Playfair Display',Georgia,'Times New Roman',serif;letter-spacing:.005em;text-align:center}
+/* (v39) white-space was nowrap, which -- since a manual <br> still forces a line break
+   regardless -- only ever mattered for whichever one of these forced lines has a space
+   in it. That was none of them ("UPGRADE" / "YOUR" / "RITUAL" are all single words)
+   until "YOUR WELLBEING" replaced "YOUR" / "RITUAL": nowrap then stopped the browser
+   wrapping at that space too, so fitOneLine (which shrinks this whole span if its
+   unwrapped content is wider than the column) saw one long unbreakable "YOUR WELLBEING"
+   line and shrank the ENTIRE precede-lead font size down to fit it -- UPGRADE included,
+   despite it being short enough on its own. Switched to normal so the table cell's own
+   fixed width (see .precede-table above) can wrap "YOUR WELLBEING" onto its own two
+   lines when needed instead, keeping this the big, full-size headline treatment it's
+   meant to be. */
+.hero-precede .precede-lead{font-size:min(13vw,168px);line-height:1.05;color:var(--ink);white-space:normal;display:inline-block;font-style:italic;font-weight:700;font-family:'Playfair Display',Georgia,'Times New Roman',serif;letter-spacing:.005em;text-align:center}
 .hero-precede .precede-rest{display:block;font-size:min(1.8vw,22px);line-height:1.25;text-align:center}
 .hero-precede .precede-body{font-size:min(1.8vw,22px);line-height:1.25;color:var(--ink);text-align:center}
 .hero-precede .precede-solution{text-align:center}
@@ -2000,19 +2011,43 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
            original close-up glass video -- only the two unconditional (no
            max-width:1000px) <source> entries below were changed, so the lite/
            mobile experience at <=1000px is untouched and still plays the
-           original hero-glass-lite clip exactly as before. poster stays the
-           original hero-glass-poster.jpg (shared by both breakpoints) since a
-           <video> can only carry one poster regardless of which <source> ends
-           up active -- with autoplay+preload=auto the new clip replaces it
-           within a frame or two, not worth a second video element just to
-           avoid that brief mismatch. -->
+           original hero-glass-lite clip exactly as before.
+           (v38) poster: the original assumption here (see the prior version of
+           this comment, kept in git history) was that autoplay+preload=auto
+           would swap the poster for the real video "within a frame or two", so
+           one shared poster wasn't worth worrying about. On a real hosted
+           connection (this was reported from the live GitHub Pages site, not
+           local testing) the video can take a visible moment to arrive, and
+           hero-glass-poster.jpg is a 606x904 portrait image sized for the OLD
+           mobile-style close-up glass shot -- stretched/pillarboxed to cover the
+           new full-width 1280x720 LANDSCAPE desktop video's box, it rendered
+           small, upscaled and blurry for however long the video took to start.
+           Left as the default poster attribute (still exactly right for mobile,
+           where the lite video is itself 400x596 portrait -- same aspect, no
+           regression there), and overridden immediately below for desktop
+           widths only, before the browser has necessarily started painting
+           anything, so there's no flash between the two posters. -->
       <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-gold-loop.webm" type="video/webm"><source src="hero-gold-loop.mp4" type="video/mp4"></video>
+      <script>(function(){
+        /* runs synchronously, right where it sits in the markup -- i.e. immediately
+           after the video element above is parsed, before the rest of the page
+           parses or paints. Swaps in a poster frame pulled straight from the actual
+           desktop video (hero-gold-loop-poster.jpg, 1280x720, same aspect as the
+           video itself) so desktop visitors see a sharp, correctly-framed still
+           instead of the old portrait mobile poster stretched over a landscape box.
+           Mobile/tablet (<=1000px) is untouched -- it keeps the poster attribute
+           already set above, which matches its own portrait lite video exactly. */
+        var v = document.getElementById('heroGlassVideo');
+        if (v && window.matchMedia('(min-width:1001px)').matches){
+          v.poster = 'hero-gold-loop-poster.jpg';
+        }
+      })();</script>
       <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>RITUAL</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 fizzy tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR WELLBEING</span> <br><br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
