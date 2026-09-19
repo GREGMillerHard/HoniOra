@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. A 10,949 mg daily serving led by 3,000 mg of creatine, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. An 11,449 mg daily serving led by 3,000 mg of creatine, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
 <meta property="og:description" content="2 tabs. 300 ml of cold water. Sixty seconds.">
@@ -39,7 +39,6 @@
   --gold:#B0821F;
   --gold-deep:#8A6516;
   --gold-wash:rgba(196,153,48,.10);
-  --brown:#6B4423;
   --maxw:1260px;
   --pad:clamp(20px,5vw,64px);
 }
@@ -65,7 +64,7 @@ h1,h2{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
 h3,h4,h5{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:400;line-height:1.18;color:var(--ink);letter-spacing:-.005em}
 h3.serif,h4.serif{font-weight:400;letter-spacing:-.005em}
 .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.hero .eyebrow{font-size:min(1.3vw,16px);letter-spacing:.14em;white-space:normal}
+.hero .eyebrow{font-size:min(1.55vw,19px);letter-spacing:.14em;white-space:normal}
 .eyebrow.dim{color:var(--ink-soft)}
 .lede{font-size:clamp(17px,1.85vw,21px);color:var(--ink-2);max-width:62ch;font-weight:300}
 .small{font-size:13px;color:var(--ink-soft);line-height:1.68}
@@ -233,10 +232,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:8px}
 .burger span{display:block;width:24px;height:1.5px;background:var(--ink);margin:6px 0;transition:.3s}
 /* line breaks that should only apply on mobile/lite widths (the hero-precede copy);
-   V3 Lite Desktop: the lite nav is the default at every width now (see the former
-   max-width:1400px nav block below, unconditional here), so this <br> stays in its
-   normal (shown) state everywhere too -- the old min-width:1401px query that hid it
-   above the desktop breakpoint is removed rather than kept dead in the file. */
+   normal <br> behaviour below the 1400px lite breakpoint, suppressed above it */
+@media(min-width:1401px){.lite-br{display:none}}
 /* mobile-only Reserve Protocol / Reserve Test Tube hexes, one flanking each side of the
    logo on the nav bar itself. Hidden on desktop, where the full-size versions already
    live in .nav-cluster-left. The logo stays truly centred (a 1fr/auto/1fr grid, same
@@ -265,12 +262,37 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hexbtn-m:hover .hexdrop{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,transform .25s ease}
   .nav-hex-mobile-left:hover .hexdrop,.nav-hex-mobile-right:hover .hexdrop{transform:translateY(0)}
 }
-/* the full-height sliding two-column panel system (.mobilemenu/.mm-col, one half-
-   screen column per burger) that used to live here has been removed: it's fully
-   replaced by the compact .burger-drop rollover popup (defined further down, beside
-   the burgers themselves), which now works by hover AND by click/tap on every
-   screen size, not just as a hover preview on desktop. Removing it rather than just
-   disconnecting it, since nothing else referenced it. */
+/* the link list (16 items) runs taller than the viewport on most phones, so each panel
+   needs to actually scroll rather than just vertically-centering and clipping whatever
+   doesn't fit; top padding clears the still-visible header/burger, bottom padding keeps
+   the last link off the screen edge once scrolled all the way down. Two fully separate,
+   independently-collapsible menus now (left = reserve/protocol/science group, its own
+   burger and its own open state; right = everything else, its own burger and open
+   state) instead of one two-column panel opened by a single shared burger: opening the
+   left menu no longer opens the right one, and vice versa. Each .mm-col carries its own
+   "open" class and its own pointer-events (none while closed, so a closed panel never
+   blocks clicks on the page behind it, even though it's still technically covering that
+   half of the screen while translated off-canvas). .mobilemenu itself is just a
+   non-visual fixed wrapper now, purely for grouping -- it has no open/closed state of
+   its own. */
+.mobilemenu{position:fixed;inset:0;z-index:99;pointer-events:none}
+.mm-col{position:fixed;top:0;bottom:0;width:50%;background:var(--paper);
+  display:flex;flex-direction:column;gap:2px;min-width:0;padding:128px 22px 48px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;visibility:hidden;pointer-events:none;
+  transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear .5s}
+.mm-col.open{visibility:visible;pointer-events:auto;transition:transform .5s cubic-bezier(.7,0,.2,1),visibility 0s linear 0s}
+.mm-col:first-child{left:0;transform:translateX(-100%);border-right:1px solid var(--line-soft)}
+.mm-col:last-child{right:0;transform:translateX(100%);border-left:1px solid var(--line-soft)}
+.mm-col.open{transform:translateX(0)}
+/* 561-1400px: the gold reserve hexes (.hexbtn-m img) scale up to 160px tall in this range,
+   well past the header's own 111px height, and each panel's 128px top padding above only
+   clears them on phones. Left unfixed, the hexes hang down over the first link in each
+   panel (Reserve the Protocol / 2 Tabs) since the header sits above the menu in z-index.
+   Bump the clearance here to the tallest the hexes ever get (160px) plus a margin. */
+@media(min-width:561px) and (max-width:1400px){
+  .mm-col{padding-top:190px}
+}
+.mobilemenu a{font-size:clamp(16px,4.6vw,26px);font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;padding:12px 0;border-bottom:1px solid var(--line-soft);line-height:1.2}
 
 /* ---------- hero ---------- */
 /* padding equals the nav height exactly, so the marquee butts against it.
@@ -282,7 +304,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    .navbar's height below has a matching override here so this stays true at
    every size, not just the desktop default. */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-start;
-  gap:clamp(12px,1.9vh,26px);padding:63px 0 0;overflow:hidden}
+  gap:0;padding:63px 0 0;overflow:hidden}
 
 /* ---------- hero wax-seal badge: top-right corner, just below the actives
    scroller ribbon, links to #store (same target as RESERVE HONIORA) -- a
@@ -339,26 +361,36 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    viewport edge. */
 .hero-copy-shift{transform:translateX(-50px)}
 .hero-lower{position:relative;display:flex;flex-wrap:wrap;align-items:stretch;flex:1 1 auto;background:var(--paper);padding-right:max(var(--pad),430px);gap:clamp(24px,calc(1.7vw + 18px),42px)}
-.hero-img-col{order:1;flex:0 0 62.7%;max-width:62.7%;position:relative;overflow:visible;
+/* ---------- full-bleed hero video banner (desktop only; see the
+   min-width:1001px block near the bottom of this rule set for the actual
+   full-bleed/overlay-copy treatment). This unscoped rule is just a sane
+   fallback so the element isn't unstyled before either media query takes
+   over -- mobile's own max-width:1000px block gives it the real portrait
+   sizing that matches the mobile hero-glass-lite video. Order 0 (the flex
+   default) puts it first in the row/stack, ahead of hero-img-col (1),
+   hero-grid (2) and hero-pillars (3), on every viewport width. */
+.hero-banner{display:block}
+.hero-banner .hero-glass-img{display:block;width:100%;height:auto}
+.hero-img-col{order:2;flex:0 0 34%;max-width:34%;position:relative;overflow:visible;
   display:flex;flex-direction:column;align-items:center;gap:clamp(14px,1.8vw,28px);background:var(--paper);
   padding:0 0 clamp(32px,4vh,56px) clamp(30px,4vw,64px);
   transform:translateX(clamp(24px,3.6vw,60px))}
 .hero-img-col img,.hero-img-col video{width:auto;max-width:calc(100% + 45px);height:auto;
   object-fit:contain;object-position:center top;display:block;margin:0 auto}
-.hero-img-col .hero-glass-img{max-height:68vh;transform:translateY(25px)}
 .hero-img-col .hero-pack-img{max-height:54vh;transform:translateX(calc(23.4vw - clamp(24px,3.6vw,60px))) translateY(100px)}
-/* rotated 90deg CW (lying on its side, cap to the right), sized against the
-   glass's own rendered height using the real-world ratio of a tube (~13cm) to
-   a pint glass (~15cm) -- the closest thing to "life size" achievable on a
-   screen of unknown physical density. .hero-lower uses align-items:stretch,
-   so this column is actually stretched tall to match .hero-grid's real height
-   (the full ingredient list + stats + CTA on the right run much longer than
-   just the video), leaving real leftover space below the video, not just a
-   thin margin. Auto top/bottom margins on the tube itself soak up that
-   leftover space evenly, centering it in the true gap between the glass and
-   wherever this column actually ends, instead of a hand-guessed fixed value. */
-.hero-img-col .hero-tube-shot{width:58vh;height:auto;margin:auto 0}
-.hero-pillars{order:3;flex:0 0 100%;max-width:1040px;
+/* rotated 90deg CW (lying on its side). The video moved out of this column
+   into the full-bleed .hero-banner above the whole hero-lower row, so this
+   column now holds only the tube shot -- sized against 58vh (roughly
+   life-size against the glass, which no longer shares this column but is
+   still close by, directly above in the banner). .hero-lower uses
+   align-items:stretch, so this column is stretched tall to match
+   .hero-grid's real height (the full ingredient list + stats + CTA on the
+   right run much longer than a single tube image), leaving real leftover
+   space below the tube shot -- it sits with a fixed gap under the top of the
+   column, and the leftover stretch space falls silently below it rather than
+   centering the tube (which would strand it awkwardly partway down). */
+.hero-img-col .hero-tube-shot{width:58vh;height:auto;margin:clamp(20px,3vh,40px) auto 0}
+.hero-pillars{order:4;flex:0 0 100%;max-width:1040px;
   margin-top:clamp(40px,5vh,72px);margin-bottom:clamp(40px,5vh,72px);
   margin-left:calc(50vw - 520px);margin-right:0;
   display:grid;grid-template-columns:1fr 1fr;text-align:left;
@@ -373,7 +405,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   text-transform:uppercase;color:var(--gold);margin:0 0 10px}
 .hero-pillars p{font-size:clamp(16px,1.3vw,18.5px);line-height:1.55;color:var(--ink);margin:0}
 .hero-pillars .kw{color:var(--gold);font-weight:600}
-.hero-grid{order:2;flex:1 1 0%;min-width:0}
+.hero-grid{order:3;flex:1 1 0%;min-width:0}
 /* this element also carries the shared .wrap class (for its mobile stacked
    layout, where it needs the standard side margins); in the desktop flex-row
    layout that same .wrap padding was eating ~130px out of an already-narrow
@@ -383,6 +415,74 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    exactly the clearance the copy needs against the glass video's right edge.
    the max-width:1000px block below restores both sides for the mobile stack. */
 .hero-lower .hero-grid{padding-right:0}
+/* ---------- full-bleed hero video banner, desktop only (mobile keeps the
+   original boxed portrait video via the max-width:1000px block further
+   down). .hero-banner bleeds past .hero-lower's own reserved right-hand
+   padding (max(var(--pad),430px), otherwise meant to leave room for the
+   boxed video/copy column) via a matching negative right margin, reaching
+   the true right edge of .hero itself, which carries no side padding of its
+   own -- .hero-lower's left edge is already unpadded, so the banner spans
+   the full viewport width on both sides with no extra work needed there.
+   height is locked to the cropped video's own exact aspect ratio
+   (1280x640, 2:1) via aspect-ratio rather than a fixed/clamped height, so
+   object-fit:cover never has anything to actually crop -- box aspect and
+   video aspect always match exactly, at any viewport width, which is what
+   guarantees the glass and coaster (deliberately cropped with headroom on
+   both edges, see the hero-gold-loop-crop asset notes) can never be
+   clipped by the CSS layer on top of the ffmpeg crop. The tradeoff is a
+   taller banner on very wide screens (roughly half the viewport width) --
+   accepted as the only way to get full-bleed width with zero crop risk. */
+@media(min-width:1001px){
+.hero-banner{position:relative;order:0;flex:0 0 auto;
+  width:calc(100% + max(var(--pad),430px));overflow:hidden;
+  aspect-ratio:1280/640;margin-right:calc(-1 * max(var(--pad),430px))}
+.hero-banner .hero-glass-img{position:absolute;inset:0;width:100%;height:100%;
+  max-width:none;max-height:none;object-fit:cover;object-position:center;
+  transform:none;margin:0;display:block}
+/* translucent copy card, sat in the open sky/sunrise space to the right
+   of the glass rather than pinned to the frame's right edge, pulled in to
+   left:66% (closer to the frame's true centre than the original 73% while
+   still clearing the glass + coaster, which occupy roughly the left 46% of
+   the 1280x640 crop -- object-fit:cover with object-position:center and a
+   matching aspect-ratio on the banner means no cropping ever shifts that
+   fraction) -- both axes centred via translate(-50%,-50%) so the card's own
+   width/height never throw off that centring. Capped to a
+   width that keeps it inside the banner's own box at every desktop width --
+   it never extends past the video's own rendered edges. Background colour
+   picked to sit close to the image's own warm cream/gold tones so the card
+   reads as translucent glass over the photo rather than a stark white box
+   dropped on top of it. */
+.hero-banner .hero-copy-shift{position:absolute;z-index:45;top:50%;left:66%;
+  transform:translate(-50%,-50%);width:clamp(340px,38vw,560px);max-width:calc(100% - 56px);
+  background:rgba(255,250,235,.64);border-radius:14px;
+  padding:clamp(22px,3vw,38px) clamp(24px,3.4vw,42px);
+  box-shadow:0 14px 34px rgba(50,32,8,.22);backdrop-filter:blur(2px)}
+/* .hero-copy-inner carries NO padding of its own -- it's a plain, unpadded
+   wrapper around the headline elements (h1/p), one level inside the padded
+   .hero-copy-shift box above. This matters because fitHeroLines()/
+   matchHeroTagWidth() below measure each element's real *parent*
+   clientWidth as "available" space, and clientWidth always includes an
+   element's OWN padding. If h1/p sat directly inside the padded box, their
+   parent's clientWidth would report the padded box's full width (padding
+   included) as "available," understating how much the font actually needs
+   to shrink and letting text overflow past the box's true content edge.
+   This unpadded wrapper's own clientWidth naturally equals the padded
+   box's true content width instead, with no change to the shared
+   measuring code other hero elements already rely on. */
+.hero-banner .hero-copy-inner{padding:0}
+/* the marquee, moved (v408) inside .hero-lower to sit between the video
+   banner and the tube/ingredient row -- order:1 slots it right after
+   .hero-banner (order:0) and ahead of .hero-img-col (order:2 below), and it
+   needs the same full-bleed width/negative-margin trick .hero-banner uses
+   above, since it's now inside .hero-lower's own padding-right-reserving
+   box (max(var(--pad),430px)) instead of sitting directly in .hero (which
+   carries no side padding). Without this override the ticker would be
+   squeezed ~430px narrower than the viewport instead of running edge to
+   edge. More specific than the base .hrail{width:100%} rule (two classes
+   vs one), so this wins regardless of the two rules' source order. */
+.hero-lower .hrail{order:1;width:calc(100% + max(var(--pad),430px));
+  margin-right:calc(-1 * max(var(--pad),430px))}
+}
 .hero-logo{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:.005em}
 .hero-logo span{font-style:italic;font-weight:600;color:var(--gold)}
 .glassbox{position:relative;display:flex;justify-content:center;align-items:center;
@@ -392,111 +492,6 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   animation:float 7s ease-in-out infinite}
 /* the still is the fallback: shown only if the video cannot or should not play */
 .glassbox video{display:block;object-fit:contain}
-
-/* V3 Lite Desktop: back to the original side-by-side hero layout (image column left,
-   copy column right -- the base, non-media-query rules just above already implement
-   this, so this block now overrides almost nothing about that structure), but with
-   the new gold-loop video playing as a full-width background behind BOTH columns for
-   the first screen, instead of a small boxed clip inside just the left column.
-   "the lite version" at <=1000px keeps its original stacked layout completely
-   untouched, per longstanding explicit request.
-   How the background works: .hero-lower becomes the positioning context
-   (position:relative). The <video> (class .hero-glass-img, still physically inside
-   .hero-img-col in the markup) is pulled out of that column's flow with
-   position:absolute -- .hero-img-col itself is set position:static here so the
-   video's containing block is .hero-lower instead (full row width, both columns),
-   not just the narrower left column. Sized width:100%;height:auto (its own natural
-   1280x720 ratio) and top:0;left:0 -- full row width, nothing cropped, natural
-   height (about 563px at 1001px wide, 1080px at 1920px wide), which reads as a
-   "first screen" backdrop without an artificial fixed-height box forcing a crop.
-   Given a negative z-index so it paints behind the row's own in-flow content
-   (the tube shot and the copy column both stay in normal flow, so they naturally
-   paint above a negative-z-index descendant with no z-index needed on them) --
-   .hero-lower's background is dropped to transparent so nothing opaque sits between
-   the video and the content above it.
-   .hero-img-col now only contains the tube shot in normal flow (the video is no
-   longer part of its box model), which keeps the hero-keylines script's tube
-   measurement working exactly as it always has.
-   .hero-img-col also carries transform:translateX(...) from the base rule above --
-   a non-none transform creates its own containing block for absolutely-positioned
-   descendants regardless of position:static, which would otherwise silently confine
-   the "full row width" video back down to just this narrow column. Reset to
-   transform:none here too, so .hero-lower (the nearest actually-positioned ancestor)
-   is what the video's absolute positioning resolves against. */
-@media(min-width:1001px){
-  /* kill the visible white stripe between the ticker rail and the video: .hero is a flex
-     column (.bubbles, .hrail, .hero-lower) with its own gap (clamp(12px,1.9vh,26px))
-     between children, and .bubbles is position:absolute so it doesn't consume any of that
-     gap -- the real gap sits entirely between .hrail and .hero-lower. It was always there,
-     just invisible before because .hero-lower/.hero-img-col carried the same opaque paper
-     background as .hero itself, so the gap read as more white against more white. Now that
-     the video starts right at .hero-lower's own top edge, that same gap shows through
-     .hero's white background as a stripe above the video. Zeroed here, desktop only. */
-  .hero{gap:0}
-  .hero-lower{background:transparent;position:relative;z-index:0}
-  .hero-img-col{position:static;background:transparent;transform:none}
-  .hero-img-col .hero-glass-img{
-    position:absolute;top:0;left:0;z-index:-1;
-    width:100%;height:auto;max-width:none;max-height:none;
-    object-fit:contain;transform:none;margin:0;
-  }
-  /* hero-pack-tube.png is a flat, opaque RGB product photo (no alpha channel) -- on the
-     old plain white page background its own white background blended in seamlessly and
-     was invisible; float it over the busy video and that same white background reads as
-     an ugly rectangle sitting on top of the image. Rather than editing the source asset,
-     push the tube down below the video's own natural bottom edge (~56.25vw, its 9:16
-     aspect ratio at the row's ~100vw width, plus a little breathing room) so it lands back
-     in the plain page background beneath the video, the same relationship it always had
-     in the original layout (sitting in the column's leftover space below the contained
-     image) -- just now measured against the background video's height instead. */
-  /* (v37) this is now only the pre-JS/no-JS fallback, same story as the
-     .hero-lower .hero-actives rule just below: positionTube() in the hero-keylines
-     script overwrites it on every geometry rebuild with a value that centres the
-     tube on the ingredient list's real, current height (a plain vw-based calc can't
-     react to how many rows the list has or how tall they render at a given
-     breakpoint). Kept at its v35 value (video-clear + 72px) as the floor JS will
-     never go above -- the tube must never creep back up over the video even if the
-     list is short. */
-  .hero-img-col .hero-tube-shot{margin:0 auto;margin-top:calc(56.25vw + 72px)}
-  /* the ingredient list (.hero-actives) sits in the right-hand column and, like the tube
-     shot, needs pushing down clear of the video -- otherwise its lower rows land over the
-     video and the hero-keylines gold connector lines ("the fan") crossing to them do too.
-     The fan itself needs no separate fix: it's a JS-drawn SVG that measures the tube's and
-     each list item's real on-screen position live (see the hero-keylines script further
-     down) rather than using any fixed coordinates, so once both endpoints clear the video
-     the lines connecting them automatically clear it too.
-     (v35) This rule is now only the pre-JS/no-JS fallback -- the real value is computed
-     and overwritten every time by positionActives() in the hero-keylines script (search
-     for it there). Reason: unlike the tube (whose column has nothing else in it, so
-     margin-top measured from the video's own top is exactly right), .hero-actives sits in
-     NORMAL FLOW directly below .hero-copy-shift (the headline block) in the same column --
-     so the same calc(56.25vw + 32px) here doesn't push it to 32px below the VIDEO, it adds
-     a full extra video-height on top of wherever the headline's own (variable, breakpoint-
-     and webfont-dependent) height already put it, landing the list ~700-800px further down
-     the page than intended and opening the huge gap the user flagged ("move the tube down
-     and the ingredient list up"). positionActives() fixes this properly by measuring the
-     headline's real bottom edge and the video's real bottom edge live and computing the
-     exact margin needed to clear whichever is lower, by a small fixed gap -- correct at
-     every breakpoint without a fragile hardcoded vw offset standing in for the headline's
-     own height. Selector is .hero-lower .hero-actives, not just .hero-actives -- the base
-     .keyact rule (further down, same single-class specificity) sets a shorthand `margin`
-     that resets margin-top on any later-in-source-but-equal-specificity rule; the
-     descendant combinator here outranks it regardless of source order. */
-  .hero-lower .hero-actives{margin-top:calc(56.25vw + 32px)}
-  /* translucent box behind the hero copy so the headline/tag/eyebrow text (which does
-     still sit over the video, by design) stays legible against a busy, colour-varying
-     background instead of relying on the text's own colour/weight alone.
-     Scoped to .hero-copy-shift specifically, NOT .hero-grid>div:first-child -- that
-     outer div turns out to wrap the entire right column (headline, ingredient list,
-     stats, CTA buttons all together, confirmed via inspection), so backgrounding it
-     would draw one huge box behind content that's now well below the video too, where
-     a white box would just look like a stray rectangle on the plain page background. */
-  .hero-copy-shift{
-    background:rgba(255,255,255,.5);
-    padding:clamp(36px,5vw,72px);
-    border-radius:4px;
-  }
-}
 
 /* ---------- manuka vista banner : full-bleed ---------- */
 .manukapan{position:relative;width:100%;line-height:0}
@@ -558,7 +553,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hrail-track{transition:none}
 }
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
-.hero h1{font-size:clamp(60px,10.6vw,152px);line-height:.9;letter-spacing:-.022em}
+.hero h1{font-size:clamp(66px,12vw,176px);line-height:.9;letter-spacing:-.022em}
 /* the masthead block is centred in the copy column, the detail below stays left.
    text-align:center is set here on the shared ancestors AND repeated below on every
    individual line/span inside .hero-precede (precede-lead, precede-rest, precede-body,
@@ -578,10 +573,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 #bornMadeLine{white-space:nowrap}
 .hero h1 .thin{display:block;font-style:italic;color:var(--gold);font-size:.4em;letter-spacing:0;margin-top:.13em}
 /* never wraps: sized off the width of the hero copy column */
-.hero-tag{margin-top:15px;font-size:min(2.24vw,31px);font-weight:700;color:var(--ink);
+.hero-tag{margin-top:15px;font-size:min(2.6vw,36px);font-weight:700;color:var(--ink);
   letter-spacing:.012em;max-width:none;white-space:nowrap;line-height:1.28;text-align:center;
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
-.hero-precede{margin-bottom:16px;font-size:min(3.8vw,48px);font-weight:700;color:var(--ink-soft);
+.hero-precede{margin-bottom:16px;font-size:min(4.3vw,54px);font-weight:700;color:var(--ink-soft);
   line-height:1.15;text-align:center;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
 /* invisible 1-cell table wrapping the whole hero-precede copy block: all four lines
    (HUGE pills…, UPGRADE/YOUR/RITUAL, HoniOra's Solution:, 2 fizzy tablets…) sit in one
@@ -604,23 +599,12 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    growing it, and fitOneLine still sees the real available width to shrink against. */
 .precede-table{width:100%;table-layout:fixed;border-collapse:collapse;border:0;margin:0}
 .precede-table td{padding:0;border:0;text-align:center;overflow:visible}
-/* (v39) white-space was nowrap, which -- since a manual <br> still forces a line break
-   regardless -- only ever mattered for whichever one of these forced lines has a space
-   in it. That was none of them ("UPGRADE" / "YOUR" / "RITUAL" are all single words)
-   until "YOUR WELLBEING" replaced "YOUR" / "RITUAL": nowrap then stopped the browser
-   wrapping at that space too, so fitOneLine (which shrinks this whole span if its
-   unwrapped content is wider than the column) saw one long unbreakable "YOUR WELLBEING"
-   line and shrank the ENTIRE precede-lead font size down to fit it -- UPGRADE included,
-   despite it being short enough on its own. Switched to normal so the table cell's own
-   fixed width (see .precede-table above) can wrap "YOUR WELLBEING" onto its own two
-   lines when needed instead, keeping this the big, full-size headline treatment it's
-   meant to be. */
-.hero-precede .precede-lead{font-size:min(13vw,168px);line-height:1.05;color:var(--ink);white-space:normal;display:inline-block;font-style:italic;font-weight:700;font-family:'Playfair Display',Georgia,'Times New Roman',serif;letter-spacing:.005em;text-align:center}
-.hero-precede .precede-rest{display:block;font-size:min(1.8vw,22px);line-height:1.25;text-align:center}
-.hero-precede .precede-body{font-size:min(1.8vw,22px);line-height:1.25;color:var(--ink);text-align:center}
+.hero-precede .precede-lead{font-size:min(14.5vw,190px);line-height:1.05;color:var(--ink);white-space:nowrap;display:inline-block;font-style:italic;font-weight:700;font-family:'Playfair Display',Georgia,'Times New Roman',serif;letter-spacing:.005em;text-align:center}
+.hero-precede .precede-rest{display:block;font-size:min(2.1vw,26px);line-height:1.25;text-align:center}
+.hero-precede .precede-body{font-size:min(2.1vw,26px);line-height:1.25;color:var(--ink);text-align:center}
 .hero-precede .precede-solution{text-align:center}
 #precedeHuge{white-space:nowrap;display:inline-block;text-align:center}
-.hero-precede .precede-solution{font-size:min(3.8vw,48px);line-height:1.15;color:var(--ink)}
+.hero-precede .precede-solution{font-size:min(4.3vw,54px);line-height:1.15;color:var(--ink)}
 /* label and benefit sit on one line: LABEL: benefit */
 .keyact{list-style:none;margin:clamp(16px,1.9vh,22px) 0 0;padding:1px 0 1px 20px;
   border-left:2px solid var(--gold);display:grid;grid-template-columns:1fr 1fr;
@@ -704,7 +688,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .sec.deep h2,.sec.deep h3,.sec.deep h4{color:#F3F1E8}
 .sec.deep .lede{color:#B9BBAD}
 .sec-head{margin-bottom:56px}
-.cr01-logo{display:block;width:clamp(144px,18vw,208px);height:auto;margin:18px auto 0;border-radius:0} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px); rounded corners removed at the user's request */
+.cr01-logo{display:block;width:clamp(144px,18vw,208px);height:auto;margin:18px auto 0;border-radius:0} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px); (v400) rounded corners removed at the user's request */
 .sec-head h2{font-size:clamp(34px,5.4vw,68px);margin:18px 0 22px;max-width:20ch}
 .sec-head h2 em{font-style:italic;color:var(--gold)}
 /* headline that must never wrap: scales purely with viewport width */
@@ -729,7 +713,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   gap:clamp(10px,1.4vh,22px);padding:clamp(24px,3.4vh,48px) 0 clamp(18px,2.4vh,34px)}
 .unit-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 var(--pad);max-width:940px;margin:0 auto clamp(54px,7.4vh,96px)}
 #protocol .sec-head,#ritual .sec-head,#honey .sec-head,#triad .sec-head,#problem .sec-head,#science .sec-head,
-.sec.deep .sec-head,#matrix .sec-head,#lemon .sec-head,#taste .sec-head,
+#function .sec-head,.sec.deep .sec-head,#matrix .sec-head,#lemon .sec-head,#taste .sec-head,
 #legal .sec-head{text-align:center}
 #protocol .sec-head h2,#protocol .sec-head .lede,
 #ritual .sec-head h2,#ritual .sec-head .lede,
@@ -737,6 +721,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 #triad .sec-head h2,#triad .sec-head .lede,
 #problem .sec-head h2,#problem .sec-head .lede,
 #science .sec-head h2,#science .sec-head .lede,
+#function .sec-head h2,#function .sec-head .lede,
 .sec.deep .sec-head h2,.sec.deep .sec-head .lede,
 #matrix .sec-head h2,#matrix .sec-head .lede,
 #lemon .sec-head h2,#lemon .sec-head .lede,
@@ -881,8 +866,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 
 /* ---------- pillars ---------- */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.pillars4{grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto}
-.pillars4 .pillar{min-width:0}
+#function .pillars{grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto}
+#function .pillars .pillar{min-width:0}
 .pillar{background:var(--paper);padding:clamp(28px,3.4vw,46px);transition:background .45s ease}
 .pillar:hover{background:var(--paper-3)}
 .sec.tinted .pillar{background:var(--paper)}
@@ -1360,6 +1345,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .plan:hover{border-color:rgba(21,23,15,.26);box-shadow:0 18px 44px -30px rgba(21,23,15,.5);transform:translateY(-3px)}
 .plan.feature{border-color:var(--gold);background:linear-gradient(180deg,var(--gold-wash) 0%,var(--paper) 46%)}
 .plan.feature:hover{border-color:var(--gold-deep)}
+.plan-badge{position:absolute;top:-11px;left:clamp(22px,2vw,32px);background:var(--gold);color:#fff;font-size:9.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border-radius:2px}
 .plan-name{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink-soft)}
 .plan.feature .plan-name{color:var(--gold-deep)}
 .plan-price{display:flex;align-items:baseline;gap:7px;margin:16px 0 4px}
@@ -1379,7 +1366,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .plan-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line-soft);padding-top:18px}
 .plan-list li{font-size:13.5px;color:var(--ink-2);line-height:1.55;padding:7px 0 7px 20px;position:relative;font-weight:300}
 .plan-list li:before{content:"";position:absolute;left:0;top:14px;width:8px;height:1px;background:var(--gold)}
-.plan-cta{margin-bottom:24px}
+.plan-cta{margin-top:auto;padding-top:26px}
 .plan-cta .btn{width:100%;justify-content:center}
 .storenote{margin-top:clamp(26px,2.6vw,38px);border-top:1px solid var(--line);padding-top:22px;
   display:flex;gap:clamp(18px,2.6vw,44px);flex-wrap:wrap}
@@ -1391,7 +1378,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .rv.in{opacity:1;transform:none}
 
 /* ---------- lemon slice: rolls in from off-screen left, spinning like a coin on its edge,
-   to rest centered below the "10 / The Lemon Water Upgrade" title. Reuses the shared .rv
+   to rest centered below the "11 / The Lemon Water Upgrade" title. Reuses the shared .rv
    IntersectionObserver above -- only the transform differs. ---------- */
 .lemon-roll{display:flex;justify-content:center;margin:clamp(18px,3.6vw,32px) 0 clamp(22px,3.6vw,36px)}
 .lemon-roll img{width:clamp(110px,15vw,190px);height:auto;display:block;border-radius:50%}
@@ -1450,43 +1437,47 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      headline copy down to a sliver, wrapping it onto more lines than desktop shows
      for the same text. */
   .hero-lower{flex-direction:column;gap:8px;padding-right:var(--pad)}
-  /* .hero-lower only has padding on its right (reserved for the desktop text column),
-     so this column stretches flush to the screen's left edge with nothing to balance
-     it on the right, and it renders visibly left of true centre. margin-right cancels
-     that reserved space back out so this column's own box spans the full width, then
-     its own symmetric padding centres the glass for real. */
-  .hero-img-col{order:1;flex:0 0 auto;max-width:none;margin-right:calc(-1 * var(--pad));padding:22px 20px 2px;gap:4px}
-  /* (v312) gap tightened from 10px to 4px, and the tube's own top margin below
-     brought in from 22px to 4px -- together these are what pull the tube up
-     close under the glass, at the user's request. See the tube/headline
-     comment further down for why this also matters for getting "UPGRADE"
-     itself on screen without scrolling. */
-  .hero-img-col img,.hero-img-col video{object-position:center center;margin:0 auto}
-  .hero-img-col{transform:none}
-  .hero-copy-shift{transform:none}
+  /* .hero-banner now holds the video AND the headline copy together (the copy moved
+     in there in the v403 desktop full-bleed-banner rework, for absolute-positioning
+     reasons that only apply above 1000px -- see the min-width:1001px block earlier
+     in this rule set). On mobile that has one real consequence versus the pre-v403
+     layout: the headline copy now renders directly under the video, ahead of the
+     tube shot (previously: glass, tube, copy, actives; now: glass, copy, tube,
+     actives). Nothing else about the mobile video/copy sizing changed, and getting
+     the headline on screen sooner is the same goal the old ordering was tuned for,
+     just reached more directly. .hero-banner itself needs no positioning here --
+     it's a plain block, full flex-basis, stacking normally; only .hero-banner
+     .hero-glass-img and .hero-banner .hero-copy-shift need real rules. */
+  .hero-banner{order:1;flex:0 0 auto;max-width:none;margin-right:calc(-1 * var(--pad));padding:22px 20px 0}
+  /* marquee, moved (v408) to sit between the video and the tube/ingredient stack on
+     mobile too, matching the desktop reorder above -- order:2 slots it right after
+     .hero-banner (order:1) and ahead of .hero-img-col (order:3 below). Same
+     negative-margin full-bleed trick .hero-banner uses just above: hrail's own base
+     rule (width:100%) already resolves to hero-lower's padded content-box width via
+     flex-column stretch, so only the negative margin-right is needed to extend it
+     back out past that reserved padding to the true edge. */
+  .hero-lower .hrail{order:2;width:calc(100% + var(--pad));margin-right:calc(-1 * var(--pad))}
+  .hero-banner .hero-glass-img{object-position:center center;margin:0 auto;display:block}
   /* 285px * 1.75 = 499px, then 499px * 0.8 = 399px, the target. Capped against the
      column's own available width (video's native ratio is 606:904) so on narrower
      phones it still centres cleanly instead of outgrowing its box and skewing off to
      one side. Every current iPhone width (375px and up) comfortably clears the cap
      and gets the full 399px. */
-  .hero-img-col .hero-glass-img{max-height:min(399px, calc((100vw - 40px) * 1.4917));transform:none}
+  .hero-banner .hero-glass-img{max-height:min(399px, calc((100vw - 40px) * 1.4917));width:auto;max-width:100%;height:auto;transform:none}
+  .hero-banner .hero-copy-shift{transform:none;margin-top:18px}
+  /* .hero-img-col now holds only the tube shot (the video moved out into
+     .hero-banner above). Centred, modest top margin separating it from the
+     headline copy that now sits directly above it. */
+  .hero-img-col{order:3;flex:0 0 auto;max-width:none;padding:0 20px;transform:none}
+  .hero-img-col img,.hero-img-col video{object-position:center center;margin:0 auto}
   .hero-img-col .hero-pack-img{max-height:145px}
   /* same life-size ratio as desktop (tube ~0.85x the glass's own rendered height),
      tied to the same glass-height formula so it scales together with it, then laid
-     on its side (rotated), with equal margin above and below to centre it in the
-     gap before the headline copy that follows */
-  .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:4px 0 8px}
-  /* (v312) margin was 22px 0 (equal above/below, centring the tube in a bigger gap).
-     Now 4px above (close under the glass) and 8px below (still separates it from the
-     headline that follows, just not by as much) -- combined with the tighter flex
-     gap above and .hero-grid's own reduced padding-top just below, this and the
-     glass-to-tube change together are what bring "UPGRADE" (the first line of the
-     headline) up onto screen without scrolling on a real phone viewport, which is
-     shorter in practice than its CSS width/height alone suggests once the browser's
-     own address bar is accounted for. */
-  .hero-grid{order:2;transform:none;padding-top:0}
+     on its side (rotated) */
+  .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:14px 0 8px}
+  .hero-grid{order:4;transform:none;padding-top:0}
   .hero-lower .hero-grid{padding-left:var(--pad);padding-right:var(--pad)}
-  .hero-pillars{order:3;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
+  .hero-pillars{order:5;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
   .hero-grid,.prob-grid,.ritual-grid,.formgrid{grid-template-columns:1fr}
   .hero-grid{gap:24px}   /* single column: the wide desktop gap would waste height */
   .hmsg{font-size:clamp(14px,2.6vw,19px)}
@@ -1515,7 +1506,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .grouphead .ln{display:none}
   .stats,.mfacts{grid-template-columns:1fr 1fr}
   .pillars{grid-template-columns:1fr}
-  .pillars4{grid-template-columns:1fr;max-width:none}
+  #function .pillars{grid-template-columns:1fr;max-width:none}
   .mgrid{grid-template-columns:1fr 1fr;gap:12px 20px}
   .row .name{grid-column:1/-1}
   .row .mech{grid-column:1/-1;margin-top:4px}
@@ -1535,39 +1526,28 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    desktop shows for the same text. Easing that reservation just in this range gives
    the copy roughly the same breathing room desktop has, without touching the
    side-by-side layout itself. */
-/* V3 Lite Desktop: upper bound dropped (was max-width:1400px) so the eased headline
-   reservation applies at every desktop width now, not just this one band -- consistent
-   with the nav switch-over below also losing its upper bound. */
-/* V3 Lite Desktop, back to a side-by-side hero: restored to max(var(--pad),220px)
-   (the original eased value for this 1001px+ range) now that the hero is a two-column
-   row again -- the text column needs this reserved right-hand room once more. The
-   video is no longer a full-bleed block claiming the whole row; it's a background
-   layer behind both columns instead, so it doesn't need the row's full padding-free
-   width the way the v31/v32 full-bleed treatment did. */
-@media(min-width:1001px){
+@media(min-width:1001px) and (max-width:1400px){
   .hero-lower{padding-right:max(var(--pad),220px)}
   .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
-  /* V3 Lite Desktop, size correction: the mini reserve hexes and mobile wordmark use
-     the same clamp()s from 561px up through this branch's new unconditional desktop
-     range -- fine on a real tablet-width screen, but at true desktop widths (1440px+)
-     the rest of the page (hero, headline) renders at full desktop scale while these
-     two were still capped at their tablet-era maximum (160px hexes, 58px logo),
-     reading oversized next to it. Sized down for 1001px and up specifically, so the
-     narrower 561-1000px tablet band (already shipped, already matches the user's own
-     reference) is untouched. Height fixed at 71px (66px navbar + 5px) rather than a
-     vw-scaled clamp() -- the user wants an exact 0px top / 5px bottom overhang, which
-     only holds at every width if the hex height doesn't drift with viewport; see the
-     top:0 (no vertical centring) positioning rule below for the other half of this. */
-  .hexbtn-m img,.hexbtn-m svg{height:71px}
-  .brand-mobile .brand-logo{height:46px}
+  /* .hero-banner's own full-bleed math (width/margin-right) is keyed to the
+     430px reservation used above 1400px -- match it here to the 220px
+     reservation this range actually uses, or the banner falls short of the
+     viewport's right edge by the 430-220=210px difference. */
+  .hero-banner{width:calc(100% + max(var(--pad),220px));
+    margin-right:calc(-1 * max(var(--pad),220px))}
+  /* the marquee (moved inside .hero-lower, v408) needs the exact same 220px
+     re-keying as .hero-banner just above, or it overshoots the viewport's
+     true right edge by the same 430-220=210px difference in this range. */
+  .hero-lower .hrail{width:calc(100% + max(var(--pad),220px));
+    margin-right:calc(-1 * max(var(--pad),220px))}
 }
 /* lite/mobile only: drop the "HUGE pills and/or chalky, messy powders / Every morning?"
-   line and its trailing break entirely. Same shared paragraph, this just hides that one
-   wrapped span so the headline starts straight at "UPGRADE YOUR RITUAL."
-   V3 Lite Desktop: this used to stop above the nav's old max-width:1400px mobile
-   breakpoint; it's unconditional now since lite nav -- and this headline treatment --
-   are the default at every width in this branch. */
-.hero-precede .precede-huge{display:none}
+   line and its trailing break entirely. Desktop keeps it -- same shared paragraph, this
+   just hides that one wrapped span below the nav's own mobile breakpoint (1400px), so the
+   headline starts straight at "UPGRADE YOUR RITUAL." on phones and tablets. */
+@media(max-width:1400px){
+  .hero-precede .precede-huge{display:none}
+}
 /* the hex-button + centred-logo nav needs real width; below this it collapses to the burger.
    raised from 1360 to 1400 for the 50%-larger wordmark. Adding a 6th link (HoniCo, then
    HoniBlog) made the right-hand cluster wider than its grid track at this breakpoint,
@@ -1576,118 +1556,22 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    rather than raising the breakpoint again (which would push the compact mobile nav onto
    very common ~1440-1600px laptop widths), the nav's own spacing (hex icon size, link
    gaps, letter-spacing) was tightened so 6 links + 2 hex buttons fit safely back within
-   1400px, with margin to spare down to ~1340px.
-   V3 LITE DESKTOP BRANCH: this whole ruleset used to be gated to max-width:1400px --
-   the point where the full text-link hex nav no longer had room and collapsed to this
-   burger + mini-hex + sliding-panel "lite" nav. That gate is removed here: this lite nav
-   is now the permanent default at every desktop width too, per the user's request to make
-   the compact nav (as seen at ~1000-1400px / 250% browser zoom) the site's default
-   appearance rather than a narrow-viewport fallback. The full hex-text nav markup and its
-   own rules (.hexnav-item etc., defined earlier in this file) are left in place, just
-   permanently hidden below -- unused rather than deleted, in case a future version wants
-   the choice back. */
-.navbar{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr);align-items:center;height:66px;padding:0;position:relative}
-.hero{padding-top:67px}   /* matches this breakpoint's 66px navbar + 1px header border */
-.nav-cluster,.brand-center,.nav-cta,.hexnav-item,.hexnav-logo{display:none}
-.brand-mobile{display:block;grid-column:2;justify-self:center}
-.burger{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%)}
-.hexbtn-m.nav-hex-mobile-left{display:block;grid-column:1;justify-self:end;margin-right:clamp(2px,1.3vw,14px)}
-.hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
-/* second burger, mirrored on the left edge -- each burger now opens only its own half
-   of the split menu instead of one burger opening both halves together. */
-.burger-left{left:0;right:auto}
-/* burger nav popup: the compact list each burger opens (gold .95-opacity fill,
-   black text, gold on hover, hairline divider between rows). This is now the
-   ONLY nav menu -- the old full-height sliding two-column panel it used to be
-   a hover preview for has been removed entirely (see the comment further up
-   where that ruleset used to live). It's a plain sibling of its burger (not a
-   child -- a <button> can't legally contain <a> elements), positioned with the
-   exact same left/right anchor the burger itself uses at each breakpoint so
-   the popup lines up directly under it.
-   Two ways in: hover shows it as a preview (hover-capable devices only, via
-   the @media(hover:hover) block below), and a click on the burger PINS it
-   open (.burger-drop.open, defined outside that media gate so it also works
-   by tap on touch devices) -- it then stays open regardless of mouse position
-   until a link inside is clicked (a choice is made) or the visitor clicks
-   anywhere else on the page, both handled in the JS burger-wiring block. Since
-   this is the real, only menu now, every link here is a normal focusable,
-   readable link -- no aria-hidden/tabindex="-1" shortcuts. */
-.burger-drop{position:absolute;top:100%;width:min(230px,45vw);max-height:calc(100vh - 90px);overflow-y:auto;
-  -webkit-overflow-scrolling:touch;background:rgba(176,130,31,.9);
-  display:flex;flex-direction:column;gap:2px;padding:16px 20px;
-  border:1px solid var(--line-soft);opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;
-  transform:translateY(-6px);z-index:65}
-/* each drop anchors to the SAME edge as its own burger (.burger-left sits at
-   left:0, base .burger sits at right:0 -- see above) so the popup opens directly
-   under the burger that controls it. These were previously crossed (burger-drop-left
-   anchored right:0, burger-drop-right anchored left:0), which opened the left
-   burger's menu on the right of the screen and vice versa -- fixed here.
-   width is now min(230px,45vw) rather than a flat 230px so on narrow phones the
-   two popups (which can both be pinned open at once) leave a visible gap between
-   them instead of nearly meeting edge-to-edge in the middle. */
-.burger-drop-left{left:0}
-.burger-drop-right{right:0}
-.burger-drop a{font-size:18px;font-weight:700;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
-  padding:9px 0;border-bottom:1px solid var(--line-soft);line-height:1.2;color:#fff;transition:color .3s}
-.burger-drop a:last-child{border-bottom:0}
-/* click-pinned state: works at every width, hover-capable or not, so tapping a
-   burger on a touch device opens and holds the popup the same way clicking it
-   does with a mouse. */
-.burger-drop.open{opacity:1;visibility:visible;pointer-events:auto;
-  transition:opacity .25s ease,transform .25s ease;transform:translateY(0)}
-@media(hover:hover){
-  /* .burger sits vertically centred inside the 66px navbar while .burger-drop's
-     top:100% is measured from that same navbar's own bottom edge, not from the
-     shorter burger's own bottom -- leaving a ~14.5px dead zone between the two.
-     A mouse moving straight down off the burger toward the popup crosses that
-     zone, loses :hover, and (since pointer-events reverts to none the instant
-     .burger:hover stops matching) can never re-acquire hover once it reaches
-     the popup underneath -- the popup would just fade out from under the
-     cursor. Pulling the popup's top up by that same amount, on hover-capable
-     devices only, closes the gap so the hover handoff from burger to popup is
-     unbroken and a mouse user really can roll straight from one into the
-     other and pick a link with no click at all. Click/tap-pinning (the base
-     .burger-drop.open rule above) doesn't depend on this at all, so touch
-     devices -- and their differently-sized navbar at phone widths -- are
-     untouched. */
-  .burger-drop{top:calc(100% - 15px)}
-  .burger:hover + .burger-drop,.burger-drop:hover{opacity:1;visibility:visible;pointer-events:auto;
-    transition:opacity .25s ease,transform .25s ease;transform:translateY(0)}
-  .burger-drop a:hover,.burger-drop a:focus-visible{color:var(--gold)}
-}
-/* V3 Lite Desktop: push the mini reserve hexes out past .wrap's own side padding
-   (var(--pad), up to 64px at this width) so they sit near the true browser-window
-   edge instead of the page's normal content margin, and make the hexes smaller at
-   the same time. Placed after the unconditional nav rules above (same selectors,
-   same specificity) so it wins the cascade at 1001px+ regardless of source order.
-   .navbar is position:relative with no padding of its own, so left/right:0 above was
-   relative to .navbar's left/right edge, which itself already sits var(--pad) in from
-   the true viewport edge -- an offset of -var(--pad) reaches exactly that true edge.
-   The hexes are pulled out of the grid flow (position:absolute, replacing their
-   grid-column placement) so they can sit outside the burgers without disturbing the
-   centred logo, which still balances evenly between the two now-empty flexible grid
-   columns.
-   The burgers themselves now sit close in against the logo instead of out by the
-   hexes: positioned from centre (calc(50% + Npx)) rather than from the navbar edge,
-   with N = the logo's own half-width at this breakpoint (109px, from its fixed 46px
-   height and 1396:294 source aspect ratio) plus a flat 50px gap -- so each burger's
-   near edge lands 50px clear of the logo on its side, symmetric either way. */
-@media(min-width:1001px){
-  .burger{left:calc(50% + 159px);right:auto}
-  .burger-left{right:calc(50% + 159px);left:auto}
-  /* burger-drop rides along with its burger's new near-logo position -- same anchor
-     property and value, so the popup still lines up directly beneath it here too. */
-  .burger-drop-left{right:calc(50% + 159px);left:auto}
-  .burger-drop-right{left:calc(50% + 159px);right:auto}
-  /* top:0, no vertical centring: the hex's own top edge lines up exactly with the
-     navbar's top edge (0px overhang above), and since the hex (71px) is 5px taller
-     than the 66px navbar, the extra 5px falls entirely below it -- an exact 0px
-     top / 5px bottom overhang rather than the symmetric split top:50% gave. */
-  .hexbtn-m.nav-hex-mobile-left{position:absolute;top:0;left:calc(-1 * var(--pad) + 54px);
-    margin-right:0}
-  .hexbtn-m.nav-hex-mobile-right{position:absolute;top:0;right:calc(-1 * var(--pad) + 54px);
-    margin-left:0}
+   1400px, with margin to spare down to ~1340px. */
+@media(max-width:1400px){
+  /* three-column grid (same 1fr/auto/1fr technique the desktop nav uses) so the centre
+     column, the logo, always sits at the true horizontal centre of the bar no matter
+     what's in the two flanking hex columns -- unlike a flex row with justify-content:
+     center, where the logo's centring point shifts depending on what else is present. */
+  .navbar{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr);align-items:center;height:66px;padding:0;position:relative}
+  .hero{padding-top:67px}   /* matches this breakpoint's 66px navbar + 1px header border */
+  .nav-cluster,.brand-center,.nav-cta,.hexnav-item,.hexnav-logo{display:none}
+  .brand-mobile{display:block;grid-column:2;justify-self:center}
+  .burger{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%)}
+  .hexbtn-m.nav-hex-mobile-left{display:block;grid-column:1;justify-self:end;margin-right:clamp(2px,1.3vw,14px)}
+  .hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
+  /* second burger, mirrored on the left edge -- each burger now opens only its own half
+     of the split menu instead of one burger opening both halves together. */
+  .burger-left{left:0;right:auto}
 }
 @media(max-width:600px){
   body{font-size:16px}
@@ -1844,8 +1728,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#rita" class="hexnav-item">RITA<br>ROCKS
       <span class="hexdrop"><span class="hexdrop-card"><b>Rita Rocks</b>Rita Ora talks longevity and her own wellness routine, in Women's Health.</span></span>
     </a>
-    <a href="#science" class="hexnav-item">DISSOLVE
-      <span class="hexdrop"><span class="hexdrop-card"><b>Dissolve, Then Drink</b>Fully dissolved in 60 seconds, fast to absorb, kind on your gut.</span></span>
+    <a href="#function" class="hexnav-item">FUNCTION
+      <span class="hexdrop"><span class="hexdrop-card"><b>Function</b>Both tablets dissolve fully in water. Your gut absorbs the actives fast.</span></span>
     </a>
     <a href="#singlepack" class="hexnav-item">TEST<br>TUBE
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
@@ -1878,18 +1762,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#abouttop" class="hexnav-item hexbtn-last">ABOUT<br>HONICO
       <span class="hexdrop"><span class="hexdrop-card"><b>About HoniCo</b>A small NZ honey company in the Bay of Plenty. We pledge 1 percent of profits to bee welfare.</span></span>
     </a>
-    <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropLeft"><span></span><span></span></button>
-    <div class="burger-drop burger-drop-left" id="burgerDropLeft">
-      <a href="#protocol">Protocol</a>
-      <a href="#honeytop">M&#257;nuka Honey</a>
-      <a href="#problem">Cr.01 Creatine</a>
-      <a href="#livaux">Livaux</a>
-      <a href="#triad">Four Systems</a>
-      <a href="#glp1">Natural GLP-1 Boost</a>
-      <a href="#matrix">The Stack</a>
-      <a href="#triad">Gut &middot; Heart &middot; Brain</a>
-      <a href="#taste">Taste</a>
-    </div>
+    <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-expanded="false" aria-controls="mmLeft"><span></span><span></span></button>
     <div class="hexbtn-m nav-hex-mobile-left">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
         <svg class="hexbtn-svg" viewBox="0 0 208 180" role="img" aria-hidden="true" focusable="false">
@@ -1911,20 +1784,32 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </a>
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, one week, seven servings at $7.50 a dose. Fully credited if you subscribe afterward.</span></span>
     </div>
-    <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropRight"><span></span><span></span></button>
-    <div class="burger-drop burger-drop-right" id="burgerDropRight">
-      <a href="#protocol">2 Tabs</a>
-      <a href="#ritual">Ritual</a>
-      <a href="#science">Dissolve</a>
-      <a href="#waitlist">Join Founding List</a>
-      <a href="#rita">Rita Rocks</a>
-      <a href="#lemon">Lemonwater?</a>
-      <a href="#honiblogtop">HoniBlog</a>
-      <a href="javascript:void(0)" id="askHoniBtnBurgerDrop">Ask Honi</a>
-      <a href="#abouttop">About HoniCo</a>
-    </div>
+    <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-expanded="false" aria-controls="mmRight"><span></span><span></span></button>
   </div>
 </header>
+
+<div class="mobilemenu">
+  <div class="mm-col" id="mmLeft">
+    <a href="#protocol">Protocol</a>
+    <a href="#honeytop">M&#257;nuka Honey</a>
+    <a href="#problem">Cr.01 Creatine</a>
+    <a href="#livaux">Livaux</a>
+    <a href="#function">Function</a>
+    <a href="#matrix">The Stack</a>
+    <a href="#triad">Gut &middot; Heart &middot; Brain</a>
+    <a href="#taste">Taste</a>
+  </div>
+  <div class="mm-col" id="mmRight">
+    <a href="#protocol">2 Tabs</a>
+    <a href="#ritual">Ritual</a>
+    <a href="#waitlist" style="color:var(--gold)">Join Founding List</a>
+    <a href="#rita">Rita Rocks</a>
+    <a href="#lemon">Lemonwater?</a>
+    <a href="#honiblogtop">HoniBlog</a>
+    <a href="javascript:void(0)" id="askHoniBtnMobile" style="color:var(--gold)">Ask Honi</a>
+    <a href="#abouttop">About HoniCo</a>
+  </div>
+</div>
 
 
 <div class="lightbox" id="mapLightbox" role="dialog" aria-modal="true" aria-label="Expanded map">
@@ -1967,17 +1852,50 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="hero" id="top">
   <div class="bubbles" id="bubbles"></div>
 
-  <!-- top marquee: the two ribbon messages lead, then every active, looping right to left -->
-  <div class="hrail">
+  <div class="hero-lower">
+    <div class="hero-banner">
+      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-gold-loop-crop.webm" type="video/webm"><source src="hero-gold-loop-crop.mp4" type="video/mp4"></video>
+      <script>
+      /* desktop-only poster swap: mobile (<=1000px) keeps the portrait
+         hero-glass-poster.jpg, matching the portrait hero-glass-lite video
+         above. Desktop (1001px+) now plays the cropped scenic/gold-loop
+         video (1280x640, landscape), so it needs its own matching poster
+         -- otherwise the portrait poster would show stretched/wrong-aspect
+         before the video arrives. Synchronous, runs immediately after the
+         video element parses, same pattern used for V3 Lite Desktop's v38
+         fix. */
+      (function(){
+        var v = document.getElementById('heroGlassVideo');
+        if (v && window.innerWidth > 1000) { v.poster = 'hero-gold-loop-poster-crop.jpg'; }
+      })();
+      </script>
+      <div class="hero-copy-shift">
+      <div class="hero-copy-inner">
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR<br>WELLBEING</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
+      <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
+      <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
+      <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
+      <p class="eyebrow rv" id="futureLine" style="margin-top:6px">Welcome to the future of healthiness</p>
+      </div>
+      </div>
+    </div>
+
+    <!-- top marquee: the two ribbon messages lead, then every active, looping right to left.
+         Moved (v408) to sit below the sunrise video banner and above the tube/ingredient
+         graphics, rather than above the whole hero -- see .hero-lower .hrail below for the
+         full-bleed-width override this now needs, since it's inside hero-lower's own
+         padding-right-reserving box instead of directly in .hero (unpadded). -->
+    <div class="hrail">
     <div class="hrail-vp">
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
-          <div class="hmsg">Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, the name means living vitality grounded in pure New Zealand nature.</div>
-          <div class="hmsg">Introducing HONI<i>ORA</i> to add some sparkle to your day &gt;&gt;&gt;</div>
+          <div class="hmsg">WELCOME TO THE FUTURE OF HEALTHINESS : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, the name means living vitality grounded in pure New Zealand nature.</div>
+          <div class="hmsg">Introducing Honi<i>Ora</i> to your day will add to Your Healthiness</div>
+          <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Cr-01 Creatine</b><i class="hpop">ATP energy &middot; Strength &amp; power</i><s>3,000 mg</s></div>
           <div class="hact"><b>Balanced Hydration Matrix</b><i class="hpop">Electrolyte system &middot; Na &middot; K &middot; Mg</i><s>1,400 mg</s></div>
-          <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><i class="hpop">Prebiotic &middot; Gut health matrix</i><s>600 mg</s></div>
+          <div class="hact"><b>Pomma+ Pomegranate Extract</b><i class="hpop">Antioxidant &middot; Polyphenol support</i><s>500 mg</s></div>
           <div class="hact"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><i class="hpop">Metabolic &middot; GLP-1 support</i><s>600 mg</s></div>
           <div class="hact"><b>Bifidobacterium adolescentis</b><i class="hpop">Synbiotic &middot; Gut barrier &amp; microbiome</i><s>10B CFU</s></div>
           <div class="hact"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><i class="hpop">Endothelial &middot; Vascular support</i><s>508 mg</s></div>
@@ -2009,62 +1927,19 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         </picture>
       </span>
     </a>
-  </div>
+    </div>
 
-  <div class="hero-lower">
     <div class="hero-img-col">
-      <!-- V3 Lite Desktop: at 1001px+ this same element now shows the uploaded
-           GOLD_LOOP1.mp4 clip (a wider golden-hour shot, HONIORA glass fizzing
-           on a table at sunset) as a full-bleed hero background instead of the
-           original close-up glass video -- only the two unconditional (no
-           max-width:1000px) <source> entries below were changed, so the lite/
-           mobile experience at <=1000px is untouched and still plays the
-           original hero-glass-lite clip exactly as before.
-           (v38) poster: the original assumption here (see the prior version of
-           this comment, kept in git history) was that autoplay+preload=auto
-           would swap the poster for the real video "within a frame or two", so
-           one shared poster wasn't worth worrying about. On a real hosted
-           connection (this was reported from the live GitHub Pages site, not
-           local testing) the video can take a visible moment to arrive, and
-           hero-glass-poster.jpg is a 606x904 portrait image sized for the OLD
-           mobile-style close-up glass shot -- stretched/pillarboxed to cover the
-           new full-width 1280x720 LANDSCAPE desktop video's box, it rendered
-           small, upscaled and blurry for however long the video took to start.
-           Left as the default poster attribute (still exactly right for mobile,
-           where the lite video is itself 400x596 portrait -- same aspect, no
-           regression there), and overridden immediately below for desktop
-           widths only, before the browser has necessarily started painting
-           anything, so there's no flash between the two posters. -->
-      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-gold-loop.webm" type="video/webm"><source src="hero-gold-loop.mp4" type="video/mp4"></video>
-      <script>(function(){
-        /* runs synchronously, right where it sits in the markup -- i.e. immediately
-           after the video element above is parsed, before the rest of the page
-           parses or paints. Swaps in a poster frame pulled straight from the actual
-           desktop video (hero-gold-loop-poster.jpg, 1280x720, same aspect as the
-           video itself) so desktop visitors see a sharp, correctly-framed still
-           instead of the old portrait mobile poster stretched over a landscape box.
-           Mobile/tablet (<=1000px) is untouched -- it keeps the poster attribute
-           already set above, which matches its own portrait lite video exactly. */
-        var v = document.getElementById('heroGlassVideo');
-        if (v && window.matchMedia('(min-width:1001px)').matches){
-          v.poster = 'hero-gold-loop-poster.jpg';
-        }
-      })();</script>
       <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
-      <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-huge"><span class="precede-body" id="precedeHuge">HUGE pills and/or chalky, messy powders....Every morning?</span> <br></span> <span class="precede-lead" id="precedeLead">UPGRADE<br>YOUR WELLBEING</span> <br><br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
-      <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
-      <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
-      <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
-      </div>
       <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
         <li>Cr-01 Creatine Monohydrate</li>
         <li>Balanced Hydration Matrix electrolytes</li>
         <li>Livaux<sup class="rn">&reg;</sup> gold kiwi</li>
+        <li>Pomma+ pomegranate</li>
         <li>Feiolix<sup class="rn">&reg;</sup> feijoa</li>
         <li>Braincurrant<sup class="rn">&reg;</sup></li>
         <li>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</li>
@@ -2078,9 +1953,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li>S7<sup class="rn">&reg;</sup> Plant Matrix</li>
       </ul>
       <div class="hero-meta rv">
-        <div><b>10,949<small style="font-size:14px"> mg</small></b><span>Per daily serving</span></div>
+        <div><b>11,449<small style="font-size:14px"> mg</small></b><span>Per daily serving</span></div>
         <div><b>3,000<small style="font-size:14px"> mg</small></b><span>Creatine per serving</span></div>
-        <div><b>15</b><span>Full dose Natural actives, Zero blends</span></div>
+        <div><b>16</b><span>Full dose Natural actives, Zero blends</span></div>
       </div>
       <div class="hero-cta rv">
         <a href="#matrix" class="btn">Explore HoniOra <span class="ar">&rarr;</span></a>
@@ -2139,6 +2014,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.jpg"><img width="820" height="820" src="creatine_HCL.jpg" alt="Cr-01 creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr-01 Creatine</b><s>3,000 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01, third-party verified by SGS at 99.96% purity.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.jpg"><img width="820" height="820" src="manuka_crystal.jpg" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF Crystals</b><s>1,500 mg</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF high fibre matrix substrate feeds your beneficial gut barrier microbes, whose fermentation of that fibre also supports your own natural GLP-1.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.jpg"><img width="820" height="820" src="livaux_gold_kiwi.jpg" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg</s><i>Doubles <em>F. prausnitzii</em> in your gut within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.jpg"><img width="820" height="820" src="pomma_pomegranate.jpg" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+ Whole-Fruit Pomegranate</b><s>500 mg</s><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.jpg"><img width="820" height="820" src="feijoa.jpg" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg</s><i>Two routes to your own GLP-1: abscisic acid acting on gut L-cells, and a shift in the gut bacteria that prompt the same release. Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.jpg"><img width="820" height="820" src="eriomin_lemon.jpg" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract working a second, separate pathway onto your own GLP-1. Clinical trials at this same 200&nbsp;mg/day dose raised GLP-1 and lowered hyperglycemia, inflammation and improved gut microbiota in people with prediabetes.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.jpg"><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
@@ -2255,6 +2131,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><b>Magnesium Malate &amp; Zinc Bisglycinate<sup class="rn">&reg;</sup></b>Mineral cofactors doing quiet, ongoing work behind hundreds of enzymatic reactions.</li>
           <li><b>Mānuka and Fiberest<sup class="rn">&reg;</sup> HF</b>The gut barrier held, day after day, rather than rebuilt from scratch.</li>
           <li><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b>Olive polyphenol antioxidant support at every serving, clearing the EFSA threshold for protecting blood lipids from oxidative stress; the ingredient's own clinical study ran 16 weeks to show its benefits.</li>
+          <li><b>Pomma+ Whole-Fruit Pomegranate</b>Upcycled whole-fruit polyphenols, punicalagins and ellagitannins, added to the antioxidant load every serving carries.</li>
         </ul>
       </div>
     </div>
@@ -2281,30 +2158,30 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="storegrid rv">
 
       <div class="plan" id="singlepack">
-        <div class="plan-cta"><a href="#waitlist" class="btn ghost" data-plan="Single Pack &middot; USD 52.50">Reserve a single pack <span class="ar">&rarr;</span></a></div>
         <div class="plan-top">
           <div class="plan-head">
             <p class="plan-name">Single Pack</p>
             <div class="plan-price"><b>$52.50</b><i>USD one-off</i></div>
-            <p class="plan-per">$7.50 per day.</p>
+            <p class="plan-per">$7.50 a dose.</p>
             <p class="plan-what">One tube. One week. <br> Experience cumulative benefits <br> and the HONI<i>ORA</i> great taste.</p>
           </div>
           <img class="plan-img" src="plan-tube-single.jpg" alt="HONIORA single test tube, gold cap, HoniOra printed down the side" width="270" height="907" loading="lazy">
         </div>
         <ul class="plan-list">
           <li>1 tube &middot; 14 tablets &middot; 7 daily servings</li>
-          <li>The whole 28-active matrix, full dose</li>
+          <li>The whole 29-active matrix, full dose</li>
           <li>$52.50 credited to subscription</li>
           <li>Free USA shipping, always</li>
         </ul>
+        <div class="plan-cta"><a href="#waitlist" class="btn ghost" data-plan="Single Pack &middot; USD 52.50">Reserve a single pack <span class="ar">&rarr;</span></a></div>
       </div>
 
 
       <div class="plan feature">
-        <div class="plan-cta"><a href="#waitlist" class="btn" data-plan="Monthly Protocol subscription &middot; USD 210">Reserve the protocol <span class="ar">&rarr;</span></a></div>
+        <span class="plan-badge">Best value &middot; One to share</span>
         <p class="plan-name">Monthly Protocol</p>
         <div class="plan-price"><b>$210</b><i>USD / month</i></div>
-        <p class="plan-per">$6.00 per day. You save $52.50 a month.</p>
+        <p class="plan-per">$6.00 a dose. You save $52.50 a month.</p>
         <p class="plan-what">Four tubes every month, plus an extra free tube (Five total). Enjoy your bonus or share the love.</p>
         <button type="button" class="gift-trigger js-gift-trigger" id="giftTrigger" aria-haspopup="dialog" aria-controls="giftLightbox">Free Founders gift pack <span class="ar">&rarr;</span></button>
         <ul class="plan-list">
@@ -2315,6 +2192,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li>First access to every new drop</li>
           <li>Free USA shipping, always</li>
         </ul>
+        <div class="plan-cta"><a href="#waitlist" class="btn" data-plan="Monthly Protocol subscription &middot; USD 210">Reserve the protocol <span class="ar">&rarr;</span></a></div>
       </div>
 
     </div>
@@ -2463,6 +2341,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>VasoDrive-AP<sup class="rn">&reg;</sup></i><b>508 mg</b></li>
           <li><i>Careflow<sup class="rn">&reg;</sup> mango fruit</i><b>100 mg</b></li>
           <li><i>S7<sup class="rn">&reg;</sup> Plant Blend</i><b>50 mg</b></li>
+          <li><i>Pomma+ Pomegranate</i><b>500 mg</b></li>
           <li><i>Taurine</i><b>1,000 mg</b></li>
           <li><i>Magnesium Malate</i><b>500 mg</b></li>
           <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>55 mg</b></li>
@@ -2542,7 +2421,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="pillar">
         <span class="n">ii</span>
         <h3>Room for real doses:</h3>
-        <p>Our two 25 mm diameter tablets carry what two capsules cannot: 10,949.00 mg, enough to hold Cr-01 Creatine at 3,000 mg, Livaux<sup class="rn">&reg;</sup> at 600 mg and Eriomin<sup class="rn">&reg;</sup> at 200 mg, full dosages, rather than the dusting that fits into a gummy or softgel.</p>
+        <p>Our two 25 mm diameter tablets carry what two capsules cannot: 11,449.00 mg, enough to hold Cr-01 Creatine at 3,000 mg, Livaux<sup class="rn">&reg;</sup> at 600 mg and Eriomin<sup class="rn">&reg;</sup> at 200 mg, full dosages, rather than the dusting that fits into a gummy or softgel.</p>
       </div>
       <div class="pillar">
         <span class="n">iii</span>
@@ -2550,56 +2429,63 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p>A delicious natural yuzu, passionfruit and golden kiwi profile, carried on whole-fruit powders and M&#257;nuka honey rather than anything added on top. Thaumatin<sup class="rn">&reg;</sup> Pure Talin augments the sweetness and blocks the bitter receptors the botanical extracts would otherwise trip.</p>
       </div>
     </div>
-    <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
+  </div>
+</section>
+
+<!-- ================= GUT HEART BRAIN ================= -->
+
+<!-- ================= FUNCTION ================= -->
+<section class="sec" id="function">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow dim">07 / Function</p>
       <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
       <p class="lede">The 2 HONI<i>ORA</i> tablets completely dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>that is kind on and supports your gut <br>allowing absorption of all the actives to quickly reach your bloodstream.</p>
     </div>
-    <div class="pillars pillars4 rv">
+    <div class="pillars rv">
       <div class="pillar">
-        <span class="n">iv</span>
+        <span class="n">i</span>
         <h3>Better blood flow, better circulation <span class="ing">VasoDrive-AP<sup class="rn">&reg;</sup></span></h3>
         <p>Special peptides relax your blood vessels and reduce arterial stiffness. This opens up circulation so oxygen, clean energy, and nutrients reach your muscles, brain, and organs quickly.</p>
       </div>
       <div class="pillar">
-        <span class="n">v</span>
+        <span class="n">ii</span>
         <h3>Targeted brain flow and micro-circulation <span class="ing">cGP-Pro<sup class="rn">&reg;</sup></span></h3>
         <p>Cyclic Glycine-Proline directly supports the tiny blood vessels in your brain and coordinates key growth factors, like IGF-1. This helps keep your focus sharp, memory clear, and mental energy steady all day without nervous jitters.</p>
       </div>
       <div class="pillar">
-        <span class="n">vi</span>
+        <span class="n">iii</span>
         <h3>Cellular energy, every day <span class="ing">Cr-01 Creatine</span></h3>
         <p>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle and brain function whether you train hard or just get through your day. At 3,000 mg per serving it is the largest single active in the tablet. Sourced as Jenerise Cr.01&trade;, third-party verified by SGS at 99.96% purity and tested for contaminants many creatine suppliers do not disclose.</p>
       </div>
       <div class="pillar">
-        <span class="n">vii</span>
+        <span class="n">iv</span>
         <h3>Immune and enzymatic cofactor support <span class="ing">Zinc Bisglycinate<sup class="rn">&reg;</sup></span></h3>
         <p>A well-absorbed chelated zinc form. Zinc is a cofactor for hundreds of enzymes and sits behind normal immune function, paired here with Magnesium Malate for broader mineral cofactor coverage.</p>
       </div>
       <div class="pillar">
-        <span class="n">viii</span>
+        <span class="n">v</span>
         <h3>Metabolic and micro-vascular stability</h3>
         <p>Careflow<sup class="rn">&reg;</sup> and S7<sup class="rn">&reg;</sup> work the small-vessel end of the circulatory system, supporting steadier microvascular flow through the day.</p>
       </div>
       <div class="pillar">
-        <span class="n">ix</span>
+        <span class="n">vi</span>
         <h3>Zero grittiness or stomach upset</h3>
         <p>Engineered to dissolve 100% clear in under 90 seconds without artificial aftertastes, chalky residue, or gut bloating, making it effortless to drink every morning.</p>
       </div>
       <div class="pillar">
-        <span class="n">x</span>
+        <span class="n">vii</span>
         <h3>Stress response and recovery support <span class="ing">Landkind<sup class="rn">&reg;</sup> Pure Salidroside</span></h3>
         <p>A precision-fermented Rhodiola rosea extract standardised to 98%+ salidroside. Functions as an adaptogen, helping the body regulate its response to everyday physical and mental stress.</p>
       </div>
       <div class="pillar">
-        <span class="n">xi</span>
+        <span class="n">viii</span>
         <h3>Cognitive support and mood balance <span class="ing">Braincurrant<sup class="rn">&reg;</sup></span></h3>
         <p>A whole-fruit New Zealand blackcurrant powder from Anagenix, carrying the anthocyanins and polyphenols the fruit is naturally rich in. Independent NZ blackcurrant research (not run on this specific branded ingredient) covers exercise recovery, metabolic health and visual fatigue; the supplier's own focus, memory and mood claims for Braincurrant<sup class="rn">&reg;</sup> specifically remain unconfirmed independently.</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ================= GUT HEART BRAIN ================= -->
 
 <!-- ================= GLP-1 ================= -->
 <section class="sec tinted" id="glp1">
@@ -2634,7 +2520,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec deep">
   <div class="wrap">
     <div class="sec-head rv" style="margin-bottom:44px">
-      <p class="eyebrow">07 / Clinical Thresholds</p>
+      <p class="eyebrow">08 / Clinical Thresholds</p>
       <h2 class="serif" style="font-size:clamp(30px,4.4vw,56px);max-width:24ch">Every dose amount matches or exceeds each ingredient's own trial data.</h2>
     </div>
     <div class="stats rv">
@@ -2657,7 +2543,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="src">VasoDrive-AP<sup class="rn">&reg;</sup> · 508 mg per serving</span>
       </div>
       <div class="stat">
-        <b data-count="28" data-suffix="">28</b>
+        <b data-count="29" data-suffix="">29</b>
         <h4>Named actives, zero blends</h4>
         <p>Every active in the HONI<i>ORA</i> SKU2 formula is individually named and dosed on the batch record, not hidden inside a proprietary blend.</p>
         <span class="src">Full bill of materials &middot; SKU2 batch record</span>
@@ -2675,7 +2561,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <img class="matrix-banner rv" src="matrix-stack-header.jpg" alt="In The Mix: our whole-system formula. A gold HONIORA tablet fizzing with bubbles, surrounded by honeycomb, gold kiwifruit, feijoa, mango and blackcurrants against a gold hexagon pattern." width="2678" height="1600" loading="lazy">
     </picture>
     <div class="sec-head rv">
-      <p class="eyebrow dim">08 TheStack /</p>
+      <p class="eyebrow dim">09 TheStack /</p>
       <h2 class="serif">The HONI<i>ORA</i> recipe</h2>
       <p class="lede">This is the entire stack, the mechanism behind them and the published research, each is full dose delivered in a two-tablet serving.</p>
     </div>
@@ -2703,6 +2589,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div><span class="fn">Gut health<small>Prebiotic matrix</small></span></div>
         <div class="dose">600 mg</div>
         <div class="mech">A pectin fibre matrix carrying 41 distinct phenolics that ferments slowly along the full length of the colon rather than spiking gas at the top of it. Feeds <em>Faecalibacterium prausnitzii</em>, which cannot be supplemented directly because it is an obligate anaerobe.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/33485721/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 33485721 &nearr;</span></a><a class="cite sup" href="https://anagenix.com/livaux/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Anagenix &nearr;</span></a></div>
+      </div>
+
+      <div class="row mgrid">
+        <div class="name">Pomma+ Pomegranate Extract<i>Stauber USA (Whole Fruit Extract)</i></div>
+        <div><span class="fn">Antioxidant<small>Polyphenol support</small></span></div>
+        <div class="dose">500 mg</div>
+        <div class="mech">An upcycled, whole-fruit pomegranate extract carrying punicalagins and ellagitannins, the polyphenols pomegranate is best known for. Stauber doesn't publish a standardisation percentage or a study specific to this extract, so we're not attaching a dose-response claim to it here, only its polyphenol category and upcycled-certified whole-fruit sourcing.<br><a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
@@ -2890,7 +2783,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 28 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V7.9.1-140K-25MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
+    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 29 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V7.9.1-140K-25MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
   </div>
 </section>
 
@@ -2898,7 +2791,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="livaux">
   <div class="wrap">
     <div class="livaux-box rv">
-      <p class="eyebrow dim">09 / Livaux Gold Kiwifruit</p>
+      <p class="eyebrow dim">10 / Livaux Gold Kiwifruit</p>
       <h2 class="serif">Livaux Gold Kiwifruit: <em>A precision prebiotic, whole from the fruit.</em></h2>
       <p class="lede">HONI<i>ORA</i> carries 600 mg of Livaux<sup class="rn">&reg;</sup> gold kiwifruit per serving, the same dose used in a 2025 randomised controlled trial in healthy adults. Over 28 days at that dose, Livaux<sup class="rn">&reg;</sup> significantly increased <em style="font-style:italic">Faecalibacterium prausnitzii</em>, a keystone anti-inflammatory gut bacterium, roughly doubling it in 70% of participants (p=0.047).<br><a class="cite" href="https://doi.org/10.1016/j.bcdf.2025.100468" target="_blank" rel="noopener noreferrer">Supporting research <span>McKeen et al. 2025 &nearr;</span></a></p>
       <p class="lede">Unlike an isolated fibre prebiotic, Livaux<sup class="rn">&reg;</sup> is a whole-fruit powder. It carries the gold kiwifruit's own pectin, polyphenol and micronutrient matrix into the gut, rather than one extracted compound on its own.</p>
@@ -2920,7 +2813,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="lemon">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">10 / The Lemon Water Upgrade</p>
+      <p class="eyebrow dim">11 / The Lemon Water Upgrade</p>
       <h2 class="serif">Everything lemon water does <em>but a clinical dose.</em></h2>
       <div class="lemon-roll rv"><img src="lemon-slice-cutout.png" alt="A cross-section slice of lemon" width="520" height="520" loading="lazy"></div>
       <p class="lede">Your morning lemon water is a good instinct built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and bathes your enamel in unbuffered acid on the way. HONI<i>ORA</i> runs the same four pathways with consistent beneficial amounts and without the enamel risk.</p>
@@ -2989,7 +2882,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec tinted" id="taste">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">11 / The Taste</p>
+      <p class="eyebrow dim">12 / The Taste</p>
       <h2 class="serif">HONI<i>ORA</i> <em>Organoleptic Profile.</em></h2>
       <p class="lede">A structured flavour evaluation: Aromatics, palate evolution, and a scored attribute breakdown.</p>
     </div>
@@ -3077,7 +2970,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec" id="pack">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow dim">12 / Format</p>
+      <p class="eyebrow dim">13 / Format</p>
       <h2 class="serif oneline">One tube = One <em>week.</em></h2>
       <p class="lede">A Sanner BioBase<sup class="rn">&reg;</sup> tube, molded from bio-based polyethylene derived from sugarcane ethanol at over 90% renewable content, fitted with a silica gel desiccant closure rated for a 40% higher water vapor barrier and 30 to 40% longer shelf life than Sanner's standard polypropylene tube.<br><a class="cite" href="https://www.sanner-group.com/moisture-management/sanner-biobase" target="_blank" rel="noopener noreferrer">Packaging <span>sanner-group.com &nearr;</span></a></p>
     </div>
@@ -3087,7 +2980,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <h3 class="serif" style="font-size:32px;margin:16px 0 14px">14 tablets &middot; 7 servings</h3>
         <p style="color:var(--ink-2);font-size:15px">2 tabs per day in 300 ml of cold water. One tube covers a week. Made in the USA in an NSF / USP certified GMP facility, from New Zealand provenance ingredients.</p>
         <div class="spec">
-          <div><b>5,474.50 mg</b><span>Per tablet</span></div>
+          <div><b>5,724.50 mg</b><span>Per tablet</span></div>
           <div><b>25 mm</b><span>Round FFBE tablet</span></div>
           <div><b>&lt; 15% RH</b><span>Sealed tube humidity</span></div>
           <div><b>&lt; 5 ppm</b><span>Certified gluten-free</span></div>
@@ -3102,7 +2995,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap">
     <div class="formgrid">
       <div class="rv">
-        <p class="eyebrow">13 / Founding List</p>
+        <p class="eyebrow">14 / Founding List</p>
         <h2 class="serif" style="font-size:clamp(34px,4.8vw,58px);margin:18px 0 22px">First Drop, 2026.</h2>
         <p class="lede" style="font-size:17px">Our first commercial batch is open to the founding list before general release. Join us and get first access and lifetime founders subscription bonuses.</p>
         <p class="small" style="margin-top:28px">Questions before you sign up?<br><a href="mailto:hello@honi.co.nz" style="color:var(--gold);font-weight:500">hello@honi.co.nz</a></p>
@@ -3154,7 +3047,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="sec tinted" id="about">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow" id="abouttop">14 / The Company</p>
+      <p class="eyebrow" id="abouttop">15 / The Company</p>
       <h2 class="serif">About <em>HoniCo</em>.</h2>
     </div>
 
@@ -3209,11 +3102,94 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 </section>
 
+<!-- ================= LEGAL ================= -->
+<section class="sec legalsec" id="legal">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">16 / Legal</p>
+      <h2 class="serif">The <em>fine print</em>.</h2>
+      <p class="lede">Everything below is a working draft prepared for review. Fields in square brackets need your company details before launch.</p>
+    </div>
+
+    <div class="lgwrap rv">
+
+      <details class="lg" id="lg-privacy">
+        <summary>Privacy policy<i></i></summary>
+        <div class="lgbody">
+          <p><b>Who we are.</b> [Registered entity name], NZBN [number], of [registered address], New Zealand. Contact <a href="mailto:privacy@honi.co.nz">privacy@honi.co.nz</a>.</p>
+          <p><b>What we collect.</b> When you join the founding list we collect your name, email address, country, age range, the wellness goals you select, what you currently take, your intended volume and any free-text note. When you buy, our payment processor collects your billing and delivery details. We never see or store full card numbers.</p>
+          <p><b>Why we collect it.</b> To contact you before and at launch, to fulfil and support orders, to understand which product tiers people want, and to meet our tax and record-keeping obligations. We do not sell your data or share it with advertisers.</p>
+          <p><b>Sensitive information.</b> Health goals and age range are more sensitive than a plain email address. You may leave both blank and still join the list. We use them only in aggregate for product planning unless you ask us a question that requires otherwise.</p>
+          <p><b>Where it goes.</b> Your data is held by [hosting provider], [email platform] and [payment processor], which may store it outside New Zealand, including in [jurisdictions]. We require each to protect it to a comparable standard.</p>
+          <p><b>How long we keep it.</b> Founding-list records until you unsubscribe or [period]. Order records for [period], as required for tax and consumer-law purposes.</p>
+          <p><b>Your rights.</b> Under the New Zealand Privacy Act 2020 you may ask what we hold about you, ask us to correct it, and complain to the Office of the Privacy Commissioner. If you are in the EU, UK, California or another jurisdiction with its own regime, additional rights may apply. Email us and we will act within [timeframe].</p>
+          <p><b>Cookies.</b> This site currently loads Google Fonts and a script CDN, both of which receive your IP address. [Add analytics and marketing pixels here once installed, with a consent mechanism if required in your markets.]</p>
+          <p><b>Changes.</b> Last updated [date]. Material changes will be notified by email to anyone on the founding list.</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-terms">
+        <summary>Terms and conditions<i></i></summary>
+        <div class="lgbody">
+          <p><b>Agreement.</b> These terms govern your use of this site and any purchase from [Registered entity name] (&ldquo;HoniCo&rdquo;, &ldquo;we&rdquo;). By ordering you accept them.</p>
+          <p><b>Eligibility.</b> You must be 18 or older. HONI<i>ORA</i> is not intended for anyone under 18, or for people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use.</p>
+          <p><b>Founding list.</b> Joining the list is not an order and creates no obligation on either side. Prices shown are indicative for the first commercial batch and may change before launch.</p>
+          <p><b>Orders and pricing.</b> Prices are in US dollars and exclude any import duty your country charges. We may correct pricing or specification errors before dispatch and will contact you if we do. An order is accepted when we dispatch it, not when payment is taken.</p>
+          <p><b>Subscription.</b> The Monthly Protocol renews automatically every [interval] at the price shown at signup until you cancel. You may cancel at any time before the next renewal from [cancellation route]. Cancellation stops future shipments and does not refund a shipment already sent. [US buyers: confirm this section satisfies federal and state automatic-renewal disclosure requirements before launch.]</p>
+          <p><b>Shipping.</b> Free within the United States, no minimum. International orders are quoted at checkout. Risk passes to you on delivery. Estimated delivery times are indicative and not guaranteed.</p>
+          <p><b>Product information.</b> We take care with dosages, provenance and mechanism descriptions. Ingredient research cited on this site relates to the individual branded ingredients at the doses stated, not to the finished product.</p>
+          <p><b>Liability.</b> Nothing in these terms limits rights you have under the New Zealand Consumer Guarantees Act, the Fair Trading Act, or the equivalent law of your own country where that law applies. Subject to that, our liability for any claim is limited to the amount you paid for the goods concerned.</p>
+          <p><b>Governing law.</b> New Zealand law, subject to any mandatory consumer protection in your jurisdiction. [Confirm this position is workable for US sales.]</p>
+          <p><b>Contact.</b> [Registered entity name], [address]. Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>. Last updated [date].</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-refund">
+        <summary>Refund and cancellation<i></i></summary>
+        <div class="lgbody">
+          <p><b>Damaged, faulty or wrong items.</b> Tell us within [period] of delivery with a photograph and your order number. We replace or refund in full, including any shipping you paid. This sits alongside your rights under the Consumer Guarantees Act and equivalent law.</p>
+          <p><b>Change of mind.</b> Unopened tubes with the seal intact may be returned within [period] of delivery for a refund less [return shipping / restocking]. Opened tubes cannot be returned, because this is an ingestible product and we cannot verify storage conditions once the desiccant seal is broken.</p>
+          <p><b>Subscription cancellation.</b> Cancel at any time from [cancellation route], effective from the next billing date. We do not charge a cancellation fee. If a renewal is charged within [period] before you cancel and the tubes have not shipped, tell us and we will refund it.</p>
+          <p><b>Single pack credit.</b> If you buy a single pack and then choose to subscribe, the $52.50 you first paid is credited to your first subscription payment (applies once per customer and has no cash value). [Set an expiry window if you want one, and confirm your checkout can apply it.]</p>
+          <p><b>Non-delivery.</b> If a parcel does not arrive within [period] of dispatch we will replace it or refund it at your choice.</p>
+          <p><b>How to start a return.</b> Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a> with your order number. Do not send anything back before we reply. Refunds are made to the original payment method within [period] of us receiving the return.</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-ip">
+        <summary>Copyright and intellectual property<i></i></summary>
+        <div class="lgbody">
+          <p><b>This site.</b> &copy; 2026 [Registered entity name]. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
+          <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of [Registered entity name], claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
+          <p><b>The formulation.</b> The HONI<i>ORA</i> formulation, its ratios and the specification behind them are confidential and proprietary. Publishing a full bill of materials does not place it in the public domain or grant any licence to reproduce it.</p>
+          <p><b>Third-party marks.</b> Livaux, Feiolix, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
+          <p><b>Cited research.</b> Papers linked from the provenance matrix belong to their authors and publishers. We link to public records and reproduce no full text.</p>
+          <p><b>Infringement.</b> Email <a href="mailto:legal@honi.co.nz">legal@honi.co.nz</a> with details and we will respond within [period].</p>
+        </div>
+      </details>
+
+      <details class="lg" id="lg-fda">
+        <summary>FDA and regulatory disclaimer<i></i></summary>
+        <div class="lgbody">
+          <p><b>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</b></p>
+          <p><b>Not a medicine.</b> HONI<i>ORA</i> is a dietary supplement, not a drug. It is not a substitute for prescribed medication, medical advice, or a varied diet.</p>
+          <p><b>About the research on this site.</b> Every clinical figure quoted comes from a published trial of an individual branded ingredient at the dose stated. HONI<i>ORA</i> has not been trialled as a finished product, and no claim is made that these findings transfer to it. Doses, formats and populations in the linked studies differ from ours. Some references are reviews or preclinical work rather than human trials.</p>
+          <p><b>Manufacture.</b> Made in the USA in an NSF / USP certified GMP facility, from New Zealand provenance ingredients. Batch tested by ICP-MS for heavy metals below California Proposition 65 limits. Certified gluten-free below 5.0 ppm.</p>
+          <p><b>Allergen.</b> Contains milk derivative (VasoDrive-AP&reg; casein lactotripeptides). Not suitable for anyone with a dairy allergy.</p>
+          <p><b>Who should not use it.</b> Anyone under 18, and anyone pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor first. Stop use and seek advice if you have an adverse reaction.</p>
+          <p><b>Other markets.</b> This product is sold in the United States. Regulatory status, permitted claims and ingredient approvals differ elsewhere. [Confirm the position for each market before selling into it, including New Zealand and Australia under the TGA.]</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
 <!-- ================= HONIBLOG ================= -->
 <section class="sec" id="honiblog">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow" id="honiblogtop">16 / HoniBlog</p>
+      <p class="eyebrow" id="honiblogtop">17 / HoniBlog</p>
       <h2 class="serif">The <em>HoniBlog</em>.</h2>
     </div>
 
@@ -3337,89 +3313,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 </section>
 
-<!-- ================= LEGAL ================= -->
-<section class="sec legalsec" id="legal">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">15 / Legal</p>
-      <h2 class="serif">The <em>fine print</em>.</h2>
-      <p class="lede">Everything below is a working draft prepared for review. Fields in square brackets need your company details before launch.</p>
-    </div>
-
-    <div class="lgwrap rv">
-
-      <details class="lg" id="lg-privacy">
-        <summary>Privacy policy<i></i></summary>
-        <div class="lgbody">
-          <p><b>Who we are.</b> HoniCo NZ Ltd, of Hallowes Park 306 Pahoia Road Whakamarama RD2 Bay Of Plenty 3172, New Zealand. Contact <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>.</p>
-          <p><b>What we collect.</b> When you join the founding list we collect your name, email address, country, age range, the wellness goals you select, what you currently take, your intended volume and any free-text note. When you buy, our payment processor collects your billing and delivery details. We never see or store full card numbers.</p>
-          <p><b>Why we collect it.</b> To contact you before and at launch, to fulfil and support orders, to understand which product tiers people want, and to meet our tax and record-keeping obligations. We do not sell your data or share it with advertisers.</p>
-          <p><b>Sensitive information.</b> Health goals and age range are more sensitive than a plain email address. You may leave both blank and still join the list. We use them only in aggregate for product planning unless you ask us a question that requires otherwise.</p>
-          <p><b>Where it goes.</b> Your data is held by [hosting provider], [email platform] and [payment processor], which may store it outside New Zealand, including in [jurisdictions]. We require each to protect it to a comparable standard.</p>
-          <p><b>How long we keep it.</b> Founding-list records until you unsubscribe or [period]. Order records for [period], as required for tax and consumer-law purposes.</p>
-          <p><b>Your rights.</b> Under the New Zealand Privacy Act 2020 you may ask what we hold about you, ask us to correct it, and complain to the Office of the Privacy Commissioner. If you are in the EU, UK, California or another jurisdiction with its own regime, additional rights may apply. Email us and we will act within [timeframe].</p>
-          <p><b>Cookies.</b> This site currently loads Google Fonts and a script CDN, both of which receive your IP address. [Add analytics and marketing pixels here once installed, with a consent mechanism if required in your markets.]</p>
-          <p><b>Changes.</b> Last updated [date]. Material changes will be notified by email to anyone on the founding list.</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-terms">
-        <summary>Terms and conditions<i></i></summary>
-        <div class="lgbody">
-          <p><b>Agreement.</b> These terms govern your use of this site and any purchase from HoniCo NZ Ltd (&ldquo;HoniCo&rdquo;, &ldquo;we&rdquo;). By ordering you accept them.</p>
-          <p><b>Eligibility.</b> You must be 18 or older. HONI<i>ORA</i> is not intended for anyone under 18, or for people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use.</p>
-          <p><b>Founding list.</b> Joining the list is not an order and creates no obligation on either side. Prices shown are indicative for the first commercial batch and may change before launch.</p>
-          <p><b>Orders and pricing.</b> Prices are in US dollars and exclude any import duty your country charges. We may correct pricing or specification errors before dispatch and will contact you if we do. An order is accepted when we dispatch it, not when payment is taken.</p>
-          <p><b>Subscription.</b> The Monthly Protocol renews automatically every [interval] at the price shown at signup until you cancel. You may cancel at any time before the next renewal from [cancellation route]. Cancellation stops future shipments and does not refund a shipment already sent. [US buyers: confirm this section satisfies federal and state automatic-renewal disclosure requirements before launch.]</p>
-          <p><b>Shipping.</b> Free within the United States, no minimum. International orders are quoted at checkout. Risk passes to you on delivery. Estimated delivery times are indicative and not guaranteed.</p>
-          <p><b>Product information.</b> We take care with dosages, provenance and mechanism descriptions. Ingredient research cited on this site relates to the individual branded ingredients at the doses stated, not to the finished product.</p>
-          <p><b>Liability.</b> Nothing in these terms limits rights you have under the New Zealand Consumer Guarantees Act, the Fair Trading Act, or the equivalent law of your own country where that law applies. Subject to that, our liability for any claim is limited to the amount you paid for the goods concerned.</p>
-          <p><b>Governing law.</b> New Zealand law, subject to any mandatory consumer protection in your jurisdiction. [Confirm this position is workable for US sales.]</p>
-          <p><b>Contact.</b> HoniCo NZ Ltd, [address]. Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>. Last updated [date].</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-refund">
-        <summary>Refund and cancellation<i></i></summary>
-        <div class="lgbody">
-          <p><b>Damaged, faulty or wrong items.</b> Tell us within [period] of delivery with a photograph and your order number. We replace or refund in full, including any shipping you paid. This sits alongside your rights under the Consumer Guarantees Act and equivalent law.</p>
-          <p><b>Change of mind.</b> Unopened tubes with the seal intact may be returned within [period] of delivery for a refund less [return shipping / restocking]. Opened tubes cannot be returned, because this is an ingestible product and we cannot verify storage conditions once the desiccant seal is broken.</p>
-          <p><b>Subscription cancellation.</b> Cancel at any time from [cancellation route], effective from the next billing date. We do not charge a cancellation fee. If a renewal is charged within [period] before you cancel and the tubes have not shipped, tell us and we will refund it.</p>
-          <p><b>Single pack credit.</b> If you buy a single pack and then choose to subscribe, the $52.50 you first paid is credited to your first subscription payment (applies once per customer and has no cash value). [Set an expiry window if you want one, and confirm your checkout can apply it.]</p>
-          <p><b>Non-delivery.</b> If a parcel does not arrive within [period] of dispatch we will replace it or refund it at your choice.</p>
-          <p><b>How to start a return.</b> Email <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a> with your order number. Do not send anything back before we reply. Refunds are made to the original payment method within [period] of us receiving the return.</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-ip">
-        <summary>Copyright and intellectual property<i></i></summary>
-        <div class="lgbody">
-          <p><b>This site.</b> &copy; 2026 HoniCo NZ Ltd. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
-          <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of HoniCo NZ Ltd, claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
-          <p><b>The formulation.</b> The HONI<i>ORA</i> formulation, its ratios and the specification behind them are confidential and proprietary. Publishing a full bill of materials does not place it in the public domain or grant any licence to reproduce it.</p>
-          <p><b>Third-party marks.</b> Livaux, Feiolix, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
-          <p><b>Cited research.</b> Papers linked from the provenance matrix belong to their authors and publishers. We link to public records and reproduce no full text.</p>
-          <p><b>Infringement.</b> Email <a href="mailto:legal@honi.co.nz">legal@honi.co.nz</a> with details and we will respond within [period].</p>
-        </div>
-      </details>
-
-      <details class="lg" id="lg-fda">
-        <summary>FDA and regulatory disclaimer<i></i></summary>
-        <div class="lgbody">
-          <p><b>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</b></p>
-          <p><b>Not a medicine.</b> HONI<i>ORA</i> is a dietary supplement, not a drug. It is not a substitute for prescribed medication, medical advice, or a varied diet.</p>
-          <p><b>About the research on this site.</b> Every clinical figure quoted comes from a published trial of an individual branded ingredient at the dose stated. HONI<i>ORA</i> has not been trialled as a finished product, and no claim is made that these findings transfer to it. Doses, formats and populations in the linked studies differ from ours. Some references are reviews or preclinical work rather than human trials.</p>
-          <p><b>Manufacture.</b> Made in the USA in an NSF / USP certified GMP facility, from New Zealand provenance ingredients. Batch tested by ICP-MS for heavy metals below California Proposition 65 limits. Certified gluten-free below 5.0 ppm.</p>
-          <p><b>Allergen.</b> Contains milk derivative (VasoDrive-AP&reg; casein lactotripeptides). Not suitable for anyone with a dairy allergy.</p>
-          <p><b>Who should not use it.</b> Anyone under 18, and anyone pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor first. Stop use and seek advice if you have an adverse reaction.</p>
-          <p><b>Other markets.</b> This product is sold in the United States. Regulatory status, permitted claims and ingredient approvals differ elsewhere. [Confirm the position for each market before selling into it, including New Zealand and Australia under the TGA.]</p>
-        </div>
-      </details>
-
-    </div>
-  </div>
-</section>
-
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="wrap">
@@ -3433,7 +3326,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <a href="#tablet">The tablet</a>
         <a href="#ritual">The ritual</a>
         <a href="#honeytop">M&#257;nuka honey</a>
-        <a href="#glp1">Natural GLP-1 Boost</a>
+        <a href="#function">Function</a>
         <a href="#triad">Gut, heart, brain</a>
         <a href="#matrix">The science</a>
         <a href="#matrix">The formula</a>
@@ -3441,7 +3334,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
       <div>
         <h5>Contact</h5>
-        <a href="mailto:hello@honi.co.nz">hello@honi.co.nz</a>
+        <a href="mailto:greg@honi.co.nz">greg@honi.co.nz</a>
         <a href="tel:+64272293787">+64 27 229 3787</a>
         <p>New Zealand</p>
       </div>
@@ -3456,7 +3349,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="legal">
       <p><strong>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</strong></p>
-      <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration: contains milk derivative</strong> (VasoDrive-AP<sup class="rn">&reg;</sup> casein lactotripeptides). Certified gluten-free below 5.0 ppm. Manufactured in the USA in an NSF / USP certified GMP facility. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
+      <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration: contains milk derivative</strong> (VasoDrive-AP<sup class="rn">&reg;</sup> casein lactotripeptides). Certified gluten-free below 5.0 ppm. Manufactured in the USA in an NSF / USP certified GMP facility. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Pomma+, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
       <div class="footbottom">
         <span>&copy; 2026 HoniCo New Zealand. All rights reserved.</span>
         <span>MBR-MN-HONIORA-V7.9.1-140K-25MM</span>
@@ -3482,17 +3375,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      HUGE-pills line on lite) measures 0 and is left alone. Re-runs on
      resize/orientation change and once the webfont swaps in, since either can
      change how wide the text renders. */
-  // container.clientWidth includes that element's own left+right padding (box-sizing:
-  // border-box means clientWidth already accounts for border-box, but padding is still
-  // INSIDE clientWidth, not subtracted from it) -- so a padded container (like
-  // .hero-copy-shift, which carries clamp(36px,5vw,72px) of padding) overstates the
-  // space actually available to its children by that padding amount. This subtracts it
-  // out so shrink-to-fit measurements below match the real visible width inside the box.
-  var innerWidthOf = function(container){
-    var cs = getComputedStyle(container);
-    var pad = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
-    return Math.max(0, container.clientWidth - pad);
-  };
   var fitOneLine = function(id, minSize){
     var el = document.getElementById(id);
     if(!el) return;
@@ -3505,7 +3387,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     if(!container) return;
     el.style.fontSize = ''; // back to the CSS-declared (max) size before measuring
-    var available = innerWidthOf(container);
+    var available = container.clientWidth;
     var natural = el.scrollWidth;
     if(available > 0 && natural > available){
       var cssSize = parseFloat(getComputedStyle(el).fontSize);
@@ -3571,7 +3453,16 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var logo = document.querySelector('.hero-logo');
     if(!tag || !logo) return;
     tag.style.fontSize = ''; // back to the CSS-declared size before measuring/re-measuring
-    if(window.innerWidth <= 1400) return; // lite has its own separate rules, untouched
+    /* Was <=1400 (the nav's own lite/desktop split) before the hero video became a
+       full-bleed banner: .hero-tag used to sit in a wide flex column all the way
+       down to 1001px, so its base min(2.24vw,31px) size never needed help above
+       that. Now .hero-banner's narrow translucent copy box (see CSS above) applies
+       from 1001px up too, and at the tighter end of that range (1001-1400px) the
+       base vw size overflows the box -- so this needs to run down to the same
+       1000px floor the banner treatment itself uses, not stop at 1400. Below
+       1000px the mobile layout drops the box entirely (plain stacked column, own
+       separate rules), so this still leaves that range alone. */
+    if(window.innerWidth <= 1000) return; // mobile stacked layout has its own separate rules, untouched
     var logoSpan = logo.querySelector('span');
     var logoWidth = measureRenderedWidth('HONI', logo)
       + (logoSpan ? measureRenderedWidth(logoSpan.textContent, logoSpan) : 0);
@@ -3579,95 +3470,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if(logoWidth > 0 && tagNaturalWidth > 0){
       var tagSize = parseFloat(getComputedStyle(tag).fontSize);
       tag.style.fontSize = (tagSize * (logoWidth / tagNaturalWidth)) + 'px';
-    }
-  };
-
-  /* "2 fizzy tablets & 1 glass of water & 60 sec." (#precedeFit) and "Born in
-     New Zealand > Made in USA" (#bornMadeLine) both used to be small fine
-     print sized off their own unrelated rules (a flat 10px for the former at
-     this breakpoint, .hero .eyebrow's min(1.3vw,16px) for the latter) --
-     nowhere near as wide as "MĀNUKA CREATINE PROTOCOL" above/below them in
-     the same centred column. This grows each one to match .hero-tag's own
-     rendered width (which matchHeroTagWidth above has already matched to the
-     HONIORA wordmark, so all three lines -- wordmark, tag, and these two --
-     end up the same width). Same measure-then-scale approach as
-     matchHeroTagWidth, just against a live element's current box instead of
-     an off-screen probe of a second element, since .hero-tag is already
-     on-page and already at its final size by the time this runs. Desktop
-     only (matching matchHeroTagWidth's own scope) -- below the 1400px lite
-     breakpoint .hero-tag isn't JS-matched to anything either, so there's no
-     reliable width here to grow toward, and both lines keep their existing
-     separate breakpoint rules untouched. Still clamped against the shared
-     column's real available width as a safety net, in case rounding or a
-     future copy change ever pushes the scaled result past it. */
-  var matchLinesToTagWidth = function(){
-    var fit = document.getElementById('precedeFit');
-    var born = document.getElementById('bornMadeLine');
-    var tag = document.querySelector('.hero-tag');
-    [fit, born].forEach(function(el){ if(el) el.style.fontSize = ''; });
-    // tag-width matching only makes sense once .hero-tag itself is JS-matched
-    // to the wordmark (desktop, >1400px -- see matchHeroTagWidth's own scope
-    // comment above). Below that, each line keeps its plain CSS-declared size
-    // as the starting point instead.
-    var wide = !!(tag && window.innerWidth > 1400);
-    var targetWidth = wide ? tag.getBoundingClientRect().width : 0;
-    [fit, born].forEach(function(el){
-      if(!el) return;
-      var cssSize = parseFloat(getComputedStyle(el).fontSize);
-      var scaled = cssSize;
-      if(wide && targetWidth > 0){
-        var naturalWidth = measureRenderedWidth(el.textContent, el);
-        if(naturalWidth > 0){ scaled = cssSize * (targetWidth / naturalWidth); }
-      }
-      el.style.fontSize = scaled + 'px';
-      // Safety net, now unconditional (not just at the >1400px tag-matched
-      // width): whatever size was just picked -- tag-matched, or just the
-      // plain CSS default below 1400px -- must never render wider than the
-      // real box actually has. This is what catches the 1001-1400px "hybrid"
-      // band specifically: .hero-copy-shift's own padding (see innerWidthOf
-      // above) eats hard into an already-narrow reserved column there, so the
-      // flat/CSS-declared sizes for these lines can overflow it even though
-      // nothing above tried to grow them. Measured against the real rendered
-      // box (getBoundingClientRect) rather than scrollWidth, since the size
-      // was just applied via inline style and may itself have wrapped.
-      var container = el.parentElement;
-      while(container && container.clientWidth === 0 && container !== document.body){
-        container = container.parentElement;
-      }
-      if(!container) return;
-      var containerInner = innerWidthOf(container);
-      if(containerInner > 0){
-        var renderedWidth = el.getBoundingClientRect().width;
-        // +1px tolerance: same sub-pixel rounding slack as before.
-        if(renderedWidth > containerInner + 1){
-          el.style.fontSize = Math.floor(scaled * (containerInner / renderedWidth) * 0.99) + 'px';
-        }
-      }
-    });
-  };
-  /* "HoniOra's Solution:" (.precede-solution) has no id and isn't matched to
-     anything -- it just grows with the viewport via a flat min(3.8vw,48px) CSS
-     rule. That's fine at full desktop widths where the reserved copy column is
-     wide, but in the 1001-1400px hybrid band the column (and the padded box
-     inside it) shrinks faster than 3.8vw does, so this line can overflow the
-     box's real edge with no JS ever touching it. Same shrink-to-fit safety net
-     as matchLinesToTagWidth's, just against the CSS size directly since there's
-     no wider target to match here. */
-  var capPrecedeSolution = function(){
-    var el = document.querySelector('.precede-solution');
-    if(!el) return;
-    el.style.fontSize = '';
-    var container = el.parentElement;
-    while(container && container.clientWidth === 0 && container !== document.body){
-      container = container.parentElement;
-    }
-    if(!container) return;
-    var containerInner = innerWidthOf(container);
-    if(!(containerInner > 0)) return;
-    var renderedWidth = el.getBoundingClientRect().width;
-    if(renderedWidth > containerInner + 1){
-      var cssSize = parseFloat(getComputedStyle(el).fontSize);
-      el.style.fontSize = Math.floor(cssSize * (containerInner / renderedWidth) * 0.99) + 'px';
     }
   };
 
@@ -3699,7 +3501,63 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
   };
 
-  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); matchLinesToTagWidth(); capPrecedeSolution(); fitManukaCaption(); };
+  /* Shifts the copy card up from dead-centre by as much as the banner's own
+     aspect-ratio-locked height allows without clipping the card's translucent
+     background against .hero-banner's overflow:hidden edge -- requested: move
+     the card up 150px. At narrow-to-mid desktop widths (roughly 1001-1450px)
+     the card is nearly as tall as the banner itself, so there's little to no
+     safe headroom there; at wider screens there's much more room. Rather than
+     guess a shift per breakpoint (the safe amount doesn't scale smoothly with
+     viewport width -- it jumps at the 1400px hybrid-range boundary along with
+     the banner's own width formula), this measures each element's actual
+     rendered height live, after fitHeroLines()/matchHeroTagWidth() have
+     already settled any font-shrinking, and caps the shift at min(150px, the
+     real safe amount) so it always reaches the requested 150px where there's
+     room, and never overshoots into clipping where there isn't. */
+  var positionHeroCopyVertical = function(){
+    var banner = document.querySelector('.hero-banner');
+    var copy = document.querySelector('.hero-copy-shift');
+    if(!banner || !copy || window.innerWidth <= 1000){ return; } // mobile: separate stacked layout, untouched
+    var bannerH = banner.getBoundingClientRect().height;
+    var copyH = copy.getBoundingClientRect().height;
+    var SAFETY = 6; // small buffer so the card's soft box-shadow never visibly touches the clip line
+    var maxShift = Math.max(0, (bannerH - copyH) / 2 - SAFETY);
+    var shift = Math.min(150, maxShift);
+    copy.style.transform = 'translate(-50%, calc(-50% - ' + shift.toFixed(1) + 'px))';
+  };
+
+  /* Centres the gold tube shot's cap end (its right edge, where the gold
+     keylines fan out from -- see the separate hero-keylines script further
+     down) on the horizontal centre of the .hero section itself, on desktop
+     only. .hero-img-col sits in a flex row alongside .hero-grid (the
+     ingredient list); a real margin-left here (not a transform, which
+     wouldn't affect layout) pushes both the tube AND the whole list right
+     together, since .hero-grid (flex:1 1 0%) simply gives up the same
+     amount of width to its sibling rather than being left behind. Reset to
+     0 before each measurement so this is idempotent on repeated calls
+     (resize, fonts loading, etc.) -- it always recomputes from the tube's
+     true unshifted position rather than compounding a previous shift.
+     hero-keylines' own build() re-measures the tube's real DOM position on
+     every rebuild it runs (on load/resize/fonts.ready, same as this), so it
+     always draws to wherever the cap actually ends up here -- no separate
+     coordination needed between the two scripts beyond both listening to
+     the same load/resize/fonts.ready events, and this one runs first since
+     it's declared earlier in the file. */
+  var centerTubeCap = function(){
+    var col = document.querySelector('.hero-img-col');
+    var tube = document.querySelector('.hero-tube-shot');
+    var hero = document.querySelector('.hero');
+    if(!col || !tube || !hero || window.innerWidth <= 1000){ if(col){ col.style.marginLeft = ''; } return; }
+    col.style.marginLeft = '0px';
+    var tubeRect = tube.getBoundingClientRect();
+    var heroRect = hero.getBoundingClientRect();
+    var frameCenter = heroRect.left + heroRect.width / 2;
+    var delta = frameCenter - tubeRect.right;
+    if (delta < 0){ delta = 0; } // never shift left of its normal position
+    col.style.marginLeft = delta.toFixed(1) + 'px';
+  };
+
+  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); fitManukaCaption(); positionHeroCopyVertical(); centerTubeCap(); };
   fitHeroAll();
   window.addEventListener('resize', fitHeroAll, {passive:true});
   window.addEventListener('orientationchange', fitHeroAll);
@@ -3709,61 +3567,30 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var onScroll = function(){ hdr.classList.toggle('stuck', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
-  /* the two burgers each pin open their own .burger-drop popup -- the old
-     full-height sliding two-column panels (.mobilemenu/.mm-col) they used to
-     control are gone, and this popup is now the only nav menu, at every
-     screen width. Behaviour: hovering a burger previews its popup on
-     hover-capable devices, and moving the mouse straight down off the burger
-     into the popup itself keeps it visible (handled purely in CSS, see the
-     .burger-drop / .burger:hover + .burger-drop rules above), so a mouse
-     user can pick a link on rollover alone, with no click needed at all.
-     Clicking (or tapping) a burger PINS its popup open regardless of mouse
-     position, independently of the other burger -- both can be pinned open
-     at once, so the visitor can compare both lists before choosing. Clicking
-     a link in EITHER popup always closes BOTH (a choice has been made and
-     that nav is actioned), same as clicking one of the two mini reserve
-     hexes or clicking anywhere else on the page. No body-scroll lock here --
-     the popup is a small dropdown, not a full-screen panel. */
+  /* two fully independent menus now, each with its own burger: opening/closing one
+     never touches the other. body scroll stays locked as long as either is open, and
+     unlocks once both are closed. */
   (function(){
+    var mmLeft = document.getElementById('mmLeft'), mmRight = document.getElementById('mmRight');
     var burgerLeft = document.getElementById('burgerLeft'), burgerRight = document.getElementById('burgerRight');
-    var dropLeft = document.getElementById('burgerDropLeft'), dropRight = document.getElementById('burgerDropRight');
-    function closeAll(){
-      dropLeft.classList.remove('open');
-      dropRight.classList.remove('open');
-      burgerLeft.setAttribute('aria-expanded','false');
-      burgerRight.setAttribute('aria-expanded','false');
-    }
-    function wire(burger, drop){
-      burger.addEventListener('click', function(e){
-        var wasOpen = drop.classList.contains('open');
-        if (wasOpen){
-          drop.classList.remove('open');
+    function anyOpen(){ return mmLeft.classList.contains('open') || mmRight.classList.contains('open'); }
+    function syncScrollLock(){ document.body.style.overflow = anyOpen() ? 'hidden' : ''; }
+    function wire(burger, col){
+      burger.addEventListener('click', function(){
+        var open = col.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        syncScrollLock();
+      });
+      col.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          col.classList.remove('open');
           burger.setAttribute('aria-expanded','false');
-        } else {
-          drop.classList.add('open');
-          burger.setAttribute('aria-expanded','true');
-        }
-        e.stopPropagation();
-      });
-      drop.querySelectorAll('a').forEach(function(a){
-        a.addEventListener('click', closeAll);
+          syncScrollLock();
+        });
       });
     }
-    wire(burgerLeft, dropLeft);
-    wire(burgerRight, dropRight);
-    /* the two top mini reserve hexes (RESERVE PROTOCOL / RESERVE TEST TUBE)
-       sit outside both popups -- clicking one while a popup is pinned open
-       should close it, same as clicking a link inside the popup itself. */
-    document.querySelectorAll('.hexbtn-m-link').forEach(function(a){
-      a.addEventListener('click', closeAll);
-    });
-    /* clicking anywhere outside an open popup (or its own burger) dismisses
-       it -- the click-outside-to-dismiss half of "remain on click ... till
-       choice is made". */
-    document.addEventListener('click', function(e){
-      if (e.target.closest('.burger-drop') || e.target.closest('.burger')) return;
-      closeAll();
-    });
+    wire(burgerLeft, mmLeft);
+    wire(burgerRight, mmRight);
   })();
 
   /* ---------- accurate in-page anchor scrolling ----------
@@ -3910,7 +3737,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 28 named actives into one effervescent serving, 10,949 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 29 named actives into one effervescent serving, 11,449 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 2 tablets into 300 ml of cold water. The effervescent engine fully dissolves in under 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -3964,6 +3791,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        src:"Manufacturer: Alvinesa Natural Ingredients, based in Daimiel, in the Ciudad Real province of Spain, which makes Hytolive from a by-product of its own olive oil production.",
        map:"https://www.google.com/maps/search/?api=1&query=Daimiel%2C+Ciudad+Real%2C+Spain",
        papers:[{t:"Moratilla-Rivera 2025, Clinical Nutrition · PMID 40690822",u:"https://pubmed.ncbi.nlm.nih.gov/40690822/"}]},
+      {k:["pomma","pomegranate","punicalagin","ellagitannin","pomma+"],
+       a:"Pomma+ is an upcycled, certified whole-fruit pomegranate extract, made from the fruit left over after commercial pomegranate juicing rather than fresh-pressed fruit grown just for the extract. It carries punicalagins and ellagitannins, the polyphenols pomegranate is best known for, and contributes to the antioxidant load every serving carries. It's dosed at 500 mg per serving (250 mg/tab). Stauber doesn't publish a standardisation percentage or a study specific to this extract, so I'm not attaching a dose-response claim to it, only its polyphenol category and upcycled sourcing.",
+       src:"Manufacturer: Stauber USA, a natural-ingredients supplier and distributor. Stauber doesn't publish the extract's own growing region, so I won't guess at one."},
       {k:["landkind","salidroside","rhodiola","adaptogen"],
        a:"Landkind Pure Salidroside is a Rhodiola rosea extract made by precision fermentation rather than field harvesting, standardised to 98%+ purity versus roughly 1% in conventional root extracts, functioning as an adaptogen for everyday stress. It's dosed at 60 mg.",
        src:"Manufacturer: Gnosis by Lesaffre, part of the Lesaffre Group, headquartered in France with over 170 years in fermentation and biotechnology.",
@@ -4095,6 +3925,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       "Tell me about Manuka Honey?",
       "Why is Livaux Gold Kiwi powder so good for me?",
       "Tell me more about Hytolive?",
+      "Tell me more about Pomma+ pomegranate?",
       "Tell me some honey bee facts?",
       "Tell me more about Feiolix and how it can support my metabolism and GLP-1?",
       "What's in HONIORA?",
@@ -4220,12 +4051,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     function ahClose(){ amod.classList.remove('open'); document.body.style.overflow = ''; }
 
-    /* abtn: desktop hexnav Ask Honi. abtn3: the compact burger-drop popup's Ask
-       Honi link -- now the only mobile/lite-nav entry point, since the old
-       full-height sliding panel (and its own askHoniBtnMobile link) is gone. */
     abtn.addEventListener('click', ahOpen);
-    var abtn3 = document.getElementById('askHoniBtnBurgerDrop');
-    if (abtn3) abtn3.addEventListener('click', ahOpen);
+    var abtn2 = document.getElementById('askHoniBtnMobile');
+    if (abtn2) abtn2.addEventListener('click', ahOpen);
     aclose.addEventListener('click', ahClose);
     amod.addEventListener('click', function(e){ if (e.target === amod) ahClose(); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && amod.classList.contains('open')) ahClose(); });
@@ -4894,56 +4722,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var r = rects[0]; // first line of text, in case a long item name wraps
     return r.top + r.height / 2;
   }
-  /* (v35) closes the "list starts ~700-800px below the video for no reason" gap: see
-     the long comment on .hero-lower .hero-actives in the CSS for why the plain CSS
-     margin-top can't get this right on its own (it stacks a full video-height on top
-     of the headline's own, variable height instead of measuring from the video's real
-     bottom edge). Runs first, every time build() runs, so every geometry rebuild this
-     script already does (resize, fonts loading, the .rv reveal settling, etc.) keeps
-     the list correctly positioned with zero extra wiring. Desktop only -- the lite/
-     mobile stacked layout uses its own plain flow and never gets a JS margin here. */
-  var ACTIVES_GAP = 56; // breathing room below the video/headline, whichever sits lower
-  function positionActives(){
-    if (mqLite.matches) return;
-    var video = container.querySelector('.hero-glass-img');
-    if (!video) return;
-    actives.style.marginTop = '0px'; // measure the list's true position immediately after the headline, no margin at all
-    var naturalTop = actives.getBoundingClientRect().top;
-    var videoBottom = video.getBoundingClientRect().bottom;
-    var extra = (videoBottom + ACTIVES_GAP) - naturalTop;
-    actives.style.marginTop = (extra > 0 ? extra : 0) + 'px';
-  }
-  /* (v37) the user asked for the tube shot moved down to roughly the vertical centre
-     of the ingredient list, rather than sitting level with the list's top few rows
-     (its old, fixed calc(56.25vw + 72px) position, unrelated to the list's own real
-     height or row count). Runs right after positionActives() -- needs the list's
-     FINAL position/height to centre against, not its pre-JS one -- and centres the
-     tube's own vertical middle on the list's, while never letting it creep back up
-     over the video: `minTop` (the tube's old plain-CSS clearance below the video)
-     is always the floor, `desiredTop` (the centring math) only ever pushes it lower
-     than that floor, never higher. Same "reset margin to 0, measure the true no-
-     margin position, compute the exact margin needed" pattern as positionActives(),
-     for the same reason: a fixed vw-based offset can't react to the list's real,
-     content-dependent height the way a live measurement can. */
-  var TUBE_MIN_GAP = 72; // the tube's original minimum clearance below the video -- see the CSS fallback rule
-  function positionTube(){
-    if (mqLite.matches) return;
-    var video = container.querySelector('.hero-glass-img');
-    if (!video) return;
-    tube.style.marginTop = '0px'; // measure the tube's true no-margin position first
-    var naturalTop = tube.getBoundingClientRect().top;
-    var videoBottom = video.getBoundingClientRect().bottom;
-    var minTop = videoBottom + TUBE_MIN_GAP;
-    var listRect = actives.getBoundingClientRect();
-    var tubeHeight = tube.getBoundingClientRect().height;
-    var desiredTop = (listRect.top + listRect.height / 2) - (tubeHeight / 2);
-    var finalTop = Math.max(minTop, desiredTop);
-    var extra = finalTop - naturalTop;
-    tube.style.marginTop = (extra > 0 ? extra : 0) + 'px';
-  }
   function build(){
-    positionActives();
-    positionTube();
     var containerRect = container.getBoundingClientRect();
     var w = container.offsetWidth, h = container.offsetHeight;
     if (!w || !h) return false; // container not laid out yet -- caller retries later
