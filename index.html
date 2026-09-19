@@ -5248,7 +5248,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   }
 })();
 
-/* ---------- ikigai diagram: hover-to-build colour ---------- */
+/* ---------- ikigai diagram: hover-to-build colour, plus a one-time
+   scroll-triggered intro ---------- */
 (function(){
   try {
     var wrap = document.getElementById('ikigaiDiagram');
@@ -5276,6 +5277,16 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       if (centerLabel) centerLabel.classList.toggle('seen', anySeen);
       if (core) core.classList.toggle('seen', allSeen);
     }
+    function clearAll(){
+      rings.forEach(function(ring){
+        ring.classList.remove('seen');
+        var lbl = labelFor(ring.getAttribute('data-pillar'));
+        if (lbl) lbl.classList.remove('seen');
+      });
+      if (centerLabel) centerLabel.classList.remove('seen');
+      if (core) core.classList.remove('seen');
+    }
+
     rings.forEach(function(ring){
       ring.addEventListener('mouseenter', function(){
         ring.classList.add('seen');
@@ -5284,15 +5295,44 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         updateCenter();
       });
     });
-    wrap.addEventListener('mouseleave', function(){
-      rings.forEach(function(ring){
-        ring.classList.remove('seen');
-        var lbl = labelFor(ring.getAttribute('data-pillar'));
-        if (lbl) lbl.classList.remove('seen');
-      });
-      if (centerLabel) centerLabel.classList.remove('seen');
-      if (core) core.classList.remove('seen');
-    });
+    wrap.addEventListener('mouseleave', clearAll);
+
+    /* One-time intro: the first time the diagram scrolls into view, the four
+       rings build their gold colour on their own, one at a time in a random
+       order, the same way a visitor hovering through them would. Once all
+       four have landed (and the gold core has faded in behind "HoniOra"),
+       it holds for a beat, then clears back to the plain black-on-white
+       outline. From there it's the ordinary hover-to-build above -- this
+       intro never replays, so scrolling past the section again later shows
+       only the outline until the visitor hovers it themselves. Skipped
+       entirely for prefers-reduced-motion. */
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && 'IntersectionObserver' in window){
+      var order = Array.prototype.slice.call(rings);
+      for (var i = order.length - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = order[i]; order[i] = order[j]; order[j] = t;
+      }
+      var stepMs = 300;
+      var played = false;
+      var ioIntro = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (!e.isIntersecting || played) return;
+          played = true;
+          ioIntro.unobserve(wrap);
+          order.forEach(function(ring, idx){
+            setTimeout(function(){
+              ring.classList.add('seen');
+              var lbl = labelFor(ring.getAttribute('data-pillar'));
+              if (lbl) lbl.classList.add('seen');
+              updateCenter();
+            }, idx * stepMs);
+          });
+          setTimeout(clearAll, order.length * stepMs + 1400);
+        });
+      }, {threshold:.5});
+      ioIntro.observe(wrap);
+    }
   } catch (err) {
     console.error('[ikigai-hover] failed to initialise:', err);
   }
