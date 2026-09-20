@@ -4568,6 +4568,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     function ahAsk(text){
       if (!text || !text.trim()) return;
+      /* Each new question replaces the thread rather than piling onto it: clear
+         every previous question/answer (and the opening greeting) before showing
+         the one just asked, so only the latest exchange is ever on screen. */
+      athread.innerHTML = '';
       ahAddMsg(ahEscape(text), 'user');
       ainput.value = '';
       setTimeout(function(){ ahRespond(text); }, 360);
