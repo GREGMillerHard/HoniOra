@@ -99,6 +99,15 @@ section[id],div[id="about"]{scroll-margin-top:160px}
    (inside their own media queries) keep the same tight framing at phone and
    short-landscape sizes too, against each breakpoint's own .sec padding-top. */
 #problem{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
+/* #pomma (10 / Pomma+ & Urolithin A): same tight-landing treatment as #problem
+   above, and for the same reason -- .sec's own clamp(80px,11vw,152px) top padding
+   would otherwise leave a large gap of bare background image above the
+   .pomma-box before any visible content. Netting that padding out of
+   scroll-margin-top lands the box itself right under the nav bar; the box's
+   own internal padding (clamp(32px,5vw,64px), same as .livaux-box) then gives
+   the eyebrow inside it its own natural breathing room, rather than jamming
+   the text itself under the header the way #problem's tighter framing does. */
+#pomma{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
 
 /* ---------- nav ---------- */
 header{position:fixed;top:0;left:0;right:0;z-index:100;transition:box-shadow .4s;border-bottom:1px solid var(--line-soft);
@@ -363,7 +372,17 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    under the hero image and a horizontal shift would risk clipping against the
    viewport edge. */
 .hero-copy-shift{transform:translateX(-50px)}
-.hero-lower{position:relative;display:flex;flex-wrap:wrap;align-items:stretch;flex:1 1 auto;background:var(--paper);padding-right:max(var(--pad),430px);gap:clamp(24px,calc(1.7vw + 18px),42px)}
+.hero-lower{position:relative;display:flex;flex-wrap:wrap;align-items:stretch;flex:1 1 auto;background:var(--paper);padding-right:max(var(--pad),430px);--hlgap:clamp(24px,calc(1.7vw + 18px),42px);gap:var(--hlgap)}
+/* (user request) closes the visible gap between the hero video/image band above
+   and the marquee ticker (the "1st scroll bar") directly below it, without
+   touching .hero-lower's flex `gap` itself -- that gap is a single shared value
+   between EVERY pair of wrapped rows in this flex container (hero-banner<->hrail,
+   hrail<->hero-img-col, etc.), so shrinking it globally would also close the gap
+   further down the stack where it's still wanted. Instead this pulls .hrail up by
+   exactly that gap's own value (kept in --hlgap, redefined per breakpoint below,
+   so this stays in sync automatically rather than needing a second hand-tuned
+   number) -- cancelling only the space immediately above the marquee. */
+.hero-lower .hrail{margin-top:calc(-1 * var(--hlgap))}
 /* (v46) video + headline copy row, extracted from the old shared .hero-img-col/
    .hero-grid columns -- see the HTML comment above .hero-banner for why this is
    a plain contained row rather than vNNN's full-bleed treatment (portrait video,
@@ -712,7 +731,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .unit-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 var(--pad);max-width:940px;margin:0 auto clamp(54px,7.4vh,96px)}
 #protocol .sec-head,#ritual .sec-head,#honey .sec-head,#triad .sec-head,#problem .sec-head,#science .sec-head,
 .sec.deep .sec-head,#matrix .sec-head,#lemon .sec-head,#taste .sec-head,
-#legal .sec-head{text-align:center}
+#legal .sec-head,#glp1 .sec-head{text-align:center}
 #protocol .sec-head h2,#protocol .sec-head .lede,
 #ritual .sec-head h2,#ritual .sec-head .lede,
 #honey .sec-head h2,#honey .sec-head .lede,
@@ -723,8 +742,17 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 #matrix .sec-head h2,#matrix .sec-head .lede,
 #lemon .sec-head h2,#lemon .sec-head .lede,
 #taste .sec-head h2,#taste .sec-head .lede,
-#legal .sec-head h2,#legal .sec-head .lede{margin-left:auto;margin-right:auto}
+#legal .sec-head h2,#legal .sec-head .lede,
+#glp1 .sec-head h2,#glp1 .sec-head .lede{margin-left:auto;margin-right:auto}
 #honey .sec-head .lede{text-align:left}
+/* (user request) GLP-1 section: headings centred via the shared #glp1 .sec-head
+   rule just above (same mechanism every other centred section on the page
+   already uses); the body copy additionally widened well past the shared
+   62ch .lede cap -- same min(90vw,1132px)-plus-left-align pattern #problem
+   already uses just above for the same reason (a wide paragraph reading as
+   body copy, not a narrow centred caption), rather than inventing a new
+   number. */
+#glp1 .sec-head .lede{max-width:min(90vw,1132px);text-align:left}
 /* the quadraxial caption's one deliberate <br> should be the ONLY break on
    desktop -- the shared .lede 62ch cap was narrower than the 86-character
    first half, wrapping it early and pushing the caption to 3 lines instead
@@ -774,6 +802,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .ishot.focus{opacity:1}
 .ishot.focus figure{transform:scale(1.28)}
 .ishot.focus img{filter:saturate(1.05) contrast(1)}
+.ishot.ishot-pomma{width:min(clamp(140px,17vw,240px),20vh)}
+.ishot.ishot-pomma.focus figure{transform:scale(1.4)}
 .icap{opacity:0;transform:translateY(10px);transition:opacity .45s ease .06s,transform .45s cubic-bezier(.22,1,.36,1) .06s;
   margin-top:12px;pointer-events:none}
 .ishot.focus .icap{opacity:1;transform:none}
@@ -787,6 +817,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .unit.static .iband-vp{overflow:visible}
 .unit.static .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
 .unit.static .ishot{opacity:1;width:clamp(104px,26vw,144px)}
+.unit.static .ishot.ishot-pomma{width:clamp(140px,34vw,190px)}
 .unit.static .ishot figure{transform:none}
 .unit.static .icap{opacity:1;transform:none}
 .unit.static .icap i{display:none}
@@ -858,6 +889,17 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    treatment as .bleed .cap's photo caption elsewhere on the site, scaled up
    to hold the whole section's text. */
 .livaux-box{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-left:2px solid var(--gold);border-radius:4px;
+  padding:clamp(32px,5vw,64px) clamp(26px,5vw,72px);max-width:920px;margin:0 auto}
+
+/* full-bleed cracked-pomegranate backdrop behind the whole Pomma+ section,
+   same treatment as #livaux above: full-colour background image, legibility
+   from the .pomma-box the copy sits in. lite crop swaps in below 1000px. */
+#pomma{background-image:url("pomma_pomegranate_bg.jpg");background-size:cover;background-position:center}
+@media(max-width:1000px){
+  #pomma{background-image:url("pomma_pomegranate_bg-lite.jpg")}
+}
+.pomma-box{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-left:2px solid var(--gold);border-radius:4px;
   padding:clamp(32px,5vw,64px) clamp(26px,5vw,72px);max-width:920px;margin:0 auto}
 
@@ -939,6 +981,14 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* ---------- matrix ---------- */
 .matrix-banner-pic{display:contents}
 .matrix-banner{display:block;width:100%;height:auto;max-width:1040px;margin:0 auto clamp(32px,4.5vw,56px)}
+/* ---------- pack section: horizontal tube shot, added under the Format
+   copy at the user's request. Same hero-pack-tube.png asset already used
+   in the hero (the only horizontal/wide tube shot on the site -- the
+   single-test-tube photo used in the Store section is a tall portrait
+   crop instead, not a fit here), sized and centred the same way
+   .matrix-banner handles its own full-width-but-capped banner image
+   just above. */
+.pack-tube-shot{display:block;width:100%;height:auto;max-width:640px;margin:clamp(20px,3vw,32px) auto 0}
 .matrix{border-top:1px solid var(--line)}
 .mgrid{display:grid;grid-template-columns:minmax(180px,1.25fr) minmax(150px,.95fr) 128px minmax(280px,2.4fr);gap:24px}
 .row{padding:30px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:padding-left .4s ease,background .4s ease}
@@ -1431,7 +1481,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      once this section is stacked -- left at its desktop value it was squeezing the
      headline copy down to a sliver, wrapping it onto more lines than desktop shows
      for the same text. */
-  .hero-lower{flex-direction:column;gap:8px;padding-right:var(--pad)}
+  .hero-lower{flex-direction:column;--hlgap:8px;gap:var(--hlgap);padding-right:var(--pad)}
   /* (v46) video + headline copy, stacked (video then copy, same relative order
      they always had) inside their own full-width row, extracted from the old
      .hero-img-col/.hero-grid columns -- see the desktop comment above
@@ -1652,6 +1702,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hrail>.hero-seal{display:none}
   .hero-banner .hero-seal-onvideo{display:block;position:absolute;
     left:90%;top:88.5%;right:auto;transform:translate(-50%,-50%);z-index:46}
+  /* (user request) this duplicate sits pinned exactly over the video's own
+     baked-in watermark (see the comment above), so its rollover needs its
+     own direction rather than the base .hero-seal's shared down-left/scale
+     rule just above -- up and inward (toward the frame's centre, since this
+     medallion sits in the bottom-right at 90%/88.5%) instead of down-left,
+     so the enlarged badge still lands squarely over the watermark point
+     rather than sliding further toward the corner and risking exposing it.
+     Same 40px/scale(2) magnitude as the base rule, just flipped on both
+     axes; equal selector specificity to that rule, so this wins purely on
+     appearing later in the sheet. */
+  .hero-seal-onvideo:hover .hero-seal-inner,.hero-seal-onvideo:focus-visible .hero-seal-inner{transform:translate(-40px,-40px) scale(2)}
   /* (v48e) desktop flip of the mobile-default rule above: golden-hour video
      shows, glass-on-white studio video hides. Same specificity reasoning as
      the base rule -- three selectors deep to beat .hero-banner .hero-glass-
@@ -1729,7 +1790,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .burger-drop{position:absolute;top:100%;width:min(230px,45vw);max-height:calc(100vh - 90px);overflow-y:auto;
   -webkit-overflow-scrolling:touch;background:rgba(176,130,31,.9);
   display:flex;flex-direction:column;gap:2px;padding:16px 20px;
-  border:1px solid var(--line-soft);opacity:0;visibility:hidden;pointer-events:none;
+  border:1px solid var(--line-soft);border-radius:14px;opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;
   transform:translateY(-6px);z-index:65}
 /* each drop anchors to the SAME edge as its own burger (.burger-left sits at
@@ -1824,6 +1885,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hexbtn-m.nav-hex-mobile-right{margin-left:clamp(1.5px,0.15vw,10px)}
   section[id]{scroll-margin-top:104px}
   #problem{scroll-margin-top:14px} /* 78px target gap minus this breakpoint's flat 64px .sec padding-top */
+  #pomma{scroll-margin-top:14px} /* same tight landing as #problem at this breakpoint */
   .brand{font-size:17px;letter-spacing:.28em}
   .brand-mobile .brand-logo{height:38px}
   .hero{min-height:0;padding:54px 0 0;gap:0}   /* 53px phone navbar + 1px header border */
@@ -1852,6 +1914,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   /* ingredient cards: two up, captions on */
   .unit.static .iband-track{gap:22px 16px}
   .unit.static .ishot{width:calc(50% - 8px)}
+  .unit.static .ishot.ishot-pomma{width:min(78vw,220px)}
   .unit.static .icap i{display:block;font-size:11px;max-width:none}
 
   /* taste + about + store */
@@ -1931,6 +1994,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hexbtn-m.nav-hex-mobile-right{margin-left:8px}
   section[id]{scroll-margin-top:86px}
   #problem{scroll-margin-top:calc(67px - clamp(80px,11vw,152px))} /* landscape phones are almost always >560px wide, so .sec still uses the clamp() padding, not the 64px flat phone value */
+  #pomma{scroll-margin-top:calc(67px - clamp(80px,11vw,152px))} /* same tight landing as #problem at this breakpoint */
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none !important;transition-duration:.01ms !important}
@@ -2034,12 +2098,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#protocol">2 Tabs</a>
       <a href="#ritual">Ritual</a>
       <a href="#science">Dissolve</a>
-      <a href="#waitlist">Join Founding List</a>
+      <a href="#pack">Format</a>
       <a href="#rita">Rita Rocks</a>
       <a href="#lemon">Lemonwater?</a>
       <a href="#honiblogtop">HoniBlog</a>
       <a href="javascript:void(0)" id="askHoniBtnBurgerDrop">Ask Honi</a>
       <a href="#abouttop">About HoniCo</a>
+      <a href="#waitlist">Join Founding List</a>
     </div>
   </div>
 </header>
@@ -2202,7 +2267,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
-      <p class="eyebrow rv" id="futureLine" style="margin-top:6px">Welcome to the future of healthiness</p>
+      <p class="eyebrow rv" id="futureLine" style="margin-top:6px">Welcome to Your future of healthiness</p>
       </div>
     </div>
 
@@ -2214,7 +2279,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="hrail-vp">
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
-          <div class="hmsg">WELCOME TO THE FUTURE OF HEALTHINESS : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, the name means living vitality grounded in pure New Zealand nature.</div>
+          <div class="hmsg">WELCOME TO YOUR FUTURE OF HEALTHINESS : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, the name means living vitality grounded in pure New Zealand nature.</div>
           <div class="hmsg">Introducing Honi<i>Ora</i> to your day will add to Your Healthiness</div>
           <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Cr-01 Creatine</b><i class="hpop">ATP energy &middot; Strength &amp; power</i><s>3,000 mg</s></div>
@@ -2223,13 +2288,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="hact"><b>Pomma+ Pomegranate Extract</b><i class="hpop">Antioxidant &middot; Polyphenol support</i><s>500 mg</s></div>
           <div class="hact"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><i class="hpop">Metabolic &middot; GLP-1 support</i><s>600 mg</s></div>
           <div class="hact"><b>Bifidobacterium adolescentis</b><i class="hpop">Synbiotic &middot; Gut barrier &amp; microbiome</i><s>10B CFU</s></div>
-          <div class="hact"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><i class="hpop">Endothelial &middot; Vascular support</i><s>508 mg</s></div>
-          <div class="hact"><b>cGP-Pro<sup class="rn">&reg;</sup> <span class="rn">(Cyclic Glycine-Proline)</span></b><i class="hpop">Micro-vascular &middot; Brain flow</i><s>100 mg</s></div>
+          <div class="hact"><b>VasoDrive-AP<sup class="rn">&reg;</sup> AmealPeptide</b><i class="hpop">Endothelial &middot; Vascular support</i><s>508 mg</s></div>
+          <div class="hact"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><i class="hpop">Micro-vascular &middot; Brain flow</i><s>100 mg</s></div>
           <div class="hact"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><i class="hpop">Metabolic &middot; GLP-1 &amp; glycemic support</i><s>200 mg</s></div>
           <div class="hact"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><i class="hpop">Micro-vascular flow</i><s>100 mg</s></div>
           <div class="hact"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><i class="hpop">Endogenous nitric oxide</i><s>50 mg</s></div>
           <div class="hact"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><i class="hpop">Antioxidant &middot; Blood lipid protection</i><s>300 mg</s></div>
-          <div class="hact"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><i class="hpop">Adaptogen &middot; Stress response</i><s>60 mg</s></div>
+          <div class="hact"><b>Landkind<sup class="rn">&reg;</sup> Rhodiola Rosea</b><i class="hpop">Adaptogen &middot; Stress response</i><s>60 mg</s></div>
           <div class="hact"><b>Braincurrant<sup class="rn">&reg;</sup></b><i class="hpop">Cognitive &middot; Mood &amp; focus</i><s>300 mg</s></div>
           <div class="hact"><b>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</b><i class="hpop">Alpha-wave &middot; Calm focus</i><s>200 mg</s></div>
         </div>
@@ -2268,7 +2333,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li>Feiolix<sup class="rn">&reg;</sup> feijoa</li>
         <li>Braincurrant<sup class="rn">&reg;</sup></li>
         <li>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</li>
-        <li>cGP-Pro<sup class="rn">&reg;</sup> blackcurrant</li>
+        <li>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</li>
         <li>VasoDrive-AP<sup class="rn">&reg;</sup> peptide</li>
         <li>Careflow<sup class="rn">&reg;</sup> mango</li>
         <li>Eriomin<sup class="rn">&reg;</sup> lemon</li>
@@ -2336,14 +2401,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="iband">
       <div class="iband-vp">
         <div class="iband-track" id="ibandTrack">
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.jpg"><img width="820" height="820" src="creatine_HCL.jpg" alt="Cr-01 creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr-01 Creatine</b><s>3,000 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01, third-party verified by SGS at 99.96% purity.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.jpg"><img width="820" height="820" src="manuka_crystal.jpg" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF Crystals</b><s>1,500 mg</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF high fibre matrix substrate feeds your beneficial gut barrier microbes, whose fermentation of that fibre also supports your own natural GLP-1.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.jpg"><img width="820" height="820" src="creatine_HCL.jpg" alt="Cr-01 creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr-01 Creatine</b><s>3,000 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01, third-party verified by SGS at 99.96% purity.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.jpg"><img width="820" height="820" src="livaux_gold_kiwi.jpg" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg</s><i>Doubles <em>F. prausnitzii</em> in your gut within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.jpg"><img width="820" height="820" src="pomma_pomegranate.jpg" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+ Whole-Fruit Pomegranate</b><s>500 mg</s><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
+          <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.jpg"><img width="820" height="820" src="pomma_pomegranate.jpg" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+ Whole-Fruit Pomegranate</b><s>500 mg</s><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.jpg"><img width="820" height="820" src="feijoa.jpg" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg</s><i>Two routes to your own GLP-1: abscisic acid acting on gut L-cells, and a shift in the gut bacteria that prompt the same release. Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.jpg"><img width="820" height="820" src="eriomin_lemon.jpg" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract working a second, separate pathway onto your own GLP-1. Clinical trials at this same 200&nbsp;mg/day dose raised GLP-1 and lowered hyperglycemia, inflammation and improved gut microbiota in people with prediabetes.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.jpg"><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.jpg"><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup></b><s>100 mg</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.jpg"><img width="820" height="820" src="cGP-Pro_blackcurrant.jpg" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><s>100 mg</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.jpg"><img width="820" height="820" src="s7_leaf.jpg" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.jpg"><img width="820" height="820" src="careflow_mango.jpg" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.jpg"><img width="820" height="820" src="vasodrive_ap.jpg" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
@@ -2444,7 +2509,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <ul>
           <li><b>Cr-01 Creatine</b>Sustained daily dosing is how muscle creatine stores are built and held at saturation over time.</li>
           <li><b>VasoDrive-AP<sup class="rn">&reg;</sup></b>ACE inhibition supporting arterial elasticity, behind 30 or more double-blind studies.</li>
-          <li><b>cGP-Pro<sup class="rn">&reg;</sup></b>Free IGF-1 mobilised to support microcapillary architecture through the loop.</li>
+          <li><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b>Free IGF-1 mobilised to support microcapillary architecture through the loop.</li>
         </ul>
       </div>
 
@@ -2678,17 +2743,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <h3>Use</h3>
         <p class="role">The destination</p>
         <ul>
-          <li><i>cGP-Pro<sup class="rn">&reg;</sup></i><b>100 mg</b></li>
+          <li><i>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</i><b>100 mg</b></li>
           <li><i>L-Theanine</i><b>200 mg</b></li>
           <li><i>Braincurrant<sup class="rn">&reg;</sup></i><b>300 mg</b></li>
         </ul>
-        <p>cGP-Pro<sup class="rn">&reg;</sup> is a stable dipeptide that crosses the blood-brain barrier and competitively displaces IGF-1 from its binding protein, freeing active IGF-1 to reach receptors and support the microcapillary architecture of the brain. L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes New Zealand blackcurrant anthocyanins the supplier associates with focus, memory and mood balance.</p>
+        <p>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant is a stable dipeptide that crosses the blood-brain barrier and competitively displaces IGF-1 from its binding protein, freeing active IGF-1 to reach receptors and support the microcapillary architecture of the brain. L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes New Zealand blackcurrant anthocyanins the supplier associates with focus, memory and mood balance.</p>
       </div>
     </div>
 
     <div class="loop rv">
       <div class="loopdiag"><u>Strength</u><s>&rarr;</s><u>Gut</u><s>&rarr;</s><u>Heart</u><s>&rarr;</s><u>Brain</u></div>
-      <p><strong>cGP-Pro<sup class="rn">&reg;</sup> is where the loop closes.</strong> It frees IGF-1 from its binding protein, and free IGF-1 drives angiogenesis in the cerebral capillary bed, at 100&nbsp;mg per serving. Magnesium and zinc run underneath the other three axes as enzymatic cofactors, holding cellular processes steady wherever the work is happening.</p>
+      <p><strong>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant is where the loop closes.</strong> It frees IGF-1 from its binding protein, and free IGF-1 drives angiogenesis in the cerebral capillary bed, at 100&nbsp;mg per serving. Magnesium and zinc run underneath the other three axes as enzymatic cofactors, holding cellular processes steady wherever the work is happening.</p>
     </div>
 
     <p class="small rv" style="margin-top:22px">This describes the mechanistic rationale behind how the formula was built. It is not a claim that the finished product has been trialled as a whole. The evidence sits with the individual branded ingredients, listed in full below. Citations for newly added ingredients are still being sourced and are marked as such in the stack below.</p>
@@ -2720,7 +2785,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><span class="x">01</span><div><strong>Optimal vitality at every age</strong><br> <span class="d">The clinical record for creatine monohydrate spans more than 40 years and 680 peer-reviewed studies. Jenerise Cr.01&trade; positions that record where consumer demand is heading next: not just athletic output, but long-term and full-body.</span></div></li>
           <li><span class="x">02</span><div><strong>ATP, regenerated faster.</strong> <span class="d">Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP during short, intense effort. That is the mechanism behind its strength and power research base.</span></div></li>
           <li><span class="x">03</span><div><strong>A well-studied, well-tolerated dose.</strong> <span class="d">Creatine monohydrate is backed by extensive research at the 3,000 mg daily serving HONI<i>ORA</i> delivers.</span></div></li>
-          <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside VasoDrive-AP<sup class="rn">&reg;</sup>, cGP-Pro<sup class="rn">&reg;</sup> and Careflow<sup class="rn">&reg;</sup> so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
+          <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside VasoDrive-AP<sup class="rn">&reg;</sup>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant and Careflow<sup class="rn">&reg;</sup> so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
           <li><span class="x">05</span><div><strong>Electrolytes support creatine uptake.</strong> <span class="d">Sodium and chloride drive the dedicated creatine transporter that carries creatine into muscle cells, while potassium, magnesium and sodium together regulate the intracellular fluid balance and membrane potential that support both nutrient uptake and effective muscle contraction during training. HONI<i>ORA</i>&rsquo;s own Balanced Hydration Matrix supplies this electrolyte support alongside the Cr-01 Creatine dose.</span></div></li>
         </ul>
       </div>
@@ -2765,7 +2830,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
       <div class="pillar">
         <span class="n">v</span>
-        <h3>Targeted brain flow and micro-circulation <span class="ing">cGP-Pro<sup class="rn">&reg;</sup></span></h3>
+        <h3>Targeted brain flow and micro-circulation <span class="ing">cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</span></h3>
         <p>Cyclic Glycine-Proline directly supports the tiny blood vessels in your brain and coordinates key growth factors, like IGF-1. This helps keep your focus sharp, memory clear, and mental energy steady all day without nervous jitters.</p>
       </div>
       <div class="pillar">
@@ -2944,7 +3009,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
 
       <div class="row mgrid">
-        <div class="name">cGP-Pro<sup class="rn">&reg;</sup><i>Cyclic Glycine-Proline &middot; The cGP Lab Ltd (NZ)</i></div>
+        <div class="name">cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant<i>Cyclic Glycine-Proline &middot; The cGP Lab Ltd (NZ)</i></div>
         <div><span class="fn">Micro-vascular<small>Cyclic glycine-proline</small></span></div>
         <div class="dose">100 mg</div>
         <div class="mech">A stable lipophilic dipeptide that crosses the blood-brain barrier and competitively displaces IGF-1 from its binding protein IGFBP-3, freeing active IGF-1 to reach receptors and support microcapillary architecture.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/29865234/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 29865234 &nearr;</span></a><a class="cite sup" href="https://www.cgp-health.com/cgp-pro" target="_blank" rel="noopener noreferrer">Ingredient science <span>The cGP Lab &nearr;</span></a></div>
@@ -3129,21 +3194,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <!-- ================= POMMA+ & UROLITHIN A ================= -->
 <section class="sec" id="pomma">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow dim">10 / Pomma+ &amp; Urolithin A</p>
-      <h2 class="serif">Pomma+ Pomegranate: <em>Urolithin A precursor</em></h2>
-      <p class="lede">HONI<i>ORA</i> carries 500 mg of Pomma+ per serving, an upcycled whole-fruit pomegranate extract carrying punicalagins and ellagitannins. Those aren't Urolithin A itself, they're the raw material your own gut bacteria convert, through a multi-step pathway, into a family of compounds called urolithins, Urolithin A among them.<br><a class="cite" href="https://doi.org/10.1039/C4FO00092G" target="_blank" rel="noopener noreferrer">Supporting research <span>Selma et al. 2014 &nearr;</span></a></p>
-      <p class="lede">Whether that conversion happens, and how much Urolithin A any one person ends up with, depends on which bacteria their own gut carries. Research on pomegranate intake specifically has sorted people into distinct &ldquo;urolithin metabotypes&rdquo;: some convert well, some convert differently, and some barely convert at all. Same extract, different outcome, person to person.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27158799/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27158799 &nearr;</span></a></p>
+    <div class="pomma-box rv">
+      <div class="sec-head">
+        <p class="eyebrow dim">10 / Pomma+ &amp; Urolithin A</p>
+        <h2 class="serif">Pomma+ Pomegranate: <em>Urolithin A precursor</em></h2>
+        <p class="lede">HONI<i>ORA</i> contains 500 mg of Pomma+ Pomegranate powder per serving, a premium whole-fruit pomegranate extract carrying potent punicalagins and ellagitannins, they're the raw materials your gut bacteria convert into a family of compounds called urolithins, Urolithin A among them.<br><a class="cite" href="https://doi.org/10.1039/C4FO00092G" target="_blank" rel="noopener noreferrer">Supporting research <span>Selma et al. 2014 &nearr;</span></a></p>
+      </div>
+
+      <ul class="prob-list">
+        <li><span class="x">01</span><div><strong>Urolithin A triggers mitophagy, the process cells use to clear out damaged mitochondria and keep the healthy ones running.</strong> <span class="d"><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27400265/" target="_blank" rel="noopener noreferrer">Supporting research <span>Ryu et al. 2016, Nature Medicine &nearr;</span></a></span></div></li>
+        <li><span class="x">02</span><div><strong>In human trials, Urolithin A supported muscle strength and endurance.</strong> <span class="d">Randomised, placebo-controlled trials in older and middle-aged adults found improved muscle endurance and leg-strength outcomes over four months.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/35050355/" target="_blank" rel="noopener noreferrer">Liu et al. 2022, JAMA Network Open <span>&nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/35584623/" target="_blank" rel="noopener noreferrer">Singh et al. 2022, Cell Reports Medicine <span>&nearr;</span></a></span></div></li>
+        <li><span class="x">03</span><div><strong>A different mechanism than creatine.</strong> <span class="d">Cr-01 Creatine regenerates ATP fast, for short, intense effort. Urolithin A's research is about longer-term mitochondrial quality control. The two sit on different parts of muscle energetics.</span></div></li>
+      </ul>
+
+      <p class="small" style="margin-top:30px;max-width:78ch">Urolithin A's human clinical record above comes from trials of purified, directly-dosed Urolithin A (Liu et al., <em style="font-style:italic">JAMA Network Open</em>, 2022; Singh et al., <em style="font-style:italic">Cell Reports Medicine</em>, 2022), not from a trial of Pomma+, pomegranate extract, or the finished HONI<i>ORA</i> product. Conversion of pomegranate's ellagitannins into Urolithin A in the body is genuine but individually variable, documented across urolithin-metabotype research (Tomás-Barberán et al., <em style="font-style:italic">Molecular Nutrition &amp; Food Research</em>, 2017; González-Sarrías et al., <em style="font-style:italic">Molecular Nutrition &amp; Food Research</em>, 2017).<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27879044/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27879044 &nearr;</span></a></p>
     </div>
-
-    <ul class="prob-list">
-      <li><span class="x">01</span><div><strong>Urolithin A's own research base is real, and it's about mitochondria.</strong> <span class="d">Urolithin A triggers mitophagy, the process cells use to clear out damaged mitochondria and keep the healthy ones running. That mechanism was first shown in worms and rodents, then followed into a growing set of human trials.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27400265/" target="_blank" rel="noopener noreferrer">Supporting research <span>Ryu et al. 2016, Nature Medicine &nearr;</span></a></span></div></li>
-      <li><span class="x">02</span><div><strong>In human trials, it's supported muscle strength and endurance.</strong> <span class="d">Randomised, placebo-controlled trials in older and middle-aged adults found improved muscle endurance and leg-strength outcomes over four months. Every one of these trials used purified Urolithin A, dosed directly, not a pomegranate extract.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/35050355/" target="_blank" rel="noopener noreferrer">Liu et al. 2022, JAMA Network Open <span>&nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/35584623/" target="_blank" rel="noopener noreferrer">Singh et al. 2022, Cell Reports Medicine <span>&nearr;</span></a></span></div></li>
-      <li><span class="x">03</span><div><strong>The honest gap: nobody has tested Pomma+ itself for Urolithin A output.</strong> <span class="d">Stauber doesn't publish a standardisation percentage or a urolithin-production study for Pomma+, and we're not aware of one for this specific extract. We're not claiming a guaranteed Urolithin A dose here, only the precursor compounds and the honest, gut-microbiome-dependent path from one to the other.</span></div></li>
-      <li><span class="x">04</span><div><strong>A different mechanism than our creatine, not a proven combination.</strong> <span class="d">Cr-01 Creatine regenerates ATP fast, for short, intense effort. Urolithin A's research is about longer-term mitochondrial quality control. The two sit on different parts of muscle energetics, which is a fair thing to say. No published trial has tested creatine and Urolithin A together, so we're not claiming they've been shown to work better as a pair, only that they don't compete for the same mechanism.</span></div></li>
-    </ul>
-
-    <p class="small" style="margin-top:30px;max-width:78ch">Urolithin A's human clinical record above comes from trials of purified, directly-dosed Urolithin A (Liu et al., <em style="font-style:italic">JAMA Network Open</em>, 2022; Singh et al., <em style="font-style:italic">Cell Reports Medicine</em>, 2022), not from a trial of Pomma+, pomegranate extract, or the finished HONI<i>ORA</i> product. Conversion of pomegranate's ellagitannins into Urolithin A in the body is genuine but individually variable, documented across urolithin-metabotype research (Tomás-Barberán et al., <em style="font-style:italic">Molecular Nutrition &amp; Food Research</em>, 2017; González-Sarrías et al., <em style="font-style:italic">Molecular Nutrition &amp; Food Research</em>, 2017).<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27879044/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27879044 &nearr;</span></a></p>
   </div>
 </section>
 
@@ -3210,7 +3275,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="lemonrow">
         <div><b>Vascular protection and circulation</b></div>
         <div class="was">About 18 mg of vitamin C.</div>
-        <div class="now"><em>VasoDrive-AP<sup class="rn">&reg;</sup> 508 mg</em>, cGP-Pro<sup class="rn">&reg;</sup> 100 mg and Careflow<sup class="rn">&reg;</sup> 100 mg. ACE inhibition and micro-vascular support at the small and large vessel end, rather than basic ascorbic acid.</div>
+        <div class="now"><em>VasoDrive-AP<sup class="rn">&reg;</sup> 508 mg</em>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant 100 mg and Careflow<sup class="rn">&reg;</sup> 100 mg. ACE inhibition and micro-vascular support at the small and large vessel end, rather than basic ascorbic acid.</div>
       </div>
     </div>
   </div>
@@ -3279,28 +3344,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="tsdesc">Rebalanced PEG 6000 and Sodium Stearyl Fumarate leave zero oily residue or white floating ring.</div>
       </div>
       <div class="tsrow tsgrid tsoverall">
-        <div class="tsname">Overall flavor score</div>
+        <div class="tsname">Overall Estimated flavor score</div>
         <div class="tsscore">9.05<small>/10</small></div>
         <div class="tsdesc"><b>Premium Commercial Ready</b> &middot; validated +1.45 gain over baseline.</div>
       </div>
     </div>
-
-    <div class="quotes rv">
-      <blockquote class="tq">
-        <p>[Real tester quote, in their words.]</p>
-        <cite>[First name, age, city]</cite>
-      </blockquote>
-      <blockquote class="tq">
-        <p>[Second quote. Choose one that talks about taste specifically, not how they felt.]</p>
-        <cite>[First name, age, city]</cite>
-      </blockquote>
-      <blockquote class="tq">
-        <p>[Third quote. A sceptic won over is worth more than an enthusiast.]</p>
-        <cite>[First name, age, city]</cite>
-      </blockquote>
-    </div>
-
-    <p class="small rv" style="margin-top:30px;max-width:82ch">Quotes come from named testers who were given product at no charge and asked to say what they actually thought. Nothing has been edited for flattery. [Confirm this is true before launch, and disclose any tester who was compensated in any form.]</p>
   </div>
 </section>
 
@@ -3311,6 +3359,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p class="eyebrow dim">13 / Format</p>
       <h2 class="serif oneline">One tube = One <em>week.</em></h2>
       <p class="lede">A Sanner BioBase<sup class="rn">&reg;</sup> tube, molded from bio-based polyethylene derived from sugarcane ethanol at over 90% renewable content, fitted with a silica gel desiccant closure rated for a 40% higher water vapor barrier and 30 to 40% longer shelf life than Sanner's standard polypropylene tube.<br><a class="cite" href="https://www.sanner-group.com/moisture-management/sanner-biobase" target="_blank" rel="noopener noreferrer">Packaging <span>sanner-group.com &nearr;</span></a></p>
+      <img class="pack-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="rv">
       <div class="packcard">
@@ -4084,16 +4133,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     function scrollToHash(hash){
       var el = document.querySelector(hash);
       if (!el) return;
-      /* #problem (05 / Creatine) lands tight under the nav instead of the large gap
-         every other section link leaves -- every .sec carries clamp(80px,11vw,152px)
-         (64px flat on phones) of top padding before any visible content. Stay targeted
-         on the section itself (its reveal-on-scroll children can carry a transient
-         transform mid-animation that would throw off a measurement taken on a child),
-         but net that padding out of the offset, read live via getComputedStyle so it
-         tracks the current viewport's clamp()/breakpoint value automatically. */
+      /* #problem (05 / Creatine) and #pomma (10 / Pomma+ & Urolithin A) land tight
+         under the nav instead of the large gap every other section link leaves --
+         every .sec carries clamp(80px,11vw,152px) (64px flat on phones) of top
+         padding before any visible content. Stay targeted on the section itself
+         (its reveal-on-scroll children can carry a transient transform mid-animation
+         that would throw off a measurement taken on a child), but net that padding
+         out of the offset, read live via getComputedStyle so it tracks the current
+         viewport's clamp()/breakpoint value automatically. #pomma's own .pomma-box
+         then adds its own internal padding on top of that, same as #livaux's own
+         box, which is what keeps its eyebrow from landing jammed right under the
+         header the way #problem's own (box-less) eyebrow does. */
       function targetOffset(){
         var base = headerOffset();
-        if (hash !== '#problem') return base;
+        if (hash !== '#problem' && hash !== '#pomma') return base;
         var pad = parseFloat(getComputedStyle(el).paddingTop) || 0;
         return base - pad;
       }
@@ -5582,40 +5635,57 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     wrap.addEventListener('mouseleave', clearAll);
 
     /* One-time intro: the first time the diagram scrolls into view, the four
-       rings build their gold colour on their own, one at a time in a random
-       order, the same way a visitor hovering through them would. Once all
-       four have landed (and the gold core has faded in behind "HoniOra"),
-       it holds for a beat, then clears back to the plain black-on-white
+       rings build their gold colour on their own, one at a time in a freshly
+       shuffled random order, the same way a visitor hovering through them
+       would. Once all four have landed (and the gold core has faded in
+       behind "HoniOra"), it holds for a beat, then clears back to the plain
+       black-on-white outline -- then reshuffles and builds again. This
+       build-hold-clear cycle repeats CYCLES (3) times total, each with its
+       own independent random order, before settling on the final cleared
        outline. From there it's the ordinary hover-to-build above -- this
        intro never replays, so scrolling past the section again later shows
        only the outline until the visitor hovers it themselves. Skipped
        entirely for prefers-reduced-motion.
-       stepMs (600) and the post-build hold (2800) were both doubled from
-       their original 300/1400 so the whole sequence -- build through clear --
-       takes twice as long to play out before it resets. */
+       stepMs (1200) and the per-cycle hold (5600) are unchanged from the
+       single-pass version; only the repeat count is new. */
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!reduceMotion && 'IntersectionObserver' in window){
-      var order = Array.prototype.slice.call(rings);
-      for (var i = order.length - 1; i > 0; i--){
-        var j = Math.floor(Math.random() * (i + 1));
-        var t = order[i]; order[i] = order[j]; order[j] = t;
-      }
-      var stepMs = 600;
+      var stepMs = 1200;
+      var holdMs = 5600;
+      var CYCLES = 3;
       var played = false;
+
+      function shuffledRings(){
+        var arr = Array.prototype.slice.call(rings);
+        for (var i = arr.length - 1; i > 0; i--){
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+        }
+        return arr;
+      }
+
+      function runCycle(cycleIdx){
+        var order = shuffledRings();
+        order.forEach(function(ring, idx){
+          setTimeout(function(){
+            ring.classList.add('seen');
+            var lbl = labelFor(ring.getAttribute('data-pillar'));
+            if (lbl) lbl.classList.add('seen');
+            updateCenter();
+          }, idx * stepMs);
+        });
+        setTimeout(function(){
+          clearAll();
+          if (cycleIdx + 1 < CYCLES) runCycle(cycleIdx + 1);
+        }, order.length * stepMs + holdMs);
+      }
+
       var ioIntro = new IntersectionObserver(function(entries){
         entries.forEach(function(e){
           if (!e.isIntersecting || played) return;
           played = true;
           ioIntro.unobserve(wrap);
-          order.forEach(function(ring, idx){
-            setTimeout(function(){
-              ring.classList.add('seen');
-              var lbl = labelFor(ring.getAttribute('data-pillar'));
-              if (lbl) lbl.classList.add('seen');
-              updateCenter();
-            }, idx * stepMs);
-          });
-          setTimeout(clearAll, order.length * stepMs + 2800);
+          runCycle(0);
         });
       }, {threshold:.5});
       ioIntro.observe(wrap);
