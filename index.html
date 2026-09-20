@@ -306,6 +306,23 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    an unwanted second medallion at mobile widths too, positioned against its
    own DOM parent (.hero-banner) rather than the original's .hrail. */
 .hero-seal-onvideo{display:none}
+/* (v48e) mobile/lite default: only the glass-on-white studio video shows;
+   the golden-hour desktop video element is hidden here and only switched on
+   inside the @media(min-width:1001px) block further down (which also hides
+   the mobile one there instead) -- see the HTML comment beside both <video>
+   elements in .hero-banner for why this replaced a single shared element.
+   Specificity note: written as .hero-banner .hero-glass-img.hero-glass-
+   video-desktop (three selectors deep) rather than just the one class, on
+   purpose -- .hero-glass-img itself carries its own display:block rules
+   (base + a couple of @media(min-width:1001px) overrides further down,
+   for the full-bleed treatment), and a plain single-class .hero-glass-
+   video-desktop{display:none} loses to those on specificity regardless of
+   source order, confirmed via Playwright when this first shipped with
+   the lower-specificity version and the desktop video stayed display:block
+   the whole time (JS pause() hid the SYMPTOM -- no playback -- but the
+   still-block display would have shown a blank video box, or worse a
+   frozen last-drawn frame, sitting underneath/behind the mobile video). */
+.hero-banner .hero-glass-img.hero-glass-video-desktop{display:none}
 .hero-seal-inner{display:block;position:relative;width:100%;height:100%;transition:transform .3s ease}
 /* z-index bumped past the fixed header's (100) on hover/focus so the doubled
    badge floats above it instead of being clipped by it -- the seal sits just
@@ -1635,6 +1652,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hrail>.hero-seal{display:none}
   .hero-banner .hero-seal-onvideo{display:block;position:absolute;
     left:90%;top:88.5%;right:auto;transform:translate(-50%,-50%);z-index:46}
+  /* (v48e) desktop flip of the mobile-default rule above: golden-hour video
+     shows, glass-on-white studio video hides. Same specificity reasoning as
+     the base rule -- three selectors deep to beat .hero-banner .hero-glass-
+     img's own display:block rules (including the one right above this,
+     .hero-banner .hero-glass-img{...display:block} for the full-bleed
+     treatment) regardless of source order. */
+  .hero-banner .hero-glass-img.hero-glass-video-mobile{display:none}
+  .hero-banner .hero-glass-img.hero-glass-video-desktop{display:block}
   .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
   /* V3 Lite Desktop, size correction: the mini reserve hexes and mobile wordmark use
      the same clamp()s from 561px up through this branch's new unconditional desktop
@@ -2079,40 +2104,65 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
          video exactly as v45 shipped it, still sitting in a plain, non-full-
          bleed contained row (the CSS override above only fires at 1001px+). -->
     <div class="hero-banner">
-      <!-- Single <video>, two source tiers picked by the browser via each
-           <source>'s own media attribute (mobile's explicit max-width:1000px
-           sources are tried first; the desktop sources below have no media
-           attribute so they're the fallback once mobile's don't match) --
-           same pattern vNNN's own hero-banner uses. Mobile/lite keeps exactly
-           what v45 shipped: hero-glass-lite.webm/mp4, the boxed portrait
-           glass-on-white studio shot. Desktop's fallback sources now point at
-           hero-gold-loop-crop.webm/mp4 (v48) -- this branch's own existing
-           hero-gold-loop.mp4/webm golden-hour footage (present in this
-           package since before v45, just unused on desktop from v45 through
-           v47), center-cropped from 1280x720 to the 1280x640 (2:1) ratio the
-           new full-bleed CSS above is locked to; the crop files themselves
-           were copied in from the vNNN line's own identical hero-gold-loop-
-           crop assets rather than re-derived, since it's the same source
-           footage either way. The poster attribute below is the portrait
-           hero-glass-poster.jpg, correct for mobile/lite -- desktop needs a
-           different, landscape poster for the golden-hour video, which the
-           inline script right after this element swaps in synchronously
-           (same approach this branch's own v38 fix, and vNNN's own hero, both
-           already use for exactly this problem: the poster attribute itself
-           can't be conditioned on a media query the way a <source> can). -->
-      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-gold-loop-crop.webm" type="video/webm"><source src="hero-gold-loop-crop.mp4" type="video/mp4"></video>
+      <!-- (v48e, bug report: "the lite version is still displaying the
+           desktop sunrise scene", then "remove the sunrise video from the
+           lite site") This used to be ONE <video> with two <source> tiers,
+           picked by the browser via each <source>'s own media attribute --
+           mobile's max-width:1000px sources first, desktop's golden-hour
+           sources as the fallback. That's a real browser-spec limitation for
+           exactly this situation: a <video>'s <source media> list is only
+           evaluated ONCE, when the element first parses/loads. Resizing the
+           browser afterward, or switching a device-preview tool from desktop
+           to mobile width without a full page reload, does NOT make it
+           re-pick sources on its own -- a page first loaded at a desktop
+           width kept playing the golden-hour video even once sized down to
+           mobile, exactly what "still displaying" described, and the
+           follow-up ask was to remove the sunrise video from the lite
+           experience entirely rather than just fix the switching logic.
+           Now split into two separate <video> elements, exactly the
+           duplicate-and-toggle pattern this same version already uses for
+           the wax-seal medallion (see .hero-seal-onvideo further down):
+           each one's <source> list ONLY ever contains its own footage --
+           heroGlassVideoMobile has zero reference to the golden-hour assets
+           anywhere in its markup, so there's no path left, resize-related or
+           otherwise, for the lite site to end up showing them. Which one is
+           visible is pure CSS (.hero-glass-video-desktop{display:none} by
+           default, flipped at min-width:1001px -- see that rule near the
+           other @media(min-width:1001px) .hero-banner rules), and the script
+           below explicitly pauses whichever one just got hidden and plays
+           whichever one just became visible on every resize/orientation
+           change, so a live resize across the 1000px line (no reload) is
+           still handled correctly rather than leaving the wrong one playing
+           underneath. -->
+      <video class="hero-glass-img hero-glass-video-mobile" id="heroGlassVideoMobile" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source src="hero-glass-lite.webm" type="video/webm"><source src="hero-glass-lite.mp4" type="video/mp4"></video>
+      <video class="hero-glass-img hero-glass-video-desktop" id="heroGlassVideoDesktop" muted loop playsinline preload="none" poster="hero-gold-loop-poster-crop.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem, golden-hour lifestyle scene"><source src="hero-gold-loop-crop.webm" type="video/webm"><source src="hero-gold-loop-crop.mp4" type="video/mp4"></video>
       <script>
-      /* desktop-only poster swap (v48): mobile (<=1000px) keeps the portrait
-         hero-glass-poster.jpg, matching the portrait hero-glass-lite video
-         above. Desktop (1001px+) now plays the cropped golden-hour video
-         (1280x640, landscape), so it needs its own matching poster --
-         otherwise the portrait poster would show stretched/wrong-aspect
-         before the video arrives. Synchronous, runs immediately after the
-         video element parses, same pattern this branch's own v38 fix and
-         vNNN's own hero both already use. */
+      /* Keeps exactly one of the two hero videos above actually playing at a
+         time, matching whichever one CSS is currently showing. No `autoplay`
+         attribute on the desktop element and `preload="none"` on it too --
+         it does nothing at all until this script explicitly loads/plays it,
+         so a mobile visitor's browser has no reason to ever fetch the
+         golden-hour footage in the first place, not just a reason not to
+         display it. */
       (function(){
-        var v = document.getElementById('heroGlassVideo');
-        if (v && window.innerWidth > 1000) { v.poster = 'hero-gold-loop-poster-crop.jpg'; }
+        var mobileV = document.getElementById('heroGlassVideoMobile');
+        var desktopV = document.getElementById('heroGlassVideoDesktop');
+        if (!mobileV || !desktopV) return;
+        var desktopLoaded = false;
+        var sync = function(){
+          var safePlay = function(v){ var p = v.play(); if (p && p.catch) { p.catch(function(){}); } };
+          if (window.innerWidth > 1000) {
+            if (!desktopLoaded) { desktopV.load(); desktopLoaded = true; }
+            mobileV.pause();
+            safePlay(desktopV);
+          } else {
+            desktopV.pause();
+            safePlay(mobileV);
+          }
+        };
+        sync();
+        window.addEventListener('resize', sync, {passive:true});
+        window.addEventListener('orientationchange', sync);
       })();
       </script>
       <!-- (v48, user request) "move the wax seal and circle of words to always cover
@@ -3081,7 +3131,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow dim">10 / Pomma+ &amp; Urolithin A</p>
-      <h2 class="serif">Pomma+ Pomegranate: <em>the precursor, not the shortcut.</em></h2>
+      <h2 class="serif">Pomma+ Pomegranate: <em>Urolithin A precursor</em></h2>
       <p class="lede">HONI<i>ORA</i> carries 500 mg of Pomma+ per serving, an upcycled whole-fruit pomegranate extract carrying punicalagins and ellagitannins. Those aren't Urolithin A itself, they're the raw material your own gut bacteria convert, through a multi-step pathway, into a family of compounds called urolithins, Urolithin A among them.<br><a class="cite" href="https://doi.org/10.1039/C4FO00092G" target="_blank" rel="noopener noreferrer">Supporting research <span>Selma et al. 2014 &nearr;</span></a></p>
       <p class="lede">Whether that conversion happens, and how much Urolithin A any one person ends up with, depends on which bacteria their own gut carries. Research on pomegranate intake specifically has sorted people into distinct &ldquo;urolithin metabotypes&rdquo;: some convert well, some convert differently, and some barely convert at all. Same extract, different outcome, person to person.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27158799/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27158799 &nearr;</span></a></p>
     </div>
