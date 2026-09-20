@@ -4756,7 +4756,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   track.appendChild(clone);
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var BASE_SPEED = 0.078;      /* px/ms forward drift = the old steady 78px/s reading speed */
+  var BASE_SPEED = 0.065;      /* px/ms forward drift = a slightly slower 65px/s reading speed */
   var MAX_FLING  = 3.2;        /* px/ms cap on drag-release momentum, so a hard flick can't run away */
   var FRICTION   = 0.0025;     /* momentum decay factor applied per second */
 
@@ -4776,7 +4776,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   var traveled = 0, momentum = 0, hovered = false, dragging = false, introDone = reduceMotion;
 
-  /* open on the first message, centred on screen, held for 3s, then glide
+  /* open on the first message, centred on screen, held for 8s, then glide
      into the normal right-to-left loop so the reader always catches the
      pain-point line before anything starts moving. any drag/interaction
      during the hold skips straight to the loop, no jump. */
@@ -4823,7 +4823,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         track.addEventListener('transitionend', introHandoff);
         /* belt and braces: if transitionend never fires for any reason, start anyway */
         introTimerB = setTimeout(function(){ if (!introDone) finishIntro(); }, 1400);
-      }, 3000);
+      }, 8000);
     } else {
       introDone = true;
     }
