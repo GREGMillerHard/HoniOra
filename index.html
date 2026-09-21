@@ -527,6 +527,14 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .hrail-track{display:flex;width:max-content;will-change:transform;user-select:none}
 .hrail-set{display:flex;align-items:baseline;gap:clamp(26px,3.6vw,62px);
   padding:clamp(9px,1.2vh,14px) 0;padding-right:clamp(26px,3.6vw,62px)}
+/* (user request) a deliberately large lead-in before the very first message of each
+   loop of the set -- .hrail-set's own gap (clamp(26px,3.6vw,62px)) already spaces
+   every other pair of items, this is on top of that, so the pause reads as a real
+   break rather than just another item gap. Lives inside .hrail-set (not before it)
+   so cloning the set for the seamless loop (see the JS further down) carries this
+   gap into every repeat automatically, not just the first. flex:none;width so it
+   takes real space as its own flex item rather than acting as padding. */
+.hrail-gap{flex:none;width:clamp(160px,18vw,340px)}
 /* the two ribbon messages, riding in the same strip as the actives */
 .hmsg{flex:none;white-space:nowrap;align-self:center;
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
@@ -729,6 +737,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    32 chars x ~0.52em x min(5vw,68px) == min(83.2vw, 1132px) */
 #problem .sec-head .lede{max-width:min(90vw,1132px);text-align:left;margin-left:auto;margin-right:auto}
 #problem .sec-head .lede+.lede{margin-top:16px}
+/* #pomma: same stacked-lede spacing as #problem above, for the added punicalagin
+   paragraph -- the global reset zeroes all margins, so two adjacent .lede
+   paragraphs would otherwise sit flush against each other with no gap. */
+#pomma .sec-head .lede+.lede{margin-top:16px}
 /* .nowrap-line: each sentence stays on one line only where the viewport is wide enough
    to fit it without pushing the page into horizontal scroll (measured: 1180px is the
    narrowest width both sentences fit at with zero overflow, at this section's current
@@ -2304,6 +2316,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="hrail-vp">
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
+          <div class="hrail-gap" aria-hidden="true"></div>
           <div class="hmsg">WELCOME TO YOUR FUTURE OF HEALTHINESS : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, the name means living vitality grounded in pure New Zealand nature.</div>
           <div class="hmsg">Introducing Honi<i>Ora</i> to your day will add to Your Healthiness</div>
           <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
@@ -2585,7 +2598,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         </div>
         <ul class="plan-list">
           <li>1 tube &middot; 14 tablets &middot; 7 daily servings</li>
-          <li>The whole 29-active matrix, full dose</li>
+          <li>The whole 16-active matrix, full dose</li>
           <li>$52.50 credited to subscription</li>
           <li>Free USA shipping, always</li>
         </ul>
@@ -2950,7 +2963,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="src">VasoDrive-AP<sup class="rn">&reg;</sup> · 508 mg per serving</span>
       </div>
       <div class="stat">
-        <b data-count="29" data-suffix="">29</b>
+        <b data-count="16" data-suffix="">16</b>
         <h4>Named actives, zero blends</h4>
         <p>Every active in the HONI<i>ORA</i> SKU2 formula is individually named and dosed on the batch record, not hidden inside a proprietary blend.</p>
         <span class="src">Full bill of materials &middot; SKU2 batch record</span>
@@ -3190,7 +3203,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 29 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V7.9.1-140K-25MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
+    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 16 ingredients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-MN-HONIORA-V7.9.1-140K-25MM doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
   </div>
 </section>
 
@@ -3224,6 +3237,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p class="eyebrow dim">10 / Pomma+ &amp; Urolithin A</p>
         <h2 class="serif">Pomma+ Pomegranate: <em>Urolithin A precursor</em></h2>
         <p class="lede">HONI<i>ORA</i> contains 500 mg of Pomma+ Pomegranate powder per serving, a premium whole-fruit pomegranate extract carrying potent punicalagins and ellagitannins, they're the raw materials your gut bacteria convert into a family of compounds called urolithins, Urolithin A among them.<br><a class="cite" href="https://doi.org/10.1039/C4FO00092G" target="_blank" rel="noopener noreferrer">Supporting research <span>Selma et al. 2014 &nearr;</span></a></p>
+        <p class="lede">Punicalagins are the polyphenol pomegranate is best known for, concentrated in the fruit's peel and arils and ranking among the largest polyphenol molecules identified in nature. Their antioxidant activity helps protect cells from free-radical damage, and researchers are still mapping their fuller role in heart, cognitive, and gut-microbiome health.<br><a class="cite" href="https://hortintl.cals.ncsu.edu/articles/punicalagins-large-polyphenol-compounds-found-pomegranates-therapeutic-review" target="_blank" rel="noopener noreferrer">Supporting research <span>Tyagi et al., Academic Journal of Plant Sciences &nearr;</span></a></p>
       </div>
 
       <ul class="prob-list">
@@ -3527,7 +3541,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
          rather than appending it at the bottom. -->
 
     <article class="blogpost rv">
-      <p class="blogpost-meta">Article 06 &middot; Ingredients</p>
+      <p class="blogpost-meta">Article 07 &middot; Ingredients</p>
       <h3 class="serif blogpost-title">Dr Vicki Petersen: The Powerful Benefits of M&#257;nuka Honey</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="d7Bky7AMQQw" style="aspect-ratio:1266/2256">
@@ -3539,7 +3553,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </article>
 
     <article class="blogpost rv" style="margin-top:56px">
-      <p class="blogpost-meta">Article 05 &middot; Ingredients</p>
+      <p class="blogpost-meta">Article 06 &middot; Ingredients</p>
       <h3 class="serif blogpost-title">Rachael Jennings @ Jenerise UK: Creatine &mdash; The Lifelong Supplement for Women's Health & Longevity</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="gMFTkdwvEbs" style="aspect-ratio:1238/2200">
@@ -3551,7 +3565,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </article>
 
     <article class="blogpost rv" style="margin-top:56px">
-      <p class="blogpost-meta">Article 04 &middot; Nutrition</p>
+      <p class="blogpost-meta">Article 05 &middot; Nutrition</p>
       <h3 class="serif blogpost-title">SLIMLAND: Why Kiwis are a GOATED Fruit</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="tiKZwCxxdMA" style="aspect-ratio:1268/2262">
@@ -3563,7 +3577,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </article>
 
     <article class="blogpost rv" style="margin-top:56px">
-      <p class="blogpost-meta">Article 03 &middot; Ingredients</p>
+      <p class="blogpost-meta">Article 04 &middot; Ingredients</p>
       <h3 class="serif blogpost-title">Dr Berg: Pomegranate Does THIS for Your Body!</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="8Tw0-Yv4nxA" style="aspect-ratio:1274/2130">
@@ -3575,12 +3589,24 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </article>
 
     <article class="blogpost rv" style="margin-top:56px">
-      <p class="blogpost-meta">Article 02 &middot; Ingredients</p>
+      <p class="blogpost-meta">Article 03 &middot; Ingredients</p>
       <h3 class="serif blogpost-title">Dr Stacy Sims: Should You Take Rhodiola?</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="5wSvZKDGLW0" style="aspect-ratio:1224/2084">
         <img width="1224" height="2084" src="blog-rhodiola.jpg" alt="YouTube Shorts still of Dr Stacy Sims mid-sentence with the on-screen caption 'We're going to start with rhodiola.', from the video Should You Take Rhodiola?" loading="lazy">
         <a class="blogplay" href="https://youtube.com/shorts/5wSvZKDGLW0?si=ifNyGe4R3GDFZVFW" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: Dr Stacy Sims, Should You Take Rhodiola?">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+        </a>
+      </figure>
+    </article>
+
+    <article class="blogpost rv" style="margin-top:56px">
+      <p class="blogpost-meta">Article 02 &middot; Ingredients</p>
+      <h3 class="serif blogpost-title">Bryan Johnson: Extra Virgin Olive Oil is Better Than Ozempic</h3>
+
+      <figure class="blogpost-fig video-fig" data-yt="SZS4lVGoz6I" style="aspect-ratio:1262/2262">
+        <img width="1262" height="2262" src="blog-olive-oil-ozempic.jpg" alt="YouTube Shorts still of Bryan Johnson mid-sentence with the on-screen caption 'Virgin Olive Oil', from the video Extra Virgin Olive Oil is Better Than Ozempic" loading="lazy">
+        <a class="blogplay" href="https://youtube.com/shorts/SZS4lVGoz6I?si=cYpdmy_GfhhZ4uKm" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: Bryan Johnson, Extra Virgin Olive Oil is Better Than Ozempic">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
         </a>
       </figure>
@@ -4300,7 +4326,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 29 named actives into one effervescent serving, 11,449 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 16 named actives into one effervescent serving, 11,449 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 2 tablets into 300 ml of cold water. The effervescent engine fully dissolves in under 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -4836,8 +4862,22 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (first){
       var centerFirst = function(){
         if (introDone) return;
-        var fw = first.getBoundingClientRect().width;
-        var offset = Math.max(0, (window.innerWidth - fw) / 2);
+        var fr = first.getBoundingClientRect();
+        var fw = fr.width;
+        /* (user request, "big gap at the front") the message's own distance from
+           the track's left edge -- previously always 0 since the message was the
+           track's first child, so the old formula (viewport-width minus message-
+           width, halved) alone was enough. Now .hrail-gap sits before it, so that
+           same formula would leave the message sitting the gap's width right of
+           true centre. Measuring the gap between the two elements' own
+           getBoundingClientRect().left values (rather than first.offsetLeft,
+           which resolves against .hrail's positioned box further up the tree,
+           not the track itself, and measured wrong) cancels that out regardless
+           of how wide the gap ends up being at any viewport size, and stays
+           correct even if this runs again after any transform is already
+           applied, since a translateX shifts both rects by the same amount. */
+        var leadIn = fr.left - track.getBoundingClientRect().left;
+        var offset = (window.innerWidth - fw) / 2 - leadIn;
         track.style.transition = 'none';
         track.style.transform = 'translateX(' + offset + 'px)';
       };
