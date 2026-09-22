@@ -356,6 +356,27 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    under the hero image and a horizontal shift would risk clipping against the
    viewport edge. */
 .hero-copy-shift{transform:translateX(-50px)}
+/* (v51) move the copy block closer to the page's horizontal centre, per request.
+   The two-column split (video ~62.7%, copy in the remaining flex column) leaves
+   a growing pocket of empty space between the video's own real rendered width
+   (much narrower than its 62.7% column box, since it's height-constrained, not
+   width-filling) and the copy column's left edge -- that gap widens fast as the
+   viewport gets wider (roughly 5px at 1041px, ~130px at 1440px, ~270px at
+   1920px), so a single fixed shift can't safely use it everywhere: it would
+   either barely move the copy at wide widths or crash it into the video at
+   narrow ones. Only .hero-copy-shift (the headline/tag/born-made block) moves --
+   the ingredient list, stats and CTA stay put, since the gold connector-line fan
+   measures the list's live position and isn't part of what was asked to move.
+   Values below eat into that gap, leaving a ~35-40px safety margin at each
+   bracket's own narrow edge (the tightest point in the bracket, since the gap
+   only grows wider above it) -- verified against the video's actual rendered
+   right edge via Playwright, not just the column box. Below 1241px the base
+   -50px above already clears the video with room to spare, so no override was
+   needed there. */
+@media(min-width:1241px){.hero-copy-shift{transform:translateX(-90px)}}
+@media(min-width:1401px){.hero-copy-shift{transform:translateX(-130px)}}
+@media(min-width:1601px){.hero-copy-shift{transform:translateX(-180px)}}
+@media(min-width:1801px){.hero-copy-shift{transform:translateX(-240px)}}
 .hero-lower{position:relative;display:flex;flex-wrap:wrap;align-items:stretch;flex:1 1 auto;background:var(--paper);padding-right:max(var(--pad),430px);gap:clamp(24px,calc(1.7vw + 18px),42px)}
 /* (v50) restored to the vNNN line's own v409 true two-column hero: video and
    tube shot both live in .hero-img-col again (order:1, 62.7% width), with the
