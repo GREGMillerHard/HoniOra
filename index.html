@@ -307,31 +307,6 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    itself starts avoids that. ---------- */
 .hero-seal{position:absolute;top:calc(100% + 14px);right:var(--pad);z-index:40;
   display:block;width:clamp(96px,10vw,150px);height:clamp(96px,10vw,150px);text-decoration:none}
-/* (v48) hidden by default -- this duplicate (see the HTML comment beside it,
-   inside .hero-banner) only ever shows at desktop widths, where the
-   @media(min-width:1001px) block further down gives it its real position
-   over the golden-hour video's own watermark. Without this, it would still
-   inherit the shared .hero-seal rule just above (position/size), rendering
-   an unwanted second medallion at mobile widths too, positioned against its
-   own DOM parent (.hero-banner) rather than the original's .hrail. */
-.hero-seal-onvideo{display:none}
-/* (v48e) mobile/lite default: only the glass-on-white studio video shows;
-   the golden-hour desktop video element is hidden here and only switched on
-   inside the @media(min-width:1001px) block further down (which also hides
-   the mobile one there instead) -- see the HTML comment beside both <video>
-   elements in .hero-banner for why this replaced a single shared element.
-   Specificity note: written as .hero-banner .hero-glass-img.hero-glass-
-   video-desktop (three selectors deep) rather than just the one class, on
-   purpose -- .hero-glass-img itself carries its own display:block rules
-   (base + a couple of @media(min-width:1001px) overrides further down,
-   for the full-bleed treatment), and a plain single-class .hero-glass-
-   video-desktop{display:none} loses to those on specificity regardless of
-   source order, confirmed via Playwright when this first shipped with
-   the lower-specificity version and the desktop video stayed display:block
-   the whole time (JS pause() hid the SYMPTOM -- no playback -- but the
-   still-block display would have shown a blank video box, or worse a
-   frozen last-drawn frame, sitting underneath/behind the mobile video). */
-.hero-banner .hero-glass-img.hero-glass-video-desktop{display:none}
 .hero-seal-inner{display:block;position:relative;width:100%;height:100%;transition:transform .3s ease}
 /* z-index bumped past the fixed header's (100) on hover/focus so the doubled
    badge floats above it instead of being clipped by it -- the seal sits just
@@ -362,12 +337,11 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* (user request) mobile/lite: drop the wax-seal medallion entirely -- the gold bee
    icon, the rotating "LADIES AND GENTLEMEN..." text ring around it, and the link
    itself all live inside this one <a>, so hiding the element removes all three at
-   once. :not(.hero-seal-onvideo) keeps this scoped to the plain mobile medallion
-   (inside .hrail) -- the golden-hour desktop duplicate is already display:none by
-   default below 1001px (see .hero-seal-onvideo above) and is untouched by request,
-   still shown at desktop widths exactly as before. */
+   once. (v49) simplified from :not(.hero-seal-onvideo) now that the golden-hour
+   duplicate medallion element has been removed along with the rest of the
+   golden-hour hero treatment -- there's only ever one .hero-seal now. */
 @media(max-width:1000px){
-  .hero-seal:not(.hero-seal-onvideo){display:none}
+  .hero-seal{display:none}
 }
 /* flex:1 lets it take the height the marquee leaves, then centres inside that */
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(36px,4.5vw,72px);
@@ -382,54 +356,28 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    under the hero image and a horizontal shift would risk clipping against the
    viewport edge. */
 .hero-copy-shift{transform:translateX(-50px)}
-.hero-lower{position:relative;display:flex;flex-wrap:wrap;align-items:stretch;flex:1 1 auto;background:var(--paper);padding-right:max(var(--pad),430px);--hlgap:clamp(24px,calc(1.7vw + 18px),42px);gap:var(--hlgap)}
-/* (user request) closes the visible gap between the hero video/image band above
-   and the marquee ticker (the "1st scroll bar") directly below it, without
-   touching .hero-lower's flex `gap` itself -- that gap is a single shared value
-   between EVERY pair of wrapped rows in this flex container (hero-banner<->hrail,
-   hrail<->hero-img-col, etc.), so shrinking it globally would also close the gap
-   further down the stack where it's still wanted. Instead this pulls .hrail up by
-   exactly that gap's own value (kept in --hlgap, redefined per breakpoint below,
-   so this stays in sync automatically rather than needing a second hand-tuned
-   number) -- cancelling only the space immediately above the marquee. */
-.hero-lower .hrail{margin-top:calc(-1 * var(--hlgap))}
-/* (v46) video + headline copy row, extracted from the old shared .hero-img-col/
-   .hero-grid columns -- see the HTML comment above .hero-banner for why this is
-   a plain contained row rather than vNNN's full-bleed treatment (portrait video,
-   not a landscape lifestyle shot). order:0 (the flex default) puts it first in
-   the stack, ahead of .hrail (1), .hero-img-col (2), .hero-grid (3) and
-   .hero-pillars (4) below. flex-basis:auto + width:100% forces it onto its own
-   wrapped row so nothing else shares it (same effect .hero-pillars gets from
-   flex:0 0 100%, but basis:auto here on purpose -- flex-basis:100% would win
-   over the width:calc(...) override added for the 1001-1400px range below,
-   the same width-vs-flex-basis trap the mobile .hrail fix hit earlier, so this
-   uses .hrail's own flex:none-plus-width pattern instead). */
-.hero-banner{flex:0 0 auto;width:100%;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
-  gap:clamp(24px,3.6vw,64px);padding:clamp(18px,2.4vh,32px) clamp(20px,3vw,48px) clamp(12px,2vh,24px)}
-.hero-banner .hero-glass-img{width:auto;max-width:100%;height:auto;max-height:52vh;
-  object-fit:contain;object-position:center top;display:block;margin:0 auto}
-/* flex-basis kept well below the real target width (480px, via max-width) on
-   purpose: flex-wrap's line-breaking decision is made against each item's
-   hypothetical (basis) size, not its post-shrink size, so a basis of 480px
-   made the row wrap onto two lines around 1001-1040px even though the copy
-   could easily have shrunk a little to fit beside the video. A lower basis
-   (320px) keeps the hypothetical sum comfortably under the row's available
-   width through that band; flex-grow:1 then expands the copy back up to
-   max-width:480px whenever there's room (everywhere above roughly 1040px). */
-.hero-banner .hero-copy-shift{flex:1 1 320px;max-width:480px}
-.hero-img-col{order:2;flex:0 0 34%;max-width:34%;position:relative;overflow:visible;
+.hero-lower{position:relative;display:flex;flex-wrap:wrap;align-items:stretch;flex:1 1 auto;background:var(--paper);padding-right:max(var(--pad),430px);gap:clamp(24px,calc(1.7vw + 18px),42px)}
+/* (v50) restored to the vNNN line's own v409 true two-column hero: video and
+   tube shot both live in .hero-img-col again (order:1, 62.7% width), with the
+   headline copy moved into .hero-grid alongside the ingredient list/stats/CTA
+   -- matching v409 exactly, so this branch's hero now differs from vNNN's only
+   in which nav sits above it (lite burgers + popups here, vs. the full
+   hex-text nav there). See the HTML: .hrail (marquee + wax-seal) now sits
+   directly in .hero, above .hero-lower, same as vNNN. */
+.hero-img-col{order:1;flex:0 0 62.7%;max-width:62.7%;position:relative;overflow:visible;
   display:flex;flex-direction:column;align-items:center;gap:clamp(14px,1.8vw,28px);background:var(--paper);
   padding:0 0 clamp(32px,4vh,56px) clamp(30px,4vw,64px);
   transform:translateX(clamp(24px,3.6vw,60px))}
 .hero-img-col img,.hero-img-col video{width:auto;max-width:calc(100% + 45px);height:auto;
   object-fit:contain;object-position:center top;display:block;margin:0 auto}
+.hero-img-col .hero-glass-img{max-height:68vh;transform:translateY(25px)}
 .hero-img-col .hero-pack-img{max-height:54vh;transform:translateX(calc(23.4vw - clamp(24px,3.6vw,60px))) translateY(100px)}
 /* rotated 90deg CW (lying on its side, cap to the right), sized against a
-   fixed viewport-height-relative value (58vh) now that it's no longer sized
-   relative to the glass's own rendered height in the same column (the glass
-   moved out to .hero-banner above, v46) -- 58vh matches this branch's
-   previous "roughly life-size against the glass" target closely enough at
-   typical desktop heights that it wasn't worth a fresh derivation. .hero-lower
+   fixed viewport-height-relative value (58vh) -- kept as-is through the v46-49
+   hero-banner detour and back now that the glass video shares this column
+   again (v50); 58vh still matches this branch's "roughly life-size against
+   the glass" target closely enough at typical desktop heights that it wasn't
+   worth a fresh derivation. .hero-lower
    uses align-items:stretch, so this column is actually stretched tall to
    match .hero-grid's real height (the full ingredient list + stats + CTA on
    the right run much longer than just the tube), leaving real leftover space
@@ -438,7 +386,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    between the top of this column and wherever it actually ends, instead of a
    hand-guessed fixed value. */
 .hero-img-col .hero-tube-shot{width:58vh;height:auto;margin:auto 0}
-.hero-pillars{order:4;flex:0 0 100%;max-width:1040px;
+.hero-pillars{order:3;flex:0 0 100%;max-width:1040px;
   margin-top:clamp(40px,5vh,72px);margin-bottom:clamp(40px,5vh,72px);
   margin-left:calc(50vw - 520px);margin-right:0;
   display:grid;grid-template-columns:1fr 1fr;text-align:left;
@@ -453,7 +401,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   text-transform:uppercase;color:var(--gold);margin:0 0 10px}
 .hero-pillars p{font-size:clamp(16px,1.3vw,18.5px);line-height:1.55;color:var(--ink);margin:0}
 .hero-pillars .kw{color:var(--gold);font-weight:600}
-.hero-grid{order:3;flex:1 1 0%;min-width:0}
+.hero-grid{order:2;flex:1 1 0%;min-width:0}
 /* this element also carries the shared .wrap class (for its mobile stacked
    layout, where it needs the standard side margins); in the desktop flex-row
    layout that same .wrap padding was eating ~130px out of an already-narrow
@@ -1504,16 +1452,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      once this section is stacked -- left at its desktop value it was squeezing the
      headline copy down to a sliver, wrapping it onto more lines than desktop shows
      for the same text. */
-  .hero-lower{flex-direction:column;--hlgap:8px;gap:var(--hlgap);padding-right:var(--pad)}
-  /* (v46) video + headline copy, stacked (video then copy, same relative order
-     they always had) inside their own full-width row, extracted from the old
-     .hero-img-col/.hero-grid columns -- see the desktop comment above
-     .hero-banner. margin-right cancels out .hero-lower's reserved right-hand
-     padding the same way .hero-img-col used to.
+  .hero-lower{flex-direction:column;gap:8px;padding-right:var(--pad)}
+  /* (v50) video + tube shot back together in .hero-img-col (order:1), matching
+     vNNN's v409 mobile stack exactly.
      (user report, "check the glass video is displaying dead center under the
      HoniOra logo") that alone doesn't actually centre it: .hero-lower carries
      padding-right:var(--pad) but no padding-left at all (0 by default), so its
-     own content box -- and everything stretched to fill it, .hero-banner
+     own content box -- and everything stretched to fill it, .hero-img-col
      included -- sits flush against the left edge with all the "missing" width
      on the right instead. The nav logo above is centred through a completely
      separate mechanism (the lite nav's own flex layout, not .hero-lower), so
@@ -1522,37 +1467,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      rendered centres via Playwright at five widths (360-1000px): the gap
      tracked var(--pad)/2 almost exactly every time (13px at 360-430px up to
      25px at 1000px, --pad itself running 20-50px across that range). Rather
-     than touch .hero-lower's own padding, which the marquee ticker and tube-
-     shot rows below both also sit inside and have their own tuned negative-
-     margin formulas built against, this nudges .hero-banner back to the right
-     by that same var(--pad)/2 on its own, scoped to just this one row. */
-  .hero-banner{order:1;flex:0 0 auto;max-width:none;flex-direction:column;
-    margin-left:calc(var(--pad) / 2);margin-right:calc(-1 * var(--pad));padding:22px 20px 2px;gap:4px}
-  .hero-banner .hero-glass-img{object-position:center center;margin:0 auto}
+     than touch .hero-lower's own padding, which the marquee ticker below also
+     sits inside, this nudges .hero-img-col back to the right by that same
+     var(--pad)/2 on its own, scoped to just this one column -- kept from the
+     pre-v50 fix, just retargeted onto the merged column. */
+  .hero-img-col{order:1;flex:0 0 auto;max-width:none;
+    margin-left:calc(var(--pad) / 2);margin-right:calc(-1 * var(--pad));padding:22px 20px 2px;gap:4px;transform:none}
+  .hero-img-col img,.hero-img-col video{object-position:center center;margin:0 auto}
   .hero-copy-shift{transform:none}
-  .hero-banner .hero-copy-shift{max-width:none}
   /* 285px * 1.75 = 499px, then 499px * 0.8 = 399px, the target. Capped against the
      column's own available width (video's native ratio is 606:904) so on narrower
      phones it still centres cleanly instead of outgrowing its box and skewing off to
      one side. Every current iPhone width (375px and up) comfortably clears the cap
      and gets the full 399px. */
-  .hero-banner .hero-glass-img{max-height:min(399px, calc((100vw - 40px) * 1.4917));transform:none}
-  /* (v46) the marquee, moved between the video row and the tube/list row on
-     mobile too, matching the desktop reorder above -- order:2 slots it right
-     after .hero-banner (order:1) and ahead of .hero-img-col (order:3 below).
-     hrail's own base rule sets an explicit width:100% (not auto), so a
-     negative margin-right alone would only shrink the reserved space to its
-     right without growing hrail's own box -- learned the hard way porting
-     this same change to the vNNN line (v408): the width bump below is
-     required, not optional, or the ticker falls short of the true edge. */
-  .hero-lower .hrail{order:2;width:calc(100% + var(--pad));margin-right:calc(-1 * var(--pad))}
-  /* .hero-img-col now holds only the tube shot (the video moved out into
-     .hero-banner above, v46). Centred, with a small top margin taking the
-     place of the old tight video-to-tube coupling (they no longer share a
-     flex column, so .hero-lower's own 8px row gap plus this margin is what
-     keeps them visually close instead). */
-  .hero-img-col{order:3;flex:0 0 auto;max-width:none;margin-right:calc(-1 * var(--pad));padding:0 20px 2px;transform:none}
-  .hero-img-col img,.hero-img-col video{object-position:center center;margin:0 auto}
+  .hero-img-col .hero-glass-img{max-height:min(399px, calc((100vw - 40px) * 1.4917));transform:none}
   .hero-img-col .hero-pack-img{max-height:145px}
   /* same life-size ratio target as before (tube ~0.85x the glass's own rendered
      height), tied to the same glass-height formula so it still scales together
@@ -1561,9 +1489,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      coupling margin) and a bit more below to separate it from the headline
      that follows. */
   .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:4px 0 8px}
-  .hero-grid{order:4;transform:none;padding-top:0}
+  .hero-grid{order:2;transform:none;padding-top:0}
   .hero-lower .hero-grid{padding-left:var(--pad);padding-right:var(--pad)}
-  .hero-pillars{order:5;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
+  .hero-pillars{order:3;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
   .hero-grid,.prob-grid,.ritual-grid,.formgrid{grid-template-columns:1fr}
   .hero-grid{gap:24px}   /* single column: the wide desktop gap would waste height */
   .hmsg{font-size:clamp(14px,2.6vw,19px)}
@@ -1623,154 +1551,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    width the way the v31/v32 full-bleed treatment did. */
 @media(min-width:1001px){
   .hero-lower{padding-right:max(var(--pad),220px)}
-  /* (v46) the marquee, moved inside .hero-lower (see the HTML) to sit between
-     .hero-banner and .hero-img-col -- order:1 slots it right after
-     .hero-banner (order:0, the flex default) and ahead of .hero-img-col
-     (order:2). It needs the same oversized-width-plus-negative-margin trick
-     the vNNN line's v408 change uses for its own full-bleed marquee, keyed to
-     this branch's own 220px reservation (not vNNN's 430px) since that's what
-     .hero-lower actually reserves here at every desktop width. */
-  .hero-lower .hrail{order:1;width:calc(100% + max(var(--pad),220px));
-    margin-right:calc(-1 * max(var(--pad),220px))}
-  /* (v46) .hero-lower's padding-right reservation just above exists for the
-     tube+list row below (.hero-img-col/.hero-grid, unchanged from before this
-     restructure) -- .hero-banner doesn't share that row any more and doesn't
-     need the reservation, so give it the same width/margin trick as .hrail to
-     use the row's full width when centring video+copy. Without this, the
-     1001-1400px range wraps video and copy onto separate lines much earlier
-     than necessary (the reserved 220px was being subtracted from a row that
-     no longer needed it), leaving a large empty gap on the right.
-     (v48, user request) That same width:calc(100% + ...)/margin-right pairing
-     is also exactly the full-bleed-to-the-viewport-edge math -- it already
-     cancels out .hero-lower's own reservation completely, reaching .hero's
-     own true right edge (which, like .hero-lower's left edge, carries no
-     padding of its own) -- so reusing it here for a genuinely full-bleed
-     background video needs no change to the width/margin values themselves,
-     only the new rules below turning this from a centred, contained flex row
-     into an edge-to-edge video box with an absolutely-positioned overlay
-     copy card on top, mirroring the vNNN line's own v408 hero-banner
-     treatment (golden-hour lifestyle video, translucent copy card) almost
-     exactly -- keyed to this branch's own 220px reservation rather than
-     vNNN's 430px (vNNN reserves more because its wax-seal medallion sits
-     differently; this branch's own .hero-seal, further down this same
-     media query's cousin blocks, was unaffected and needs no change).
-     This deliberately REVERSES v45's removal of the golden-hour video for
-     DESKTOP only -- v45's own reasoning (a portrait 606x904 studio video
-     would look absurd full-bleed) no longer applies now that desktop plays
-     the landscape golden-hour clip instead; mobile/lite (<=1000px) keeps
-     exactly what v45 shipped, still the boxed portrait glass-on-white video,
-     untouched by anything in this media query. */
-  .hero-banner{position:relative;overflow:hidden;aspect-ratio:1280/640;padding:0;
-    width:calc(100% + max(var(--pad),220px));
-    margin-right:calc(-1 * max(var(--pad),220px))}
-  /* fills the now-fixed-aspect box edge-to-edge and crops via object-fit
-     rather than the CSS layer ever stretching or letterboxing it --
-     aspect-ratio above is locked to the video's own pre-cropped 1280/640
-     ratio (the asset copied in from the vNNN line's own hero-gold-loop-crop
-     files, itself just this branch's existing hero-gold-loop.mp4/webm
-     centre-cropped from 720 to 640 tall), so cover has nothing left to
-     actually crop at any desktop width -- box and video ratio always match. */
-  .hero-banner .hero-glass-img{position:absolute;inset:0;width:100%;height:100%;
-    max-width:none;max-height:none;object-fit:cover;object-position:center;
-    transform:none;margin:0;display:block}
-  /* translucent copy card, sat over the open sky/table space to the right of
-     the glass rather than pinned to the frame's edge -- vNNN's own card sits
-     at 66% from the left; (v48b) pulled in to 58% (closer to the banner's
-     true centre) and widened below. Both axes are still positioned via
-     translate() off that 58%/50% anchor point, so the card's own width/
-     height never throw off the intended offset; capped so it never extends
-     past the video's own rendered edges. (v48c, user request) "move it right
-     50px and up 75px": added as a literal pixel nudge on top of the existing
-     centring translate -- translate(calc(-50% + 50px), calc(-50% - <up
-     amount>)) -- rather than changing the 58%/50% anchor itself. This
-     branch's existing copy content underneath (still "UPGRADE YOUR
-     WELLBEING", unchanged) just gets the new card treatment around it; the
-     words themselves aren't part of this change. */
-  .hero-banner .hero-copy-shift{position:absolute;z-index:45;top:50%;left:58%;
-    /* the rightward 50px is safe at every desktop width (huge horizontal
-       margin either side, confirmed via Playwright), but a flat 75px upward
-       shift is NOT: at 1024-1200px the banner (aspect-ratio-locked to the
-       video, so it gets short fast) barely has enough spare vertical margin
-       around the vertically-centred card as it is -- moving it up a flat
-       75px there clipped "UPGRADE" against .hero-banner's overflow:hidden
-       top edge by 70-80px, confirmed via Playwright before this was changed.
-       So the upward shift only ramps in above 1400px, from 0px there to the
-       full 75px by ~1920px (clamp(0px, (100vw - 1400px) * 0.12, 75px)) --
-       same "only take the effect where there's headroom to spare" approach
-       as the width formula below. Below 1400px the card stays vertically
-       centred exactly as before this request, so nothing already-safe there
-       gets worse. */
-    transform:translate(calc(-50% + 50px), calc(-50% - clamp(0px, (100vw - 1400px) * 0.12, 75px)));flex:none;
-    /* (v48) "38vw - 130px" here, not vNNN's own flat clamp(340px,38vw,560px):
-       the full-bleed banner's height is locked to the video's fixed 1280/640
-       aspect ratio, so it gets shorter as the viewport narrows -- faster than
-       a flat width-based clamp shrinks the headline text inside this card
-       (via the existing fitOneLine()-family scripts further down the page,
-       which measure this card's real rendered width on every resize and
-       shrink text to fit it, but were never told anything about the card's
-       own HEIGHT). Below roughly 1450px, vNNN's own flat clamp leaves the
-       card measurably taller than the now-shorter video box beneath it, and
-       .hero-banner's own overflow:hidden then clips the top and bottom of
-       the text against that box edge -- confirmed the same thing happens on
-       vNNN's own live hero-banner at the same widths (the very top of
-       "UPGRADE" disappears behind the nav bar there too), so this isn't a
-       bug introduced here, just one not worth carrying over. Subtracting a
-       flat 130px keeps the SAME ceiling at wide desktop widths while
-       continuously tapering the card narrower below it -- letting those same
-       existing scripts shrink the text further with it, no changes to the
-       scripts themselves needed -- as the viewport, and the banner's own
-       height with it, gets smaller. No hard breakpoint, so no visible jump
-       in card size at any particular width either. (v48b, user request)
-       widened further above 1400px only, same reasoning as the vertical
-       shift above: `max(0px, (100vw - 1400px) * 0.6)` is added on top of the
-       base formula and the ceiling raised to 720px, so 1024-1400px keeps
-       the exact same width as before (already tight there) while 1440px+
-       gets meaningfully wider, up to 720px by 1920px. */
-    width:clamp(230px, calc((38vw - 130px) + max(0px, (100vw - 1400px) * 0.6)), 720px);max-width:calc(100% - 56px);
-    background:rgba(255,250,235,.64);border-radius:14px;
-    padding:clamp(22px,3vw,38px) clamp(24px,3.4vw,42px);
-    box-shadow:0 14px 34px rgba(50,32,8,.22);backdrop-filter:blur(2px)}
-  /* (v48, user request) desktop only: hide the ORIGINAL wax-seal medallion
-     (still just below the marquee, inside .hrail, unchanged CSS) and show the
-     new .hero-seal-onvideo duplicate instead, pinned to the golden-hour
-     video's own baked-in watermark position -- see the HTML comment above
-     that duplicate for the full explanation and how the 90%/88.5% figures
-     were measured. Mobile keeps the original in its original spot; there's
-     no watermark on mobile's studio glass-on-white video to cover. */
-  .hrail>.hero-seal{display:none}
-  .hero-banner .hero-seal-onvideo{display:block;position:absolute;
-    left:90%;top:88.5%;right:auto;transform:translate(-50%,-50%);z-index:46}
-  /* (user request) this duplicate sits pinned exactly over the video's own
-     baked-in watermark (see the comment above), so its rollover needs its
-     own direction rather than the base .hero-seal's shared down-left/scale
-     rule just above -- up and inward (toward the frame's centre, since this
-     medallion sits in the bottom-right at 90%/88.5%) instead of down-left,
-     so the enlarged badge still lands squarely over the watermark point
-     rather than sliding further toward the corner and risking exposing it.
-     Same 40px/scale(2) magnitude as the base rule, just flipped on both
-     axes; equal selector specificity to that rule, so this wins purely on
-     appearing later in the sheet. */
-  .hero-seal-onvideo:hover .hero-seal-inner,.hero-seal-onvideo:focus-visible .hero-seal-inner{transform:translate(-40px,-40px) scale(2)}
-  /* (v48e) desktop flip of the mobile-default rule above: golden-hour video
-     shows, glass-on-white studio video hides. Same specificity reasoning as
-     the base rule -- three selectors deep to beat .hero-banner .hero-glass-
-     img's own display:block rules (including the one right above this,
-     .hero-banner .hero-glass-img{...display:block} for the full-bleed
-     treatment) regardless of source order. */
-  .hero-banner .hero-glass-img.hero-glass-video-mobile{display:none}
-  .hero-banner .hero-glass-img.hero-glass-video-desktop{display:block}
-  .hero-precede .precede-fit{white-space:nowrap;font-size:10px}
-  /* V3 Lite Desktop, size correction: the mini reserve hexes and mobile wordmark use
-     the same clamp()s from 561px up through this branch's new unconditional desktop
-     range -- fine on a real tablet-width screen, but at true desktop widths (1440px+)
-     the rest of the page (hero, headline) renders at full desktop scale while these
-     two were still capped at their tablet-era maximum (160px hexes, 58px logo),
-     reading oversized next to it. Sized down for 1001px and up specifically, so the
-     narrower 561-1000px tablet band (already shipped, already matches the user's own
-     reference) is untouched. Height fixed at 71px (66px navbar + 5px) rather than a
-     vw-scaled clamp() -- the user wants an exact 0px top / 5px bottom overhang, which
-     only holds at every width if the hex height doesn't drift with viewport; see the
-     top:0 (no vertical centring) positioning rule below for the other half of this. */
+  /* (v50) .hrail now sits directly in .hero (not .hero-lower), so it no longer
+     needs a full-bleed width override here -- its own base rule (width:100%,
+     flex:none) already spans the whole unpadded .hero, same as vNNN's v409.
+     Likewise .hero-img-col is a real 62.7%-width column again, not a
+     full-width row, so it no longer needs one either. */
   .hexbtn-m img,.hexbtn-m svg{height:71px}
   .brand-mobile .brand-logo{height:46px}
 }
@@ -2188,131 +1973,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <section class="hero" id="top">
   <div class="bubbles" id="bubbles"></div>
 
-  <div class="hero-lower">
-    <!-- (v46) Video + headline copy pulled out of the old shared .hero-img-col/
-         .hero-grid columns into their own top row, .hero-banner -- matching the
-         vNNN line's stacked hero pattern (banner row, then marquee, then a
-         tube+list row) so the marquee could move below the video and the tube's
-         cap position could be centred independent of the video.
-         (v48, user request) Desktop (1001px+) now plays the SAME golden-hour
-         lifestyle video vNNN's own hero-banner uses, full-bleed edge-to-edge
-         with an absolutely-positioned translucent copy card on top -- see the
-         @media(min-width:1001px) .hero-banner rules in the CSS. This
-         deliberately reverses v45's removal of that video for desktop (v45's
-         reasoning doesn't apply any more: it was written when desktop still
-         played this branch's own portrait 606x904 studio video, which really
-         would look absurd stretched full-bleed -- desktop no longer plays
-         that video at all). Mobile/lite (<=1000px) is completely untouched by
-         this change, on request -- still the boxed portrait glass-on-white
-         video exactly as v45 shipped it, still sitting in a plain, non-full-
-         bleed contained row (the CSS override above only fires at 1001px+). -->
-    <div class="hero-banner">
-      <!-- (v48e, bug report: "the lite version is still displaying the
-           desktop sunrise scene", then "remove the sunrise video from the
-           lite site") This used to be ONE <video> with two <source> tiers,
-           picked by the browser via each <source>'s own media attribute --
-           mobile's max-width:1000px sources first, desktop's golden-hour
-           sources as the fallback. That's a real browser-spec limitation for
-           exactly this situation: a <video>'s <source media> list is only
-           evaluated ONCE, when the element first parses/loads. Resizing the
-           browser afterward, or switching a device-preview tool from desktop
-           to mobile width without a full page reload, does NOT make it
-           re-pick sources on its own -- a page first loaded at a desktop
-           width kept playing the golden-hour video even once sized down to
-           mobile, exactly what "still displaying" described, and the
-           follow-up ask was to remove the sunrise video from the lite
-           experience entirely rather than just fix the switching logic.
-           Now split into two separate <video> elements, exactly the
-           duplicate-and-toggle pattern this same version already uses for
-           the wax-seal medallion (see .hero-seal-onvideo further down):
-           each one's <source> list ONLY ever contains its own footage --
-           heroGlassVideoMobile has zero reference to the golden-hour assets
-           anywhere in its markup, so there's no path left, resize-related or
-           otherwise, for the lite site to end up showing them. Which one is
-           visible is pure CSS (.hero-glass-video-desktop{display:none} by
-           default, flipped at min-width:1001px -- see that rule near the
-           other @media(min-width:1001px) .hero-banner rules), and the script
-           below explicitly pauses whichever one just got hidden and plays
-           whichever one just became visible on every resize/orientation
-           change, so a live resize across the 1000px line (no reload) is
-           still handled correctly rather than leaving the wrong one playing
-           underneath. -->
-      <video class="hero-glass-img hero-glass-video-mobile" id="heroGlassVideoMobile" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source src="hero-glass-lite.webm" type="video/webm"><source src="hero-glass-lite.mp4" type="video/mp4"></video>
-      <video class="hero-glass-img hero-glass-video-desktop" id="heroGlassVideoDesktop" muted loop playsinline preload="none" poster="hero-gold-loop-poster-crop.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem, golden-hour lifestyle scene"><source src="hero-gold-loop-crop.webm" type="video/webm"><source src="hero-gold-loop-crop.mp4" type="video/mp4"></video>
-      <script>
-      /* Keeps exactly one of the two hero videos above actually playing at a
-         time, matching whichever one CSS is currently showing. No `autoplay`
-         attribute on the desktop element and `preload="none"` on it too --
-         it does nothing at all until this script explicitly loads/plays it,
-         so a mobile visitor's browser has no reason to ever fetch the
-         golden-hour footage in the first place, not just a reason not to
-         display it. */
-      (function(){
-        var mobileV = document.getElementById('heroGlassVideoMobile');
-        var desktopV = document.getElementById('heroGlassVideoDesktop');
-        if (!mobileV || !desktopV) return;
-        var desktopLoaded = false;
-        var sync = function(){
-          var safePlay = function(v){ var p = v.play(); if (p && p.catch) { p.catch(function(){}); } };
-          if (window.innerWidth > 1000) {
-            if (!desktopLoaded) { desktopV.load(); desktopLoaded = true; }
-            mobileV.pause();
-            safePlay(desktopV);
-          } else {
-            desktopV.pause();
-            safePlay(mobileV);
-          }
-        };
-        sync();
-        window.addEventListener('resize', sync, {passive:true});
-        window.addEventListener('orientationchange', sync);
-      })();
-      </script>
-      <!-- (v48, user request) "move the wax seal and circle of words to always cover
-           the gemini watermark no matter what screen size". The golden-hour clip
-           (an AI-generated stock video) carries a small sparkle/star watermark
-           baked into the footage itself, roughly 90% across and 88.5% down the
-           1280x640 frame -- measured directly off both the poster image and two
-           separate video frames (0 and 120), confirming it sits at a fixed pixel
-           position within the footage rather than drifting. Since .hero-banner's
-           aspect-ratio is locked to that same 1280/640 ratio, object-fit:cover
-           never actually crops anything, so that fractional position stays exactly
-           where it is relative to the box at every viewport width -- this medallion
-           is positioned with the matching left/top percentages (plus its own
-           translate(-50%,-50%) to centre ON that point, not just anchor a corner to
-           it), so it tracks the watermark automatically rather than needing a
-           separate hand-tuned position per breakpoint. This is a SEPARATE element
-           from the original .hero-seal further down this section (which sits below
-           the marquee, not on the video) -- that original is hidden at desktop
-           widths in the CSS below and this one takes over there instead, since
-           there's only a watermark to cover on desktop's golden-hour video, not
-           mobile's studio glass-on-white one. Duplicated rather than moved in the
-           DOM so mobile's own placement (still correct, still watermark-free)
-           needs no changes at all. Inner SVG id suffixed "Video" to stay unique
-           against the original's #heroSealPath on the same page. -->
-      <a href="#store" class="hero-seal hero-seal-onvideo" aria-label="Reserve HoniOra">
-        <span class="hero-seal-inner">
-          <span class="hero-seal-backdrop" aria-hidden="true"></span>
-          <svg class="hero-seal-ring" viewBox="0 0 300 300" aria-hidden="true">
-            <defs><path id="heroSealPathVideo" d="M150,22 a128,128 0 1,1 0,256 a128,128 0 1,1 0,-256"/></defs>
-            <text text-anchor="start" xml:space="preserve"><textPath href="#heroSealPathVideo" startOffset="0" textLength="804" lengthAdjust="spacingAndGlyphs">LADIES AND GENTLEMEN START YOUR HoniOra DAILY UPGRADE                </textPath></text>
-          </svg>
-          <img class="hero-seal-img" src="bee-seal-badge.png" alt="HoniCo wax seal, gold bee emblem" width="760" height="760" loading="lazy">
-        </span>
-      </a>
-      <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead" id="precedeLead">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
-      <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
-      <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
-      <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
-      </div>
-    </div>
-
-    <!-- top marquee: the two ribbon messages lead, then every active, looping right to left.
-         Moved (v46) to sit below the video banner and above the tube/ingredient graphics,
-         matching the vNNN line's v408 change -- see .hero-lower .hrail in the CSS for the
-         full-bleed-width override this now needs. -->
-    <div class="hrail">
+  <!-- top marquee + wax-seal: moved back out of .hero-lower to sit directly in
+       .hero, restoring the vNNN line's own v409 hero structure (marquee, then a
+       true two-column video-left/copy-right row) on this branch too -- this
+       branch's own lite nav (burgers + popups, in the header above this section)
+       is untouched; only the hero's internal layout below the nav changes. */ -->
+  <div class="hrail">
     <div class="hrail-vp">
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
@@ -2355,13 +2021,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         </picture>
       </span>
     </a>
-    </div>
+  </div>
 
+  <div class="hero-lower">
     <div class="hero-img-col">
+      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
       <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
+      <div class="hero-copy-shift">
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead" id="precedeLead">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
+      <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
+      <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
+      <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
+      </div>
       <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
         <li>Cr-01 Creatine Monohydrate</li>
@@ -4088,30 +3762,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
   };
 
-  /* (v46) Centres the gold tube shot's cap end (its right edge, where the gold
-     keylines fan out from -- see the separate hero-keylines script further
-     down) on the horizontal centre of the .hero section, desktop only. Ported
-     from the vNNN line's v408 change: .hero-img-col sits in a flex row
-     alongside .hero-grid (the ingredient list); a real margin-left here (not
-     a transform, which wouldn't affect layout) pushes both the tube AND the
-     whole list right together, since .hero-grid (flex:1 1 0%) simply gives
-     up the same amount of width to its sibling. Reset to 0 before each
-     measurement so this is idempotent on repeated calls. */
-  var centerTubeCap = function(){
-    var col = document.querySelector('.hero-img-col');
-    var tube = document.querySelector('.hero-tube-shot');
-    var hero = document.querySelector('.hero');
-    if(!col || !tube || !hero || window.innerWidth <= 1000){ if(col){ col.style.marginLeft = ''; } return; }
-    col.style.marginLeft = '0px';
-    var tubeRect = tube.getBoundingClientRect();
-    var heroRect = hero.getBoundingClientRect();
-    var frameCenter = heroRect.left + heroRect.width / 2;
-    var delta = frameCenter - tubeRect.right;
-    if (delta < 0){ delta = 0; }
-    col.style.marginLeft = delta.toFixed(1) + 'px';
-  };
-
-  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); matchLinesToTagWidth(); capPrecedeSolution(); fitManukaCaption(); centerTubeCap(); };
+  /* (v50) centerTubeCap() removed -- it was ported from the vNNN line's own
+     golden-hour-era v408 change to keep the tube shot (in its own separate
+     column from the video, under the v46-48 hero-banner split) centred on the
+     frame. Now that video and tube live back together in one .hero-img-col
+     column (matching vNNN's v409 revert), the tube centres itself the same
+     declarative way v409 does -- .hero-lower's align-items:stretch plus
+     margin:auto 0 on .hero-tube-shot -- with no JS needed. */
+  var fitHeroAll = function(){ fitHeroLines(); matchHeroTagWidth(); matchLinesToTagWidth(); capPrecedeSolution(); fitManukaCaption(); };
   fitHeroAll();
   window.addEventListener('resize', fitHeroAll, {passive:true});
   window.addEventListener('orientationchange', fitHeroAll);
