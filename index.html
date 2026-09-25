@@ -433,7 +433,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    the max-width:1000px block below restores both sides for the mobile stack. */
 .hero-lower .hero-grid{padding-right:0}
 .hero-logo{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:.005em}
-.hero-logo span{font-style:italic;font-weight:600;color:var(--gold)}
+.hero-logo span{font-weight:600;color:var(--gold)}
 .glassbox{position:relative;display:flex;justify-content:center;align-items:center;
   transform:translateX(clamp(18px,3.6vw,64px))}
 .glassbox picture{display:contents}
@@ -775,14 +775,22 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .unit-tab{display:block;flex:none;max-height:clamp(200px,31vh,440px);max-width:min(1080px,94vw);
   width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply}
 
-/* ---------- ingredient image banner (scroll-linked, centre-focus) ---------- */
-.iband{position:relative;width:100%;flex:none;overflow-x:clip;overflow-y:visible;margin-top:clamp(90px,11vw,140px)}
-.iband::before,.iband::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,10vw,190px);z-index:3;pointer-events:none}
-.iband::before{left:0;background:linear-gradient(to right,var(--paper),rgba(255,255,255,0))}
-.iband::after{right:0;background:linear-gradient(to left,var(--paper),rgba(255,255,255,0))}
-.iband-vp{overflow-x:clip;overflow-y:visible}
-.iband-track{display:flex;align-items:flex-start;gap:clamp(14px,2.2vw,38px);
-  padding:0 44vw;width:max-content;will-change:transform}
+/* ---------- ingredient image tumbler (vertical, scroll-linked, centre-focus) ----------
+   (user request) desktop pinned mode only -- a fixed-height vertical reel, masked
+   top and bottom, riding the same 0-1 scroll progress the claims ticker below it
+   already used. Whichever image sits nearest the reel's own vertical centre gets
+   .focus, same "closest wins" approach the old horizontal band used against the
+   page's horizontal centre -- see the updated markFocus() further down. The
+   .unit.static fallback (mobile, or no GSAP) resets every one of these rules
+   back to the flat wrapped grid it already rendered, untouched. */
+.iband{position:relative;width:100%;flex:none;overflow:hidden;
+  height:clamp(320px,42vh,480px);margin-top:clamp(90px,11vw,140px)}
+.iband::before,.iband::after{content:"";position:absolute;left:0;right:0;height:clamp(60px,12vh,140px);z-index:3;pointer-events:none}
+.iband::before{top:0;background:linear-gradient(to bottom,var(--paper),rgba(255,255,255,0))}
+.iband::after{bottom:0;background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
+.iband-vp{height:100%;overflow:hidden}
+.iband-track{display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2.4vh,30px);
+  padding:clamp(110px,16vh,180px) 0;width:100%;will-change:transform}
 .ishot{flex:none;width:min(clamp(104px,13vw,186px),16vh);text-align:center;
   transition:opacity .45s cubic-bezier(.22,1,.36,1)}
 .ishot figure{margin:0;transform:scale(.5);transform-origin:center bottom;
@@ -796,24 +804,47 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .ishot.focus img{filter:saturate(1.05) contrast(1)}
 .ishot.ishot-pomma{width:min(clamp(140px,17vw,240px),20vh)}
 .ishot.ishot-pomma.focus figure{transform:scale(1.4)}
-.icap{opacity:0;transform:translateY(10px);transition:opacity .45s ease .06s,transform .45s cubic-bezier(.22,1,.36,1) .06s;
-  margin-top:12px;pointer-events:none}
-.ishot.focus .icap{opacity:1;transform:none}
+.icap{display:none;pointer-events:none}
+/* (user request) icap's own b/s/i is now purely the data source the shared
+   .itag bar below the reel copies from on every focus change (see
+   updateItag() in the script) -- the per-thumbnail caption itself only
+   still renders in .unit.static, which restores display:block on it below. */
 .icap b{display:block;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
   font-weight:400;font-size:clamp(13px,1.3vw,17px);color:var(--ink);letter-spacing:-.012em;line-height:1.18}
 .icap s{display:block;text-decoration:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--gold-deep);font-weight:600;margin-top:6px}
 .icap i{display:block;font-style:normal;font-size:10.5px;line-height:1.4;color:var(--ink-2);
   margin-top:6px;max-width:25ch;margin-left:auto;margin-right:auto}
+
+/* ---------- shared ingredient title + copy bar (desktop pinned mode only) ----------
+   (user request) sits directly under the vertical reel and shows whichever
+   ingredient currently holds .focus. Content is copied in from that ishot's
+   own .icap by updateItag() in the script below, so the wording lives in one
+   place -- the .icap markup -- rather than being duplicated here. Hidden
+   entirely in .unit.static, where each thumbnail keeps its own caption. */
+.itag{width:100%;display:flex;justify-content:center;padding:0 var(--pad);
+  margin-top:clamp(20px,2.8vh,32px)}
+.itag-inner{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:clamp(14px,2vw,26px);
+  row-gap:6px;max-width:900px;width:100%;border-top:1px solid var(--line);
+  padding-top:clamp(14px,2vh,22px);opacity:1;transition:opacity .18s ease}
+.itag-inner.swap{opacity:0}
+.itag-name{flex:none;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
+  font-weight:600;font-size:clamp(15px,1.6vw,20px);color:var(--ink);letter-spacing:-.012em}
+.itag-dose{flex:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-deep);font-weight:600}
+.itag-copy{flex:1 1 320px;margin:0;font-size:clamp(13px,1.15vw,15px);line-height:1.5;color:var(--ink-2);min-width:0}
+
 /* static fallback */
+.unit.static .iband{height:auto;overflow:visible}
 .unit.static .iband-vp{overflow:visible}
-.unit.static .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
+.unit.static .iband-track{flex-direction:row;flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
 .unit.static .ishot{opacity:1;width:clamp(104px,26vw,144px)}
 .unit.static .ishot.ishot-pomma{width:clamp(140px,34vw,190px)}
 .unit.static .ishot figure{transform:none}
-.unit.static .icap{opacity:1;transform:none}
+.unit.static .icap{display:block;opacity:1;transform:none}
 .unit.static .icap i{display:none}
 .unit.static .iband::before,.unit.static .iband::after{display:none}
+.unit.static .itag{display:none}
 .unit-vp{width:100%;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   padding:clamp(12px,1.6vw,22px) 0}
 .unit-track{display:flex;align-items:center;gap:clamp(34px,5vw,92px);padding:0 12vw;width:max-content;will-change:transform}
@@ -2078,7 +2109,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="hero-meta rv">
         <div><b>11,449<small style="font-size:14px"> mg</small></b><span>Per daily serving</span></div>
         <div><b>3,000<small style="font-size:14px"> mg</small></b><span>Creatine per serving</span></div>
-        <div><b>16</b><span>Full dose Natural actives, Zero blends</span></div>
+        <div><b>18</b><span>Full dose Natural actives, Zero blends</span></div>
       </div>
       <div class="hero-cta rv">
         <a href="#matrix" class="btn">Explore HoniOra <span class="ar">&rarr;</span></a>
@@ -2152,6 +2183,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.jpg"><img width="820" height="820" src="passionfruit.jpg" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.jpg"><img width="820" height="786" src="thaumatin.jpg" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
         </div>
+      </div>
+    </div>
+
+    <!-- (user request) shared title + copy bar for the vertical reel: text is
+         copied in per-ingredient by updateItag() in the script below, reading
+         from whichever .ishot currently holds .focus. Empty on first paint
+         until markFocus() runs once the pin is set up. Hidden in .unit.static. -->
+    <div class="itag">
+      <div class="itag-inner">
+        <span class="itag-name" id="itagName"></span>
+        <span class="itag-dose" id="itagDose"></span>
+        <p class="itag-copy" id="itagCopy"></p>
       </div>
     </div>
 
@@ -2658,7 +2701,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="src">VasoDrive-AP<sup class="rn">&reg;</sup> · 508 mg per serving</span>
       </div>
       <div class="stat">
-        <b data-count="16" data-suffix="">16</b>
+        <b data-count="18" data-suffix="">18</b>
         <h4>Named actives, zero blends</h4>
         <p>Every active in the HONI<i>ORA</i> SKU2 formula is individually named and dosed on the batch record, not hidden inside a proprietary blend.</p>
         <span class="src">Full bill of materials &middot; SKU2 batch record</span>
@@ -4005,7 +4048,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 16 named actives into one effervescent serving, 11,449 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 18 named actives into one effervescent serving, 11,449 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, Bifidobacterium adolescentis), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 2 tablets into 300 ml of cold water. The effervescent engine fully dissolves in under 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -4688,7 +4731,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   }
 })();
 
-/* ---------- 'The unit' pinned horizontal scroll (GSAP ScrollTrigger) ---------- */
+/* ---------- 'The unit' pinned scroll (GSAP ScrollTrigger) ----------
+   The claims ticker still rides left-to-right; the ingredient image reel
+   (user request) now rides top-to-bottom as a vertical tumbler instead, off
+   the same shared scroll progress -- see iDistance()/onUpdate() below. */
 (function(){
   'use strict';
   var unit  = document.querySelector('.unit');
@@ -4697,24 +4743,54 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var barIn = document.querySelector('.unit-bar i');
   var iTrack = document.getElementById('ibandTrack');
   var iVp    = document.querySelector('.iband-vp');
+  var itagInner = document.querySelector('.itag-inner');
+  var itagName  = document.getElementById('itagName');
+  var itagDose  = document.getElementById('itagDose');
+  var itagCopy  = document.getElementById('itagCopy');
   if (!unit || !track) return;
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function fallback(){ unit.classList.add('static'); markFocus(); }
 
+  /* (user request) copies the focused ishot's own .icap text into the shared
+     title+copy bar under the reel, cross-fading only when the ingredient
+     actually changes rather than on every scrub tick. .icap stays the one
+     place this copy is written -- see the CSS comment above .icap. */
+  var itagFocused = null, itagTimer = null;
+  function updateItag(best){
+    if (!best || !itagInner || best === itagFocused) return;
+    itagFocused = best;
+    if (itagTimer) clearTimeout(itagTimer);
+    itagInner.classList.add('swap');
+    itagTimer = setTimeout(function(){
+      var capB = best.querySelector('.icap b');
+      var capS = best.querySelector('.icap s');
+      var capI = best.querySelector('.icap i');
+      if (itagName) itagName.innerHTML = capB ? capB.innerHTML : '';
+      if (itagDose) itagDose.innerHTML = capS ? capS.innerHTML : '';
+      if (itagCopy) itagCopy.innerHTML = capI ? capI.innerHTML : '';
+      itagInner.classList.remove('swap');
+    }, 170);
+  }
 
-  /* whichever image is nearest the centre of the frame takes focus */
+  /* whichever image is nearest the reel's own vertical centre takes focus --
+     (user request) was the page's horizontal centre against a full-width
+     band; now it's this fixed-height viewport's own vertical centre, since
+     the reel no longer spans the page. */
   var queued = false;
   function markFocus(){
     if (!iTrack) return;
-    var kids = iTrack.children, mid = window.innerWidth / 2, best = null, bestD = Infinity;
+    var kids = iTrack.children, best = null, bestD = Infinity;
+    var vpRect = iVp ? iVp.getBoundingClientRect() : null;
+    var mid = vpRect ? (vpRect.top + vpRect.height / 2) : (window.innerHeight / 2);
     for (var i = 0; i < kids.length; i++){
       var rect = kids[i].getBoundingClientRect();
-      var d = Math.abs((rect.left + rect.width / 2) - mid);
+      var d = Math.abs((rect.top + rect.height / 2) - mid);
       if (d < bestD){ bestD = d; best = kids[i]; }
     }
     for (var k = 0; k < kids.length; k++) kids[k].classList.toggle('focus', kids[k] === best);
+    updateItag(best);
   }
   function queueFocus(){
     if (queued) return;
@@ -4739,8 +4815,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         return Math.max(0, track.scrollWidth - vp.clientWidth);
       };
 
+      /* (user request) the reel is now a vertical tumbler, so it rides the
+         shared progress down its own height (scrollHeight) rather than
+         across its own width -- the pin's own duration is still governed
+         entirely by the claims ticker's distance() below, unchanged. */
       var iDistance = function(){
-        return iTrack && iVp ? Math.max(0, iTrack.scrollWidth - iVp.clientWidth) : 0;
+        return iTrack && iVp ? Math.max(0, iTrack.scrollHeight - iVp.clientHeight) : 0;
       };
 
       var tween = gsap.to(track, { x: function(){ return -distance(); }, ease: 'none' });
@@ -4757,8 +4837,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         animation: tween,
         onUpdate: function(self){
           if (barIn) gsap.set(barIn, { scaleX: self.progress });
-          /* the image band rides the same progress across its own width */
-          if (iTrack) gsap.set(iTrack, { x: -iDistance() * self.progress });
+          /* the vertical tumbler rides the same progress down its own height */
+          if (iTrack) gsap.set(iTrack, { y: -iDistance() * self.progress });
           queueFocus();
         }
       });
@@ -4800,7 +4880,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (iTrack){
       /* each ishot has explicit width/height + aspect-ratio, so its box is fully
          sized before the bytes arrive -- loading in these images never changes
-         iTrack's scrollWidth. Refreshing ScrollTrigger here served no layout
+         iTrack's scrollHeight (nor, before the user's vertical-tumbler request,
+         its scrollWidth). Refreshing ScrollTrigger here served no layout
          purpose and, because these are lazy images that finish loading while the
          user is actively scrubbing through the pin, it snapped/jumped the
          animation mid-scroll. Just keep the focus highlight in sync. */
