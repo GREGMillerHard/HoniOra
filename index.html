@@ -775,13 +775,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .unit-tab{display:block;flex:none;max-height:clamp(200px,31vh,440px);max-width:min(1080px,94vw);
   width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply}
 
-/* ---------- ingredient image banner (scroll-linked, centre-focus) ----------
-   (user request) reverted to its original desktop behaviour: a horizontal
-   band riding the same 0-1 scroll progress as the claims ticker below it.
-   The vertical tumbler now lives ONLY in the .unit.static.iband-tumbler
-   block further down, which is the mobile/"lite" (<=1000px) branch -- see
-   the comment there and the mm.add('(max-width: 1000px)', ...) branch in
-   the script for the swap this replaced. */
+/* ---------- ingredient image banner (scroll-linked, centre-focus) ---------- */
 .iband{position:relative;width:100%;flex:none;overflow-x:clip;overflow-y:visible;margin-top:clamp(90px,11vw,140px)}
 .iband::before,.iband::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,10vw,190px);z-index:3;pointer-events:none}
 .iband::before{left:0;background:linear-gradient(to right,var(--paper),rgba(255,255,255,0))}
@@ -811,73 +805,15 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   color:var(--gold-deep);font-weight:600;margin-top:6px}
 .icap i{display:block;font-style:normal;font-size:10.5px;line-height:1.4;color:var(--ink-2);
   margin-top:6px;max-width:25ch;margin-left:auto;margin-right:auto}
-
-/* ---------- shared ingredient title + copy bar (mobile/"lite" tumbler only) ----------
-   (user request) sits directly under the vertical reel and shows whichever
-   ingredient currently holds .focus. Content is copied in from that ishot's
-   own .icap by updateItag() in the script below, so the wording lives in one
-   place -- the .icap markup -- rather than being duplicated here. Hidden by
-   default (desktop keeps each thumbnail's own fade-in .icap caption instead,
-   and the true no-GSAP/reduced-motion fallback keeps its own flat-grid
-   captions); shown only under .unit.static.iband-tumbler below. */
-.itag{display:none;width:100%;justify-content:center;padding:0 var(--pad);
-  margin-top:clamp(20px,2.8vh,32px)}
-.itag-inner{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:clamp(14px,2vw,26px);
-  row-gap:6px;max-width:900px;width:100%;border-top:1px solid var(--line);
-  padding-top:clamp(14px,2vh,22px);opacity:1;transition:opacity .18s ease}
-.itag-inner.swap{opacity:0}
-.itag-name{flex:none;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
-  font-weight:600;font-size:clamp(15px,1.6vw,20px);color:var(--ink);letter-spacing:-.012em}
-.itag-dose{flex:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--gold-deep);font-weight:600}
-.itag-copy{flex:1 1 320px;margin:0;font-size:clamp(13px,1.15vw,15px);line-height:1.5;color:var(--ink-2);min-width:0}
-
-/* static fallback -- true flat wrapped grid. Scoped away from .iband-tumbler
-   (:not(.iband-tumbler) on every rule) so the new mobile vertical tumbler
-   block below isn't fought over by this one; a genuine no-GSAP/reduced-motion
-   fallback at ANY width, and the .unit.static state before boot() decides
-   which branch applies, still get this flat grid exactly as before. */
-.unit.static:not(.iband-tumbler) .iband{height:auto;overflow:visible}
-.unit.static:not(.iband-tumbler) .iband-vp{overflow:visible}
-.unit.static:not(.iband-tumbler) .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
-.unit.static:not(.iband-tumbler) .ishot{opacity:1;width:clamp(104px,26vw,144px)}
-.unit.static:not(.iband-tumbler) .ishot.ishot-pomma{width:clamp(140px,34vw,190px)}
-.unit.static:not(.iband-tumbler) .ishot figure{transform:none}
-.unit.static:not(.iband-tumbler) .icap{opacity:1;transform:none}
-.unit.static:not(.iband-tumbler) .icap i{display:none}
-.unit.static:not(.iband-tumbler) .iband::before,.unit.static:not(.iband-tumbler) .iband::after{display:none}
-
-/* ---------- ingredient image tumbler (vertical, scroll-linked, centre-focus) ----------
-   (user request) mobile/"lite" (<=1000px) only -- swapped over from desktop.
-   A fixed-height vertical reel, masked top and bottom, riding its own
-   ScrollTrigger pin scoped to just .iband (see the mm.add('(max-width:
-   1000px)', ...) branch in the script), independent of the claims ticker's
-   own separate mobile stacked-list behaviour below it, which this leaves
-   untouched. Whichever image sits nearest the reel's own vertical centre
-   gets .focus, same "closest wins" approach markFocus() uses -- see the
-   script. Needs .iband-tumbler (added by that script branch, never by the
-   true no-GSAP fallback()) alongside .static to distinguish itself from the
-   flat-grid fallback immediately above, which both states otherwise share
-   the .static class with. */
-.unit.static.iband-tumbler .iband{position:relative;overflow:hidden;
-  height:clamp(320px,52vh,460px);margin-top:clamp(40px,9vw,64px)}
-.unit.static.iband-tumbler .iband-vp{height:100%;overflow:hidden}
-.unit.static.iband-tumbler .iband::before,.unit.static.iband-tumbler .iband::after{
-  display:block;left:0;right:0;top:auto;bottom:auto;width:auto;height:clamp(50px,11vh,110px)}
-.unit.static.iband-tumbler .iband::before{top:0;bottom:auto;background:linear-gradient(to bottom,var(--paper),rgba(255,255,255,0))}
-.unit.static.iband-tumbler .iband::after{bottom:0;top:auto;background:linear-gradient(to top,var(--paper),rgba(255,255,255,0))}
-.unit.static.iband-tumbler .iband-track{display:flex;flex-direction:column;align-items:center;
-  gap:clamp(14px,3.4vh,26px);padding:clamp(90px,22vh,150px) 0;width:100%;
-  transform:none;will-change:transform}
-.unit.static.iband-tumbler .ishot{opacity:.34;width:min(30vw,132px)}
-.unit.static.iband-tumbler .ishot.focus{opacity:1}
-.unit.static.iband-tumbler .ishot figure{transform:scale(.62)}
-.unit.static.iband-tumbler .ishot.focus figure{transform:scale(1.15)}
-.unit.static.iband-tumbler .ishot.ishot-pomma{width:min(40vw,168px)}
-.unit.static.iband-tumbler .ishot.ishot-pomma.focus figure{transform:scale(1.25)}
-.unit.static.iband-tumbler .icap{display:none}
-.unit.static.iband-tumbler .itag{display:flex}
-
+/* static fallback */
+.unit.static .iband-vp{overflow:visible}
+.unit.static .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
+.unit.static .ishot{opacity:1;width:clamp(104px,26vw,144px)}
+.unit.static .ishot.ishot-pomma{width:clamp(140px,34vw,190px)}
+.unit.static .ishot figure{transform:none}
+.unit.static .icap{opacity:1;transform:none}
+.unit.static .icap i{display:none}
+.unit.static .iband::before,.unit.static .iband::after{display:none}
 .unit-vp{width:100%;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   padding:clamp(12px,1.6vw,22px) 0}
 .unit-track{display:flex;align-items:center;gap:clamp(34px,5vw,92px);padding:0 12vw;width:max-content;will-change:transform}
@@ -914,13 +850,11 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    ever gets added by JS once it has confirmed IntersectionObserver support
    and that reduced-motion is off -- if that script never runs, the icons
    keep the plain always-visible rule above them and nothing is ever stuck
-   hidden. Scoped away from .iband-tumbler (user request) so this slide-in
-   reveal doesn't fight the tumbler's own focus-based opacity/scale further
-   up -- the script's own isStatic() check is scoped the same way. */
-.unit.static:not(.iband-tumbler) .ishot.pre-anim{opacity:0;transform:translateX(-34px);
+   hidden. */
+.unit.static .ishot.pre-anim{opacity:0;transform:translateX(-34px);
   transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-.unit.static:not(.iband-tumbler) .ishot.pre-anim:nth-child(even){transform:translateX(34px)}
-.unit.static:not(.iband-tumbler) .ishot.pre-anim.in{opacity:1;transform:none}
+.unit.static .ishot.pre-anim:nth-child(even){transform:translateX(34px)}
+.unit.static .ishot.pre-anim.in{opacity:1;transform:none}
 
 
 /* ---------- problem ---------- */
@@ -1821,12 +1755,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .unit-head h2{font-size:clamp(20px,5.6vw,26px)}
   .unit-line{white-space:normal;font-size:clamp(15px,4vw,19px);max-width:34ch}
 
-  /* ingredient cards: two up, captions on -- true flat-grid fallback only
-     (user request), so the mobile tumbler's own sizing above isn't overridden */
-  .unit.static:not(.iband-tumbler) .iband-track{gap:22px 16px}
-  .unit.static:not(.iband-tumbler) .ishot{width:calc(50% - 8px)}
-  .unit.static:not(.iband-tumbler) .ishot.ishot-pomma{width:min(78vw,220px)}
-  .unit.static:not(.iband-tumbler) .icap i{display:block;font-size:11px;max-width:none}
+  /* ingredient cards: two up, captions on */
+  .unit.static .iband-track{gap:22px 16px}
+  .unit.static .ishot{width:calc(50% - 8px)}
+  .unit.static .ishot.ishot-pomma{width:min(78vw,220px)}
+  .unit.static .icap i{display:block;font-size:11px;max-width:none}
 
   /* taste + about + store */
   .lwhy{grid-template-columns:1fr;gap:12px}
@@ -2219,18 +2152,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.jpg"><img width="820" height="820" src="passionfruit.jpg" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.jpg"><img width="820" height="786" src="thaumatin.jpg" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
         </div>
-      </div>
-    </div>
-
-    <!-- (user request) shared title + copy bar for the vertical reel: text is
-         copied in per-ingredient by updateItag() in the script below, reading
-         from whichever .ishot currently holds .focus. Empty on first paint
-         until markFocus() runs once the pin is set up. Hidden in .unit.static. -->
-    <div class="itag">
-      <div class="itag-inner">
-        <span class="itag-name" id="itagName"></span>
-        <span class="itag-dose" id="itagDose"></span>
-        <p class="itag-copy" id="itagCopy"></p>
       </div>
     </div>
 
@@ -4767,77 +4688,33 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   }
 })();
 
-/* ---------- 'The unit' pinned scroll (GSAP ScrollTrigger) ----------
-   The claims ticker rides left-to-right on desktop, pinned, exactly as
-   before. The ingredient image band now swaps behaviour by breakpoint
-   (user request, swapped back from the earlier desktop-only build):
-   desktop/"main" (>=1001px) keeps its original horizontal scroll-linked
-   reel, riding the claims ticker's own progress; mobile/"lite" (<=1000px)
-   instead gets a vertical tumbler with its OWN independent pin, scoped to
-   just .iband so it never disturbs the claims ticker's separate
-   plain-stacked-list mobile behaviour (see the script further down). */
+/* ---------- 'The unit' pinned horizontal scroll (GSAP ScrollTrigger) ---------- */
 (function(){
   'use strict';
   var unit  = document.querySelector('.unit');
   var track = document.querySelector('.unit-track');
   var vp    = document.querySelector('.unit-vp');
   var barIn = document.querySelector('.unit-bar i');
-  var iband  = document.querySelector('.iband');
   var iTrack = document.getElementById('ibandTrack');
   var iVp    = document.querySelector('.iband-vp');
-  var itagInner = document.querySelector('.itag-inner');
-  var itagName  = document.getElementById('itagName');
-  var itagDose  = document.getElementById('itagDose');
-  var itagCopy  = document.getElementById('itagCopy');
   if (!unit || !track) return;
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function fallback(){ unit.classList.add('static'); markFocus(); }
 
-  /* (user request) copies the focused ishot's own .icap text into the shared
-     title+copy bar under the mobile tumbler, cross-fading only when the
-     ingredient actually changes rather than on every scrub tick. .icap
-     stays the one place this copy is written -- see the CSS comment above
-     .icap. The bar itself is only ever shown under .unit.static.iband-tumbler
-     (mobile); this runs unconditionally but is a harmless no-op elsewhere. */
-  var itagFocused = null, itagTimer = null;
-  function updateItag(best){
-    if (!best || !itagInner || best === itagFocused) return;
-    itagFocused = best;
-    if (itagTimer) clearTimeout(itagTimer);
-    itagInner.classList.add('swap');
-    itagTimer = setTimeout(function(){
-      var capB = best.querySelector('.icap b');
-      var capS = best.querySelector('.icap s');
-      var capI = best.querySelector('.icap i');
-      if (itagName) itagName.innerHTML = capB ? capB.innerHTML : '';
-      if (itagDose) itagDose.innerHTML = capS ? capS.innerHTML : '';
-      if (itagCopy) itagCopy.innerHTML = capI ? capI.innerHTML : '';
-      itagInner.classList.remove('swap');
-    }, 170);
-  }
 
-  /* whichever image is nearest the reel's own centre takes focus -- 2D
-     distance from .iband-vp's own centre (user request) so this one
-     function correctly serves both the desktop horizontal band and the
-     mobile vertical tumbler without needing to know which mode is active. */
+  /* whichever image is nearest the centre of the frame takes focus */
   var queued = false;
   function markFocus(){
     if (!iTrack) return;
-    var kids = iTrack.children, best = null, bestD = Infinity;
-    var vpRect = iVp ? iVp.getBoundingClientRect() : null;
-    var midX = vpRect ? (vpRect.left + vpRect.width / 2) : (window.innerWidth / 2);
-    var midY = vpRect ? (vpRect.top + vpRect.height / 2) : (window.innerHeight / 2);
+    var kids = iTrack.children, mid = window.innerWidth / 2, best = null, bestD = Infinity;
     for (var i = 0; i < kids.length; i++){
       var rect = kids[i].getBoundingClientRect();
-      var dx = (rect.left + rect.width / 2) - midX;
-      var dy = (rect.top + rect.height / 2) - midY;
-      var d = Math.sqrt(dx * dx + dy * dy);
+      var d = Math.abs((rect.left + rect.width / 2) - mid);
       if (d < bestD){ bestD = d; best = kids[i]; }
     }
     for (var k = 0; k < kids.length; k++) kids[k].classList.toggle('focus', kids[k] === best);
-    updateItag(best);
   }
   function queueFocus(){
     if (queued) return;
@@ -4854,12 +4731,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var mm = gsap.matchMedia();
 
-    /* desktop / large tablet: pin the section and drive the track right-to-left.
-       (user request) reverted to the original behaviour -- the ingredient band
-       rides the same shared progress as the claims ticker again, horizontally. */
+    /* desktop / large tablet: pin the section and drive the track right-to-left */
     mm.add('(min-width: 1001px)', function(){
       unit.classList.remove('static');
-      unit.classList.remove('iband-tumbler');
 
       var distance = function(){
         return Math.max(0, track.scrollWidth - vp.clientWidth);
@@ -4900,48 +4774,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       };
     });
 
-    /* phones / small tablets: the claims ticker stops pinning and stacks
-       (unchanged -- see the separate highlight script further down). The
-       ingredient band (user request, swapped over from desktop) instead
-       gets its OWN independent pin here: a vertical tumbler riding its own
-       scroll-linked progress, scoped to .iband alone so it never touches
-       the claims ticker's pin/unpin cycle above. */
+    /* phones / small tablets: no pinning, panels stack vertically */
     mm.add('(max-width: 1000px)', function(){
       unit.classList.add('static');
-      unit.classList.add('iband-tumbler');
-
-      var iSt = null, iTween = null;
-
-      if (iband && iTrack && iVp){
-        var iDistance = function(){
-          return Math.max(0, iTrack.scrollHeight - iVp.clientHeight);
-        };
-
-        iTween = gsap.to(iTrack, { y: function(){ return -iDistance(); }, ease: 'none' });
-
-        iSt = ScrollTrigger.create({
-          trigger: iband,
-          start: 'top top+=120',
-          end: function(){ return '+=' + (iDistance() + window.innerHeight * 0.35); },
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-          animation: iTween,
-          onUpdate: function(){ queueFocus(); }
-        });
-
-        markFocus();
-      }
-
-      return function(){          /* cleanup when the query stops matching */
-        unit.classList.remove('static');
-        unit.classList.remove('iband-tumbler');
-        if (iSt) iSt.kill();
-        if (iTween) iTween.kill();
-        if (iTrack) gsap.set(iTrack, { clearProps: 'transform' });
-      };
+      return function(){ unit.classList.remove('static'); };
     });
 
     /* re-measure once fonts and lazy images have settled */
@@ -4964,11 +4800,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (iTrack){
       /* each ishot has explicit width/height + aspect-ratio, so its box is fully
          sized before the bytes arrive -- loading in these images never changes
-         iTrack's scrollWidth/scrollHeight. Refreshing ScrollTrigger here served
-         no layout purpose and, because these are lazy images that finish
-         loading while the user is actively scrubbing through the pin, it
-         snapped/jumped the animation mid-scroll. Just keep the focus highlight
-         in sync. */
+         iTrack's scrollWidth. Refreshing ScrollTrigger here served no layout
+         purpose and, because these are lazy images that finish loading while the
+         user is actively scrubbing through the pin, it snapped/jumped the
+         animation mid-scroll. Just keep the focus highlight in sync. */
       Array.prototype.forEach.call(iTrack.querySelectorAll('img'), function(im){
         if (!im.complete){
           im.addEventListener('load', queueFocus);
@@ -5073,11 +4908,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (!unitEl || !shots.length || !('IntersectionObserver' in window)) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    /* (user request) excludes .iband-tumbler -- this slide-in reveal is for
-       the true flat-grid fallback only; the mobile tumbler drives its own
-       opacity/scale off .focus (see markFocus() above) and would otherwise
-       get permanently forced to opacity:1/transform:none by .in below. */
-    function isStatic(){ return unitEl.classList.contains('static') && !unitEl.classList.contains('iband-tumbler'); }
+    function isStatic(){ return unitEl.classList.contains('static'); }
 
     Array.prototype.forEach.call(shots, function(s){ s.classList.add('pre-anim'); });
 
