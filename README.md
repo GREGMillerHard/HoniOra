@@ -19,6 +19,19 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v59, updated 2026-09-26. Requested: "on the mobile site these 2 ingredients are on their own line but should be paired like the rest of the scroller" (Livaux Gold Kiwifruit and Pomma+ Whole-Fruit Pomegranate, flagged from a phone screenshot of the live mobile flat-grid ingredient band).
+
+What this was: a pre-existing layout bug in the mobile/lite flat-grid ingredient band (`.unit.static .iband-track`), present since long before the v56-v58 tumbler detour and still there in v58's byte-for-byte v55 restore. At the <=560px breakpoint, a "two up" rule sizes every `.ishot` thumbnail to `calc(50% - 8px)` so they pair off two per row -- except `.ishot-pomma` (the Pomma+ pomegranate thumbnail), which a leftover phone-only override widened to `min(78vw,220px)`, almost the full row. Because that item couldn't fit beside its neighbour, the flex-wrap pushed both Livaux (the item right before it) and Pomma+ onto their own separate single-item rows, breaking the two-up pairing for that one spot in an otherwise-paired grid.
+
+Recent changes in this version:
+
+- Removed the `min(78vw,220px)` phone-only override on `.ishot.ishot-pomma` and replaced it with the same `calc(50% - 8px)` width every other ingredient thumbnail uses at that breakpoint, so Livaux and Pomma+ now size and pair identically to the rest of the scroller.
+- Scoped to the <=560px media query only -- the wider tablet/desktop sizing for the Pomma+ thumbnail (its intentionally-larger treatment above 560px, from the unscoped `.unit.static .ishot.ishot-pomma{width:clamp(140px,34vw,190px)}` rule) is untouched.
+- **Verified:** loaded the page locally at a 390x844 phone viewport (GSAP served from a local copy since cdnjs is unreachable from this sandbox), scrolled to the ingredient band, and read back each `.ishot`'s bounding box. Livaux and Pomma+ now report the same y-position, the same 161px width, and the same left/right x-offsets as every other pair in the grid (previously Pomma+ measured ~78vw wide and sat alone on its own row). Confirmed visually with a screenshot of that section.
+  - Delivered as `HoniOra_V3_LiteDesktop_v59.zip`.
+
+Prior changes (v58):
+
 This package is HoniOra V3 Lite Desktop v58, updated 2026-09-25. Requested: "REVERT LITE SITE TO THE STATIC VERSION OF YESTERDAY."
 
 What this is: a full, clean revert of the ingredient-band vertical tumbler experiment (v56, then swapped to the other breakpoint in v57) back to v55 -- "yesterday" (v55 shipped 2026-09-24, this ships 2026-09-25) and "the static version" (v55's ingredient band has no tumbler at all: a horizontal scroll-linked band on desktop, a plain flat wrapped grid -- `.unit.static`, no `.iband-tumbler` modifier -- on mobile/lite, exactly the behaviour this branch carried from v45 through v55). Rather than hand-reverting v57's tumbler-specific CSS/JS piece by piece again, this package is v55's own `index.html` restored byte-for-byte from the pristine, never-touched `HoniOra_V3_LiteDesktop_v55.zip` (the working v55 folder had been overwritten mid-session during the tumbler work and was no longer trustworthy as a revert source, as v57's own README entry already noted) -- confirmed identical via `.iband`/`.iband-track`/`.itag`/`.iband-tumbler` grep counts matching v55 exactly (zero `.iband-tumbler`, one `itag` match, a false-positive substring inside the word "heritage," not a real occurrence) before packaging.
