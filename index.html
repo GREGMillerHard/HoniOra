@@ -552,6 +552,12 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
 .hero-precede{margin-bottom:16px;font-size:min(4.3vw,54px);font-weight:700;color:var(--ink-soft);
   line-height:1.15;text-align:center;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif}
+/* mobile-only "UPGRADE YOUR WELLBEING" duplicate, placed in the markup between the
+   hero video and the tube shot -- hidden by default (desktop keeps the headline in
+   its usual spot in the copy column, next to "HoniOra's Solution:"); switched on
+   only inside the <=1000px block below, where the matching #precedeLeadInline copy
+   is switched off so the text isn't shown twice. */
+.hero-precede-mobile{display:none;margin-bottom:0;width:calc(100vw - 80px);max-width:calc(100vw - 80px)}
 /* invisible 1-cell table wrapping the whole hero-precede copy block: all four lines
    (HUGE pills…, UPGRADE/YOUR/RITUAL, HoniOra's Solution:, 2 fizzy tablets…) sit in one
    table cell rather than each being separately centered by its own text-align. A table
@@ -1510,6 +1516,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      coupling margin) and a bit more below to separate it from the headline
      that follows. */
   .hero-img-col .hero-tube-shot{width:min(339px, calc((100vw - 40px) * 1.4917 * 0.85));height:auto;margin:4px 0 8px}
+  /* "upgrade your wellbeing" moved up: shown once here, between the video and the
+     tube shot, instead of down in the copy column with the rest of the hero text.
+     #precedeLeadInline (the same headline, still sitting inline before "HoniOra's
+     Solution:" in the copy column markup) is switched off in the same breakpoint
+     so it isn't rendered twice. */
+  .hero-precede-mobile{display:block;margin:2px 0 6px}
+  #precedeLeadInline{display:none}
   .hero-grid{order:2;transform:none;padding-top:0}
   .hero-lower .hero-grid{padding-left:var(--pad);padding-right:var(--pad)}
   .hero-pillars{order:3;flex:0 0 auto;max-width:none;grid-template-columns:1fr;gap:18px;margin:18px 0 0}
@@ -2047,12 +2060,19 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="hero-lower">
     <div class="hero-img-col">
       <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
-      <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
+      <!-- mobile-only duplicate of the "UPGRADE YOUR WELLBEING" headline, shown here
+           (between the video and the tube shot) at <=1000px only; the original inline
+           copy below (#precedeLeadInline) is hidden at that same breakpoint so the
+           text isn't shown twice. Desktop is untouched -- this stays display:none
+           above 1000px and the original headline renders in its usual spot in the
+           copy column. */ -->
+      <div class="hero-precede hero-precede-mobile"><span class="precede-lead" id="precedeLeadMobile">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span></div>
+      <img class="hero-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1600" height="437" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead" id="precedeLead">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span> <br> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span> <br></span> <span class="precede-solution">HoniOra's Solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
@@ -3093,7 +3113,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p class="eyebrow dim">13 / Format</p>
       <h2 class="serif oneline">One tube = One <em>week.</em></h2>
       <p class="lede">A Sanner BioBase<sup class="rn">&reg;</sup> tube, molded from bio-based polyethylene derived from sugarcane ethanol at over 90% renewable content, fitted with a silica gel desiccant closure rated for a 40% higher water vapor barrier and 30 to 40% longer shelf life than Sanner's standard polypropylene tube.<br><a class="cite" href="https://www.sanner-group.com/moisture-management/sanner-biobase" target="_blank" rel="noopener noreferrer">Packaging <span>sanner-group.com &nearr;</span></a></p>
-      <img class="pack-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1201" height="312" loading="lazy">
+      <img class="pack-tube-shot" src="hero-pack-tube.png" alt="HONIORA gold tube" width="1600" height="437" loading="lazy">
     </div>
     <div class="rv">
       <div class="packcard">
@@ -3552,6 +3572,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   };
   var fitHeroLines = function(){
     fitOneLine('precedeLead', 14);
+    /* mobile-only duplicate of the line above (see .hero-precede-mobile in the
+       markup/CSS): same shrink-only, measure-real-width safety net, since this
+       copy sits in a differently-shifted column (.hero-img-col) with its own
+       margin/padding quirks that a static clamp() alone can't be trusted to
+       always clear. No-ops harmlessly above 1000px, where this element is
+       display:none and both scrollWidth and clientWidth read 0. */
+    fitOneLine('precedeLeadMobile', 14);
     /* this one's a much longer phrase sharing the same narrow column, so it needs
        room to shrink further than precedeLead ever should before it'd stop fitting
        on its one line -- 8px is still legible fine print, and only the tightest
