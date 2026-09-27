@@ -19,6 +19,36 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v74, updated 2026-09-27. Request: rewrite the "03 / Mānuka Honey" section's two opening lede paragraphs to new user-supplied wording, merging them into one paragraph and dropping the "Reduced Glycemic Burden" lead-in.
+
+What changed:
+
+- **Mānuka Honey lede rewritten and merged:** the section's two `<p class="lede">` paragraphs are now one. Wording changes: "MGO 850+ / UMF 20+" tightened to "MGO 850+/UMF 20+" (no spaces around the slash); "Mānuka Honey CRYSTALS" lowercased to "Mānuka Honey crystals"; "built on a Fiberest® HF matrix in every dose:" shortened to "built on a Fiberest® HF matrix:"; "1,500 mg high potency crystal biobase" shortened to just "biobase"; the bolded "Reduced Glycemic Burden." lead-in removed, with the second paragraph's "biobase crystal process" reworded to "crystallisation process" and "methylglyoxal content" swapped for "MGO content"; and the paragraph now ends "...into a stable, dry crystalline format with a reduced glycemic burden," folding that dropped heading in as a trailing clause instead of a separate topic sentence. This is a single shared block with no separate desktop/mobile copy, so the change applies uniformly across both breakpoints.
+- **Verified:** live Playwright check confirmed the merged paragraph renders as the exact new wording, word for word (including the non-breaking space and the ® glyph), at both a 1440px desktop viewport and a 390px mobile viewport, and confirmed only one `.lede` paragraph now exists in the section's header block (the old second paragraph is gone, not just emptied). Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v74.zip`.
+
+Prior changes (v73):
+
+This package is HoniOra V3 Lite Desktop v73, updated 2026-09-27. Request: straighten the horizon in the Mānuka-coast beekeeper photo, for both the desktop and lite (mobile) versions of that image.
+
+What changed:
+
+- **Horizon straightened:** `MANUKA_PAN.jpg` (desktop, the "FROM AOTEAROA: THE LAND OF THE LONG WHITE CLOUD" section banner) and `MANUKA_PAN_lite.jpg` (its narrower mobile crop) both had a visibly tilted sea horizon, sloping down toward the left by roughly 0.85-1 degree. Both files were replaced in place, same filenames and same pixel dimensions (1600x1067 and 1091x1067), so no HTML or CSS change was needed. Each image was rotated to level the horizon (about 1.5 degrees), then centre-cropped to the largest same-aspect-ratio rectangle that avoids the blank corners a rotation leaves behind, then scaled back up to its original dimensions -- the standard rotate-crop-rescale technique for straightening a horizon without shrinking the image or leaving empty edges. The crop trims roughly 2-4% off each edge; at normal viewing sizes it isn't noticeable, and the beekeepers, hives, and headland are untouched.
+- **Verified:** measured the sea-to-sky boundary's pixel slope directly (sampling ocean colour across the full width of each image, well away from the birds/bees scattered through the sky and the tree on the right) both before and after. Before: about -0.98 degrees (desktop) and -0.64 degrees (lite). After: 0.04 degrees (desktop) and -0.10 degrees (lite) -- level within the measurement's own noise floor. Confirmed live in the page with Playwright at 390px (mobile) and 1440px (desktop): the correct file loads at each breakpoint and the horizon reads level in place, not just in the standalone image. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v73.zip`.
+
+Prior changes (v72):
+
+This package is HoniOra V3 Lite Desktop v72, updated 2026-09-27. Request: change the hero's "HoniOra's Solution:" line to "HoniOra's morning solution:", keeping "2 effervescent tablets & 1 glass of water & 60 sec." on the line under it unchanged.
+
+What changed:
+
+- **Hero solution line:** `.precede-solution` changed from "HoniOra's Solution:" to "HoniOra's morning solution:". This is a single shared span with no separate desktop/mobile copy, so the change applies at every breakpoint. The line under it, "2 effervescent tablets & 1 glass of water & 60 sec.", was supplied unchanged in the request and was left untouched.
+- **Verified:** live Playwright check confirmed the new text renders correctly, word for word, at both a 1440px desktop viewport and a 390px mobile viewport, and confirmed the line stays within its translucent copy box's right edge at 1001/1200/1440/1920px (no overflow -- the box's existing shrink-to-fit/box-padding safety nets absorbed the few extra characters with room to spare). Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v72.zip`.
+
+Prior changes (v71):
+
 This package is HoniOra V3 Lite Desktop v71, updated 2026-09-27. Request: move the ingredient list halfway back toward where it sat before v70's centering fix.
 
 What changed:
