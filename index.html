@@ -135,7 +135,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .brand span{color:var(--gold);font-style:italic}
 .brand-mobile{display:none}
 .brand-logo{display:block;width:auto}
-.brand-mobile .brand-logo{height:58px}
+.brand-mobile .brand-logo{height:72px}
 /* every non-logo item: two lines (or one) of plain uppercase text, no button
    chrome of its own -- the honeycomb texture behind it IS the decoration */
 .hexnav-item{position:relative;display:block;flex:none;text-align:center;background:none;border:0;
@@ -730,6 +730,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    paragraph -- the global reset zeroes all margins, so two adjacent .lede
    paragraphs would otherwise sit flush against each other with no gap. */
 #pomma .sec-head .lede+.lede{margin-top:16px}
+#honey .sec-head .lede+.lede{margin-top:16px}
 /* .nowrap-line: each sentence stays on one line only where the viewport is wide enough
    to fit it without pushing the page into horizontal scroll (measured: 1180px is the
    narrowest width both sentences fit at with zero overflow, at this section's current
@@ -1608,7 +1609,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      Likewise .hero-img-col is a real 62.7%-width column again, not a
      full-width row, so it no longer needs one either. */
   .hexbtn-m img,.hexbtn-m svg{height:71px}
-  .brand-mobile .brand-logo{height:46px}
+  .brand-mobile .brand-logo{height:56px}
 }
 /* lite/mobile only: drop the "HUGE pills and/or chalky, messy powders / Every morning?"
    line and its trailing break entirely. Same shared paragraph, this just hides that one
@@ -1761,7 +1762,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   #problem{scroll-margin-top:14px} /* 78px target gap minus this breakpoint's flat 64px .sec padding-top */
   #pomma{scroll-margin-top:14px} /* same tight landing as #problem at this breakpoint */
   .brand{font-size:17px;letter-spacing:.28em}
-  .brand-mobile .brand-logo{height:38px}
+  .brand-mobile .brand-logo{height:46px}
   .hero{min-height:0;padding:54px 0 0;gap:0}   /* 53px phone navbar + 1px header border */
   .hero .eyebrow{font-size:clamp(10px,2.9vw,13px);letter-spacing:.16em;white-space:normal}
   .hero h1{font-size:clamp(55px,16.7vw,85px)}
@@ -2386,6 +2387,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p class="eyebrow dim">03 / M&#257;nuka Honey</p>
       <h2 class="serif">M&#257;nuka Honey:<br><em>A biological powerhouse</em><br></h2>
       <p class="lede">HONI<i>ORA</i> delivers 1,000&nbsp;mg of MGO 850+/UMF 20+ MONOFLORAL NZ M&#257;nuka Honey crystals built on a Fiberest<sup class="rn">&reg;</sup> HF matrix: A high fibre gluten free biobase with efficient bioactives and significantly reduced honey sugars. The crystallisation process removes 95% of the water naturally found in honey, concentrating the honey's high MGO content and complex polyphenols into a stable, dry crystalline format with a reduced glycemic burden.</p>
+      <p class="lede">Fiberest<sup class="rn">&reg;</sup> HF does more than build the crystal matrix. It's obtained by fractionating the indigestible components left after an enzymatic reaction with roasted corn starch, and it helps suppress the post-meal rise in blood sugar, improving blood triglycerides, and supporting regular bowel movements. This resistant dextrin also ferments in the gut, releasing short-chain fatty acids that trigger the same GLP-1 pathway behind the formula's satiety support, and it feeds Bifidobacterium adolescentis alongside Livaux<sup class="rn">&reg;</sup> and Feiolix<sup class="rn">&reg;</sup> to back the gut lining benefits already built into HONI<i>ORA</i>.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27028002/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27028002 &nearr;</span></a><a class="cite" href="https://doi.org/10.1093/femsec/fiad002" target="_blank" rel="noopener noreferrer">Gut ecology <span>Cheon et al. 2023 &nearr;</span></a></p>
     </div>
     <div class="mphoto rv">
       <img width="2400" height="1160" src="manuka-bees.jpg" alt="Bees on honeycomb" loading="lazy">
