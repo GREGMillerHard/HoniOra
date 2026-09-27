@@ -653,6 +653,12 @@ footer .brand{font-size:15px;letter-spacing:.42em}
      base rule above), so this is scoped to the same >=1001px block as the
      other hero-actives desktop-only rules. */
   .keyact.flat.hero-actives li{font-size:clamp(14px,1.15vw,17px);text-transform:uppercase}
+  /* (user request) single hero-meta stat back on one line, number and label
+     side by side instead of the number stacking above its label. .hero-meta
+     b's shared display:block (below) stays as-is -- mobile deliberately keeps
+     the stacked, centered two-line stat per the earlier v62 request -- so this
+     lays the number+label out as a flex row on desktop only. */
+  .hero-meta div{display:flex;align-items:baseline;gap:10px}
 }
 /* the hero's own ingredient list is the only .keyact on the page and doesn't want
    the component's default 2px solid left border -- the gold keylines fan already
@@ -2561,7 +2567,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">06 / Dissolve, Then Drink</p>
       <h2 class="serif">Dissolve &gt; <em>Drink.</em></h2>
-      <p class="lede">HONI<i>ORA</i> is built for efficient nutrient delivery. A precisely buffered effervescent system: balanced sodium and potassium bicarbonate, citric and malic acids. Sixty seconds of theatre: golden bubbles and dancing tablets. Fully dissolved, delicious and ready to drink.</p>
+      <p class="lede">HONI<i>ORA</i> is built for efficient nutrient delivery. A precisely buffered effervescent system: balanced sodium and potassium bicarbonate, citric and malic acids. Sixty seconds of theatre: golden bubbles and dancing tablets. Every dose also carries three prebiotic fibres, Livaux<sup class="rn">&reg;</sup>, Fiberest<sup class="rn">&reg;</sup> HF and Feiolix<sup class="rn">&reg;</sup>, feeding Bifidobacterium adolescentis, the live probiotic dosed alongside them. Fully dissolved, delicious and ready to drink.</p>
     </div>
     <div class="pillars rv">
       <div class="pillar">
@@ -2582,7 +2588,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
       <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
-      <p class="lede">The 2 HONI<i>ORA</i> tablets completely dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>that is kind on and supports your gut <br>allowing absorption of all the actives to quickly reach your bloodstream.</p>
+      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>kind on and supporting your gut <br>with efficient absorption of all the actives to quickly reach your bloodstream.</p>
     </div>
     <div class="pillars pillars4 rv">
       <div class="pillar">
@@ -2612,8 +2618,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
       <div class="pillar">
         <span class="n">ix</span>
-        <h3>Zero grittiness or stomach upset</h3>
-        <p>Engineered to dissolve 100% clear in under 90 seconds without artificial aftertastes, chalky residue, or gut bloating, making it effortless to drink every morning.</p>
+        <h3>Complete dissolution, clean finish</h3>
+        <p>Creatine, active nutrients and precisely buffered effervescent salts dissolve fully in under 90 seconds into a golden plume of natural fibre, leaving a smooth, delicious drink with no grit and no residue, effortless every morning.</p>
       </div>
       <div class="pillar">
         <span class="n">x</span>
@@ -3265,7 +3271,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
          rather than appending it at the bottom. -->
 
     <article class="blogpost rv">
-      <p class="blogpost-meta">Article 07 &middot; Ingredients</p>
+      <p class="blogpost-meta">Article 08 &middot; Ingredients</p>
       <h3 class="serif blogpost-title">Dr Vicki Petersen: The Powerful Benefits of M&#257;nuka Honey</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="d7Bky7AMQQw" style="aspect-ratio:1266/2256">
@@ -3277,12 +3283,24 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </article>
 
     <article class="blogpost rv" style="margin-top:56px">
-      <p class="blogpost-meta">Article 06 &middot; Ingredients</p>
+      <p class="blogpost-meta">Article 07 &middot; Ingredients</p>
       <h3 class="serif blogpost-title">Rachael Jennings @ Jenerise UK: Creatine &mdash; The Lifelong Supplement for Women's Health & Longevity</h3>
 
       <figure class="blogpost-fig video-fig" data-yt="gMFTkdwvEbs" style="aspect-ratio:1238/2200">
         <img width="1238" height="2200" src="blog-jenerise-womens-health.jpg" alt="YouTube Shorts still of Rachael Jennings mid-sentence with the on-screen caption 'Creatine', from the video Creatine, The Lifelong Supplement for Women's Health and Longevity" loading="lazy">
         <a class="blogplay" href="https://youtube.com/shorts/gMFTkdwvEbs?si=sobXs7ZIj7GSLFQE" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: Rachael Jennings at Jenerise UK, Creatine, The Lifelong Supplement for Women's Health and Longevity">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+        </a>
+      </figure>
+    </article>
+
+    <article class="blogpost rv" style="margin-top:56px">
+      <p class="blogpost-meta">Article 06 &middot; Ingredients</p>
+      <h3 class="serif blogpost-title">Louisa Nicola, The Diary of a CEO: Biggest Creatine Lie Exposed?!</h3>
+
+      <figure class="blogpost-fig video-fig" data-yt="KXlkaC2tHZg" style="aspect-ratio:1260/2154">
+        <img width="1260" height="2154" src="blog-creatine-lie-exposed.jpg" alt="YouTube Shorts split-screen still from The Diary of a CEO: a host stirring creatine powder into a jar of water above the on-screen headline 'The biggest lies about creatine!', with clinical neurophysiologist Louisa Nicola below, labelled 'Cognitive decline expert'" loading="lazy">
+        <a class="blogplay" href="https://youtube.com/shorts/KXlkaC2tHZg?si=f96b6U6_ixXuSqrJ" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: Louisa Nicola on The Diary of a CEO, Biggest Creatine Lie Exposed?!">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
         </a>
       </figure>
@@ -5053,7 +5071,40 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      above .hero-copy-shift's base rule), so the tube and list are back in the
      same plain, un-pushed flow the main vNNN site's hero has always used; no
      JS positioning is needed for either any more. */
+  /* (user request, v70) centre the ingredient list horizontally under the "Born in
+     New Zealand > Made in USA" line above it, rather than sitting wherever the
+     fixed --tubeshift margin (added earlier to fan the gold keylines out
+     wider) happens to land it. Measured live off both elements' real rendered
+     position on every rebuild -- the same live-measurement approach the
+     removed positionTube() used for vertical centering -- rather than a fixed
+     clamp() guess that would only hold at a few sampled widths. Desktop only,
+     matching every other hero-actives horizontal-positioning rule; mobile/lite
+     keeps its own plain, unshifted flow position untouched.
+     A translateX shift is used rather than adjusting margin-left directly:
+     .hero-actives is a block-level grid container with no explicit width, so
+     its rendered width is itself derived from the available space left over
+     after its margin (width:auto shrinks or grows to fill whatever margin
+     doesn't take up) -- changing margin-left alone was found, while building
+     this, to also silently change the list's own width and defeat the very
+     centering math being applied. transform doesn't participate in that box
+     calculation at all, so the list's width stays exactly as the surrounding
+     CSS already sets it and only its drawn position moves.
+     (user request, v71) the full centered position was moved too far off its
+     original --tubeshift-margined spot, so this now only takes the list HALFWAY
+     from that original position to the fully-centered one -- multiplying the
+     same live-measured delta by 0.5 rather than applying it in full. */
+  function centerActivesUnderBorn(){
+    if (mqLite.matches) return;
+    var born = document.getElementById('bornMadeLine');
+    if (!born) return;
+    actives.style.transform = ''; // reset to the natural (CSS-margined) position first
+    var bornRect = born.getBoundingClientRect();
+    var activesRect = actives.getBoundingClientRect();
+    var delta = (bornRect.left + bornRect.width / 2) - (activesRect.left + activesRect.width / 2);
+    actives.style.transform = 'translateX(' + (delta * 0.5) + 'px)';
+  }
   function build(){
+    centerActivesUnderBorn();
     var containerRect = container.getBoundingClientRect();
     var w = container.offsetWidth, h = container.offsetHeight;
     if (!w || !h) return false; // container not laid out yet -- caller retries later

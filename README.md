@@ -19,6 +19,83 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v71, updated 2026-09-27. Request: move the ingredient list halfway back toward where it sat before v70's centering fix.
+
+What changed:
+
+- **Ingredient list moved halfway back:** v70's `centerActivesUnderBorn()` shifted the desktop hero's ingredient list by the full live-measured distance needed to centre it under "BORN IN NEW ZEALAND > MADE IN USA." That put it further from its original, `--tubeshift`-margined position than wanted. The shift is now multiplied by `0.5`, so the list lands exactly halfway between its original position and the fully-centred one, at every width. No other part of the function changed -- it's still measured live off both elements' real rendered position on every rebuild, still a `transform:translateX()` (not `margin-left`, for the same box-model reason documented in v70 below), and still desktop-only via the existing `mqLite` check.
+- **Verified:** live Playwright check confirmed the list's new offset from the born/made line's centre is exactly half of its original (pre-v70) offset at seven widths from 1001px to 1920px (for example, 205px -> 102.5px at 1440px, 315px -> 157.5px at 1920px), and confirmed the mobile list still keeps `transform:none`. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v71.zip`.
+
+Prior changes (v70):
+
+This package is HoniOra V3 Lite Desktop v70, updated 2026-09-27. Request: on the desktop hero's ingredient list (the flat list fanning out from the tube shot via the gold keylines), move the list left so it centres under "BORN IN NEW ZEALAND > MADE IN USA," and put the "16 / Full dose Natural wellness actives, Zero blends" stat on one line instead of the number stacking above its label.
+
+What changed:
+
+- **Ingredient list centred under the born/made line:** the list's horizontal position was governed entirely by a fixed `--tubeshift` CSS margin (added in an earlier version to fan the gold keylines out wider), which put it well to the right of the born/made line above it rather than centred under it. Added a small JS function, `centerActivesUnderBorn()`, to the existing hero-keylines script, run at the top of its `build()` cycle (so it re-centres on every resize/font-load/orientation-change rebuild that script already listens for, not just once on load). It measures the born/made line's and the ingredient list's real, live horizontal centre and shifts the list to match.
+- **Caught and fixed a box-model trap while building this:** the first version of the fix adjusted the list's `margin-left` directly, since that's what the CSS already uses for the existing rightward shift. That silently broke the centering math, because `.hero-actives` is a block-level grid container with no explicit width -- its own rendered width is itself derived from the margin (`width:auto` expands or shrinks to fill whatever the margin doesn't take up), so reducing the margin also grew the list's width by the same amount, leaving it only half-centred. Switched to a `transform:translateX()` shift instead, applied on top of the list's normal CSS position -- transforms don't participate in that width calculation, so the list's width now stays exactly as the surrounding CSS sets it and only its drawn position moves. Confirmed via direct measurement that the list's centre now matches the born/made line's centre to the sub-pixel at every width tested (1001-1920px), with the list's own width unchanged from before the fix at every one of those widths.
+- **Desktop only:** scoped to the same `>=1001px` range as every other hero-actives positioning rule, using the script's existing `mqLite` check. Mobile/lite (<=1000px) keeps its own plain, unshifted list position, untouched.
+- **Hero stat, one line:** `.hero-meta b` ("16") has always been `display:block`, stacking it above its `<span>` label at every breakpoint -- deliberately kept for mobile, which centres the stat as two lines (per an earlier v62 request), but with no equivalent desktop reason to keep it stacked. Added a desktop-only rule (`>=1001px`) making `.hero-meta div` a flex row (`align-items:baseline`, a 10px gap) so the number and label sit side by side on shared line instead. At most desktop widths this fits as one full line; in the narrower 1001-1300px range the label text itself can still wrap onto a second line for lack of horizontal room, but the number no longer sits stacked alone above it either way. Mobile's own stacked, centred treatment is untouched.
+- **Verified:** live Playwright check confirmed the ingredient list's centre matches the born/made line's centre to the sub-pixel at seven widths from 1001px to 1920px, and confirmed the mobile list keeps `transform:none` and the mobile stat keeps its stacked `display:block` layout untouched. Screenshots at 1920px confirm both changes visually. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v70.zip`.
+
+Prior changes (v69):
+
+This package is HoniOra V3 Lite Desktop v69, updated 2026-09-27. Request: soften the "Fast-dissolving, Easy to absorb" lede paragraph (the one reading "The 2 HONIORA tablets completely dissolve in 300ml water, creating a delicious, potent, and invigorating hypotonic solution, that is kind on and supports your gut allowing absorption of all the actives to quickly reach your bloodstream.") to a lighter phrasing supplied with the request.
+
+What changed:
+
+- Exact replacement wording was supplied with the request, so it was applied verbatim rather than drafted. This is the shared lede paragraph sitting under the "Fast-dissolving, Easy to absorb" heading, just above the four dissolution/absorption pillars -- it appears once in the file and renders identically at both breakpoints, so a single edit covers desktop and mobile.
+- "completely dissolve" changed to "actively dissolve."
+- "that is kind on and supports your gut" changed to "kind on and supporting your gut."
+- "allowing absorption of all the actives to quickly reach your bloodstream" changed to "with efficient absorption of all the actives to quickly reach your bloodstream."
+- The dissolution/absorption claims themselves were not altered, only the phrasing softened per the supplied wording.
+- **Verified:** live Playwright check confirmed the new paragraph renders correctly, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v69.zip`.
+
+Prior changes (v68):
+
+This package is HoniOra V3 Lite Desktop v68, updated 2026-09-26. Request: soften the "06 / Dissolve, Then Drink" section's ninth pillar ("Zero grittiness or stomach upset" / "Engineered to dissolve 100% clear in under 90 seconds without artificial aftertastes, chalky residue, or gut bloating, making it effortless to drink every morning."), reframing it as a positive statement of the creatine, actives and effervescent salts fully dissolving in a golden plume of natural fibre, with delicious flavour.
+
+What changed:
+
+- No exact wording was supplied, so the pillar was rewritten to match the direction given, using the site's own established sensory brand voice from the same section (the lede's "golden bubbles and dancing tablets," "Sixty seconds of theatre," and the v66-added fibre sentence) rather than the pillar's prior clinical, negatively-framed claims (grit, stomach upset, chalky residue, gut bloating). The pillar's number (`ix`), position, and the surrounding pillars were untouched.
+- Heading changed from "Zero grittiness or stomach upset" to "Complete dissolution, clean finish."
+- Body copy changed from "Engineered to dissolve 100% clear in under 90 seconds without artificial aftertastes, chalky residue, or gut bloating, making it effortless to drink every morning." to "Creatine, active nutrients and precisely buffered effervescent salts dissolve fully in under 90 seconds into a golden plume of natural fibre, leaving a smooth, delicious drink with no grit and no residue, effortless every morning." The 90-second dissolution time and the "no grit/no residue" claim were kept since they're already established, defensible facts stated elsewhere on the page (the section's own lede: "Sixty seconds of theatre;" this pillar's own prior copy already claimed under-90-second dissolution) -- only the framing and the harsher clinical language ("stomach upset," "gut bloating") were softened or dropped.
+- **Verified:** live Playwright check confirmed the new heading and body copy render correctly, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v68.zip`.
+
+Prior changes (v67):
+
+This package is HoniOra V3 Lite Desktop v67, updated 2026-09-26. Request: "add this as honiblog 6 and move all the others above it up one number," with a YouTube Shorts link (`youtube.com/shorts/KXlkaC2tHZg`), a screenshot of the video, the channel handle `@TheDiaryOfACEO`, and the caption "BIGGEST CREATINE LIE EXPOSED?!"
+
+What changed:
+
+- Added a new HoniBlog entry as **Article 06 · Ingredients**, titled "Louisa Nicola, The Diary of a CEO: Biggest Creatine Lie Exposed?!", linking to `https://youtube.com/shorts/KXlkaC2tHZg?si=f96b6U6_ixXuSqrJ`. The guest's name (Louisa Nicola, a clinical neurophysiologist billed on-screen as "Cognitive Decline Expert") wasn't supplied in the request, so it was looked up rather than guessed: her full episode with The Diary of a CEO ("Cognitive Decline Expert: The Disease That Starts in Your 30s but Kills You in Your 70s") is publicly documented and discusses creatine at length, and her LinkedIn lists her credentials as "MMed, PhD(c), Clinical Neurophysiologist" -- since her doctorate shows as still in progress there, "Dr" was deliberately left off her name here, matching how several other HoniBlog entries (Rachael Jennings, Bryan Johnson) also credit people by name only, without a title, when that's the accurate form.
+- The new article's still image (`blog-creatine-lie-exposed.jpg`) is a cropped version of the screenshot supplied with the request: the YouTube player's control bar (play/volume/CC/menu/expand icons) was trimmed off the top so it reads as a clean video still, matching every other HoniBlog entry's image treatment. Alt text describes the on-screen scene and caption rather than asserting the identity of the unnamed host shown stirring the powder, since that wasn't confirmed.
+- Per the request, the article was inserted at the "Article 06" position in the stack (between the existing Article 05 and Article 06), and the two articles that were previously numbered 06 and 07 were renumbered up by one, to 07 and 08, with no other content in either changed:
+  - "Rachael Jennings @ Jenerise UK: Creatine..." -- Article 06 -> Article 07.
+  - "Dr Vicki Petersen: The Powerful Benefits of Mānuka Honey" -- Article 07 -> Article 08.
+  - Articles 01 through 05 are untouched, both in number and content.
+- The HoniBlog stack has no other place on the site that counts or lists its articles (footer links and nav point at the section itself, `#honiblogtop`, not at individual articles), so no other file location needed updating.
+- **Verified:** live Playwright check read every `.blogpost-meta`/`.blogpost-title` pair in document order at both 1440px and 390px and confirmed the full new stack top-to-bottom: 08 (Vicki Petersen), 07 (Rachael Jennings), 06 (Louisa Nicola, new), 05 (SLIMLAND), 04 (Dr Berg), 03 (Dr Stacy Sims), 02 (Bryan Johnson), 01 (Six habits) -- 8 articles total, in the right order, with the new article's image and its `youtube.com/shorts/KXlkaC2tHZg` link confirmed wired correctly. A screenshot at 1440px confirms the new card renders in the same visual style as every other HoniBlog entry. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px).
+  - Delivered as `HoniOra_V3_LiteDesktop_v67.zip`.
+
+Prior changes (v66):
+
+This package is HoniOra V3 Lite Desktop v66, updated 2026-09-26. Request: rewrite the "06 / Dissolve, Then Drink" section's opening lede paragraph to include the contribution of the formula's fibres (Livaux, Fiberest HF, Feiolix and similar) and of Bifidobacterium adolescentis -- no exact wording supplied, so the new sentence was drafted to match the site's own already-established facts about these ingredients rather than introducing new claims.
+
+What changed:
+
+- The `06 / Dissolve, Then Drink` section's lede paragraph gained one new sentence, inserted between the existing "Sixty seconds of theatre..." line and the closing "Fully dissolved, delicious and ready to drink." line: "Every dose also carries three prebiotic fibres, Livaux®, Fiberest® HF and Feiolix®, feeding Bifidobacterium adolescentis, the live probiotic dosed alongside them." Nothing else in the paragraph, or in the section's headline/eyebrow, changed.
+- The new sentence's claims are drawn from copy already elsewhere on this same page, not invented for this request: the Pomma+ section explicitly states HONIORA "carries Bifidobacterium adolescentis (10 billion CFU) and Fiberest® HF fibre alongside Livaux®... That probiotic ferments both prebiotic fibres into short-chain fatty acids," and the Ask Honi chatbot's own probiotic answer says Bifidobacterium adolescentis "works alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF, which this species ferments." Feiolix carries its own separate fibre fermented into propionate (documented in the GLP-1 section), so grouping it with Livaux and Fiberest HF as a third fermentable fibre is consistent with that existing copy.
+- This paragraph is a single, non-breakpoint-scoped block (no separate desktop/mobile copy), so the change applies uniformly at every screen width.
+- **Verified:** live Playwright check confirmed the new sentence renders correctly, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both from unrelated, pre-existing quirks.
+  - Delivered as `HoniOra_V3_LiteDesktop_v66.zip`.
+
+Prior changes (v65):
+
 This package is HoniOra V3 Lite Desktop v65, updated 2026-09-26. Request: rewrite the Mānuka Honey section's two lede paragraphs -- adding "MONOFLORAL NZ" and "CRYSTALS" to the honey description, dropping "Crystal" from the Fiberest matrix name, replacing "It is a" with "A high fibre gluten free," and changing the water-removal figure from "strips out most of" to "removes 95% of" (also dropping the word "all" before "the honey's high methylglyoxal content").
 
 What changed:
