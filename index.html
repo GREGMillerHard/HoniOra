@@ -266,7 +266,29 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    upward past the header's own top edge, where it was getting cropped. */
 .nav-hex-mobile-left{transform-origin:right top}
 .nav-hex-mobile-right{transform-origin:left top}
-.hexbtn-m:hover,.hexbtn-m:focus-within{transform:translateY(14px) scale(2);z-index:70}
+/* V3 Lite Desktop v100: below 1001px the hex now sits at the true screen edge
+   instead of near the logo (see the burger/hex swap further down), so "the edge
+   nearest the logo" is now its OWN outer edge, not its inner one -- the base
+   rule above grows the hex from that inner (logo-side) edge outward, which used
+   to expand into open header space but now expands straight off the true window
+   edge, clipped. Flipped here so it grows from its own edge already flush with
+   the window, into the newly-open space toward the logo instead. Scoped to this
+   breakpoint only -- the >=1001px block below is untouched, since desktop's own
+   hex/burger arrangement (hex already near its own edge there too, but never
+   reported as clipping) wasn't part of this request. */
+@media(max-width:1000px){
+  .nav-hex-mobile-left{transform-origin:left top}
+  .nav-hex-mobile-right{transform-origin:right top}
+}
+/* (v97) per a request to move both hexes down and in further on hover -- split the
+   shared hover rule into one per side so each can also translate horizontally toward
+   the centre (the scale itself already grows inward too, from the inner-edge
+   transform-origin above, but that alone wasn't enough movement). translateY bumped
+   from 14px to 24px, and a new translateX pulls each hex 14px further toward the
+   logo -- positive (rightward) for the left hex, negative (leftward) for the right
+   one, so both read as sliding down and in rather than just growing in place. */
+.nav-hex-mobile-left:hover,.nav-hex-mobile-left:focus-within{transform:translateY(24px) translateX(14px) scale(2);z-index:70}
+.nav-hex-mobile-right:hover,.nav-hex-mobile-right:focus-within{transform:translateY(24px) translateX(-14px) scale(2);z-index:70}
 .hexbtn-m .hexdrop{z-index:65}
 .nav-hex-mobile-left .hexdrop{left:0;transform:translateY(-6px)}
 .nav-hex-mobile-right .hexdrop{left:auto;right:0;transform:translateY(-6px)}
@@ -662,6 +684,37 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   :root{--tubeshift:clamp(0px, (100vw - 1024px) * 0.65, 150px)}
   .hero-grid>div:first-child{max-width:calc(660px + var(--tubeshift))}
   .hero-actives{margin-left:var(--tubeshift)}
+  /* (user request, v94, bumped to 100px at v95) tube, gold connector fan and the
+     ingredient list itself pushed down, opening more air between the
+     headline/wordmark block above and this trio below it. Applied as extra
+     margin-top on .hero-actives (on top of its existing clamp(16px,1.9vh,22px)
+     0 0 base from .keyact), not a transform: the gap between the list's own
+     bottom and the stats row (.hero-meta) directly below it measured only
+     13-39px across desktop widths in the base layout, so a transform (which
+     doesn't push flow) would have dropped the visually-shifted list straight
+     into the stats row. Margin-top keeps every sibling after the list --
+     stats, CTA, the pillars grid below -- in its own correct relative
+     position, just lower in the flow, so nothing overlaps. The tube shot
+     needs no direct rule here: the hero-keylines script (near the end of the
+     page) re-centres it on every build() against the ingredient list's own
+     live-measured vertical midpoint, so it and the gold fan both follow the
+     list's new position automatically. Desktop only, matching every other
+     hero-actives rule in this block -- mobile/lite doesn't get the gold fan
+     at all (see mqLite in that script) and keeps its own unshifted stacked
+     layout. First set to 50px (v94), then the same day's follow-up request
+     bumped it to 100px (v95) before this package shipped -- the 50px value
+     never went out the door. */
+  .hero-actives{margin-top:calc(clamp(16px,1.9vh,22px) + 100px)}
+  /* (user request, v95) the four hero-pillars cards (Pure Origin, Cellular Energy,
+     Vascular Support, Clean Hydration) pushed down another 50px on top of their
+     own existing clamp(40px,5vh,72px) top margin, opening more air between the
+     ingredient-list row above and this grid. Desktop only, matching every other
+     hero-actives/hero-pillars rule in this block -- mobile/lite keeps its own
+     separate, unrelated margin (.hero-pillars{margin:18px 0 0} inside the
+     max-width:1000px block further down), untouched. margin-bottom is
+     deliberately left at its own clamp(40px,5vh,72px) -- only the gap above the
+     grid was asked to grow, not the gap below it before the next section. */
+  .hero-pillars{margin-top:calc(clamp(40px,5vh,72px) + 50px)}
   /* (user request) bigger, all-caps ingredient list -- main/desktop site only.
      Mobile/lite keeps its original size and sentence case (.keyact.flat li's
      base rule above), so this is scoped to the same >=1001px block as the
@@ -802,7 +855,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 @media (min-width:1260px){
   #problem .sec-head .lede.oneline-fit{max-width:none;width:max-content}
 }
-.unit-head h2{font-size:clamp(18px,2.2vw,29px);margin-top:7px}
+.unit-head h2{font-size:clamp(18px,2.2vw,29px);margin-top:7px;color:var(--gold)}
 .unit-head h2 em{font-style:italic;color:var(--gold)}
 .unit-line{margin:clamp(12px,1.5vh,20px) auto 0;max-width:none;white-space:nowrap;
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
@@ -810,8 +863,35 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .unit-tab{display:block;flex:none;max-height:clamp(200px,31vh,440px);max-width:min(1080px,94vw);
   width:auto;height:auto;object-fit:contain;mix-blend-mode:multiply}
 
+/* (v98) per a request to replace the two-tablet product shot at the top of 02 / The
+   Protocol with a scroll-triggered animation: the single tablet photo, used twice,
+   rolling in from opposite edges of the screen to meet and settle at the centre.
+   (v99) per a follow-up request, this is no longer a one-shot CSS-transition reveal --
+   it now needs to run in reverse (roll back out to off-screen) if the visitor scrolls
+   back up, which a one-shot .rv-style reveal can't do. The animation itself moved to a
+   dedicated GSAP/ScrollTrigger script further down the page (see "tablet roll-in,
+   reversible on scroll"), which plays this timeline forward on the way in and .reverse()s
+   it on the way back out, computing each tablet's own off-screen starting point live so
+   it starts flush with the true browser-window edge rather than an approximate vw guess.
+   What's left here is layout (size, spacing, the local overflow-x:clip that keeps the
+   off-screen tablets from ever registering as page overflow -- see that script's own
+   comment for why a local clip, not just the page-wide one, is needed) and the resting
+   state every non-JS/reduced-motion visitor sees by default: tablets already met, in
+   place, opacity:1 -- GSAP is what pulls them apart to off-screen on page load, not CSS,
+   so a visitor who never gets that script simply sees the correct final composition. */
+.tablet-roll{display:flex;align-items:center;justify-content:center;margin:clamp(4px,1vh,14px) 0 2px;
+  overflow-x:clip;overflow-y:visible;width:100%}
+.tablet-roll-l,.tablet-roll-r{display:block;flex:none;width:clamp(122px,16vw,230px);height:auto;
+  object-fit:contain;mix-blend-mode:multiply;opacity:1}
+.tablet-roll-r{margin-left:clamp(-30px,-3.6vw,-14px)}
+
 /* ---------- ingredient image banner (scroll-linked, centre-focus) ---------- */
-.iband{position:relative;width:100%;flex:none;overflow-x:clip;overflow-y:visible;margin-top:clamp(90px,11vw,140px)}
+/* (v97) per a request to move the ingredient scroller down 10px -- added flat on top
+   of the existing clamp(45px,5.5vw,70px) top margin (halved from its old value at
+   v93). This base rule isn't breakpoint-scoped, so -- matching v93's own note that
+   this gap applies "mobile included" -- the 10px lands at every width, not just
+   desktop. */
+.iband{position:relative;width:100%;flex:none;overflow-x:clip;overflow-y:visible;margin-top:calc(clamp(45px,5.5vw,70px) + 10px)}
 .iband::before,.iband::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,10vw,190px);z-index:3;pointer-events:none}
 .iband::before{left:0;background:linear-gradient(to right,var(--paper),rgba(255,255,255,0))}
 .iband::after{right:0;background:linear-gradient(to left,var(--paper),rgba(255,255,255,0))}
@@ -1634,7 +1714,27 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      not a collapse that would pull "MĀNUKA CREATINE PROTOCOL" and everything below it
      up to fill the space. */
   .hero-solution-desktop{display:block}
+  /* (v96) "HoniOra's morning solution:" read too big against the tube/list trio it
+     now sits above (moved here at v88), per a request to shrink it. Scoped to just
+     this visible desktop duplicate -- .hero-solution-desktop .precede-solution --
+     not the shared base .precede-solution rule (min(4.3vw,54px), further up), so
+     the hidden original in the copy column (already invisible and height-clamped,
+     see the comment above) and the mobile/lite version (its own separate rule
+     further down, inside the max-width:1000px block) are both untouched. */
+  .hero-solution-desktop .precede-solution{font-size:min(3.2vw,40px)}
   .hero-precede.rv .precede-solution,.hero-precede.rv #precedeFit{visibility:hidden}
+  /* (v93) the gap left behind by the two hidden lines above was still the full,
+     JS-and-clamp-sized height of "HoniOra's morning solution:" (up to 54px line-
+     height) plus "2 effervescent tablets..." (JS-scaled to match .hero-tag's own
+     width, so up to ~32px), reading as a much bigger dead zone between "WELLBEING"
+     and the HONIORA wordmark than intended -- reported as needing to shrink.
+     precede-solution-wrap (new span, added in the markup around just these two
+     hidden lines and their shared <br>, leaving the visible headline above
+     untouched) is clamped to a small fixed max-height with overflow hidden, so the
+     gap those two invisible lines leave behind is now a flat, small height instead
+     of tracking their own (irrelevant, since nobody sees them) font size. Their
+     own visibility:hidden rule above is kept too, belt and braces. */
+  .hero-precede.rv .precede-solution-wrap{display:inline-block;max-height:20px;overflow:hidden;vertical-align:top}
 }
 /* lite/mobile only: drop the "HUGE pills and/or chalky, messy powders / Every morning?"
    line and its trailing break entirely. Same shared paragraph, this just hides that one
@@ -1665,12 +1765,28 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .hero{padding-top:67px}   /* matches this breakpoint's 66px navbar + 1px header border */
 .nav-cluster,.brand-center,.nav-cta,.hexnav-item,.hexnav-logo{display:none}
 .brand-mobile{display:block;grid-column:2;justify-self:center}
-.burger{display:block;position:absolute;right:0;top:50%;transform:translateY(-50%)}
-.hexbtn-m.nav-hex-mobile-left{display:block;grid-column:1;justify-self:end;margin-right:clamp(2px,1.3vw,14px)}
-.hexbtn-m.nav-hex-mobile-right{display:block;grid-column:3;justify-self:start;margin-left:clamp(2px,1.3vw,14px)}
-/* second burger, mirrored on the left edge -- each burger now opens only its own half
-   of the split menu instead of one burger opening both halves together. */
-.burger-left{left:0;right:auto}
+/* V3 Lite Desktop v100: burgers moved to sit between the hex and the logo, hexes
+   moved out to the true screen edge -- the reverse of the previous arrangement
+   (hex near the logo, burger at the edge). Both are now position:absolute rather
+   than grid items (a grid-column + justify-self version of this was tried first,
+   but with the hex taken out of the grid's own flow, column 1/3's automatic width
+   had nothing telling it to reserve room for the hex, so the burger -- anchored to
+   the column's inner end -- landed close enough to the true edge to overlap it).
+   Absolute lets JS set the burger's own inset directly, from the hex's live
+   measured width, so there's always a real, exact gap between them regardless of
+   how wide the hex renders at a given breakpoint (JS block further down). Neither
+   uses transform for vertical centring (top:0;bottom:0;margin:auto 0 instead) --
+   a resting transform on the hex would be silently replaced, not combined with,
+   the hover rule's own transform further down, which needs the full transform
+   value free for its own translate/scale. */
+.burger{display:block;position:absolute;right:60px;top:0;bottom:0;margin:auto 0}
+.hexbtn-m.nav-hex-mobile-left{display:block;position:absolute;left:0;top:0;bottom:0;margin:auto 0}
+.hexbtn-m.nav-hex-mobile-right{display:block;position:absolute;right:0;top:0;bottom:0;margin:auto 0}
+/* second burger, mirrored, sitting between the left hex and the logo. The 60px
+   left/right fallback above and here is only what shows for an instant before
+   the JS below measures the actual hex width and corrects it -- close enough to
+   avoid a visible jump on any of this breakpoint's sizes. */
+.burger-left{right:auto;left:60px}
 /* burger nav popup: the compact list each burger opens (gold .95-opacity fill,
    black text, gold on hover, hairline divider between rows). This is now the
    ONLY nav menu -- the old full-height sliding two-column panel it used to be
@@ -2125,7 +2241,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span> <br></span> <span class="precede-solution">HoniOra's morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">UPGRADE<br><span class="precede-lead-gold">YOUR</span><br>WELLBEING</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">HoniOra's morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
@@ -2271,9 +2387,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <section class="sec" id="protocol">
   <div class="wrap">
-    <div class="unit-head rv">
-      <img width="1380" height="752" class="unit-tab" src="honifizz-tablets.jpg" alt="Two HONIORA effervescent tablets, 25 mm round flat-faced bevel-edged, embossed with the HONIORA name">
-      <h2 class="serif">The Depth of a <em>Natural Active Antipodean Matrix</em></h2>
+    <div class="unit-head">
+      <div class="tablet-roll">
+        <img width="1024" height="1024" class="tablet-roll-l" src="honifizz-tablet-single.jpg" alt="A HONIORA effervescent tablet, 25 mm round flat-faced bevel-edged, embossed with the HONIORA name">
+        <img width="1024" height="1024" class="tablet-roll-r" src="honifizz-tablet-single.jpg" alt="" aria-hidden="true">
+      </div>
+      <h2 class="serif rv">A <em>Natural Active Antipodean Matrix</em></h2>
     </div>
     <div class="sec-head rv">
       <p class="eyebrow dim">02 / The Protocol</p>
@@ -3959,6 +4078,68 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     });
   })();
 
+  /* ---------- burger inset from the hex's live width, and burger-drop popups
+     tracking the burger's live position (v100) ----------
+     Below 1001px the burger now sits between its hex and the logo, and the hex
+     sits flush at the true edge -- both position:absolute (see the CSS above).
+     The hex's own rendered width varies continuously with viewport width via
+     clamp(), so there's no single fixed inset that keeps the burger clear of it
+     at every size the way the >=1001px block's one calc(50% + 159px) value can
+     (that only has to hold across a range where the logo's size is fixed).
+     Instead this measures each hex's real width live and sets its burger's
+     left/right inset to hexWidth + a fixed gap, on load and on resize --
+     the same live-measurement approach already used elsewhere on this page
+     (the hero gold-keyline fan, centerActivesUnderBorn()). The burger-drop
+     popup is then positioned from the burger's own resulting rect, so it keeps
+     opening directly under it. At 1001px+ every inline style this sets is
+     cleared so the desktop block's own calc()-based CSS rules take back over
+     untouched -- this function only ever acts below that breakpoint. */
+  (function(){
+    var burgerLeft = document.getElementById('burgerLeft'), burgerRight = document.getElementById('burgerRight');
+    var dropLeft = document.getElementById('burgerDropLeft'), dropRight = document.getElementById('burgerDropRight');
+    var hexLeft = document.querySelector('.hexbtn-m.nav-hex-mobile-left');
+    var hexRight = document.querySelector('.hexbtn-m.nav-hex-mobile-right');
+    var navbar = document.querySelector('.navbar');
+    if (!burgerLeft || !burgerRight || !dropLeft || !dropRight || !hexLeft || !hexRight || !navbar) return;
+
+    var GAP = 8; /* clear space between the hex and the burger next to it */
+
+    function positionAll(){
+      if (window.innerWidth > 1000){
+        burgerLeft.style.left = '';
+        burgerLeft.style.right = '';
+        burgerRight.style.left = '';
+        burgerRight.style.right = '';
+        dropLeft.style.left = '';
+        dropLeft.style.right = '';
+        dropRight.style.left = '';
+        dropRight.style.right = '';
+        return;
+      }
+      var hexLeftW = hexLeft.getBoundingClientRect().width;
+      var hexRightW = hexRight.getBoundingClientRect().width;
+      burgerLeft.style.right = '';
+      burgerLeft.style.left = (hexLeftW + GAP) + 'px';
+      burgerRight.style.left = '';
+      burgerRight.style.right = (hexRightW + GAP) + 'px';
+
+      var navRect = navbar.getBoundingClientRect();
+      var lRect = burgerLeft.getBoundingClientRect();
+      var rRect = burgerRight.getBoundingClientRect();
+      dropLeft.style.right = '';
+      dropLeft.style.left = (lRect.left - navRect.left) + 'px';
+      dropRight.style.left = '';
+      dropRight.style.right = (navRect.right - rRect.right) + 'px';
+    }
+
+    positionAll();
+    window.addEventListener('resize', function(){
+      clearTimeout(positionAll._t);
+      positionAll._t = setTimeout(positionAll, 150);
+    });
+    window.addEventListener('load', positionAll);
+  })();
+
   /* ---------- accurate in-page anchor scrolling ----------
      every image on the page carries explicit width/height, so the browser
      reserves its space immediately from markup and layout does not shift
@@ -4474,9 +4655,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           e.target.classList.add('in');
           if (icon){
             // icon slides in after the copy has landed, not alongside it --
-            // pushed back an additional 2s per request, so the icon lands
-            // well after the text has settled rather than close behind it
-            icon.style.transitionDelay = (textDelay + 550 + 2000) + 'ms';
+            // pushed back an additional 2s per an earlier request (v90), then
+            // pulled 1s earlier per a follow-up request (v95: 2000 -> 1000),
+            // so the icon still lands after the text has settled but sooner
+            // than it did before
+            icon.style.transitionDelay = (textDelay + 550 + 1000) + 'ms';
             icon.classList.add('in');
           }
           ioEdge.unobserve(e.target);
@@ -4889,10 +5072,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     if (document.fonts && document.fonts.ready){
       document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
     }
-    var tabImg = document.querySelector('.unit-tab');
-    if (tabImg && !tabImg.complete){
-      tabImg.addEventListener('load', function(){ ScrollTrigger.refresh(); });
-    }
+    /* (v98) was a single .unit-tab image here; now the two rolling-tablet images --
+       same reasoning, their load timing can still shift page height below them. */
+    document.querySelectorAll('.tablet-roll-l,.tablet-roll-r').forEach(function(img){
+      if (!img.complete){
+        img.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+      }
+    });
     /* the manuka banner image itself is no longer lazy (see its <img> tag) for
        exactly the reason described in the ishot comment right below: refreshing
        ScrollTrigger when a lazy image finishes loading, right as the visitor
@@ -4926,6 +5112,113 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   setTimeout(function(){
     if (typeof gsap === 'undefined') fallback();
   }, 4000);
+})();
+
+/* ---------- tablet roll-in, reversible on scroll (GSAP ScrollTrigger) ----------
+   (v99) follow-up to the v98 roll-in: it needs to run backwards too -- scroll down
+   into 02 / The Protocol and the two tablets roll in from off past each screen edge
+   and meet at the centre; scroll back up past that same point and they roll back out
+   to off-screen, the exact reverse. A one-shot CSS-transition + .rv reveal (what v98
+   used) can only ever play forward once, so the animation itself moved here, onto a
+   GSAP timeline driven by ScrollTrigger's own onEnter/onLeaveBack callbacks -- the
+   documented pattern for "plays going one way past a point, reverses going back past
+   it the other way," with no pin and no scrub distance to tune.
+   "From off past each screen edge": rather than a fixed vw guess (v98's approach,
+   which put each tablet a little further out than the edge itself at most widths),
+   each tablet's starting x is measured live against the actual browser-window edge --
+   offsetLeft/offsetWidth are layout-box values transform never touches, so they give
+   the tablet's true untransformed position regardless of the current animation state,
+   and from that plus the wrapper's own on-screen position it's simple arithmetic to
+   find the exact x that lands the left tablet's right edge on the window's left edge
+   (and the mirror for the right tablet) -- flush with the edge, not an approximation
+   of it. Recomputed on load and on resize, since that edge distance changes with
+   viewport width. "Slow them down by 50%": every duration below is exactly double
+   v98's CSS-transition durations (opacity 1s -> 2s, transform 1.15s -> 2.3s) -- half
+   the speed, twice the time, applied symmetrically since a GSAP timeline's .reverse()
+   takes the same duration as its forward play by default. */
+(function(){
+  'use strict';
+  var wrap = document.querySelector('.tablet-roll');
+  var l = document.querySelector('.tablet-roll-l');
+  var r = document.querySelector('.tablet-roll-r');
+  if (!wrap || !l || !r) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* no JS, or reduced-motion: the plain CSS resting state (opacity:1, no transform,
+     i.e. already met) is exactly right as a static fallback -- nothing to do here. */
+  function fallback(){}
+
+  function edgeOffsets(){
+    /* offsetLeft/offsetWidth are pure layout-box values -- transform never touches
+       them, at rest or mid-animation -- but offsetLeft is relative to the element's
+       nearest POSITIONED ancestor, which turns out to be .sec (position:relative),
+       not .tablet-roll itself (a plain static wrapper). Reading each image's own
+       offsetParent rather than assuming it's wrap is what makes this correct
+       regardless of how the surrounding markup is nested. */
+    var lBase = l.offsetParent ? l.offsetParent.getBoundingClientRect().left : 0;
+    var rBase = r.offsetParent ? r.offsetParent.getBoundingClientRect().left : 0;
+    var lLeft = lBase + l.offsetLeft, lWidth = l.offsetWidth;
+    var rLeft = rBase + r.offsetLeft;
+    return {
+      l: -(lLeft + lWidth),                 /* left tablet's right edge -> window's left edge */
+      r: (window.innerWidth - rLeft)        /* right tablet's left edge -> window's right edge */
+    };
+  }
+
+  function debounce(fn, ms){
+    var t;
+    return function(){
+      clearTimeout(t);
+      t = setTimeout(fn, ms);
+    };
+  }
+
+  function boot(){
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || reduced){
+      fallback();
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+
+    var st, tl;
+
+    function build(){
+      if (st) st.kill();
+      if (tl) tl.kill();
+      var off = edgeOffsets();
+
+      tl = gsap.timeline({ paused: true });
+      tl.fromTo(l, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power2.out' }, 0);
+      tl.fromTo(l, { x: off.l, rotation: -540 }, { x: 0, rotation: 0, duration: 2.3, ease: 'power2.out' }, 0);
+      tl.fromTo(r, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power2.out' }, 0);
+      tl.fromTo(r, { x: off.r, rotation: 540 }, { x: 0, rotation: 0, duration: 2.3, ease: 'power2.out' }, 0);
+      /* tweens nested in a timeline default to immediateRender:false, so without this
+         the tablets would sit visible at rest (the plain CSS resting state) the whole
+         time the section scrolls up into view, then snap out to off-screen the instant
+         onEnter fires tl.play() -- forcing a render at time 0 here puts them off-screen
+         immediately, so they're already hidden well before the visitor ever reaches
+         the trigger point, and the play from there reads as a clean roll-in, not a jump. */
+      tl.progress(0);
+
+      st = ScrollTrigger.create({
+        trigger: wrap,
+        start: 'top 88%',
+        onEnter: function(){ tl.play(); },
+        onLeaveBack: function(){ tl.reverse(); }
+      });
+    }
+
+    build();
+    window.addEventListener('resize', debounce(build, 200));
+    window.addEventListener('load', function(){ if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); });
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive'){
+    setTimeout(boot, 0);
+  } else {
+    window.addEventListener('DOMContentLoaded', boot);
+  }
 })();
 
 /* ---------- 'The unit' lite-site static-list scroll highlight (v313) ----------
