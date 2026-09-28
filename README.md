@@ -19,6 +19,143 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v90, updated 2026-09-27. Request: increase the font size of all four `.hero-pillars` (Pure Origin, Cellular Energy, Vascular Support, Clean Hydration -- heading and body copy on all four), and delay the four pillar icons' slide-in animation by an additional 2 seconds.
+
+What changed:
+
+- **Font size increased, all four pillars:** `.hero-pillars h3` went from `clamp(18px,1.6vw,23px)` to `clamp(20px,1.85vw,26px)`, and `.hero-pillars p` from `clamp(16px,1.3vw,18.5px)` to `clamp(18px,1.5vw,21px)`. Both rules apply uniformly to all four pillars at every breakpoint (there was no separate mobile override for either), so headings and body copy both read larger everywhere, mobile included.
+- **Cascade collision found and fixed along the way:** before this edit, `.hero-pillars h3`/`.hero-pillars p` had no visible effect at all -- a separate, later-in-source rule for the numbered ingredient-section pillars further down the page (`.pillar h3{font-size:23px}`, `.pillar p{font-size:15px}`, from the "pillars"/"pillars4" grid used by sections like Leptosperin and MGO) shares the exact same specificity (one class plus one type selector) and was silently winning on source order, since the hero pillar wrapper divs also carry the bare `.pillar` class (`<div class="pillar" data-edge="l">`) alongside `.hero-pillars` on their ancestor. That's why the hero pillar h3/p had always rendered at a flat 23px/15px regardless of viewport, never the clamp values the CSS appeared to set -- confirmed by testing before this fix that computed font-size was identical (23px/15px) at 390px and 1440px alike. Fixed by rescoping both rules to `.hero-pillars .pillar h3`/`.hero-pillars .pillar p` (two classes plus a type), which outranks the collision by specificity rather than depending on source order. Re-tested after the fix: computed sizes now correctly track the new clamp at every width (e.g. 20px/18px at 1001px and 390px, up to 26px/21px at 1440px and above).
+- **Icon slide-in delayed by 2 seconds:** the pillar-icon `IntersectionObserver` handler already staggered each icon's entrance behind its own text ("icon slides in after the copy has landed, not alongside it"), via `icon.style.transitionDelay = (textDelay + 550) + 'ms'`. Changed the fixed offset from `550` to `550 + 2000`, pushing every icon's appearance back an additional two full seconds after its pillar's text has faded in, for all four pillars alike. The text's own fade-in timing (`textDelay`, staggered per pillar's DOM position) is untouched.
+- **Verified:** live Playwright check confirmed computed font sizes for `.hero-pillars h3`/`p` now match the new clamp values at 1001/1100/1200/1440/1920px and at 390px mobile (previously stuck at a flat 23px/15px everywhere). Confirmed via direct property read that the first pillar's icon `transitionDelay` computes to 2710ms (160ms text stagger + 550ms original offset + 2000ms new delay), exactly two seconds later than before the fix. Screenshots at 1440px and 390px confirm all four pillars render with the larger text, correct copy, intact `.kw` highlight spans, and no overlap between text and icon at either breakpoint. Full width sweep (320-1920px) -- no new overflow, exactly the same pre-existing overflow already documented at 561px (28px) and 320px (~35px).
+
+Delivered as `HoniOra_V3_LiteDesktop_v90.zip`.
+
+Prior changes (v89):
+
+This package is HoniOra V3 Lite Desktop v89, updated 2026-09-27. Request: user-supplied exact replacement wording for the hero's "Pure Origin" pillar body copy (heading unchanged), tightening the provenance framing.
+
+What changed:
+
+- **Body copy:** `.pillar-icon-origin`'s sibling `<p>` changed from "Authenticity begins with ingredient provenance. We live at the source of our bioactives, all traceable botanicals, including raw high-MGO New Zealand Mānuka honey, polyphenol-rich gold Kiwifruit, and a curated blend of beneficial botanical extracts, processed strictly to clean-label standards with zero synthetic dyes or artificial fillers." to "Authenticity begins with provenance: We live at the source of our bioactives, all pure traceable botanicals, including raw high-MGO New Zealand Mānuka honey, polyphenol-rich gold Kiwifruit, and a curated blend of proven beneficial botanical extracts, processed strictly to clean-label standards with zero synthetics or artificial fillers." Four phrase-level changes: "Authenticity begins with ingredient provenance." shortened to "Authenticity begins with provenance:" (period replaced with a colon, folding the next sentence in); "all traceable botanicals" gained "pure" ("all pure traceable botanicals"); "a curated blend of beneficial botanical extracts" gained "proven" ("a curated blend of proven beneficial botanical extracts"); and "zero synthetic dyes or artificial fillers" tightened to "zero synthetics or artificial fillers." The heading (`<h3>Pure Origin : Born in NZ</h3>`, set at v82) was not touched -- the supplied text repeated it unchanged. Both existing `<span class="kw">` highlight spans in the paragraph ("raw high-MGO New Zealand Mānuka honey" and "gold Kiwifruit") were kept in place, since neither span's inner text appeared in the requested diff.
+- **Verified:** live Playwright check confirmed the heading renders unchanged and the new body copy renders with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport, with both `.kw` highlight spans intact at both. Full width sweep (320-1920px) -- no new overflow, exactly the same pre-existing overflow already documented at 561px (28px) and 320px (~35px).
+
+Delivered as `HoniOra_V3_LiteDesktop_v89.zip`.
+
+Prior changes (v88):
+
+This package is HoniOra V3 Lite Desktop v88, updated 2026-09-27. Request: on the desktop site's screen 01 (the hero), move "HoniOra's morning solution: / 2 effervescent tablets & 1 glass of water & 60 sec." from the copy column into the space between the glass video and the horizontal gold tube shot, centred below the video, leaving a gap where it used to sit.
+
+What changed:
+
+- **Moved, desktop only (>=1001px):** added a new duplicate of the two lines inside `.hero-img-col` (the video/tube column), positioned in the markup between the glass video and the `hero-tube-shot` image -- the same spot the mobile-only "UPGRADE YOUR WELLBEING" duplicate already occupies at narrower widths, just gated the other way round. New elements: `#precedeSolutionDesktop` ("HoniOra's morning solution:") and `#precedeFitDesktop` ("2 effervescent tablets & 1 glass of water & 60 sec."), wrapped in a new `.hero-solution-desktop` block that reuses the existing `.hero-precede`/`.precede-solution`/`.precede-body.precede-fit` classes for their base font sizing and centred text, plus a new breakpoint toggle: hidden by default (`display:none`), switched to `display:block` only inside the existing `@media(min-width:1001px)` block. `.hero-img-col`'s own `align-items:center` centres the new block horizontally under the video with no extra CSS needed.
+- **Gap left behind, desktop only:** the original pair -- `.precede-solution` and `#precedeFit`, still sitting in their usual spot inside the copy column's `.hero-precede.rv` table -- go to `visibility:hidden` (not `display:none`) at that same >=1001px breakpoint, scoped specifically to `.hero-precede.rv .precede-solution` and `.hero-precede.rv #precedeFit` so the rule catches only the original pair and not the new duplicate, which shares the same base classes. `visibility:hidden` keeps the element's box in the layout, so "MĀNUKA CREATINE PROTOCOL," the stat, and the CTA buttons below it stay exactly where they were -- a blank gap where the text used to read, not a collapse.
+- **Mobile/lite (<=1000px) untouched:** the new `.hero-solution-desktop` block stays `display:none`, and the original pair keeps its normal `visibility:visible` and its usual position in the stacked mobile layout below the tube shot, unchanged from v87.
+- **No new JS needed:** checked whether the moved text could overflow `.hero-img-col` at narrow desktop widths, since the original text's own shrink-to-fit safety nets (`matchLinesToTagWidth`, `capPrecedeSolution`) are tied to the copy column's width, not this one. Measured both lines' real rendered edges against the column's real edges at 1001/1100/1200/1440/1920px: the text wraps naturally onto two lines at the narrower end of that range (1001-1200px) and settles to one line from about 1300px up, with no width ever exceeding the column at any width tested -- confirmed no overflow, so no JS scaling was added for the new location.
+- **Verified:** confirmed via Playwright at 1440px that `hero-tag`'s (`MĀNUKA CREATINE PROTOCOL`) position is unchanged to within sub-pixel rounding versus v87 (before: top 696.13px; after: top 696.06px), confirming the gap left behind is the exact right size and nothing shifted up to fill it. Confirmed the original pair's computed `visibility` is `hidden` with its box rect unchanged from v87's visible rect, and confirmed the new duplicate renders the correct text, positioned between the video's bottom edge and the tube shot's top edge, horizontally centred to the same x-coordinate as the video and the tube (463.1px at 1440px, all three matching). Confirmed at 390px mobile that the new duplicate stays `display:none` and the original pair stays visible in its normal position. Full width sweep (320-1920px) -- no new overflow, exactly the same pre-existing overflow already documented at 561px (28px) and 320px (~35px).
+
+Delivered as `HoniOra_V3_LiteDesktop_v88.zip`.
+
+Prior changes (v87):
+
+This package is HoniOra V3 Lite Desktop v87, updated 2026-09-27. Request: change the v86 HoniBlog Article 02 title from "BMI_BodyMovementInstitute: Boost Circulation & Energy in Minutes With This Fascia Flow Drill" to "Bruce Scott BMI_BodyMovementInstitute: Boost Circulation & Energy in Minutes With This Fascia Flow Drill" -- adding the presenter name the user had supplied but that v86 deliberately left out of visible copy per this project's accuracy standard, since the name traced only to a single, uncorroborated Facebook business listing (see v86's own note below). This request explicitly supplies and confirms the name for use in visible copy, so it's now the user's own stated instruction rather than an unverified claim being asserted on their behalf.
+
+What changed:
+
+- **Title:** `<h3 class="serif blogpost-title">` changed from "BMI_BodyMovementInstitute: Boost Circulation & Energy in Minutes With This Fascia Flow Drill" to "Bruce Scott BMI_BodyMovementInstitute: Boost Circulation & Energy in Minutes With This Fascia Flow Drill", exactly as supplied. The existing `<wbr>` breakpoints inside the account handle (`BMI_<wbr>Body<wbr>Movement<wbr>Institute:`, added in v86 to fix a narrow-width overflow bug) were kept in place, unchanged; "Bruce Scott" is two ordinary space-separated words, so no additional break point was needed for it.
+- **Outbound-link aria-label:** the `.blogplay` link's `aria-label` updated to match, from "Watch on YouTube: BMI_BodyMovementInstitute, Boost Circulation and Energy in Minutes With This Fascia Flow Drill" to "Watch on YouTube: Bruce Scott BMI_BodyMovementInstitute, Boost Circulation and Energy in Minutes With This Fascia Flow Drill", matching the same title-echoed-in-aria-label convention already used on the Louisa Nicola article (v67).
+- **Left unchanged:** the image's `alt` text (still describes the still frame only, no presenter name -- matching the sitewide convention that `alt` attributes never carry a name/trademark/symbol, confirmed at v61/v63); the article's number, category tag, image file, and outbound video link; every other article on the page.
+- **Verified:** live Playwright check confirmed all nine articles still render in the correct 09-08-07-06-05-04-03-02-01 order, with the new title text rendering correctly at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow from the added text, still exactly the same pre-existing overflow already documented at 561px (28px) and 320px (~35px).
+  - Delivered as `HoniOra_V3_LiteDesktop_v87.zip`.
+
+Prior changes (v86):
+
+This package is HoniOra V3 Lite Desktop v86, updated 2026-09-27. Request: add a new HoniBlog article as "Article 02" for a BMI_BodyMovementInstitute fascia-flow exercise video, renumbering the existing video articles that sat above it.
+
+What changed:
+
+- **Research:** searched for the source account before publishing. `BMI_BodyMovementInstitute` traces to a Sydney, NSW movement-coaching business, also operating as "The Body Magician" on Facebook, with a Facebook business listing naming a Bruce Scott as the operator. That name comes from a single business-directory-style listing, not a corroborated bio page, so per this project's standing accuracy rule it was not asserted in any visible copy -- the article credits the account handle only, matching the exact title the user supplied and the same convention already used for the SLIMLAND article (Article 06/now 07), which also credits a brand handle rather than an unconfirmed presenter name.
+- **New article inserted as "Article 02 · Longevity":** title "BMI_BodyMovementInstitute: Boost Circulation & Energy in Minutes With This Fascia Flow Drill", exactly as supplied. Category tag "Longevity" was a judgment call (the only fit among the site's existing tags -- Ingredients, Nutrition, Longevity -- since this is an exercise/movement video, matching how Article 01's own movement content is tagged), not something the request specified; worth confirming if a different category is wanted. Linked to `https://youtube.com/shorts/mQmTqUGpE0A?si=PnAMYnET5fGmixpK`, matching the same `<article class="blogpost rv">` / `.blogpost-fig video-fig` / `.blogplay` markup pattern every other video-backed HoniBlog article uses (established at v67).
+- **Image:** the user-supplied screenshot (1228x2120, no YouTube player chrome -- confirmed by inspecting pixel content at every edge, so no cropping was needed, unlike the v67 Article 06 addition which did need its control bar cropped off) saved as `blog-fascia-flow-circulation.jpg`.
+- **Existing video articles renumbered up by one** to make room at position 2: Bryan Johnson (Article 02 -> 03), Dr Stacy Sims (03 -> 04), Dr Berg (04 -> 05), SLIMLAND (05 -> 06), Louisa Nicola (06 -> 07), Rachael Jennings (07 -> 08), Dr Vicki Petersen (08 -> 09). Article 01 (Six habits for healthy ageing) is untouched -- it stays the oldest/bottom-most entry, below the new article.
+- **Overflow bug caught and fixed before shipping:** the new title's account-handle prefix, "BMI_BodyMovementInstitute:", has no space anywhere in it, so at narrow phone widths the browser couldn't find a wrap point and the unbroken word bled past its column, past the 320px viewport edge, without showing up in the element's own layout box (only visible via the text's painted extent, not `getBoundingClientRect()` on the heading itself -- confirmed by rendering the text node's own client rects directly). Fixed by inserting invisible `<wbr>` break points inside the handle (`BMI_<wbr>Body<wbr>Movement<wbr>Institute:`) so the browser can wrap there only if it needs to; this doesn't change the rendered text at any width, confirmed by comparing the visible title string before and after.
+- **Verified:** live Playwright check confirmed all nine articles now render in the correct 09-08-07-06-05-04-03-02-01 order with the correct titles, and confirmed the new article's image source and outbound YouTube link, at both a 1440px desktop viewport and a 390px mobile viewport. Confirmed no other part of the site references the HoniBlog article count or numbering in a way that would need updating (the same check performed at v67). Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change (confirmed only after finding and fixing the `<wbr>` issue above -- the first pass showed 42px at 320px, a genuine new regression, not sandbox noise).
+  - Delivered as `HoniOra_V3_LiteDesktop_v86.zip`.
+
+Prior changes (v85):
+
+This package is HoniOra V3 Lite Desktop v85, updated 2026-09-27. Request: rewrite the hero's "Cellular Energy" pillar's body copy to new user-supplied exact wording.
+
+What changed:
+
+- **Body copy:** "Every tablet delivers direct mitochondrial and metabolic support. A full clinical dose of micronized creatine, paired with specialized cofactors, helps replenish ATP and sustain steady cellular energy all day, without sugar crashes." changed to "HONI*ORA* delivers direct mitochondrial and metabolic support. A full clinical dose of premium micronized creatine, paired with specialized cofactors that replenish ATP and support steady cellular energy all day." Four changes: "Every tablet delivers" replaced with a direct brand-name statement ("HONI*ORA* delivers"), rendered with the site's own `HONI<i>ORA</i>` body-copy convention; "premium" added before "micronized creatine"; "paired with specialized cofactors, helps replenish" restructured to "paired with specialized cofactors that replenish"; and "sustain steady cellular energy all day, without sugar crashes" tightened to "support steady cellular energy all day" (dropping the sugar-crashes clause). The heading ("Cellular Energy") and both existing `<span class="kw">` highlight spans (around "micronized creatine" and "ATP") were untouched.
+- **Verified:** live Playwright check confirmed the new body copy renders with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v85.zip`.
+
+Prior changes (v84):
+
+This package is HoniOra V3 Lite Desktop v84, updated 2026-09-27. Request: rewrite the hero's "Vascular Support" pillar's body copy to new user-supplied exact wording.
+
+What changed:
+
+- **Body copy:** "...our formulations promote arterial elasticity, peripheral perfusion, and oxygen transport." changed to "...HONI*ORA* promotes arterial elasticity, natural nitric oxide production and oxygen transport." The heading ("Vascular Support") and all three existing `<span class="kw">` highlight spans (around "peptide ACE inhibitors", "eNOS activators", and "natural nitric oxide matrices") were untouched.
+- **Verified:** live Playwright check confirmed the new body copy renders with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v84.zip`.
+
+Prior changes (v83):
+
+This package is HoniOra V3 Lite Desktop v83, updated 2026-09-27. Request: rewrite the hero's "Clean Hydration" pillar's body copy to new user-supplied exact wording.
+
+What changed:
+
+- **Body copy:** "Sodium, potassium and magnesium arrive already dissolved and buffered, through stoichiometric effervescent mineral carbonates paired with bioavailable electrolytes, so each dose clears the stomach quickly, sits easy, and hydrates you at the cellular level, without the bloating a poorly balanced mineral mix can cause." changed to "Sodium, potassium and magnesium dissolved and buffered, through stoichiometric effervescent mineral carbonates paired with bioavailable electrolytes, each dose clears the stomach quickly, sits easy, and hydrates you at the cellular level." Three changes: "arrive already dissolved" shortened to "dissolved"; "so each dose" tightened to "each dose"; and the closing "without the bloating a poorly balanced mineral mix can cause" clause dropped entirely. The heading ("Clean Hydration") and the two existing `<span class="kw">` highlight spans (around "stoichiometric effervescent mineral carbonates" and "bioavailable electrolytes") were untouched.
+- **Verified:** live Playwright check confirmed the new body copy renders with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v83.zip`.
+
+Prior changes (v82):
+
+This package is HoniOra V3 Lite Desktop v82, updated 2026-09-27. Request: rewrite the hero's "Pure Origin" pillar heading and body copy to new user-supplied exact wording.
+
+What changed:
+
+- **Heading:** "Pure Origin" changed to "Pure Origin : Born in NZ".
+- **Body copy:** "Authenticity begins with uncompromised ingredient provenance. We source bioactive, traceable botanicals, including raw high-MGO New Zealand Mānuka honey, polyphenol-rich gold kiwifruit, and botanical extracts, manufactured strictly to clean-label standards with zero synthetic dyes or artificial fillers." changed to "Authenticity begins with ingredient provenance. We live at the source of our bioactives, all traceable botanicals, including raw high-MGO New Zealand Mānuka honey, polyphenol-rich gold Kiwifruit, and a curated blend of beneficial botanical extracts, processed strictly to clean-label standards with zero synthetic dyes or artificial fillers." Six phrase-level changes: "uncompromised ingredient provenance" shortened to "ingredient provenance"; "We source bioactive" replaced with "We live at the source of our bioactives"; "including" followed by "all" inserted before "traceable botanicals"; the existing `<span class="kw">gold kiwifruit</span>` highlight kept but capitalised to "gold Kiwifruit"; "and botanical extracts" broadened to "and a curated blend of beneficial botanical extracts"; and "manufactured strictly" changed to "processed strictly." The two existing `<span class="kw">` highlight spans (around "raw high-MGO New Zealand Mānuka honey" and "gold Kiwifruit") were both kept in place, just with the second one's capitalisation updated to match the new wording.
+- **Verified:** live Playwright check confirmed the new heading and body copy render with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v82.zip`.
+
+Prior changes (v81):
+
+This package is HoniOra V3 Lite Desktop v81, updated 2026-09-27. Request: rewrite the "02 / Mānuka Honey" MGO pillar's supporting paragraph to new user-supplied exact wording.
+
+What changed:
+
+- **Body copy:** "Methylglyoxal is the compound MGO gradings actually measure, and the one behind Mānuka honey's antibacterial reputation. At MGO 850+, HONIORA carries a materially higher concentration than the general table honey the grading system was built to distinguish it from." changed to "Methylglyoxal (MGO) is the compound MGO gradings actually measure. At MGO 850+, HONIORA carries a therapeutic grade concentration (of MGO per Kg) in our ultra premium NZ Mānuka honey crystal matrix." -- added the "(MGO)" abbreviation inline after "Methylglyoxal"; dropped the "and the one behind Mānuka honey's antibacterial reputation" clause; and replaced "carries a materially higher concentration than the general table honey the grading system was built to distinguish it from" with "carries a therapeutic grade concentration (of MGO per Kg) in our ultra premium NZ Mānuka honey crystal matrix." The existing PMID 18210383 citation link right after this paragraph was untouched.
+- **Verified:** live Playwright check confirmed the new body copy renders with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport, with the citation link still attached correctly. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v81.zip`.
+
+Prior changes (v80):
+
+This package is HoniOra V3 Lite Desktop v80, updated 2026-09-27. Request: rewrite the "01 / The Problem" section's Leptosperin pillar heading and body copy to new user-supplied exact wording.
+
+What changed:
+
+- **Heading:** "An antioxidant found nowhere else" changed to "A powerful and unique antioxidant" (the `<span class="ing">Leptosperin</span>` tag after it is unchanged).
+- **Body copy:** "Most of Mānuka honey's antioxidant content comes from leptosperin, a compound unique to Mānuka nectar and largely absent from other honey varieties. It works alongside the formula's other antioxidant actives to help the body manage everyday oxidative stress." changed to "Most of Mānuka honey's antioxidant power comes from Leptosperin, a compound unique to Mānuka nectar. It works alongside the complete HoniOra stack of antioxidant actives to help your body manage everyday oxidative stress." -- "antioxidant content" became "antioxidant power," the lowercase "leptosperin" mid-sentence was capitalised to match the pillar's own ingredient name, the "and largely absent from other honey varieties" clause was dropped, "the formula's other antioxidant actives" became "the complete HoniOra stack of antioxidant actives," and "help the body" became "help your body." The existing PMID 31496237 citation link was untouched.
+- **Verified:** live Playwright check confirmed the new heading and body copy render with the exact new wording, word for word, at both a 1440px desktop viewport and a 390px mobile viewport, with the citation link still attached correctly. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v80.zip`.
+
+Prior changes (v79):
+
+This package is HoniOra V3 Lite Desktop v79, updated 2026-09-27. Request: rewrite the "06 / Dissolve, Then Drink" section's heading and lede paragraph to new user-supplied exact wording, trimming the effervescent-system sentence and folding the closing line into the heading.
+
+What changed:
+
+- **Heading:** "Dissolve > *Drink.*" changed to "60s Dissolve > *Drink.* Fully delicious and ready to drink." -- the *Drink.* emphasis span kept as-is, with the new "60s" prefix and the "Fully delicious and ready to drink." clause (moved up from the paragraph below) added plain around it.
+- **Lede paragraph:** "HONI*ORA* is built for efficient nutrient delivery. A precisely buffered effervescent system: balanced sodium and potassium bicarbonate, citric and malic acids. Sixty seconds of theatre: golden bubbles and dancing tablets. Every dose also carries three prebiotic fibres, Livaux®, Fiberest® HF and Feiolix®, feeding Bifidobacterium adolescentis, the live probiotic dosed alongside them. Fully dissolved, delicious and ready to drink." changed to "HONI*ORA* is Sixty seconds of theatre: golden bubbles and dancing tablets. Every Tab has three prebiotic fibres, Livaux®, Fiberest® HF and Feiolix®, feeding Bifidobacterium adolescentis, the live probiotic dosed with them." -- the effervescent-chemistry sentence ("built for efficient nutrient delivery... citric and malic acids") was dropped entirely, "Every dose also carries" became "Every Tab has," "dosed alongside them" became "dosed with them," and the closing "Fully dissolved, delicious and ready to drink." sentence was removed from the paragraph since its substance now sits in the heading instead.
+- **Verified:** live Playwright check confirmed the new heading and lede paragraph render with the exact new wording at both a 1440px desktop viewport and a 390px mobile viewport. Full width sweep (320-1920px) -- no new overflow, only the same pre-existing overflow already documented at 561px (28px) and 320px (~35px), both unrelated to this change.
+  - Delivered as `HoniOra_V3_LiteDesktop_v79.zip`.
+
+Prior changes (v78):
+
 This package is HoniOra V3 Lite Desktop v78, updated 2026-09-27. Request: remove the "Samyang's own research credits it with" attribution from the Fiberest HF paragraph's blood-sugar/triglyceride/bowel-movement sentence, stating the claim directly instead.
 
 What changed:
