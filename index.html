@@ -828,11 +828,12 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* (user request) GLP-1 section: headings centred via the shared #glp1 .sec-head
    rule just above (same mechanism every other centred section on the page
    already uses); the body copy additionally widened well past the shared
-   62ch .lede cap -- same min(90vw,1132px)-plus-left-align pattern #problem
-   already uses just above for the same reason (a wide paragraph reading as
-   body copy, not a narrow centred caption), rather than inventing a new
-   number. */
-#glp1 .sec-head .lede{max-width:min(90vw,1132px);text-align:left}
+   62ch .lede cap -- same min(90vw,1132px) pattern #problem already uses just
+   above for the same reason (a wide paragraph reading as body copy, not a
+   narrow centred caption), rather than inventing a new number. Previously
+   left-aligned within that wide box; now centred to match the rest of the
+   section per user request. */
+#glp1 .sec-head .lede{max-width:min(90vw,1132px);text-align:center}
 /* the quadraxial caption's one deliberate <br> should be the ONLY break on
    desktop -- the shared .lede 62ch cap was narrower than the 86-character
    first half, wrapping it early and pushing the caption to 3 lines instead
@@ -2077,7 +2078,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </a>
     <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropLeft"><span></span><span></span></button>
     <div class="burger-drop burger-drop-left" id="burgerDropLeft">
-      <a href="#protocol">Protocol</a>
       <a href="#honeytop">M&#257;nuka Honey</a>
       <a href="#problem">Cr.01 Creatine</a>
       <a href="#livaux">Livaux</a>
@@ -2111,8 +2111,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropRight"><span></span><span></span></button>
     <div class="burger-drop burger-drop-right" id="burgerDropRight">
-      <a href="#protocol">2 Tabs</a>
-      <a href="#ritual">Ritual</a>
+      <a href="#protocol">Protocol</a>
       <a href="#science">Dissolve</a>
       <a href="#pack">Format</a>
       <a href="#rita">Rita Rocks</a>
@@ -2743,7 +2742,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
       <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
-      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>kind on and supporting your gut <br>with efficient absorption of all the actives to quickly reach your bloodstream.</p>
+      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.</p>
     </div>
     <div class="pillars pillars4 rv">
       <div class="pillar">
@@ -3143,7 +3142,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p class="eyebrow dim">11 / The Lemon Water Upgrade</p>
       <h2 class="serif">Everything lemon water does <em>but a clinical dose.</em></h2>
       <div class="lemon-roll rv"><img src="lemon-slice-cutout.png" alt="A cross-section slice of lemon" width="520" height="520" loading="lazy"></div>
-      <p class="lede">Your morning lemon water is a good instinct built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and bathes your enamel in unbuffered acid on the way. HONI<i>ORA</i> runs the same four pathways with consistent beneficial amounts and without the enamel risk.</p>
+      <p class="lede">Your morning lemon water is a good habit built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and it also bathes your enamel in unbuffered acid on the way. HONI<i>ORA</i> runs the same four pathways with consistent beneficial amounts and minimises the enamel risk.</p>
     </div>
 
     <div class="lwhy rv">
@@ -4089,11 +4088,20 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      Instead this measures each hex's real width live and sets its burger's
      left/right inset to hexWidth + a fixed gap, on load and on resize --
      the same live-measurement approach already used elsewhere on this page
-     (the hero gold-keyline fan, centerActivesUnderBorn()). The burger-drop
-     popup is then positioned from the burger's own resulting rect, so it keeps
-     opening directly under it. At 1001px+ every inline style this sets is
-     cleared so the desktop block's own calc()-based CSS rules take back over
-     untouched -- this function only ever acts below that breakpoint. */
+     (the hero gold-keyline fan, centerActivesUnderBorn()). At 1001px+ every
+     inline style this sets is cleared so the desktop block's own calc()-based
+     CSS rules take back over untouched -- this function only ever acts below
+     that breakpoint.
+     The two burger-drop popups are deliberately left OUT of this live
+     repositioning (v100 had them tracking the burger's own, now more central,
+     position -- which pulled both popups inward and let them overlap in the
+     middle on a narrow phone with both pinned open at once, reported against
+     an iPhone 15 screenshot). Left as plain left:0/right:0 in the CSS above,
+     each popup now hugs the true screen edge, same side as its own hex --
+     the maximum separation available, which keeps a real gap between them at
+     every width in this breakpoint (each is capped at 45vw, so two side by
+     side can use at most 90vw, always leaving room) instead of tracking the
+     burger inward. */
   (function(){
     var burgerLeft = document.getElementById('burgerLeft'), burgerRight = document.getElementById('burgerRight');
     var dropLeft = document.getElementById('burgerDropLeft'), dropRight = document.getElementById('burgerDropRight');
@@ -4123,13 +4131,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       burgerRight.style.left = '';
       burgerRight.style.right = (hexRightW + GAP) + 'px';
 
-      var navRect = navbar.getBoundingClientRect();
-      var lRect = burgerLeft.getBoundingClientRect();
-      var rRect = burgerRight.getBoundingClientRect();
-      dropLeft.style.right = '';
-      dropLeft.style.left = (lRect.left - navRect.left) + 'px';
-      dropRight.style.left = '';
-      dropRight.style.right = (navRect.right - rRect.right) + 'px';
     }
 
     positionAll();

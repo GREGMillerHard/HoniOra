@@ -19,6 +19,67 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v105, updated 2026-09-29. Request: change the GLP-1 section's lede paragraph ("Not a synthetic peptide analogue... your own GLP-1, the hormone that manages your appetite and blood sugar.") from left-aligned to centered.
+
+What changed:
+
+- **GLP-1 lede: left-align switched to centre:** `#glp1 .sec-head .lede{max-width:min(90vw,1132px);text-align:left}` is now `text-align:center`. The paragraph's own wide box (`min(90vw,1132px)`, deliberately widened past the shared 62ch `.lede` cap so its one manual `<br>` stays the only break on desktop) is untouched -- only the text-align inside that box changed, from left to centre, matching every other section heading/lede on the page (the shared `#glp1 .sec-head{text-align:center}` rule that already centres the h2 above it). The explanatory code comment above this rule was updated to record the change rather than left describing the old left-aligned reasoning. No other section's CSS was touched.
+
+**Verified.** Live Playwright check (a local-GSAP test copy of this package) read the paragraph's computed `text-align` and its box's left/right offsets from the viewport edge at six widths (375, 768, 1000, 1200, 1440, 1920px): `text-align` was `center` at every width, and the box's left and right gaps from the viewport matched exactly at every width, confirming true centering rather than a text-align change inside an off-centre box. A full 22-width overflow sweep from 320px to 1920px found no new overflow anywhere, matching the same pre-existing 320px baseline (355px `scrollWidth`) every version back to v93 has carried.
+
+Delivered as `HoniOra_V3_LiteDesktop_v105.zip`.
+
+Prior changes (v104):
+
+This package is HoniOra V3 Lite Desktop v104, updated 2026-09-29. Request: remove the line break between "gut" and "with" in the "Fast-dissolving, Easy to absorb" section's lede paragraph.
+
+What changed:
+
+- **One `<br>` removed from the lede paragraph:** the paragraph under "Fast-dissolving, *Easy to absorb.*" ("The 2 HONI*ORA* tablets actively dissolve in 300ml water, creating a delicious, potent, and invigorating hypotonic solution, kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.") had three manual `<br>` tags marking forced line breaks: after "300ml water,", after "hypotonic solution,", and after "your gut". Only the third one, between "gut" and "with", is requested to go and is removed. The other two manual breaks (water/creating, and solution/kind on) are untouched. This is a single shared block with no separate desktop/mobile copy, so the change applies uniformly across both breakpoints; "gut" and "with efficient absorption..." now sit on the same line, wrapping only where the browser's own text flow puts them at a given width.
+
+**Verified.** Live Playwright check (a local-GSAP test copy of this package) read the paragraph's live `innerHTML` and confirmed exactly two `<br>` tags remain (down from three) and no `<br>` sits between "gut" and "with" anywhere in the markup; the rendered `innerText` confirmed "gut" and "with efficient absorption" now fall on the same text line. The other two manual breaks were confirmed still present and unchanged.
+
+Delivered as `HoniOra_V3_LiteDesktop_v104.zip`.
+
+Prior changes (v103):
+
+This package is HoniOra V3 Lite Desktop v103, updated 2026-09-29. Request: remove "Ritual" from the lite site's right burger-drop nav stack (<=1000px).
+
+What changed:
+
+- **"Ritual" removed, right burger-drop popup only:** `<a href="#ritual">Ritual</a>`, the second link in `#burgerDropRight` (added at v103's link list -- see the v17 entry above, "Dissolve" was added under Ritual in that same list back when Ritual was already there), is deleted. The list now opens with Protocol, then goes straight to Dissolve, Format, Rita Rocks, Lemonwater?, HoniBlog, Ask Honi, About HoniCo, Join Founding List. Nothing else about the nav changed -- the left burger-drop list is untouched, and the `#ritual` section itself (id `ritual`, "The ritual" tinted section further down the page) and its own separate footer link ("The ritual", in the footer's link column) are both still in place and still work; only this one nav-popup entry pointing at it is gone.
+
+**Verified.** Live Playwright check (a local-GSAP test copy of this package) at 393px confirmed the right popup's link list no longer contains "Ritual" and reads Protocol/Dissolve/Format/Rita Rocks/Lemonwater?/HoniBlog/Ask Honi/About HoniCo/Join Founding List in that order, the left popup's list is unchanged, the `#ritual` section still exists in the DOM, and its footer link still reads "The ritual". A full 22-width overflow sweep from 320px to 1920px found no new overflow anywhere, matching the same pre-existing 320px baseline (355px `scrollWidth`) every version back to v93 has carried.
+
+Delivered as `HoniOra_V3_LiteDesktop_v103.zip`.
+
+Prior changes (v102):
+
+This package is HoniOra V3 Lite Desktop v102, updated 2026-09-29. Request: rewrite the "Lemon Water Upgrade" section's opening lede paragraph to new user-supplied exact wording -- "good instinct" to "good habit," adding "it also" before the enamel-acid clause, and softening the closing claim from "without the enamel risk" to "minimises the enamel risk."
+
+What changed:
+
+- **Lede paragraph, exact wording supplied:** "Your morning lemon water is a good instinct built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and bathes your enamel in unbuffered acid on the way. HONI*ORA* runs the same four pathways with consistent beneficial amounts and without the enamel risk." changed to "Your morning lemon water is a good habit built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and it also bathes your enamel in unbuffered acid on the way. HONI*ORA* runs the same four pathways with consistent beneficial amounts and minimises the enamel risk." Applied verbatim since exact wording was supplied. This is a single shared block with no separate desktop/mobile copy, so the change applies uniformly across both breakpoints. Three phrase-level changes: "good instinct" to "good habit"; "and bathes" to "and it also bathes"; and the closing "without the enamel risk" (an absolute claim) softened to "minimises the enamel risk" (a claim of degree, more defensible and consistent with how the rest of the page phrases its own benefit claims).
+
+**Verified.** Live Playwright check (a local-GSAP test copy of this package) confirmed the paragraph renders the exact new wording, word for word, at 1440px. A full 22-width overflow sweep from 320px to 1920px found no new overflow anywhere, matching the same pre-existing 320px baseline (355px `scrollWidth`) every version back to v93 has carried.
+
+Delivered as `HoniOra_V3_LiteDesktop_v102.zip`.
+
+Prior changes (v101):
+
+This package is HoniOra V3 Lite Desktop v101, updated 2026-09-29. Two requests on the lite site's burger-drop nav popups (<=1000px): stop the two popups overlapping in the middle when both are pinned open at once on a narrow phone (reported against an iPhone 15 screenshot); and remove the right popup's "2 Tabs" link, moving the left popup's "Protocol" link into that slot instead.
+
+What changed:
+
+- **Popup overlap, root cause and fix:** the v100 nav swap (burgers moved inward, hexes moved out to the true screen edge) came with a JS change that re-anchored each burger-drop popup to its OWN burger's live position, so the popup visually opened right under its trigger. That worked for the burger's own inset, but it also dragged both popups inward from the screen edges toward the centre -- on a narrow phone with both popups pinned open at once, that inward pull was enough for them to genuinely overlap in the middle, matching the iPhone 15 screenshot supplied. The underlying CSS already anchors each popup to its own true screen edge (`.burger-drop-left{left:0}`, `.burger-drop-right{right:0}`), same side as its own hex -- it was only the v100 JS inline-style override pulling them off that anchor. Removed that override (the popup's own horizontal position is no longer touched by JS at all); the burger's own inset is untouched and still lives entirely in CSS/JS as before. With both popups back on their true edges, they're now the maximum distance apart available in this layout, matching "move the left one left and the right one right until they don't overlap."
+- **"2 Tabs" removed, "Protocol" moved into its place:** the right popup's first link, `<a href="#protocol">2 Tabs</a>`, is now `<a href="#protocol">Protocol</a>` (same destination, just relabelled) -- and the identical `<a href="#protocol">Protocol</a>` link that used to open the left popup's own list is removed from there, so the label isn't duplicated across both popups. The left popup now opens with "Mānuka Honey" as its first item; every other link in both popups is unchanged.
+
+**Verified.** Live Playwright checks (a local-GSAP test copy of this package), both burgers clicked to pin both popups open simultaneously: at an iPhone 15 viewport (393px) the two popups now sit flush against their own screen edges with a real 39px gap between them (was a genuine overlap before this fix), confirmed visually against a screenshot matching the reported bug's layout but without the overlap. Checked the same across six widths from 375px to 1000px -- a clear, growing gap at every one, zero overlap anywhere in this breakpoint's range. Confirmed the left popup now opens with "Mānuka Honey" first and the right popup opens with "Protocol" first, both lists otherwise unchanged. Confirmed desktop's own `>=1001px` popup positioning (a separate, unscoped calc()-based rule) is untouched at 1440px. A full 22-width overflow sweep from 320px to 1920px found no new overflow anywhere, matching the same pre-existing 320px baseline (355px `scrollWidth`) every version back to v93 has carried.
+
+Delivered as `HoniOra_V3_LiteDesktop_v101.zip`.
+
+Prior changes (v100):
+
 This package is HoniOra V3 Lite Desktop v100, updated 2026-09-28. Three requests: investigate a report that the v99 tablet roll-in isn't starting fully off-screen and isn't rolling back out on scroll-up; make the whole "A *Natural Active Antipodean Matrix*" heading one uniform gold, not just the italic half; and on the lite site (<=1000px), swap the nav layout so the burgers sit between the hex buttons and the logo instead of the hexes sitting there, with the hex hover/click movement corrected for the new positions.
 
 What changed:
