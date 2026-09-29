@@ -19,6 +19,30 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v107, updated 2026-09-29. Request: reduce the v106 expanded-hex drop to 45px.
+
+What changed:
+
+- **Expanded-hex vertical offset reduced, 74px to 45px:** `translateY` in the two hex-expand transform rules changed from 74px to the requested 45px, exactly. Nothing else about the rule changed (the horizontal "and in" pull and the doubling itself are unchanged). This is a straight numeric change with a real, disclosed side effect: since both hexes rest with their own top edge flush with the navbar's own top edge at every breakpoint (0px offset, confirmed live), a 45px drop only clears the 42px navbar used in short landscape orientation (3px to spare). It does not clear the 53px navbar (<=560px phones) or the 66px navbar (561px and up, including the main phone/tablet "lite" range and 1001px+ desktop) -- at those widths the expanded hex's top edge again sits inside the navbar's own band, reintroducing the v106 overlap with the burger and the HONIORA title there. Flagging this because it is the same clash v106 was shipped to fix, now back at every width from 375px up to 1000px.
+
+**Verified.** Live checks (a local-GSAP test copy of this package) confirmed the expanded top edge lands at exactly 45px below the resting (0px-offset) position at every tested width, and directly measured the resulting overlap: true (bounding-box intersection with both the burger and the title) at every width from 375px to 1000px, false only at 1001px+ desktop and in short landscape (844x390, 900x414), matching the arithmetic above exactly. A full 22-width overflow sweep from 320px to 1920px found no new overflow anywhere, matching the same pre-existing 320px baseline (355px `scrollWidth`) every version back to v93 has carried.
+
+Delivered as `HoniOra_V3_LiteDesktop_v107.zip`.
+
+Prior changes (v106):
+
+This package is HoniOra V3 Lite Desktop v106, updated 2026-09-29. Request: on the lite site, when the two mini reserve hexes flanking the logo (RESERVE PROTOCOL / RESERVE TEST TUBE) get clicked/tapped and expand, move them down so they don't clash with the burger buttons or the HONIORA title in the nav bar.
+
+What changed:
+
+- **Expanded-hex vertical offset increased, 24px to 74px:** tapping (or hovering) a mini reserve hex doubles its size in place (`scale(2)`) and nudges it down and toward the logo -- the `translateY` half of that nudge was 24px, set at v97. At that offset the expanded hex's top edge only cleared the very top few pixels of the navbar, so its doubled-size body still sat inside the same vertical band as the navbar itself and visibly overlapped the burger button next to it and the centred HONIORA title/logo, confirmed at several widths (measured live, not just visually: at 430px and 480px wide, for example, the expanded hex's bounding box genuinely intersected both the burger's and the title's). Both hexes rest with their own top edge flush with the navbar's own top edge at every breakpoint (confirmed 0px offset live, in both the 66px default lite navbar and the 53px/42px narrower ones), so `translateY` alone controls how far below the navbar the expanded hex lands. Bumped to 74px -- 8px clear of this site's tallest navbar height (66px, used from 561px up through desktop), which also clears the two shorter navbar heights (53px at <=560px phones, 42px in short landscape) by a wider margin. The horizontal "and in" pull (`translateX(14px)`/`translateX(-14px)`) and the doubling itself are unchanged; only the vertical distance moved.
+
+**Verified.** Live checks (a local-GSAP test copy of this package) confirmed the resting (un-tapped) top edge of both hexes sits exactly flush with the navbar's own top edge (0px offset) at every tested width, so the expanded top edge lands at exactly 74px below that in every case. Checked across 14 width/orientation combinations spanning 375px to 1440px plus two short-landscape sizes (844x390, 900x414): in every one, the expanded hex's bounding box had zero overlap with either burger button's box or the HONIORA title's box, confirmed by direct rectangle-intersection checks, not just a visual read. Two screenshots (expanded left hex, expanded right hex) confirm the same visually -- both now land fully below the nav bar with clear space above them. A full 22-width overflow sweep from 320px to 1920px found no new overflow anywhere, matching the same pre-existing 320px baseline (355px `scrollWidth`) every version back to v93 has carried.
+
+Delivered as `HoniOra_V3_LiteDesktop_v106.zip`.
+
+Prior changes (v105):
+
 This package is HoniOra V3 Lite Desktop v105, updated 2026-09-29. Request: change the GLP-1 section's lede paragraph ("Not a synthetic peptide analogue... your own GLP-1, the hormone that manages your appetite and blood sugar.") from left-aligned to centered.
 
 What changed:

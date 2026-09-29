@@ -286,9 +286,31 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    transform-origin above, but that alone wasn't enough movement). translateY bumped
    from 14px to 24px, and a new translateX pulls each hex 14px further toward the
    logo -- positive (rightward) for the left hex, negative (leftward) for the right
-   one, so both read as sliding down and in rather than just growing in place. */
-.nav-hex-mobile-left:hover,.nav-hex-mobile-left:focus-within{transform:translateY(24px) translateX(14px) scale(2);z-index:70}
-.nav-hex-mobile-right:hover,.nav-hex-mobile-right:focus-within{transform:translateY(24px) translateX(-14px) scale(2);z-index:70}
+   one, so both read as sliding down and in rather than just growing in place.
+   (v106) per a report that the expanded hex clashes with the burger button and the
+   centred HONIORA title/logo: at 24px, the expanded hex's top edge only cleared the
+   very top of the navbar, so its enlarged (scale(2)) body still overlapped both the
+   burger next to it and the logo in the middle, since all three still share the same
+   vertical band (the navbar itself). translateY bumped from 24px to 74px -- enough to
+   clear this navbar's tallest resting height across every breakpoint (66px, the
+   641-1000px and 1001px+ default) with an 8px margin to spare, and clears the two
+   shorter navbar heights (53px at <=560px, 42px in short landscape) by even more --
+   so the expanded hex's top edge always lands below the whole navbar row, not
+   overlapping the burger or the title at any width. The anchor corner (transform-
+   origin) and its resting position (top:0;bottom:0;margin:auto 0, or a fixed top:0
+   at 1001px+) don't change, so this only affects where the hex lands once expanded,
+   not its normal resting spot in the nav. translateX (the sideways "and in" pull) is
+   unchanged -- horizontal position no longer matters for the clash once the vertical
+   bands stop overlapping.
+   (v107) per an explicit request to reduce this to a 45px drop. Note this brings back
+   part of the v106 clash by design: since the resting top is 0px at every breakpoint,
+   the expanded top edge now lands at 45px, which clears only the 42px landscape-short
+   navbar (3px to spare); at the 53px navbar (<=560px phones) and the 66px navbar
+   (561px and up, including 1001px+ desktop) the expanded hex's top edge again sits
+   inside the navbar's own band -- an 8px vertical overlap with the burger/title at
+   53px, a 21px overlap at 66px -- reintroducing the v106 clash at those widths. */
+.nav-hex-mobile-left:hover,.nav-hex-mobile-left:focus-within{transform:translateY(45px) translateX(14px) scale(2);z-index:70}
+.nav-hex-mobile-right:hover,.nav-hex-mobile-right:focus-within{transform:translateY(45px) translateX(-14px) scale(2);z-index:70}
 .hexbtn-m .hexdrop{z-index:65}
 .nav-hex-mobile-left .hexdrop{left:0;transform:translateY(-6px)}
 .nav-hex-mobile-right .hexdrop{left:auto;right:0;transform:translateY(-6px)}
