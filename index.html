@@ -458,9 +458,22 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   gap:clamp(28px,3.2vw,48px)}
 .hero-pillars .pillar{display:flex;align-items:center;gap:clamp(16px,1.8vw,26px)}
 .hero-pillars .pillar[data-edge="r"]{flex-direction:row-reverse;text-align:left}
+/* (user request) these 4 hero pillars also pick up the generic .pillar/.pillar:hover
+   card-background rule from the "pillars" section further down (background:var(--paper),
+   hovering to the tan var(--paper-3)) since they share the bare .pillar class -- kill
+   both states here, scoped so it doesn't touch the real card pillars elsewhere. */
+.hero-pillars .pillar,.hero-pillars .pillar:hover{background:none}
 .pillar-body{min-width:0}
 .pillar-icon{flex:0 0 auto;height:clamp(76px,8vw,124px);width:auto;object-fit:contain}
 .pillar-icon-origin{height:clamp(99px,10.4vw,161px)}
+/* (user request) icons shown at 2x their visual size, but the layout box they
+   occupy in the flex row stays at the original height/width above -- a
+   transform (scale) is purely visual and never affects an element's layout
+   box, so the text column next to each icon keeps exactly the width/wrapping
+   it had before, instead of being squeezed by a literally-larger icon. The
+   scale has to be folded into the existing slide-in transform (translateX)
+   below rather than set here, since that rule overwrites transform wholesale
+   on each animation state. */
 /* .hero-pillars .pillar h3/p (not the bare .hero-pillars h3/p used before) --
    the numbered ingredient-section pillars further down the page also use a
    bare .pillar class on their own wrapper (see "pillars" rules above) with a
@@ -940,9 +953,18 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    getting its very top clipped by the section above. Rotating just the photo
    (not the figure/scale transform) swings the crown out from dead-centre-top,
    clearing the top edge -- the source photo is shot on a plain white
-   background matching --paper, so the rotated square's corners disappear
-   into the page with no visible seam. */
-.ishot.ishot-pomma img{transform:rotate(30deg)}
+   background matching --paper, so the square itself was assumed to disappear
+   into the page with no visible seam. In practice a square rotated 30 degrees
+   has a bounding box ~37% wider/taller than the square itself (side*(cos+sin)),
+   and at this item's focus width that extra reach is wide enough to overlap
+   the neighbouring ishot thumbnails on both sides -- invisible against the
+   white page on its own, but it sits later in source order than the item to
+   its left, so it paints over that neighbour's edge, visibly clipping it.
+   border-radius:50% clips the square to the circle inscribed in it; every
+   actual fruit/crown pixel already sits inside that circle (checked against
+   the source photo), so nothing of the fruit is lost -- only the blank
+   corner triangles that were doing the overlapping are. */
+.ishot.ishot-pomma img{transform:rotate(30deg);border-radius:50%}
 .icap{position:absolute;top:calc(100% + 12px);left:0;right:0;
   opacity:0;transform:translateY(10px);transition:opacity .45s ease .06s,transform .45s cubic-bezier(.22,1,.36,1) .06s;
   pointer-events:none}
@@ -1618,9 +1640,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .pillar[data-edge="r"] .pillar-body{transform:translateX(14vw)}
 .pillar[data-edge].in .pillar-body{opacity:1;transform:none}
 .pillar-icon[data-edge]{opacity:0;transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1)}
-.pillar-icon[data-edge="l"]{transform:translateX(-16vw)}
-.pillar-icon[data-edge="r"]{transform:translateX(16vw)}
-.pillar-icon[data-edge].in{opacity:1;transform:none}
+.pillar-icon[data-edge="l"]{transform:translateX(-16vw) scale(2);transform-origin:100% 50%}
+.pillar-icon[data-edge="r"]{transform:translateX(16vw) scale(2);transform-origin:0% 50%}
+.pillar-icon[data-edge].in{opacity:1;transform:scale(2)}
 
 /* ---------- Rita Rocks feature ---------- */
 .rita-feature{position:relative;width:100%;overflow:hidden;background:var(--paper)}
@@ -2091,7 +2113,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   *{animation:none !important;transition-duration:.01ms !important}
   .rv{opacity:1;transform:none}
   .pillar[data-edge] .pillar-body{opacity:1;transform:none}
-  .pillar-icon[data-edge]{opacity:1;transform:none}
+  .pillar-icon[data-edge]{opacity:1;transform:scale(2)}
   .hero-actives li{opacity:1;transform:none}
 }
 </style>
@@ -4886,9 +4908,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             // icon slides in after the copy has landed, not alongside it --
             // pushed back an additional 2s per an earlier request (v90), then
             // pulled 1s earlier per a follow-up request (v95: 2000 -> 1000),
+            // then pulled another 0.5s earlier per a later request (1000 -> 500),
             // so the icon still lands after the text has settled but sooner
             // than it did before
-            icon.style.transitionDelay = (textDelay + 550 + 1000) + 'ms';
+            icon.style.transitionDelay = (textDelay + 550 + 500) + 'ms';
             icon.classList.add('in');
           }
           ioEdge.unobserve(e.target);
