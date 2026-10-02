@@ -19,6 +19,19 @@ For GitHub Pages specifically: commit the folder as-is, flat, to the repo (or th
 
 ## Version
 
+This package is HoniOra V3 Lite Desktop v109, updated 2026-09-30. Request: revert to v107. This undoes v108's merge of the ingredient-manifesto section (the desktop "Every active, named." static numbered section, built in a separate session and merged in at v108) -- back to v107 exactly, byte-for-byte, with the horizontal `.iband` ingredient photo scroller restored as the desktop-only experience it was through v100-v107. Nothing else changed: the v100-v107 nav swap, hex-drop distance, GLP-1 centering, "Ritual" removal and line-break fixes are all still in place, exactly as v107 shipped them.
+
+What changed:
+
+- **Full revert to v107's own `index.html`, byte-for-byte:** rather than hand-reverting v108's two insertions (the CSS block and the HTML section) piece by piece, this package's `index.html` is v107's own file restored directly from the pristine, unmodified `HoniOra_V3_LiteDesktop_v107.zip`. Confirmed via checksum against that same pristine zip: identical (md5 fca034f7e3abcc37f13493ff3b1404e0).
+- **Nothing else touched:** no assets changed (v108 added none), and the rest of the package (every image, video, and the README's own version history below this entry) is otherwise the same as v107.
+
+**Verified.** Checksum-confirmed `index.html` matches the pristine v107 zip exactly. Since this is a byte-for-byte restore of a package already verified at v107, no new Playwright pass was needed beyond that confirmation.
+
+Delivered as `HoniOra_V3_LiteDesktop_v109.zip`.
+
+Prior changes (v107):
+
 This package is HoniOra V3 Lite Desktop v107, updated 2026-09-29. Request: reduce the v106 expanded-hex drop to 45px.
 
 What changed:
