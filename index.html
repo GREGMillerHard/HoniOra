@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. An 11,449 mg daily serving led by 3,000 mg of creatine, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. An 11,449 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
 <meta property="og:description" content="2 tabs. 300 ml of cold water. Sixty seconds.">
@@ -545,6 +545,12 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-size:clamp(20px,3.2vw,44px);line-height:1.2;letter-spacing:.01em;color:#fff;white-space:nowrap;
   text-shadow:0 2px 18px rgba(0,0,0,.38),0 1px 3px rgba(0,0,0,.3)}
 .manukapan-caption .cap-br{display:none}
+/* (user request) the caption types itself in as the visitor scrolls. Every letter
+   keeps its place in the line (opacity, not display), so the centred, width-fitted
+   layout never shifts while it types. The script that builds the letters only runs
+   when JS is on and reduced motion is off, so the plain text is the fallback. */
+.manukapan-caption .tw-c{opacity:0;transition:opacity .14s linear}
+.manukapan-caption .tw-c.on{opacity:1}
 
 /* ---------- top marquee : the pain point, the promise, then every active, looping ----------
    two identical sets sit side by side and the track slides exactly one set width,
@@ -754,7 +760,14 @@ footer .brand{font-size:15px;letter-spacing:.42em}
      Mobile/lite keeps its original size and sentence case (.keyact.flat li's
      base rule above), so this is scoped to the same >=1001px block as the
      other hero-actives desktop-only rules. */
-  .keyact.flat.hero-actives li{font-size:clamp(14px,1.15vw,17px);text-transform:uppercase}
+  .keyact.flat.hero-actives li{font-size:clamp(16px,1.4vw,21px);text-transform:uppercase;white-space:nowrap}
+  /* (user request, this version) list bumped from clamp(14px,1.15vw,17px) to
+     clamp(16px,1.4vw,21px), about 20% larger across the desktop range. The
+     gold keylines re-measure each row's real text position on every build(),
+     so they follow the larger rows with no change to the script. nowrap keeps
+     every name on one line so each gold thread meets exactly one row of text;
+     the list column is narrow (the tube shift eats most of it), and at the
+     larger size several names were otherwise wrapping to two lines. */
   /* (user request) single hero-meta stat back on one line, number and label
      side by side instead of the number stacking above its label. .hero-meta
      b's shared display:block (below) stays as-is -- mobile deliberately keeps
@@ -1520,10 +1533,13 @@ textarea{resize:vertical;min-height:64px}
 .map-trigger:hover .map-photo{border-color:rgba(21,23,15,.3);box-shadow:0 18px 40px -26px rgba(21,23,15,.5)}
 .map-hint{display:block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--gold-deep);font-weight:600}
-.abox.vrwide{min-height:0}
-.vr360-frame{width:100%;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
-.vr360-frame iframe{display:block;width:100%;height:390px;border:0}
-.vr360-cap{margin-top:14px;font-size:12px;letter-spacing:.03em;color:var(--ink-soft);font-weight:400}
+/* (user request) 04 pano runs full viewport width. The card chrome is removed so
+   the heading sits in the normal column and the frame breaks out of .wrap the
+   same negative-margin way the Manuka beehive photo does (body carries
+   overflow-x:clip site-wide, so no horizontal scrollbar opens). */
+.abox.vrwide,.abox.vrwide:hover{min-height:0;background:none;border:0;padding:0;box-shadow:none;transform:none}
+.vr360-frame{flex:none;width:100vw;max-width:none;margin-left:calc(50% - 50vw);border:0;border-radius:0;overflow:hidden}
+.vr360-frame iframe{display:block;width:100%;height:clamp(380px,74vh,860px);border:0}
 /* ---------- map lightbox ---------- */
 .lightbox{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;
   padding:5vh 5vw;background:rgba(15,16,10,.88);opacity:0;pointer-events:none;
@@ -2434,11 +2450,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
           <div class="hrail-gap" aria-hidden="true"></div>
-          <div class="hmsg">WELCOME TO YOUR FUTURE OF HEALTHINESS : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality. Together, the name means living vitality grounded in pure New Zealand nature.</div>
-          <div class="hmsg">Introducing Honi<i>Ora</i> to your day will add to Your Healthiness</div>
+          <div class="hmsg">WELCOME TO YOUR FUTURE OF HEALTHINESS : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality.</div>
+          <div class="hmsg">Replace that tedious messy pill &amp; powder stack with a superior delicious protocol</div>
           <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Cr-01<sup class="rn">&reg;</sup> Creatine</b><i class="hpop">ATP energy &middot; Strength &amp; power</i><s>3,000 mg</s></div>
-          <div class="hact"><b>Balanced Hydration Matrix</b><i class="hpop">Electrolyte system &middot; Na &middot; K &middot; Mg</i><s>1,400 mg</s></div>
+          <div class="hact"><b>Balanced Hydration Matrix</b><i class="hpop">Mineral salts &middot; Na &middot; K &middot; Mg</i><s>1,400 mg</s></div>
           <div class="hact"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><i class="hpop">Prebiotic &middot; Gut health matrix</i><s>600 mg</s></div>
           <div class="hact"><b>Pomma+<sup class="rn">&reg;</sup> Pomegranate Extract</b><i class="hpop">Antioxidant &middot; Polyphenol support</i><s>500 mg</s></div>
           <div class="hact"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><i class="hpop">Metabolic &middot; GLP-1 support</i><s>600 mg</s></div>
@@ -2557,7 +2573,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <img class="pillar-icon" data-edge="r" src="pillar-icon-hydration.png" alt="" loading="lazy">
         <div class="pillar-body">
           <h3>Clean Hydration</h3>
-          <p>Sodium, potassium and magnesium dissolved and buffered, through <span class="kw">stoichiometric effervescent mineral carbonates</span> paired with <span class="kw">bioavailable electrolytes</span>, each dose clears the stomach quickly, sits easy, and hydrates you at the cellular level.</p>
+          <p>Sodium, potassium and magnesium dissolved and buffered, through <span class="kw">stoichiometric effervescent mineral carbonates</span> paired with <span class="kw">bioavailable electrolytes</span>. Each dose arrives dissolved, with approximately 150&nbsp;mg of sodium and 137&nbsp;mg of potassium.</p>
         </div>
       </div>
     </div>
@@ -2668,7 +2684,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><b>Careflow<sup class="rn">&reg;</sup> mango fruit</b>Arterial microcirculation improves within hours of the first dose.</li>
           <li><b>S7<sup class="rn">&reg;</sup> plant blend</b>Redox signalling raises the nitric oxide you already make.</li>
           <li><b>The effervescent engine</b>Everything arrives already in solution, so nothing sits in the gut drawing water.</li>
-          <li><b>Hypotonic electrolyte matrix</b>Balanced electrolyte ratios begin restoring fluid balance from the very first glass.</li>
+          <li><b>Dissolved electrolyte matrix</b>Sodium, potassium and magnesium arrive dissolved and buffered in every glass.</li>
         </ul>
       </div>
 
@@ -2829,7 +2845,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         </div>
       </div>
     </div>
-    <p class="lede" style="margin:clamp(28px,3.4vw,40px) auto 0;max-width:74ch;text-align:center">The crystals dissolve into your morning glass alongside the balance of the HONI<i>ORA</i> active matrix, at the same MGO 850+ dose, every single day.</p>
+    <p class="lede" style="margin:clamp(28px,3.4vw,40px) auto 0;max-width:min(90vw,1100px);text-align:center;text-wrap:balance;font-size:clamp(22px,2.7vw,38px);line-height:1.45">The honey crystals dissolve into your morning water with the balance of our HONI<i>ORA</i> active matrix: same potent doses, every single day.</p>
     <div class="mfacts rv">
       <div class="mfact">
         <b>1839</b>
@@ -2895,7 +2911,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <ul>
           <li><i>Cr-01<sup class="rn">&reg;</sup> Creatine</i><b>3,000 mg</b></li>
         </ul>
-        <p>Creatine is one of the most studied nutrients for cellular energy, shown to support muscle strength, healthy aging and cognitive function, not just athletic performance. It works by rapidly regenerating ATP through the phosphocreatine system, your cells' basic energy currency. At 3,000&nbsp;mg per serving, HONI<i>ORA</i> delivers a balanced daily creatine dose in a fully dissolved format.</p>
+        <p>Creatine is one of the most studied nutrients for cellular energy, shown to support muscle strength, healthy aging and cognitive function, not just athletic performance. It works by rapidly regenerating ATP through the phosphocreatine system, your cells' basic energy currency. At 3,000&nbsp;mg per serving, HONI<i>ORA</i> delivers a daily maintenance dose in a fully dissolved format.</p>
       </div>
 
       <div class="tri">
@@ -2976,7 +2992,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><span class="x">02</span><div><strong>ATP, regenerated faster.</strong> <span class="d">Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP during short, intense effort. That is the mechanism behind its strength and power research base.</span></div></li>
           <li><span class="x">03</span><div><strong>A well-studied, well-tolerated dose.</strong> <span class="d">Creatine monohydrate is backed by extensive research at the 3,000 mg daily serving HONI<i>ORA</i> delivers.</span></div></li>
           <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside VasoDrive-AP<sup class="rn">&reg;</sup>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant and Careflow<sup class="rn">&reg;</sup> so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
-          <li><span class="x">05</span><div><strong>Electrolytes support creatine uptake.</strong> <span class="d">Sodium and chloride drive the dedicated creatine transporter that carries creatine into muscle cells, while potassium, magnesium and sodium together regulate the intracellular fluid balance and membrane potential that support both nutrient uptake and effective muscle contraction during training. HONI<i>ORA</i>&rsquo;s own Balanced Hydration Matrix supplies this electrolyte support alongside the Cr-01<sup class="rn">&reg;</sup> Creatine dose.</span></div></li>
+          <li><span class="x">05</span><div><strong>Electrolytes support creatine uptake.</strong> <span class="d">The creatine transporter depends on sodium and chloride, while potassium, magnesium and sodium together regulate the intracellular fluid balance and membrane potential that support nutrient uptake and muscle contraction during training. HONI<i>ORA</i>&rsquo;s Balanced Hydration Matrix supplies sodium, potassium and magnesium alongside the Cr-01<sup class="rn">&reg;</sup> Creatine dose.</span></div></li>
         </ul>
       </div>
     </div>
@@ -2995,7 +3011,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="pillar">
         <span class="n">i</span>
         <h3>Pre-dissolved, so your gut stays calm</h3>
-        <p>Our actives arrive ready in solution at optimal osmolality, they are absorbed rather than stalled in the GI tract pulling water from tissue. No loading phase, no bloat, and no compromise on dosages.</p>
+        <p>Our actives arrive ready in solution, so there is no powder to mix and no loading phase. No compromise on dosages.</p>
       </div>
       <div class="pillar">
         <span class="n">ii</span>
@@ -3010,7 +3026,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
       <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
-      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 300ml water, <br>creating a delicious, potent, and invigorating hypotonic solution, <br>kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.</p>
+      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 300ml water, <br>creating a delicious, potent, and invigorating solution, <br>kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.</p>
     </div>
     <div class="pillars pillars4 rv">
       <div class="pillar">
@@ -3256,8 +3272,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid compact">
         <div class="name">Magnesium Malate Reacted<i>Albion Minerals / USP</i></div>
         <div><span class="fn">Mineral active<small>Mg</small></span></div>
-        <div class="dose">500 mg</div>
-        <div class="mech">A fully reacted chelate rather than a cheap oxide. Malate doubles as a Krebs cycle intermediate, so the carrier is doing work of its own.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/33396513/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 33396513 &nearr;</span></a></div>
+        <div class="dose">500 mg<small>&asymp;95 mg elemental Mg</small></div>
+        <div class="mech">Magnesium bound to malic acid, a salt that dissolves clean in water. Malate is a natural Krebs cycle intermediate, and magnesium is a cofactor for the enzymes that use ATP.</div>
       </div>
 
       <div class="row mgrid compact">
@@ -3287,14 +3303,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid compact">
         <div class="name">Sodium Bicarbonate Low-Moist<i>Church &amp; Dwight / USP Coarse Granular</i></div>
         <div><span class="fn">Effervescent<small>Alkaline base</small></span></div>
-        <div class="dose">550 mg</div>
+        <div class="dose">550 mg<small>&asymp;150 mg elemental Na</small></div>
         <div class="mech">The alkaline half. Low-moisture grade is non-negotiable, because residual water would start the reaction inside the tube.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/22864738/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 22864738 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Potassium Bicarbonate<i>Armand Products / USP DC Grade</i></div>
         <div><span class="fn">Effervescent base<small>Potassium electrolyte</small></span></div>
-        <div class="dose">350 mg</div>
+        <div class="dose">350 mg<small>&asymp;137 mg elemental K</small></div>
         <div class="mech">A second alkaline base alongside sodium bicarbonate. It drives the same carbon dioxide reaction while delivering potassium rather than more sodium, which shifts the electrolyte balance of the finished drink.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/41243115/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 41243115 &nearr;</span></a></div>
       </div>
 
@@ -3442,13 +3458,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="lemonrow">
         <div><b>Organic acid drive and gastric priming</b></div>
         <div class="was">Natural citric and malic acid, in whatever quantity that lemon happened to hold.</div>
-        <div class="now"><em>Citric acid anhydrous 590 mg</em>, malic acid anhydrous 70 mg and Albion magnesium malate 500 mg. Stimulates the cephalic-gastric reflex and gastrin secretion.</div>
+        <div class="now"><em>Citric acid anhydrous 590 mg</em> and malic acid anhydrous 70 mg. Stimulates the cephalic-gastric reflex and gastrin secretion.</div>
       </div>
 
       <div class="lemonrow">
         <div><b>Alkaline buffering</b></div>
-        <div class="was">Citrate converts to bicarbonate in the liver, eventually.</div>
-        <div class="now"><em>Sodium bicarbonate 550 mg</em> and potassium bicarbonate 350 mg. Bicarbonate ions arrive directly, holding acid-base equilibrium without the unbuffered acid load on your enamel.</div>
+        <div class="was">Free citric acid, with no buffer.</div>
+        <div class="now"><em>Sodium bicarbonate 550 mg</em> and potassium bicarbonate 350 mg neutralise the acids in the glass, leaving sodium and potassium citrate and malate.</div>
       </div>
 
       <div class="lemonrow">
@@ -3807,11 +3823,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
       <div class="abox wide vrwide">
         <span class="abox-n">04</span>
-        <h3>Look around HoniCo HQ</h3>
+        <h3>Kiwifruit orchards Pahoia Point Bay of Plenty NZ</h3>
         <div class="vr360-frame">
-          <iframe src="https://momento360.com/e/u/2a762b0612ce4f5892f4fd86043f6aae?utm_campaign=embed&amp;utm_source=other&amp;utm_medium=embed&amp;heading=-0.68&amp;pitch=-24.64&amp;field-of-view=75&amp;size=large&amp;display-plan=true&amp;pan-speed=-0.02&amp;display-mode=clean" allowfullscreen loading="lazy" title="360 degree view of Hallowes Park, Pahoia Point, Bay of Plenty NZ"></iframe>
+          <iframe src="https://momento360.com/e/u/4ef689630aed4b66b87ecac740e5f2f3?utm_campaign=embed&amp;utm_source=other&amp;utm_medium=embed&amp;heading=-358.84&amp;pitch=-29.48&amp;field-of-view=88&amp;size=large&amp;display-plan=true&amp;pan-speed=0.1" allowfullscreen loading="lazy" title="360 degree view of kiwifruit orchards, Pahoia Point, Bay of Plenty NZ"></iframe>
         </div>
-        <p class="vr360-cap">Hallowes Park Pahoia Point Bay of Plenty NZ.</p>
       </div>
     </div>
   </div>
@@ -4430,6 +4445,45 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   window.addEventListener('orientationchange', fitHeroAll);
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitHeroAll); }
 
+  /* (user request) scroll-scrubbed typewriter for the beekeepers banner caption.
+     Types in as the banner rises into view, and un-types if the visitor scrolls
+     back up. Letters are spans with aria-hidden, the full line sits on the <p>
+     as aria-label. Skipped entirely under prefers-reduced-motion. */
+  (function(){
+    var cap = document.getElementById('manukapanCaption');
+    if(!cap) return;
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var txt = cap.textContent;
+    cap.setAttribute('aria-label', txt);
+    cap.textContent = '';
+    var chars = [];
+    for(var i = 0; i < txt.length; i++){
+      var sp = document.createElement('span');
+      sp.className = 'tw-c';
+      sp.setAttribute('aria-hidden', 'true');
+      sp.textContent = txt.charAt(i);
+      cap.appendChild(sp);
+      chars.push(sp);
+    }
+    var shown = -1, ticking = false;
+    var update = function(){
+      ticking = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var top = cap.getBoundingClientRect().top;
+      var startY = vh * 0.95, endY = vh * 0.4;
+      var p = (startY - top) / (startY - endY);
+      p = Math.max(0, Math.min(1, p));
+      var n = Math.round(p * chars.length);
+      if(n === shown) return;
+      shown = n;
+      for(var j = 0; j < chars.length; j++){ chars[j].classList.toggle('on', j < n); }
+    };
+    var req = function(){ if(!ticking){ ticking = true; window.requestAnimationFrame(update); } };
+    window.addEventListener('scroll', req, {passive:true});
+    window.addEventListener('resize', req, {passive:true});
+    update();
+  })();
+
   var hdr = document.getElementById('hdr');
   var onScroll = function(){ hdr.classList.toggle('stuck', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
@@ -4820,8 +4874,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       {k:["magnesium"],
        a:"Magnesium Malate runs underneath the other actives as an enzymatic cofactor for cellular processes. It's dosed at 500 mg.",
        src:"Manufacturer: Albion Minerals (a Balchem brand), headquartered in Clearfield, Utah, USA, the company that pioneered mineral amino acid chelate technology back in 1956.",
-       map:"https://www.google.com/maps/search/?api=1&query=Clearfield%2C+Utah%2C+USA",
-       papers:[{t:"PMID 33396513",u:"https://pubmed.ncbi.nlm.nih.gov/33396513/"}]},
+       map:"https://www.google.com/maps/search/?api=1&query=Clearfield%2C+Utah%2C+USA"},
       {k:["zinc"],
        a:"Zinc Bisglycinate (TRAACS chelated form) runs as an enzymatic cofactor alongside magnesium. It's dosed at 55 mg.",
        src:"Manufacturer: Albion Minerals (a Balchem brand), Clearfield, Utah, USA.",
