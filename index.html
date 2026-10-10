@@ -2057,9 +2057,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    this is the real, only menu now, every link here is a normal focusable,
    readable link -- no aria-hidden/tabindex="-1" shortcuts. */
 .burger-drop{position:absolute;top:100%;width:min(230px,45vw);max-height:calc(100vh - 90px);overflow-y:auto;
-  -webkit-overflow-scrolling:touch;background:rgba(176,130,31,.9);
-  display:flex;flex-direction:column;gap:2px;padding:16px 20px;
-  border:1px solid var(--line-soft);border-radius:14px;opacity:0;visibility:hidden;pointer-events:none;
+  -webkit-overflow-scrolling:touch;background:none;
+  display:flex;flex-direction:column;gap:2px;padding:6px 10px;
+  /* gold tray cutout (transparent PNG), 9-sliced so the dark gold rim stays crisp
+     at any popup height. 20 source px of rim are drawn at 15px. */
+  border:15px solid transparent;
+  border-image:url(burger-drop-tray.png) 20 fill / 15px stretch;
+  border-radius:0;opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;
   transform:translateY(-6px);z-index:65}
 /* each drop anchors to the SAME edge as its own burger (.burger-left sits at
@@ -2073,7 +2077,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .burger-drop-left{left:0}
 .burger-drop-right{right:0}
 .burger-drop a{font-size:18px;font-weight:700;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
-  padding:9px 0;border-bottom:1px solid var(--line-soft);line-height:1.2;color:#fff;transition:color .3s}
+  padding:9px 6px;border-bottom:1px solid rgba(94,47,0,.32);line-height:1.2;color:var(--ink);transition:color .3s,background .3s}
 .burger-drop a:last-child{border-bottom:0}
 /* click-pinned state: works at every width, hover-capable or not, so tapping a
    burger on a touch device opens and holds the popup the same way clicking it
@@ -2098,7 +2102,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .burger-drop{top:calc(100% - 15px)}
   .burger:hover + .burger-drop,.burger-drop:hover{opacity:1;visibility:visible;pointer-events:auto;
     transition:opacity .25s ease,transform .25s ease;transform:translateY(0)}
-  .burger-drop a:hover,.burger-drop a:focus-visible{color:var(--gold)}
+  .burger-drop a:hover,.burger-drop a:focus-visible{color:var(--ink);background:rgba(255,255,255,.4)}
 }
 /* V3 Lite Desktop: push the mini reserve hexes out past .wrap's own side padding
    (var(--pad), up to 64px at this width) so they sit near the true browser-window
