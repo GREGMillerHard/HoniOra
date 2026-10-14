@@ -16,10 +16,10 @@
 })();
 </script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="2 tabs, 300 ml of cold water, sixty seconds. An 11,981 mg daily serving led by 3,500 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="2 tabs, 350 ml of cold water, sixty seconds. An 11,981 mg daily serving led by 3,500 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
-<meta property="og:description" content="2 tabs. 300 ml of cold water. Sixty seconds.">
+<meta property="og:description" content="2 tabs. 350 ml of cold water. Sixty seconds.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -841,7 +841,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    instead, and reads bigger since it's no longer sharing space with two neighbours. */
 .hero-meta div{width:100%;flex:1 1 100%;padding:14px 0 3px;margin-right:0;border-right:0}
 .hero-meta b{display:block;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:32px;color:var(--gold-deep);font-weight:400}
-.hero-meta span{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.hero-meta span{font-size:clamp(14px,4vw,18px);font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
 .hero-cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:24px}
 .bubbles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
 .bub{position:absolute;bottom:-40px;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(196,153,48,.30),rgba(196,153,48,.05) 62%,transparent 72%);animation:rise linear infinite}
@@ -855,7 +855,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .sec.deep h2,.sec.deep h3,.sec.deep h4{color:#F3F1E8}
 .sec.deep .lede{color:#B9BBAD}
 .sec-head{margin-bottom:56px}
-.cr01-logo{display:block;width:clamp(144px,18vw,208px);height:auto;margin:18px auto 0;border-radius:0} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px); rounded corners removed at the user's request */
+.closing-logo{display:inline-block;height:1.05em;width:auto;vertical-align:baseline;margin-bottom:.06em} /* same HONIORA wordmark image as the nav header (black HONI, gold italic ORA) */
+.cr01-logo{display:block;width:clamp(216px,27vw,312px);height:auto;margin:18px auto 0;border-radius:0} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px); then 50% bigger, from clamp(144px,18vw,208px); rounded corners removed at the user's request */
 .sec-head h2{font-size:clamp(34px,5.4vw,68px);margin:18px 0 22px;max-width:20ch}
 .sec-head h2 em{font-style:italic;color:var(--gold)}
 /* headline that must never wrap: scales purely with viewport width */
@@ -930,7 +931,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    -- a bare .lede.oneline-fit rule would lose that specificity fight. */
 #problem .sec-head .lede.oneline-fit{max-width:64ch}
 @media (min-width:1260px){
-  #problem .sec-head .lede.oneline-fit{max-width:none;width:max-content}
+  #problem .sec-head .lede.oneline-fit{max-width:none;width:max-content;margin-left:50%;margin-right:0;transform:translateX(-50%)}
 }
 .unit-head h2{font-size:clamp(18px,2.2vw,29px);margin-top:7px;color:var(--gold)}
 .unit-head h2 em{font-style:italic;color:var(--gold)}
@@ -1310,6 +1311,13 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   #honey .honey-photo-wrap .pillar .cite:hover{color:#fff;border-color:#fff}
 }
 
+/* East Cape photo: as wide as the outer corners of the four hexes below it. The hex row is
+   --W wide with three --g gaps, so each hex is (W - 3g) / 4 wide and its left and right
+   vertices sit 2% of that inside the row's edges (the clip-path points at 2% and 98%). */
+@media(min-width:1001px){
+  #honey .mphoto:not(.honey-photo-wrap .mphoto){--W:min(calc(100vw - 64px),1700px);--g:clamp(10px,1.6vw,28px);
+    width:calc(var(--W) - .01 * (var(--W) - 3 * var(--g)));margin-left:calc((100% - (var(--W) - .01 * (var(--W) - 3 * var(--g)))) / 2)}
+}
 .facts-band{position:relative;margin:clamp(40px,5vw,64px) 0 0;padding:0}
 .facts-hexes{--W:min(calc(100vw - 64px),1700px);--g:clamp(10px,1.6vw,28px);width:var(--W);margin:0 0 0 calc((100% - var(--W)) / 2);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--g);align-items:center}
 /* translucent gold glass hexes in one row, spread across the page */
@@ -1319,6 +1327,26 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .fhex::before{content:'';position:absolute;inset:0;background:url('manuka-hex-glass-bg.jpg') center/cover;opacity:.45;pointer-events:none;transition:opacity .3s ease}
 .fhex:hover{filter:brightness(1.06) saturate(1.08)}
 .fhex:hover::before{opacity:.58}
+/* closing CTA: large translucent gold glass hex button, same glass as the .fhex hexes
+   (gradient + manuka-hex-glass-bg.jpg texture, flat top/bottom hex clip). The hex is its own
+   .hexcta-shape layer so it can spin on hover while the words stay still. The drop shadow
+   sits on the wrapper because clip-path would cut a shadow on the shape itself. */
+.hexcta{display:flex;justify-content:center;margin-top:6px;filter:drop-shadow(0 14px 22px rgba(21,23,15,.22)) drop-shadow(0 2px 4px rgba(21,23,15,.18))}
+.hexcta-link{position:relative;display:flex;align-items:center;justify-content:center;width:clamp(250px,26vw,380px);aspect-ratio:560/488;
+  text-decoration:none;text-align:center;outline:none}
+.hexcta-shape{position:absolute;inset:0;display:block;
+  background:linear-gradient(160deg,rgba(201,154,46,.94),rgba(154,111,22,.92));
+  clip-path:polygon(25% 2.2%,75% 2.2%,98% 50%,75% 97.8%,25% 97.8%,2% 50%);transition:filter .3s ease}
+.hexcta-shape::before{content:'';position:absolute;inset:0;background:url('manuka-hex-glass-bg.jpg') center/cover;opacity:.45;transition:opacity .3s ease}
+.hexcta-link span{position:relative;z-index:1;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:clamp(14px,1.45vw,20px);letter-spacing:.14em;line-height:1.5;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.hexcta-link .ar{font-style:normal;display:inline-block;margin-left:.2em;transition:transform .3s ease}
+@keyframes hexcta-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.hexcta-link:hover .hexcta-shape,.hexcta-link:focus-visible .hexcta-shape{animation:hexcta-spin .9s cubic-bezier(.45,.05,.25,1) 1;filter:brightness(1.07) saturate(1.1)}
+.hexcta-link:hover .hexcta-shape::before{opacity:.58}
+.hexcta-link:hover .ar{transform:translateX(5px)}
+.hexcta:focus-within{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 8px rgba(176,130,31,.9)) drop-shadow(0 14px 22px rgba(21,23,15,.22))}
+@media(prefers-reduced-motion:reduce){.hexcta-link:hover .hexcta-shape,.hexcta-link:focus-visible .hexcta-shape{animation:none}}
 .fhex-in{position:relative;z-index:1;width:70%;text-align:center}
 .fhex-in b{display:block;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:clamp(24px,2.3vw,38px);font-weight:400;color:#fff;line-height:1.1;letter-spacing:-.01em;text-shadow:0 1px 4px rgba(0,0,0,.4)}
 .fhex-in h4{font-size:clamp(9px,.7vw,11px);letter-spacing:.12em;text-transform:uppercase;margin:7px 0 6px;font-weight:700;color:rgba(255,255,255,.88);text-shadow:0 1px 4px rgba(0,0,0,.4)}
@@ -1391,7 +1419,11 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .pconv-tube-wrap{width:min(40rem,85vw)}
 }
 .matrix{border-top:1px solid var(--line)}
-.mgrid{display:grid;grid-template-columns:minmax(180px,1.25fr) minmax(150px,.95fr) 128px minmax(280px,2.4fr);gap:24px}
+.mgrid{display:grid;grid-template-columns:minmax(180px,1.25fr) minmax(232px,.95fr) 128px minmax(280px,2.4fr);gap:24px}
+/* the Function pills (up to ~217px wide) used to spill into the Per serving column; the
+   Function column now has a 232px floor, and the table runs 40px wider each side on wide
+   screens, inside the wrap's own padding. */
+@media(min-width:1280px){.matrix{margin-left:-40px;margin-right:-40px}}
 .row{padding:30px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:padding-left .4s ease,background .4s ease}
 .row:hover{padding-left:14px;background:var(--gold-wash)}
 .row .name{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:22px;font-weight:400;letter-spacing:-.005em}
@@ -2128,6 +2160,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    the JS below measures the actual hex width and corrects it -- close enough to
    avoid a visible jump on any of this breakpoint's sizes. */
 .burger-left{right:auto;left:60px}
+/* burgers restyled as small gold hex buttons with a plus sign (same tray image as the
+   Reserve hexes). The two empty spans are hidden, the plus is drawn by ::before and turns
+   into a cross while its popup is open. ::after extends the hover area down toward the
+   popup so the mouse hand-off from button to popup stays unbroken. */
+.burger{width:calc(var(--bh,30px) * 720 / 640);height:var(--bh,30px);padding:0;
+  background:url(nav-hex-tray-t.png) center/100% 100% no-repeat;
+  filter:drop-shadow(0 3px 6px rgba(21,23,15,.20));transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.burger span{display:none}
+.burger::before{content:"+";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;
+  font-size:calc(var(--bh,30px) * .62);line-height:1;color:var(--ink);padding-bottom:1px;transition:transform .25s}
+.burger::after{content:"";position:absolute;left:-6px;right:-6px;top:100%;height:20px}
+.burger:hover,.burger:focus-visible{transform:scale(1.12)}
+.burger[aria-expanded="true"]::before{transform:rotate(45deg)}
+.burger{--bh:29.44px;width:34px;height:29.44px;top:14.72px;bottom:auto;margin:0}
 /* burger nav popup: the compact list each burger opens (gold .95-opacity fill,
    black text, gold on hover, hairline divider between rows). This is now the
    ONLY nav menu -- the old full-height sliding two-column panel it used to be
@@ -2210,12 +2257,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    height and 1396:294 source aspect ratio) plus a flat 50px gap -- so each burger's
    near edge lands 50px clear of the logo on its side, symmetric either way. */
 @media(min-width:1001px){
-  .burger{left:calc(50% + 178px);right:auto}
-  .burger-left{right:calc(50% + 178px);left:auto}
+  .burger{left:calc(50% + 212.5px);right:auto}
+  /* grid snap: the header texture is a 51 x 29.44px tile (flat-top hexes 34 wide x 29.44
+     tall) centred on the header. One column of cell centres sits at 50% +/- 25.5, 76.5,
+     127.5, 178.5, 229.5 px and at y = 29.44 x n. The plus hexes take exactly one cell each
+     (34 x 29.44, centre 229.5px either side of centre, 29.44px down), so their outline
+     lies on the grid lines. */
+  /* (burger size and top are set globally above; JS snaps the exact cell, see positionAll) */
+  .burger-left{right:calc(50% + 212.5px);left:auto}
   /* burger-drop rides along with its burger's new near-logo position -- same anchor
      property and value, so the popup still lines up directly beneath it here too. */
-  .burger-drop-left{right:calc(50% + 178px);left:auto}
-  .burger-drop-right{left:calc(50% + 178px);right:auto}
+  .burger-drop-left{right:calc(50% + 212.5px);left:auto}
+  .burger-drop-right{left:calc(50% + 212.5px);right:auto}
   /* top:0, no vertical centring: the hex's own top edge lines up exactly with the
      navbar's top edge (0px overhang above), and since the hex (71px) is 5px taller
      than the 66px navbar, the extra 5px falls entirely below it -- an exact 0px
@@ -2446,14 +2499,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </a>
     <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropLeft"><span></span><span></span></button>
     <div class="burger-drop burger-drop-left" id="burgerDropLeft">
+      <a href="#matrix">HoniOra Stack</a>
       <a href="#honeytop">M&#257;nuka Honey</a>
       <a href="#problem">Cr.01 Creatine</a>
       <a href="#mitoq">MitoQ</a>
       <a href="#livaux">Livaux</a>
       <a href="#pomma">Pomma+</a>
       <a href="#triad">Four Systems</a>
-      <a href="#glp1">Natural GLP-1 Boost</a>
-      <a href="#matrix">The Stack</a>
+      <a href="#glp1">Natural GLP-1</a>
       <a href="#taste">Taste</a>
     </div>
     <div class="hexbtn-m nav-hex-mobile-left">
@@ -2628,7 +2681,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li>Vitamin A Retinyl Palmitate</li>
       </ul>
       <div class="hero-meta rv">
-        <div><b>20</b><span>Full dose wellness actives, Zero blends</span></div>
+        <div><b>20</b><span>Full dose wellness actives</span></div>
       </div>
       <div class="hero-cta rv">
         <a href="#matrix" class="btn">Explore HoniOra <span class="ar">&rarr;</span></a>
@@ -2735,8 +2788,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="ritual-grid">
       <div class="rv">
-        <div class="step"><span class="k">01</span><div><h3>Drop 2 tabs</h3><p>Into 300 ml of cold water. No scoop, no shaker, no measuring, and no mess.</p></div></div>
-        <div class="step"><span class="k">02</span><div><h3>Let it FIZZ and take the time to plan your day</h3><p>The effervescent engine self-mixes the entire matrix. Complete disintegration in under sixty seconds without mechanical stirring.</p></div></div>
+        <div class="step"><span class="k">01</span><div><h3>Drop 2 tabs</h3><p>Into 350 ml of cold water. No scoop, no shaker, no measuring, and no mess.</p></div></div>
+        <div class="step"><span class="k">02</span><div><h3>Let it FIZZ and take the time to plan your day</h3><p>The effervescent engine self-mixes the entire matrix. Complete disintegration in sixty seconds without mechanical stirring.</p></div></div>
         <div class="step"><span class="k">03</span><div><h3>Drink it cold</h3><p>Natural yuzu, passionfruit and golden kiwi. Compatible with fasted and low-glycemic protocols.</p></div></div>
       </div>
       <div class="rv">
@@ -2940,6 +2993,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
     <p class="lede" style="margin:clamp(28px,3.4vw,40px) auto 0;max-width:min(90vw,1100px);text-align:center;text-wrap:balance;font-size:clamp(22px,2.7vw,38px);line-height:1.45">The honey crystals dissolve into your morning water with the balance of our HONI<i>ORA</i> active matrix: same potent doses, every single day.</p>
+    <div class="mphoto rv">
+      <picture class="mphoto-pic">
+        <source media="(max-width:1000px)" srcset="manuka-coast-lite.jpg">
+        <img width="2400" height="1341" src="manuka-coast.jpg" alt="M&#257;nuka bushes, East Cape, New Zealand" loading="lazy">
+      </picture>
+      <span class="cap">M&#257;nuka bushes &middot; East Cape, New Zealand</span>
+    </div>
     <div class="facts-band">
       <div class="facts-hexes rv">
         <div class="fhex"><div class="fhex-in"><b>1839</b><h4>New Zealand's first honeybees</h4><p>European honeybees didn't exist here until missionary Mary Bumby brought two hives ashore at the Mangungu Mission Station, Hokianga, in March 1839. Every M&#257;nuka harvest since traces back to bees descended from that one delivery.</p></div></div>
@@ -2947,13 +3007,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="fhex"><div class="fhex-in"><b>2&ndash;6 weeks</b><h4>The entire flowering window</h4><p>M&#257;nuka blooms for only a few weeks each summer, peaking in mid-December, and beekeepers have to move hives into position before it opens. Miss it, and it's a full year until the next one.</p></div></div>
         <div class="fhex"><div class="fhex-in"><b>800+ years</b><h4>A tradition older than the honey</h4><p>Long before honeybees reached New Zealand, M&#257;ori boiled M&#257;nuka leaves and bark as a treatment for fever, inhaled the vapour for head colds, and applied it directly to scalds and burns.</p></div></div>
       </div>
-    </div>
-    <div class="mphoto rv">
-      <picture class="mphoto-pic">
-        <source media="(max-width:1000px)" srcset="manuka-coast-lite.jpg">
-        <img width="2400" height="1341" src="manuka-coast.jpg" alt="M&#257;nuka bushes, East Cape, New Zealand" loading="lazy">
-      </picture>
-      <span class="cap">M&#257;nuka bushes &middot; East Cape, New Zealand</span>
     </div>
   </div>
 </section>
@@ -3079,8 +3132,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p class="eyebrow dim">05 / Creatine Evolved</p>
       <img src="jenerise-cr01-logo.png" alt="Jenerise Cr.01 logo" class="cr01-logo" width="864" height="864" loading="lazy">
       <h2 class="serif threeline">Introducing Jenerise Cr.01&trade;<br><em>Super Creatine&nbsp;Monohydrate<br>By the Creatine OG Steve Jennings.</em></h2>
-      <p class="lede oneline-fit">Creatine is one of the most trusted and heavily researched ingredients in wellness today, used well beyond athletics and the gym.</p>
-      <p class="lede"><span class="nowrap-line">Our creatine is Jenerise Cr-01<sup class="rn">&reg;</sup> Creatine Monohydrate by creatine's own UK pioneers, Steve and Rachael Jennings.</span> <br> <span class="nowrap-line">Steve first developed and introduced creatine to the British Olympic Team at the 1992 Olympics. 2026 Jenerise Cr-01<sup class="rn">&reg;</sup> Creatine Monohydrate</span> is pure and evolutionary, built to stricter standards: a content assay of 99.9% or better on a dried basis, verified lot by lot by SGS.</p>
+      <p class="lede oneline-fit" style="text-align:center">Creatine is one of the most trusted and heavily researched ingredients in wellness today, used well beyond athletics and the gym.</p>
+      <p class="lede" style="text-align:center"><span class="nowrap-line">Our creatine is Jenerise Cr-01<sup class="rn">&reg;</sup> Creatine Monohydrate by creatine's own UK pioneers, Steve and Rachael Jennings.</span> <br> <span class="nowrap-line">Steve first developed and introduced creatine to the British Olympic Team at the 1992 Olympics.</span> <br> <span class="nowrap-line">2026 Jenerise Cr-01<sup class="rn">&reg;</sup> Creatine is pure and evolutionary, built to stricter standards: an SGS verified content assay of 99.9%.</span></p>
     </div>
     <div class="prob-grid">
       <div class="rv">
@@ -3097,7 +3150,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <ul class="prob-list">
           <li><span class="x">01</span><div><strong>Optimal vitality at every age</strong><br> <span class="d">The clinical record for creatine monohydrate spans more than 40 years and 680 peer-reviewed studies. Jenerise Cr.01&trade; positions that record where consumer demand is heading next: not just athletic output, but long-term and full-body.</span></div></li>
           <li><span class="x">02</span><div><strong>ATP, regenerated faster.</strong> <span class="d">Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP during short, intense effort. That is the mechanism behind its strength and power research base.</span></div></li>
-          <li><span class="x">03</span><div><strong>A well-studied, well-tolerated dose.</strong> <span class="d">Creatine monohydrate is backed by extensive research at daily doses of 3 to 5 g, and HONI<i>ORA</i> delivers 3,500 mg per serving.</span></div></li>
+          <li><span class="x">03</span><div><strong>HONI<i>ORA</i> delivers 3,500 mg per serving:</strong> <span class="d">A well-studied, well-tolerated daily dose backed by extensive research.</span></div></li>
           <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside VasoDrive-AP<sup class="rn">&reg;</sup>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant and Careflow<sup class="rn">&reg;</sup> so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
           <li><span class="x">05</span><div><strong>Electrolytes support creatine uptake.</strong> <span class="d">The creatine transporter depends on sodium and chloride, while potassium, magnesium and sodium together regulate the intracellular fluid balance and membrane potential that support nutrient uptake and muscle contraction during training. HONI<i>ORA</i>&rsquo;s Balanced Hydration Matrix supplies sodium, potassium and magnesium alongside the Cr-01<sup class="rn">&reg;</sup> Creatine dose.</span></div></li>
         </ul>
@@ -3133,7 +3186,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
       <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
-      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 300ml water, <br>creating a delicious, potent, and invigorating solution, <br>kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.</p>
+      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 350ml water, <br>creating a delicious, potent, and invigorating solution, <br>kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.</p>
     </div>
     <div class="pillars pillars4 rv">
       <div class="pillar">
@@ -3164,7 +3217,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="pillar">
         <span class="n">ix</span>
         <h3>Complete dissolution, clean finish</h3>
-        <p>Creatine, active nutrients and precisely buffered effervescent salts dissolve fully in under 90 seconds into a golden plume of natural fibre, leaving a smooth, delicious drink with no grit and no residue, effortless every morning.</p>
+        <p>Creatine, active nutrients and precisely buffered effervescent salts dissolve fully in 60 seconds into a golden plume of natural fibre, leaving a smooth, delicious drink with no grit and no residue, effortless every morning.</p>
       </div>
       <div class="pillar">
         <span class="n">x</span>
@@ -3254,8 +3307,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
       <div class="stat">
         <b data-count="20" data-suffix="">20</b>
-        <h4>Named actives, zero blends</h4>
-        <p>Every active in the HONI<i>ORA</i> SKU2 formula is individually named and dosed on the batch record, not hidden inside a proprietary blend.</p>
+        <h4>Named actives</h4>
+        <p>Every active in the HONI<i>ORA</i> SKU2 formula is individually named and dosed on the batch record.</p>
         <span class="src">Full bill of materials &middot; SKU2 batch record</span>
       </div>
     </div>
@@ -3874,7 +3927,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="packcard">
         <p class="eyebrow">HONI<i>ORA</i> Creatine &amp; Microvascular Protocol</p>
         <h3 class="serif" style="font-size:32px;margin:16px 0 14px">14 tablets &middot; 7 servings</h3>
-        <p style="color:var(--ink-2);font-size:15px">2 tabs per day in 300 ml of cold water. One tube covers a week. Made in the USA in an NSF / USP certified GMP facility, with New Zealand-sourced Mānuka honey, gold kiwifruit, feijoa and blackcurrant.</p>
+        <p style="color:var(--ink-2);font-size:15px">2 tabs per day in 350 ml of cold water. One tube covers a week. Made in the USA in an NSF / USP certified GMP facility, with New Zealand-sourced Mānuka honey, gold kiwifruit, feijoa and blackcurrant.</p>
         <div class="spec">
           <div><b>5,974.50 mg</b><span>Per tablet</span></div>
           <div><b>25 mm</b><span>Round FFBE tablet</span></div>
@@ -3992,17 +4045,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <div class="wrap" style="position:relative;z-index:2">
     <div class="closing-bee-wrap rv"><img src="honico-bee-logo.png" alt="HoniCo golden bee emblem" class="closing-bee" width="468" height="546" loading="lazy"></div>
     <p class="eyebrow rv">Born in New Zealand &middot; Made in the USA</p>
-    <h2 class="serif rv" style="margin-top:26px">Golden health <em>awakes.</em></h2>
-    <div class="rv"><a href="#waitlist" class="btn">Join the founding list <span class="ar">&rarr;</span></a></div>
+    <h2 class="serif rv" style="margin-top:26px"><img src="honiora-logo.png" alt="HoniOra" class="closing-logo" width="1396" height="294"><br><em>Activated Nectar</em></h2>
+    <p class="serif rv" style="font-size:clamp(16px,1.5vw,20px);font-style:italic;letter-spacing:.03em;color:var(--ink-soft);margin:22px 0 26px">Golden health awakes.</p>
+    <div class="rv hexcta"><a href="#waitlist" class="hexcta-link"><b class="hexcta-shape" aria-hidden="true"></b><span>Join the<br>founding list <i class="ar">&rarr;</i></span></a></div>
   </div>
 </section>
 
 <!-- ================= HONIBLOG ================= -->
 <section class="sec" id="honiblog">
   <div class="wrap">
-    <div class="sec-head rv">
+    <div class="sec-head rv" style="text-align:center">
       <p class="eyebrow" id="honiblogtop">16 / HoniBlog</p>
-      <h2 class="serif">The <em>HoniBlog</em>.</h2>
+      <h2 class="serif" style="margin-left:auto;margin-right:auto">The <em>HoniBlog</em>.</h2>
     </div>
 
     <!-- HoniBlog stack order: newest article always goes first, directly below
@@ -4734,28 +4788,63 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var navbar = document.querySelector('.navbar');
     if (!burgerLeft || !burgerRight || !dropLeft || !dropRight || !hexLeft || !hexRight || !navbar) return;
 
-    var GAP = 8; /* clear space between the hex and the burger next to it */
-
-    function positionAll(){
-      if (window.innerWidth > 1000){
-        burgerLeft.style.left = '';
-        burgerLeft.style.right = '';
-        burgerRight.style.left = '';
-        burgerRight.style.right = '';
-        dropLeft.style.left = '';
-        dropLeft.style.right = '';
-        dropRight.style.left = '';
-        dropRight.style.right = '';
-        return;
+    /* Grid snap at every width. The header texture is a 51 x 29.44px tile centred on the
+       header: flat-top hex cells 34 wide x 29.44 tall. Column A cells have their centres at
+       50% +/- (25.5 + 51k) and y = 29.44n. Column B cells sit at 50% +/- 51k and
+       y = 14.72 + 29.44m. Each plus hex is exactly one cell, so the row is picked from the
+       navbar height (nearest cell row to the middle) and the column from that row.
+       Above 1000px the target is the 229.5px cell used on desktop. Below it, the cell
+       nearest the logo that still clears the logo and its Reserve hex is used. */
+    function snap(){
+      var W = navbar.clientWidth, H = navbar.clientHeight, mid = W / 2;
+      var ys = [14.72, 29.44, 44.16], cy = ys[0];
+      for (var i = 1; i < ys.length; i++){ if (Math.abs(ys[i] - H / 2) < Math.abs(cy - H / 2)) cy = ys[i]; }
+      var colA = (cy === 29.44);
+      var offs = [];
+      for (var k = (colA ? 0 : 1); k < 12; k++) offs.push(colA ? 25.5 + 51 * k : 51 * k);
+      var c = null;
+      if (W > 1000){
+        c = offs[0];
+        for (var q = 1; q < offs.length; q++){ if (Math.abs(offs[q] - 229.5) <= Math.abs(c - 229.5)) c = offs[q]; }
+      } else {
+        var logo = document.querySelector('.brand-mobile img');
+        var logoHalf = logo ? logo.offsetWidth / 2 : 110;
+        var hnL = mid - (hexLeft.offsetLeft + hexLeft.offsetWidth);
+        var hnR = hexRight.offsetLeft - mid;
+        var hn = Math.min(hnL, hnR), gaps = [6, 3, 0, -3, -6];
+        for (var g = 0; g < gaps.length && c === null; g++){
+          for (var m = 0; m < offs.length; m++){
+            if (offs[m] - 17 >= logoHalf + gaps[g] && offs[m] + 17 <= hn - gaps[g]){ c = offs[m]; break; }
+          }
+        }
+        if (c === null){
+          /* no clean slot (tablet widths, where the Reserve hexes and the logo nearly touch):
+             take the cell with the least overlap against the logo's drawn width and the hex */
+          var ink = logoHalf * 0.94, best = 1e9;
+          for (var n = 0; n < offs.length; n++){
+            var ov = Math.max(0, ink - (offs[n] - 17)) + Math.max(0, (offs[n] + 17) - hn);
+            if (ov < best){ best = ov; c = offs[n]; }
+          }
+        }
       }
-      var hexLeftW = hexLeft.getBoundingClientRect().width;
-      var hexRightW = hexRight.getBoundingClientRect().width;
-      burgerLeft.style.right = '';
-      burgerLeft.style.left = (hexLeftW + GAP) + 'px';
-      burgerRight.style.left = '';
-      burgerRight.style.right = (hexRightW + GAP) + 'px';
-
+      var edge = (c - 17) + 'px';
+      burgerLeft.style.left = 'auto';
+      burgerLeft.style.right = 'calc(50% + ' + edge + ')';
+      burgerRight.style.right = 'auto';
+      burgerRight.style.left = 'calc(50% + ' + edge + ')';
+      burgerLeft.style.top = burgerRight.style.top = (cy - 14.72) + 'px';
+      if (W > 1000){
+        dropLeft.style.left = 'auto';
+        dropLeft.style.right = 'calc(50% + ' + edge + ')';
+        dropRight.style.right = 'auto';
+        dropRight.style.left = 'calc(50% + ' + edge + ')';
+      } else {
+        dropLeft.style.left = ''; dropLeft.style.right = '';
+        dropRight.style.left = ''; dropRight.style.right = '';
+      }
     }
+
+    function positionAll(){ snap(); }
 
     positionAll();
     window.addEventListener('resize', function(){
@@ -4935,9 +5024,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 20 named actives into one effervescent serving, 11,981 mg total, with zero proprietary blends. They run across four systems: <b>Strength</b> (creatine for power, MitoQ), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 20 named actives into one effervescent serving, 11,981 mg total. They run across four systems: <b>Strength</b> (creatine for power, MitoQ), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
-       a:"Drop 2 tablets into 300 ml of cold water. The effervescent engine fully dissolves in under 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
+       a:"Drop 2 tablets into 350 ml of cold water. The effervescent engine fully dissolves in 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
        a:"Cr-01 Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength, healthy aging and cognitive function, not just athletic performance. It's dosed at 3,500 mg creatine monohydrate, a full daily serving.",
        src:"Raw material: Jenerise Cr.01&trade; (jenerise.com), a creatine innovation company founded by Steve Jennings, who also launched Ergomax C150 in 1992, the first creatine monohydrate product; he now runs Jenerise alongside his daughter Rachael. Each lot is verified by SGS, with a creatine content assay of 99.9% or better on a dried basis. Creatine is one of the most studied and trusted nutrients for cellular energy and healthy aging."},
