@@ -1863,8 +1863,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    IntersectionObserver above -- only the transform differs. ---------- */
 .lemon-roll{display:flex;justify-content:center;margin:clamp(18px,3.6vw,32px) 0 clamp(22px,3.6vw,36px)}
 .lemon-roll img{width:clamp(200px,28vw,380px);height:auto;display:block;border-radius:50%}
-.rv.lemon-roll{opacity:0;transform:translateX(-70vw) rotate(-540deg);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1.15s cubic-bezier(.22,1,.36,1)}
-.rv.lemon-roll.in{opacity:1;transform:none}
+/* The roll-in now moves the image, not the full-width wrapper. The wrapper stays in place so the
+   shared reveal observer always sees it, at any screen width and on any host. */
+.rv.lemon-roll{opacity:1;transform:none;transition:none}
+.lemon-roll img{opacity:0;transform:translateX(-70vw) rotate(-540deg);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1.15s cubic-bezier(.22,1,.36,1)}
+.lemon-roll.in img{opacity:1;transform:none}
 
 /* ---------- hero pillars : copy slides in first, icon follows after, both from the nearest screen edge ---------- */
 .pillar[data-edge] .pillar-body{opacity:0;transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1)}
@@ -3590,7 +3593,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">11 / The Lemon Water Upgrade</p>
       <h2 class="serif">Everything lemon water does <em>but a clinical dose.</em></h2>
-      <div class="lemon-roll rv"><img src="lemon-slice-cutout.png" alt="A cross-section slice of lemon" width="520" height="520" loading="lazy"></div>
+      <div class="lemon-roll rv"><img src="lemon-slice-cutout.png" alt="A cross-section slice of lemon" width="520" height="520" decoding="async"></div>
       <p class="lede">Your morning lemon water is a good habit built on four real mechanisms. The trouble is dosage. A squeezed lemon delivers small and wildly variable amounts of everything it is credited for, and it also bathes your enamel in unbuffered acid on the way. HONI<i>ORA</i> runs the same four pathways with consistent beneficial amounts and minimises the enamel risk.</p>
     </div>
 
