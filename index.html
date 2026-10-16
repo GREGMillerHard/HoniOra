@@ -7398,5 +7398,38 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      referrerpolicy fixes attempted in v358 -- see the project doc's v365/v366
      notes for the investigation. Reverting to plain external links removes the
      iframe entirely, which removes the error along with it. -->
+<script>
+/* Full screen on load. Browsers only allow full screen after a user action, so this tries
+   once at load (silently refused almost everywhere) and again on the visitor's first click,
+   tap or key press. If the visitor leaves full screen (Esc), it never forces it back. */
+(function(){
+  var de = document.documentElement;
+  var req = de.requestFullscreen || de.webkitRequestFullscreen || de.msRequestFullscreen;
+  if (!req) return;
+  var done = false;
+  function inFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function go(){
+    if (done || inFs()) return;
+    try {
+      var r = req.call(de);
+      if (r && r.catch) r.catch(function(){});
+    } catch (e) {}
+  }
+  function onGesture(ev){
+    if (ev.type === 'keydown' && (ev.key === 'Escape' || ev.key === 'Tab' || ev.key === 'Shift' || ev.key === 'Control' || ev.key === 'Alt' || ev.key === 'Meta')) return;
+    done = true;
+    cleanup();
+    var r;
+    try { r = req.call(de); if (r && r.catch) r.catch(function(){}); } catch (e) {}
+  }
+  function cleanup(){
+    ['pointerdown','touchend','click','keydown'].forEach(function(t){ document.removeEventListener(t, onGesture, true); });
+  }
+  ['pointerdown','touchend','click','keydown'].forEach(function(t){ document.addEventListener(t, onGesture, true); });
+  document.addEventListener('fullscreenchange', function(){ if (!inFs() && done) cleanup(); });
+  document.addEventListener('webkitfullscreenchange', function(){ if (!inFs() && done) cleanup(); });
+  go();
+})();
+</script>
 </body>
 </html>
