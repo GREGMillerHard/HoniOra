@@ -894,7 +894,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .sec.deep h2,.sec.deep h3,.sec.deep h4{color:#F3F1E8}
 .sec.deep .lede{color:#B9BBAD}
 .sec-head{margin-bottom:56px}
-.closing-logo{display:inline-block;height:1.05em;width:auto;vertical-align:baseline;margin-bottom:.06em} /* same HONIORA wordmark image as the nav header (black HONI, gold italic ORA) */
+.closing-logo{display:inline-block;width:min(9.98em,100%);height:auto;vertical-align:baseline;margin-bottom:.06em} /* same HONIORA wordmark image as the nav header (black HONI, gold italic ORA) */
 .cr01-logo{display:block;width:clamp(216px,27vw,312px);height:auto;margin:18px auto 0;border-radius:0} /* (v310) doubled at the user's request, from clamp(72px,9vw,104px); then 50% bigger, from clamp(144px,18vw,208px); rounded corners removed at the user's request */
 .sec-head h2{font-size:clamp(34px,5.4vw,68px);margin:18px 0 22px;max-width:20ch}
 .sec-head h2 em{font-style:italic;color:var(--gold)}
@@ -1843,24 +1843,17 @@ textarea{resize:vertical;min-height:64px}
 
 /* ---------- closing ---------- */
 .closing{text-align:center;padding:clamp(90px,13vw,172px) 0;position:relative;overflow:hidden}
-.closing h2{font-size:clamp(38px,7.4vw,96px);max-width:15ch;margin:0 auto 30px}
+.closing h2{font-size:clamp(38px,7.4vw,96px);max-width:min(15ch,100%);margin:0 auto 30px}
 .closing h2 em{font-style:italic;color:var(--gold)}
 .closing-bee-wrap{display:flex;justify-content:center;margin:0 auto clamp(28px,3.4vw,44px)}
-/* hand-drawn annotation beside the closing bee: fine orange arrow plus caption */
+/* closing: bee is static, no annotation */
+#about.sec{padding-bottom:0}
 /* closing screen background: faint gold honeycomb lattice, fading out toward the edges */
 .closing{isolation:isolate}
 .closing::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 28 49'><path fill='%23B0821F' fill-opacity='.15' fill-rule='evenodd' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.3h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/></svg>") 0 0/56px 98px;-webkit-mask-image:radial-gradient(ellipse 70% 62% at 50% 38%,#000 10%,transparent 78%);mask-image:radial-gradient(ellipse 70% 62% at 50% 38%,#000 10%,transparent 78%)}
-.closing-bee-wrap{position:relative;--bw:calc(clamp(170px,19vw,320px) * .857)}
-.bee-note{position:absolute;right:calc(50% + var(--bw) / 2 + clamp(2px,.8vw,14px));top:50%;width:clamp(125px,16vw,290px);transform:translateY(-14%);text-align:left;pointer-events:none}
-.bee-note svg{display:block;width:100%;height:auto;overflow:visible}
-.bee-note path{fill:none;stroke:#F39A2B;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s cubic-bezier(.4,.1,.2,1) .35s}
-.bee-note path.head{transition-delay:1.25s;transition-duration:.35s}
-.closing-bee-wrap.in .bee-note path{stroke-dashoffset:0}
-.bee-note span{display:block;margin:-6px 0 0 -18%;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:clamp(12px,1.2vw,19px);line-height:1.25;color:#15170F;opacity:0;transition:opacity .6s ease .1s;white-space:nowrap}
-.closing-bee-wrap.in .bee-note span{opacity:1}
-@media(max-width:700px){.bee-note{width:clamp(88px,26vw,120px)}.bee-note span{white-space:normal;margin-left:0;font-size:11px;max-width:100%}}
-@media(prefers-reduced-motion:reduce){.bee-note path,.bee-note span{transition:none}}
-.closing-bee{height:clamp(170px,19vw,320px);width:auto;display:block;animation:beeBuzz .1s linear infinite,beeSwing 5.2s linear infinite;transform-origin:center}
+.closing-bee-wrap{position:relative}
+.closing-bee{height:clamp(170px,19vw,320px);width:auto;display:block;transform-origin:center}
+.closing-bee:hover{animation:beeBuzz .1s linear infinite,beeSwing 5.2s linear infinite}
 @keyframes beeBuzz{
   0%,100%{translate:0 0}
   25%{translate:.7px -.7px}
@@ -3012,13 +3005,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <img class="pillar-icon" data-edge="l" src="pillar-icon-vascular.png" alt="" loading="lazy">
         <div class="pillar-body">
           <h3>Vascular Support<br>+<br>Natural<br>Nitric Oxide</h3>
-          <p>Endothelial and microcirculatory optimization drives systemic nutrient delivery. Utilizing multi-pathway bioactives including <span class="kw">peptide ACE inhibitors</span>, cerebral microvascular stimulators, <span class="kw">eNOS activators</span>, and <span class="kw">natural nitric oxide matrices</span>, HONI<i>ORA</i> promotes arterial elasticity, natural nitric oxide production and oxygen transport.</p>
+          <p>Optimization drives systemic nutrient delivery. Utilizing multi-pathway bioactives including <span class="kw">peptide ACE inhibitors</span>, cerebral microvascular stimulators, <span class="kw">eNOS activators</span>, and <span class="kw">natural nitric oxide matrices</span>, HONI<i>ORA</i> promotes arterial elasticity, natural nitric oxide production and oxygen transport.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
         <img class="pillar-icon" data-edge="r" src="pillar-icon-hydration.png" alt="" loading="lazy">
         <div class="pillar-body">
-          <h3>Optimised Hydration</h3>
+          <h3>Efficient Hydration</h3>
           <p>Sodium, potassium and magnesium dissolved and buffered, through <span class="kw">stoichiometric effervescent mineral carbonates</span> paired with <span class="kw">bioavailable electrolytes</span>. Every dose dissolved to reduce gut reaction and increase absorption.</p>
         </div>
       </div>
@@ -4588,7 +4581,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <section class="closing">
   <div class="wrap" style="position:relative;z-index:2">
-    <div class="closing-bee-wrap rv"><div class="bee-note" aria-hidden="true"><svg viewBox="0 0 300 112"><path pathLength="1" d="M14 100 C 8 52, 64 24, 140 22 C 190 21, 236 27, 276 30"/><path class="head" pathLength="1" d="M248 12 C 258 20, 268 26, 280 31 C 267 35, 256 42, 246 52"/></svg><span>Napoleon&rsquo;s Golden Bee</span></div><img src="honico-bee-logo.png" alt="HoniCo golden bee emblem, known as Napoleon&rsquo;s Golden Bee" class="closing-bee" width="468" height="546" loading="lazy"></div>
+    <div class="closing-bee-wrap rv"><img src="honico-bee-logo.png" alt="HoniCo golden bee emblem, known as Napoleon&rsquo;s Golden Bee" class="closing-bee" width="468" height="546" loading="lazy"></div>
     <p class="eyebrow rv">Born in New Zealand &middot; Made in the USA</p>
     <h2 class="serif rv" style="margin-top:26px"><img src="honiora-logo.png" alt="HoniOra" class="closing-logo" width="1396" height="294"><br><em>Activated Nectar</em></h2>
     <p class="serif rv" style="font-size:clamp(16px,1.5vw,20px);font-style:italic;letter-spacing:.03em;color:var(--ink-soft);margin:22px 0 26px">Golden health awakes.</p>
