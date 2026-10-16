@@ -113,6 +113,31 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
    the eyebrow inside it its own natural breathing room, rather than jamming
    the text itself under the header the way #problem's tighter framing does. */
 #pomma{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
+/* #lemon (11 / Lemon Water Upgrade): same tight landing as #problem and #pomma, eyebrow sits right under the nav bar */
+#lemon{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
+#science{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))} /* 06 / Dissolve: eyebrow right under the nav bar */
+#rita{scroll-margin-top:67px}
+#ritual{scroll-margin-top:67px}
+#triad{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
+#glp1{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
+#taste{scroll-margin-top:calc(81px - clamp(80px,11vw,152px))}
+
+/* 12 / The Taste: gold and white silk flow background (option E), pure CSS, slow 12s loop */
+#taste.sec.tinted,#protocol.sec{position:relative;isolation:isolate;overflow:hidden;background:#F8F5EC}
+.taste-silk{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
+.taste-silk i{position:absolute;left:-30%;width:160%;height:46%;border-radius:50%;filter:blur(34px);opacity:.9;will-change:transform}
+.taste-silk .s1{top:-8%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(232,196,104,.85),rgba(255,255,255,.9),rgba(214,168,60,.7),rgba(255,255,255,0));animation:tsE1 12s ease-in-out infinite}
+.taste-silk .s2{top:24%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95),rgba(236,201,110,.8),rgba(255,255,255,.8),rgba(255,255,255,0));animation:tsE2 12s ease-in-out infinite}
+.taste-silk .s3{top:56%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(214,168,60,.7),rgba(255,255,255,.9),rgba(236,201,110,.85),rgba(255,255,255,0));animation:tsE3 12s ease-in-out infinite}
+.taste-silk .veil{inset:0;left:0;width:100%;height:100%;border-radius:0;filter:none;opacity:1;animation:none;background:linear-gradient(180deg,rgba(250,247,240,.46),rgba(250,247,240,.34) 60%,rgba(250,247,240,.46))}
+@keyframes tsE1{0%,100%{transform:translate(-6%,0) rotate(-4deg) scaleY(1)}50%{transform:translate(6%,6%) rotate(3deg) scaleY(1.25)}}
+@keyframes tsE2{0%,100%{transform:translate(5%,0) rotate(3deg) scaleY(1.1)}50%{transform:translate(-6%,-5%) rotate(-3deg) scaleY(.85)}}
+@keyframes tsE3{0%,100%{transform:translate(-4%,0) rotate(2deg) scaleY(.9)}50%{transform:translate(5%,-6%) rotate(-4deg) scaleY(1.2)}}
+@media (max-width:1000px){.taste-silk i{filter:blur(22px)}}
+@media (prefers-reduced-motion:reduce){.taste-silk i{animation:none}}
+#livaux{scroll-margin-top:calc(70px - clamp(80px,11vw,152px))}
+#pack{scroll-margin-top:calc(81px - clamp(80px,11vw,152px))} /* 13 / Format: same, 7px tighter */
 
 /* ---------- nav ---------- */
 header{position:fixed;top:0;left:0;right:0;z-index:100;transition:box-shadow .4s;border-bottom:1px solid var(--line-soft);
@@ -478,6 +503,14 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   margin-left:calc(50vw - 520px);margin-right:0;
   display:grid;grid-template-columns:1fr 1fr;text-align:left;
   gap:clamp(28px,3.2vw,48px)}
+/* (user request) honeycomb lattice band behind the four pillars, full viewport width, faded at top, bottom and edges */
+.hero-pillars{position:relative;isolation:isolate}
+.hero-pillars::before{content:"";position:absolute;z-index:-1;pointer-events:none;left:50%;width:100vw;margin-left:-50vw;top:-60px;bottom:-60px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 28 49'><path fill='%23B0821F' fill-opacity='.16' fill-rule='evenodd' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.3h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/></svg>") 0 0/56px 98px;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%),radial-gradient(ellipse 60% 55% at 50% 50%,#000 10%,transparent 82%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%),radial-gradient(ellipse 60% 55% at 50% 50%,#000 10%,transparent 82%);
+  mask-composite:intersect}
 .hero-pillars .pillar{display:flex;align-items:center;gap:clamp(16px,1.8vw,26px)}
 .hero-pillars .pillar[data-edge="r"]{flex-direction:row-reverse;text-align:left}
 /* (user request) these 4 hero pillars also pick up the generic .pillar/.pillar:hover
@@ -1706,6 +1739,7 @@ textarea{resize:vertical;min-height:64px}
    same negative-margin way the Manuka beehive photo does (body carries
    overflow-x:clip site-wide, so no horizontal scrollbar opens). */
 .abox.vrwide,.abox.vrwide:hover{min-height:0;background:none;border:0;padding:0;box-shadow:none;transform:none}
+.abox.vrwide .abox-n,.abox.vrwide h3{text-align:center}
 .vr360-frame{flex:none;width:100vw;max-width:none;margin-left:calc(50% - 50vw);border:0;border-radius:0;overflow:hidden}
 .vr360-frame iframe{display:block;width:100%;height:clamp(380px,74vh,860px);border:0}
 /* ---------- map lightbox ---------- */
@@ -1746,7 +1780,7 @@ textarea{resize:vertical;min-height:64px}
   transition:opacity .3s ease}
 .askhoni-modal.open{opacity:1;pointer-events:auto}
 .askhoni-panel{width:min(560px,92vw);max-height:calc(100vh - 24px);display:flex;flex-direction:column;
-  background:var(--paper);border-radius:4px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);
+  background:#E8C468;border-radius:4px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55);
   transform:scale(.97) translateY(8px);transition:transform .3s ease;overflow:hidden}
 .askhoni-modal.open .askhoni-panel{transform:scale(1) translateY(0)}
 /* head height cut ~40% from its original 14px/12px padding + 17px title + 12px/1.45
@@ -1755,7 +1789,7 @@ textarea{resize:vertical;min-height:64px}
    dropping either line below a legible size. .askhoni-close's own top offset is
    pulled in to match, so it stays vertically balanced against the shorter head
    rather than floating high above centre. */
-.askhoni-head{position:relative;padding:5px 54px 4px 20px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.askhoni-head{position:relative;padding:5px 54px 4px 20px;border-bottom:1px solid rgba(246,215,127,.35);background:#4A2C0A}
 /* justify-content:center alone only centers within askhoni-title's own box, and
    that box inherits the head's asymmetric padding (20px left, 54px right, the
    54 reserved so askhoni-sub's longer text clears the close button) -- centered
@@ -1764,12 +1798,12 @@ textarea{resize:vertical;min-height:64px}
    padding difference, widening the title's box back to a true 20px/20px frame
    so centering inside it centers on the real header/panel centre instead.
    askhoni-sub is untouched and keeps the full clearance it needs. */
-.askhoni-title{font-family:'Fraunces',Georgia,serif;font-size:14px;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:6px;margin-right:-34px}
-.askhoni-sub{margin-top:1px;font-size:10px;line-height:1.22;color:var(--ink-2);font-weight:300}
+.askhoni-title{font-family:'Fraunces',Georgia,serif;font-size:14px;letter-spacing:.01em;color:#F6D77F;display:flex;align-items:center;justify-content:center;gap:6px;margin-right:-34px}
+.askhoni-sub{margin-top:1px;font-size:10px;line-height:1.22;color:#FBF0D6;font-weight:300}
 .askhoni-close{position:absolute;top:5px;right:14px;width:26px;height:26px;border-radius:50%;
-  background:transparent;border:1px solid var(--line);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;
+  background:transparent;border:1px solid rgba(246,215,127,.6);color:#F6D77F;font-size:18px;line-height:1;cursor:pointer;
   transition:background .25s,color .25s}
-.askhoni-close:hover{background:var(--ink);color:#fff}
+.askhoni-close:hover{background:#F6D77F;color:#4A2C0A}
 .askhoni-thread{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   padding:18px 24px;display:flex;flex-direction:column;gap:12px;min-height:320px;
   scrollbar-width:thin;scrollbar-color:var(--ink-soft) transparent}
@@ -1796,12 +1830,14 @@ textarea{resize:vertical;min-height:64px}
 .ah-chip{font-size:11px;letter-spacing:.03em;padding:6px 12px;border:1px solid var(--line);border-radius:20px;
   background:var(--paper);color:var(--ink-2);cursor:pointer;transition:.25s;font-family:inherit}
 .ah-chip:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-.askhoni-form{display:flex;gap:9px;padding:14px 24px;border-top:1px solid var(--line)}
+.askhoni-form{display:flex;gap:9px;padding:14px 24px;border-top:1px solid rgba(74,44,10,.25)}
 .askhoni-input{flex:1 1 auto;border:1px solid var(--line);border-radius:3px;padding:11px 13px;font-size:14px;font-family:inherit;color:var(--ink)}
+.askhoni-input{background:#FFF8E3;border-color:rgba(74,44,10,.35)}
+.askhoni-input::placeholder{color:#8A6A2E}
 .askhoni-input:focus{outline:none;border-color:var(--gold)}
 .askhoni-send{width:42px;height:42px;flex:0 0 auto;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:16px;cursor:pointer;transition:.25s;font-family:inherit}
 .askhoni-send:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
-.askhoni-foot{padding:0 24px 16px;font-size:10px;line-height:1.5;color:var(--ink-soft)}
+.askhoni-foot{padding:0 24px 16px;font-size:10px;line-height:1.5;color:#4A2C0A}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
@@ -2370,6 +2406,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   section[id],#honiblog-rachael{scroll-margin-top:104px}
   #problem{scroll-margin-top:14px} /* 78px target gap minus this breakpoint's flat 64px .sec padding-top */
   #pomma{scroll-margin-top:14px} /* same tight landing as #problem at this breakpoint */
+  #lemon{scroll-margin-top:14px}
+  #science{scroll-margin-top:14px}
+  #pack{scroll-margin-top:7px}
   .brand{font-size:17px;letter-spacing:.28em}
   .brand-mobile .brand-logo{height:46px}
   .hero{min-height:0;padding:54px 0 0;gap:0}   /* 53px phone navbar + 1px header border */
@@ -2503,6 +2542,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   section[id],#honiblog-rachael{scroll-margin-top:86px}
   #problem{scroll-margin-top:calc(67px - clamp(80px,11vw,152px))} /* landscape phones are almost always >560px wide, so .sec still uses the clamp() padding, not the 64px flat phone value */
   #pomma{scroll-margin-top:calc(67px - clamp(80px,11vw,152px))} /* same tight landing as #problem at this breakpoint */
+  #lemon{scroll-margin-top:calc(67px - clamp(80px,11vw,152px))}
+  #science{scroll-margin-top:calc(67px - clamp(80px,11vw,152px))}
+  #pack{scroll-margin-top:calc(60px - clamp(80px,11vw,152px))}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none !important;transition-duration:.01ms !important}
@@ -2719,7 +2761,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#store" class="hexnav-item hexbtn-first">RESERVE<br>HONIORA
       <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $7.00 per day. Founding price is locked for life, skip or cancel anytime.</span></span>
     </a>
-    <a href="#protocol" class="hexnav-item">PROTOCOL
+    <a href="#ritual" class="hexnav-item">PROTOCOL
       <span class="hexdrop"><span class="hexdrop-card"><b>The Protocol</b>Two tablets a day, dissolved in water. The dose compounds over time, built on a natural active Antipodean matrix.</span></span>
     </a>
     <a href="#rita" class="hexnav-item">RITA<br>ROCKS
@@ -2789,7 +2831,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropRight"><span></span><span></span></button>
     <div class="burger-drop burger-drop-right" id="burgerDropRight">
-      <a href="#protocol">Protocol</a>
+      <a href="#ritual">Protocol</a>
       <a href="#science">Dissolve</a>
       <a href="#pack">Format</a>
       <a href="#rita">Rita Rocks</a>
@@ -3076,6 +3118,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 </section>
 
 <section class="sec" id="protocol">
+  <div class="taste-silk" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div>
   <div class="wrap">
     <div class="unit-head">
       <div class="tablet-roll">
@@ -3590,7 +3633,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>Cr.01&trade; Creatine Monohydrate</i><b>3,500 mg</b></li>
           <li><i>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</i><b>20 mg</b></li>
         </ul>
-        <p>Cr.01&trade; Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP, your cells&rsquo; basic energy currency, during short, intense effort. This is the mechanism behind creatine&rsquo;s strength and power research base, and its place in healthy aging, not just athletic performance. HONI<i>ORA</i> carries 3,500&nbsp;mg of creatine monohydrate a serving, sourced as Jenerise Cr.01&trade; from Steve Jennings, who launched Ergomax C150 in 1992. Every lot is SGS verified, with a content assay of 99.9%. MitoQ<sup class="rn">&reg;</sup> works inside the mitochondria beside creatine. It is a patented, mitochondria-targeted antioxidant invented in New Zealand, from a maker holding over 60 patents globally. It concentrates in the mitochondrial membrane and works against mitochondrial reactive oxygen species. In a placebo-controlled crossover trial of 20 adults aged 60 to 79, 20&nbsp;mg a day for 6 weeks raised artery flow-mediated dilation by 42% over placebo. HONI<i>ORA</i> carries the same 20&nbsp;mg per serving. Creatine rebuilds energy fast. MitoQ<sup class="rn">&reg;</sup> works where energy is made.</p>
+        <p>Cr.01&trade; Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP, your cells&rsquo; basic energy currency, during short, intense effort. This is the mechanism behind creatine&rsquo;s strength and power research base, and grounds its place in healthy aging.<br><br>MitoQ<sup class="rn">&reg;</sup> works super efficiently inside your mitochondria beside creatine. It is a unique groundbreaking, mitochondria-targeted antioxidant invented in New Zealand, holding over 60 patents globally.</p>
       </div>
 
       <div class="tri" data-pillar="gut">
@@ -3605,7 +3648,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</i><b>1.5 billion CFU</b></li>
           <li><i>Vitamin A Retinyl Palmitate</i><b>900 mcg RAE</b></li>
         </ul>
-        <p>Livaux<sup class="rn">&reg;</sup> feeds <em>F. prausnitzii</em>, which produces butyrate, which nourishes the colonic lining and repairs tight junctions. Mānuka methylglyoxal clears pathogens out of the way so the beneficial population has room, carried in the Fiberest<sup class="rn">&reg;</sup> HF fibre matrix, which keeps the honey crystals stable and adds fermentable substrate of its own. LactoSpore<sup class="rn">&reg;</sup> <em>Bacillus coagulans</em> fills the room. Its spore coat carries the bacteria through stomach acid, they germinate in the intestine and produce lactic acid, and they arrive in a gut already supplied with fermentable fibre by Livaux<sup class="rn">&reg;</sup> and Fiberest<sup class="rn">&reg;</sup>. Vitamin A as retinyl palmitate supports the mucous membranes lining the gut, so the butyrate-fed lining and the new bacteria meet maintained tissue. Feiolix<sup class="rn">&reg;</sup> and Eriomin<sup class="rn">&reg;</sup> add separate routes to your own GLP-1 (<a href="#glp1" style="color:inherit;text-decoration:underline">four routes</a>). A barrier which holds absorbs, and everything downstream depends on this.</p>
+        <p>Livaux<sup class="rn">&reg;</sup> Gold Kiwi powder feeds <em>F. prausnitzii</em> in your gut, which produces butyrate that nourishes the colonic lining and repairs tight junctions.<br><br>M&#257;nuka&rsquo;s high methylglyoxal clears pathogens out of the way so the beneficial population has room to grow.<br><br>The Fiberest<sup class="rn">&reg;</sup> HF fibre matrix, keeps the honey crystals stable and adds fermentable substrate of its own.<br><br>LactoSpore<sup class="rn">&reg;</sup> <em>Bacillus coagulans</em> fills the room. Its spore coat carries the bacteria through stomach acid, they germinate in the intestine and produce lactic acid, and arrive in a gut already supplied with fermentable fibre by Livaux<sup class="rn">&reg;</sup> and Fiberest<sup class="rn">&reg;</sup>.<br><br>Vitamin A as retinyl palmitate supports the mucous membranes lining the gut, so the butyrate-fed lining and the new bacteria meet maintained tissue.<br><br>Feiolix<sup class="rn">&reg;</sup> and Eriomin<sup class="rn">&reg;</sup> add to your own GLP-1 (<a href="#glp1" style="color:inherit;text-decoration:underline">four routes</a>). A barrier which holds absorbs, and everything downstream depends on this.</p>
       </div>
 
       <div class="tri" data-pillar="heart">
@@ -3622,7 +3665,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>Magnesium Malate</i><b>500 mg</b></li>
           <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>55 mg</b></li>
         </ul>
-        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. This whole-fruit pomegranate extract carries punicalagins and ellagitannins. Punicalagins give antioxidant and polyphenol support to your cells. Your gut bacteria convert ellagitannins into urolithins, Urolithin A among them, so Pomma+<sup class="rn">&reg;</sup> links the gut to the vessels it feeds. VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides and supports arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels. Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide. Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors. Absorption without circulation is a wasted nutrient that never arrives.</p>
+        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. This whole-fruit pomegranate extract carries punicalagins and ellagitannins which give antioxidant and polyphenol support to your cells. Your gut bacteria convert ellagitannins into urolithins, Urolithin A among them, so Pomma+<sup class="rn">&reg;</sup> links the gut to the vessels it feeds.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
       </div>
 
       <div class="tri" data-pillar="brain">
@@ -4206,6 +4249,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <!-- ================= TASTE ================= -->
 <section class="sec tinted" id="taste">
+  <div class="taste-silk" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div>
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow dim">12 / The Taste</p>
@@ -5393,13 +5437,44 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
          header the way #problem's own (box-less) eyebrow does. */
       function targetOffset(){
         var base = headerOffset();
-        if (hash !== '#problem' && hash !== '#pomma') return base;
+        if (hash !== '#problem' && hash !== '#pomma' && hash !== '#lemon' && hash !== '#science' && hash !== '#pack' && hash !== '#triad' && hash !== '#glp1' && hash !== '#taste') return base;
         var pad = parseFloat(getComputedStyle(el).paddingTop) || 0;
-        return base - pad;
+        return base - pad - ((hash === '#pack' || hash === '#taste') ? 7 : 0);
       }
       function place(){
         if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function'){
           window.ScrollTrigger.refresh();
+        }
+        /* #protocol: land with the tablet pair right under the nav bar (the section's own
+           top edge sits above it), measured on the tablet-roll box, which carries no transform. */
+        /* #rita: the full-bleed photo starts flush under the nav bar. */
+        if (hash === '#rita' || hash === '#ritual') return Math.max(0, el.getBoundingClientRect().top + window.scrollY - hdr.getBoundingClientRect().bottom);
+        /* #honiblogtop: eyebrow sits ~27px under the nav bar. */
+        if (hash === '#honiblogtop'){
+          /* measure on the section (the eyebrow sits in a .rv block that carries a transient reveal transform) */
+          var bs = document.getElementById('honiblog');
+          var bpad = parseFloat(getComputedStyle(bs).paddingTop) || 0;
+          return Math.max(0, bs.getBoundingClientRect().top + window.scrollY + bpad - (hdr.getBoundingClientRect().bottom + 27));
+        }
+        /* #mitoq: the dark box sits flush under the nav bar. Measured from the section
+           (the box itself is a .rv block with a transient reveal transform). */
+        if (hash === '#mitoq' || hash === '#livaux' || hash === '#pomma'){
+          var mpad = parseFloat(getComputedStyle(el).paddingTop) || 0;
+          return Math.max(0, el.getBoundingClientRect().top + window.scrollY + mpad - (hdr.getBoundingClientRect().bottom + 1));
+        }
+        /* #honeytop: the honeycomb hero photo starts flush under the nav bar. */
+        if (hash === '#honeytop'){
+          var hh = document.getElementById('honeyHero');
+          if (hh) return Math.max(0, hh.getBoundingClientRect().top + window.scrollY - hdr.getBoundingClientRect().bottom);
+        }
+        /* #matrix: the In The Mix banner sits ~30px under the nav bar. */
+        if (hash === '#matrix'){
+          var xpad = parseFloat(getComputedStyle(el).paddingTop) || 0;
+          return Math.max(0, el.getBoundingClientRect().top + window.scrollY + xpad - (hdr.getBoundingClientRect().bottom + 30));
+        }
+        if (hash === '#protocol'){
+          var roll = el.querySelector('.tablet-roll');
+          if (roll) return Math.max(0, roll.getBoundingClientRect().top + window.scrollY - (hdr.getBoundingClientRect().bottom + 1));
         }
         return Math.max(0, el.getBoundingClientRect().top + window.scrollY - targetOffset());
       }
