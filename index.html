@@ -123,7 +123,7 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 #taste{scroll-margin-top:calc(81px - clamp(80px,11vw,152px))}
 
 /* 12 / The Taste: gold and white silk flow background (option E), pure CSS, slow 12s loop */
-#taste.sec.tinted,#protocol.sec{position:relative;isolation:isolate;overflow:hidden;background:#F8F5EC}
+#taste.sec.tinted,#protocol.sec,#glp1.sec.tinted{position:relative;isolation:isolate;overflow:hidden;background:#F8F5EC}
 .taste-silk{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
 .taste-silk i{position:absolute;left:-30%;width:160%;height:46%;border-radius:50%;filter:blur(34px);opacity:.9;will-change:transform}
@@ -2601,9 +2601,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 #lemon .lemongrid,#lemon .lemongrid p,#lemon .tbox p:last-child,#lemon .eyebrow{color:#3E3A22}
 #lemon .tbox:hover{border-color:rgba(90,70,0,.4)}
 #lemon .lemongrid,#lemon .lemongrid *{border-color:rgba(90,70,0,.25)}
-/* FULL-FRAME BEE VIDEO */
-.bee-film{position:relative;width:100%;line-height:0;background:#1a1208}
-.bee-film video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
 
 /* LEMON PLUS BLOCK */
 .lemonplus{margin-top:clamp(40px,5vw,72px);text-align:center;max-width:860px;margin-left:auto;margin-right:auto}
@@ -3027,11 +3024,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
   </div>
-</section>
-
-<!-- ================= FULL-FRAME LOOP VIDEO ================= -->
-<section class="bee-film" aria-label="Bees working New Zealand manuka blossom">
-  <video autoplay muted loop playsinline preload="metadata" poster="honiora-bees-poster.jpg"><source src="honiora-bees-loop.webm" type="video/webm"><source src="honiora-bees-loop.mp4" type="video/mp4"></video>
 </section>
 
 <!-- ================= MANUKA VISTA BANNER ================= -->
@@ -3677,7 +3669,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>L-Theanine</i><b>200 mg</b></li>
           <li><i>Braincurrant<sup class="rn">&reg;</sup></i><b>300 mg</b></li>
         </ul>
-        <p>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant. cGP-Pro<sup class="rn">&reg;</sup> is the world&rsquo;s only standardised cGP ingredient. Derived from New Zealand blackcurrant cultivars and combined with collagen, it is produced in NZ using a proprietary process which delivers cGP in stable, standardised form. Backed by science and validated through rigorous independent testing, cGP-Pro<sup class="rn">&reg;</sup> helps replenish and maintain optimal cGP levels in the body and brain, supporting vitality, cognitive health and graceful ageing. L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes New Zealand blackcurrant anthocyanins for focus, memory and mood balance.</p>
+        <p>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant. cGP-Pro<sup class="rn">&reg;</sup> is the world&rsquo;s only standardised cGP ingredient. Derived from New Zealand blackcurrant cultivars and combined with collagen, it is produced in NZ using a proprietary process which delivers cGP in stable, standardised form. Backed by science and validated through rigorous independent testing, cGP-Pro<sup class="rn">&reg;</sup> helps replenish and maintain optimal cGP levels in the body and brain, supporting vitality, cognitive health and graceful ageing.<br><br>L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes more New Zealand blackcurrant anthocyanins for enhanced focus, memory and mood balance.</p>
       </div>
     </div>
 
@@ -3791,6 +3783,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <!-- ================= GLP-1 ================= -->
 <section class="sec tinted" id="glp1">
+  <div class="taste-silk" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div>
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow dim">GLP-1 &middot; Four Natural Pathways</p>
