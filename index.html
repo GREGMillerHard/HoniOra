@@ -131,6 +131,16 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 .taste-silk .s2{top:24%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95),rgba(236,201,110,.8),rgba(255,255,255,.8),rgba(255,255,255,0));animation:tsE2 12s ease-in-out infinite}
 .taste-silk .s3{top:56%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(214,168,60,.7),rgba(255,255,255,.9),rgba(236,201,110,.85),rgba(255,255,255,0));animation:tsE3 12s ease-in-out infinite}
 .taste-silk .veil{inset:0;left:0;width:100%;height:100%;border-radius:0;filter:none;opacity:1;animation:none;background:linear-gradient(180deg,rgba(250,247,240,.46),rgba(250,247,240,.34) 60%,rgba(250,247,240,.46))}
+/* home screen: same silk flow as Taste / Protocol / GLP-1, spread over the tall hero */
+.hero{isolation:isolate;background:#F8F5EC}
+.hero .taste-silk i{height:min(46%,820px)}
+.hero .taste-silk .veil{height:100%}
+.hero .taste-silk .s1{top:1%}
+.hero .taste-silk .s2{top:34%}
+.hero .taste-silk .s3{top:66%}
+.hero .hero-lower{background:transparent}
+.hero .hero-img-col{background:transparent}
+.hero .hero-img-col{mix-blend-mode:multiply}
 @keyframes tsE1{0%,100%{transform:translate(-6%,0) rotate(-4deg) scaleY(1)}50%{transform:translate(6%,6%) rotate(3deg) scaleY(1.25)}}
 @keyframes tsE2{0%,100%{transform:translate(5%,0) rotate(3deg) scaleY(1.1)}50%{transform:translate(-6%,-5%) rotate(-3deg) scaleY(.85)}}
 @keyframes tsE3{0%,100%{transform:translate(-4%,0) rotate(2deg) scaleY(.9)}50%{transform:translate(5%,-6%) rotate(-4deg) scaleY(1.2)}}
@@ -551,6 +561,24 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    exactly the clearance the copy needs against the glass video's right edge.
    the max-width:1000px block below restores both sides for the mobile stack. */
 .hero-lower .hero-grid{padding-right:0}
+/* ingredient photo strip lives at the top of screen 3, under the gold band, above the four pillars */
+.hero .ibandhost{order:3;flex:0 0 100%;max-width:100%;min-width:0;position:relative;padding:clamp(60px,8vw,110px) 0 clamp(80px,8vw,112px)}
+@media(min-width:1001px){
+  /* screen 3 is a held screen: the strip sits mid-screen while the page waits for every ingredient to pass */
+  .hero .ibandhost{display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100vh - 70px);box-sizing:border-box;padding-top:14vh;padding-bottom:clamp(12px,2vh,24px)}
+  .hero .ibandhost:not(.static) .ishot{width:min(clamp(208px,26vw,372px),28vh)}
+  .hero .ibandhost:not(.static) .ishot.ishot-pomma{width:min(clamp(280px,34vw,480px),34vh)}
+  .hero .ibandhost:not(.static) .icap{left:-90%;right:-90%}
+  .hero .ibandhost:not(.static) .icap i{max-width:52ch}
+}
+.hero .ibandhost .iband{width:100vw;margin-top:0}
+.hero .ibandhost .unit{width:100vw;margin-top:clamp(16px,2.5vh,30px)}
+.hero .ibandhost .unit.static{width:100%}
+.hero .ibandhost .unit-vp{margin-top:0;margin-bottom:0}
+.hero .ibandhost .iband::before,.hero .ibandhost .iband::after{display:none}
+.hero .ibandhost.static .iband{width:100%}
+.hero .hero-pillars{order:4}
+
 .hero-logo{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:.005em}
 .hero-logo span{font-weight:600;color:var(--gold);font-style:italic}
 .glassbox{position:relative;display:flex;justify-content:center;align-items:center;
@@ -691,6 +719,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    visibility:hidden (not display:none) so it keeps its layout space -- a gap, not a
    collapse -- rather than being shown twice. */
 .hero-solution-desktop{display:none;margin-bottom:0}
+.hero-solution-right{display:none}
 /* invisible 1-cell table wrapping the whole hero-precede copy block: all four lines
    (HUGE pills…, UPGRADE/YOUR/RITUAL, HoniOra's Solution:, 2 fizzy tablets…) sit in one
    table cell rather than each being separately centered by its own text-align. A table
@@ -816,7 +845,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
      Mobile/lite keeps its original size and sentence case (.keyact.flat li's
      base rule above), so this is scoped to the same >=1001px block as the
      other hero-actives desktop-only rules. */
-  .keyact.flat.hero-actives li{font-size:clamp(16px,1.4vw,21px);text-transform:uppercase;white-space:nowrap}
+  .keyact.flat.hero-actives li{font-size:clamp(12px,1.05vw,16px);text-transform:uppercase;white-space:nowrap}
   /* (user request, this version) list bumped from clamp(14px,1.15vw,17px) to
      clamp(16px,1.4vw,21px), about 20% larger across the desktop range. The
      gold keylines re-measure each row's real text position on every build(),
@@ -920,10 +949,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 @media(min-width:1200px){#problem .sec-head .lede .nowrap-line{white-space:nowrap}}
 
 /* ---------- the unit : pinned horizontal scroll ---------- */
-.unit{background:var(--paper);overflow:hidden}
+.unit{background:transparent;overflow:hidden}
 .unit-stage{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   gap:clamp(10px,1.4vh,22px);padding:clamp(24px,3.4vh,48px) 0 clamp(18px,2.4vh,34px);
-  min-height:calc(100vh - 120px)}
+  min-height:0}
 .unit-head{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 var(--pad);max-width:940px;margin:0 auto clamp(54px,7.4vh,96px)}
 #protocol .sec-head,#ritual .sec-head,#honey .sec-head,#triad .sec-head,#problem .sec-head,#science .sec-head,
 .sec.deep .sec-head,#matrix .sec-head,#lemon .sec-head,#taste .sec-head,
@@ -1059,16 +1088,16 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .icap i{display:block;font-style:normal;font-size:10.5px;line-height:1.4;color:var(--ink-2);
   margin-top:6px;max-width:25ch;margin-left:auto;margin-right:auto}
 /* static fallback */
-.unit.static .iband-vp{overflow:visible}
-.unit.static .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
-.unit.static .ishot{opacity:1;width:clamp(208px,52vw,288px)}
-.unit.static .ishot.ishot-pomma{width:clamp(280px,68vw,380px)}
-.unit.static .ishot figure{transform:none}
-.unit.static .icap{position:static;top:auto;margin-top:12px;opacity:1;transform:none}
-.unit.static .icap i{display:none}
-.unit.static .iband::before,.unit.static .iband::after{display:none}
+:is(.unit,.ibandhost).static .iband-vp{overflow:visible}
+:is(.unit,.ibandhost).static .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
+:is(.unit,.ibandhost).static .ishot{opacity:1;width:clamp(208px,52vw,288px)}
+:is(.unit,.ibandhost).static .ishot.ishot-pomma{width:clamp(280px,68vw,380px)}
+:is(.unit,.ibandhost).static .ishot figure{transform:none}
+:is(.unit,.ibandhost).static .icap{position:static;top:auto;margin-top:12px;opacity:1;transform:none}
+:is(.unit,.ibandhost).static .icap i{display:none}
+:is(.unit,.ibandhost).static .iband::before,:is(.unit,.ibandhost).static .iband::after{display:none}
 .unit-vp{width:100%;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:clamp(12px,1.6vw,22px) 0;margin-top:auto}
+  padding:clamp(12px,1.6vw,22px) 0;margin-top:auto;margin-bottom:auto}
 .unit-track{display:flex;align-items:center;gap:clamp(34px,5vw,92px);padding:0 12vw;width:max-content;will-change:transform}
 .upanel{flex:none;display:flex;align-items:center;gap:17px;white-space:nowrap;
   font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:300;
@@ -1104,10 +1133,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    and that reduced-motion is off -- if that script never runs, the icons
    keep the plain always-visible rule above them and nothing is ever stuck
    hidden. */
-.unit.static .ishot.pre-anim{opacity:0;transform:translateX(-34px);
+:is(.unit,.ibandhost).static .ishot.pre-anim{opacity:0;transform:translateX(-34px);
   transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-.unit.static .ishot.pre-anim:nth-child(even){transform:translateX(34px)}
-.unit.static .ishot.pre-anim.in{opacity:1;transform:none}
+:is(.unit,.ibandhost).static .ishot.pre-anim:nth-child(even){transform:translateX(34px)}
+:is(.unit,.ibandhost).static .ishot.pre-anim.in{opacity:1;transform:none}
 
 
 /* ---------- problem ---------- */
@@ -1403,6 +1432,18 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   clip-path:polygon(evenodd,50% 0,100% var(--ap),100% calc(100% - var(--ap)),50% 100%,0 calc(100% - var(--ap)),0 var(--ap),50% 0,
     50% calc(var(--t)*1.1547),var(--t) calc(var(--ap) + var(--t)*.5774),var(--t) calc(100% - var(--ap) - var(--t)*.5774),50% calc(100% - var(--t)*1.1547),calc(100% - var(--t)) calc(100% - var(--ap) - var(--t)*.5774),calc(100% - var(--t)) calc(var(--ap) + var(--t)*.5774),50% calc(var(--t)*1.1547),50% 0)}
 .fhex:focus-visible .fhex-rim{filter:brightness(1.25) drop-shadow(0 0 4px #fff)}
+
+/* (gold glass upgrade) hexes now match the reference glass hex: a luminous champagne centre
+   deepening to amber at the edges, a bright outer bevel rim plus a fine inner bevel line, and a
+   soft top gloss. Still slightly translucent over the photo once open. */
+.fhex-body::after{background:
+    linear-gradient(155deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.1) 26%,rgba(255,255,255,0) 44%),
+    radial-gradient(ellipse 72% 70% at 50% 50%,rgba(255,244,196,.95) 0%,rgba(253,226,138,.88) 40%,rgba(243,194,62,.84) 76%,rgba(214,150,24,.9) 100%)}
+.fhex.is-open .fhex-body::after{opacity:.6}
+.fhex-body::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,243,176,.95) 0%,rgba(196,134,14,.9) 36%,rgba(150,96,4,.85) 54%,rgba(244,200,70,.95) 78%,rgba(255,240,160,.95) 100%);
+  clip-path:polygon(evenodd,50% calc((var(--t)*2.3)*1.1547),calc(var(--t)*2.3) calc(var(--ap) + calc(var(--t)*2.3)*.5774),calc(var(--t)*2.3) calc(100% - var(--ap) - calc(var(--t)*2.3)*.5774),50% calc(100% - calc(var(--t)*2.3)*1.1547),calc(100% - calc(var(--t)*2.3)) calc(100% - var(--ap) - calc(var(--t)*2.3)*.5774),calc(100% - calc(var(--t)*2.3)) calc(var(--ap) + calc(var(--t)*2.3)*.5774),50% calc((var(--t)*2.3)*1.1547),50% calc((var(--t)*3.1)*1.1547),calc(var(--t)*3.1) calc(var(--ap) + calc(var(--t)*3.1)*.5774),calc(var(--t)*3.1) calc(100% - var(--ap) - calc(var(--t)*3.1)*.5774),50% calc(100% - calc(var(--t)*3.1)*1.1547),calc(100% - calc(var(--t)*3.1)) calc(100% - var(--ap) - calc(var(--t)*3.1)*.5774),calc(100% - calc(var(--t)*3.1)) calc(var(--ap) + calc(var(--t)*3.1)*.5774),50% calc((var(--t)*3.1)*1.1547))}
+.fhex-rim{background:linear-gradient(135deg,#FFF4B8 0%,#F2BE38 22%,#A86C04 50%,#F0BC34 76%,#FFF2A8 100%);opacity:1}
 .fhex-in{position:relative;z-index:2;width:68%;text-align:center;color:#2A1B00}
 .fhex-in b{display:block;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:calc(var(--fw)*.115);font-weight:400;color:#2A1B00;line-height:1.1;letter-spacing:-.01em}
 .fhex-in h4{font-size:max(8px,calc(var(--fw)*.043));letter-spacing:.12em;text-transform:uppercase;margin:calc(var(--fw)*.03) 0 0;font-weight:700;color:#4A3200;line-height:1.3}
@@ -1424,15 +1465,21 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .hexcta-link{position:relative;display:flex;align-items:center;justify-content:center;width:clamp(250px,26vw,380px);aspect-ratio:560/488;
   text-decoration:none;text-align:center;outline:none}
 .hexcta-shape{position:absolute;inset:0;display:block;
-  background:linear-gradient(160deg,rgba(201,154,46,.94),rgba(154,111,22,.92));
+  background:
+    linear-gradient(158deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.12) 24%,rgba(255,255,255,0) 44%),
+    radial-gradient(ellipse 70% 68% at 50% 50%,rgba(255,244,196,.96) 0%,rgba(253,226,138,.9) 42%,rgba(243,194,62,.88) 78%,rgba(214,150,24,.94) 100%);
   clip-path:polygon(25% 2.2%,75% 2.2%,98% 50%,75% 97.8%,25% 97.8%,2% 50%);transition:filter .3s ease}
-.hexcta-shape::before{content:'';position:absolute;inset:0;background:url('manuka-hex-glass-bg.jpg') center/cover;opacity:.45;transition:opacity .3s ease}
+.hexcta-shape::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,#FFF4B8 0%,#F2BE38 22%,#A86C04 50%,#F0BC34 76%,#FFF2A8 100%);
+  clip-path:polygon(evenodd,25.00% 2.20%,75.00% 2.20%,98.00% 50.00%,75.00% 97.80%,25.00% 97.80%,2.00% 50.00%,26.38% 4.83%,73.62% 4.83%,95.36% 50.00%,73.62% 95.17%,26.38% 95.17%,4.64% 50.00%)}
+.hexcta-shape::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,243,176,.95) 0%,rgba(196,134,14,.9) 36%,rgba(150,96,4,.85) 54%,rgba(244,200,70,.95) 78%,rgba(255,240,160,.95) 100%);
+  clip-path:polygon(evenodd,27.38% 6.74%,72.62% 6.74%,93.44% 50.00%,72.62% 93.26%,27.38% 93.26%,6.56% 50.00%,26.88% 5.79%,73.12% 5.79%,94.40% 50.00%,73.12% 94.22%,26.88% 94.22%,5.60% 50.00%)}
 .hexcta-link span{position:relative;z-index:1;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:700;text-transform:uppercase;
-  font-size:clamp(14px,1.45vw,20px);letter-spacing:.14em;line-height:1.5;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+  font-size:clamp(14px,1.45vw,20px);letter-spacing:.14em;line-height:1.5;color:#3A2600;text-align:center}
 .hexcta-link .ar{font-style:normal;display:inline-block;margin-left:.2em;transition:transform .3s ease}
 @keyframes hexcta-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .hexcta-link:hover .hexcta-shape,.hexcta-link:focus-visible .hexcta-shape{animation:hexcta-spin .9s cubic-bezier(.45,.05,.25,1) 1;filter:brightness(1.07) saturate(1.1)}
-.hexcta-link:hover .hexcta-shape::before{opacity:.58}
 .hexcta-link:hover .ar{transform:translateX(5px)}
 .hexcta:focus-within{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 8px rgba(176,130,31,.9)) drop-shadow(0 14px 22px rgba(21,23,15,.22))}
 @media(prefers-reduced-motion:reduce){.hexcta-link:hover .hexcta-shape,.hexcta-link:focus-visible .hexcta-shape{animation:none}}
@@ -2185,7 +2232,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      exact same line-height it always had there -- a gap where the text used to read,
      not a collapse that would pull "MĀNUKA CREATINE PROTOCOL" and everything below it
      up to fill the space. */
-  .hero-solution-desktop{display:block}
+  /* user request: the caption sits under "BORN IN NEW ZEALAND > MADE IN USA" in the copy
+     column. The old copy under the glass stays in layout, invisible, so the gold band
+     and keylines (which measure it) keep their positions. */
+  .hero-solution-desktop{display:block;visibility:hidden}
+  .hero-solution-right{display:block;margin-top:130px;text-align:center}
+  .hsr-lead{display:block;width:max-content;position:relative;left:calc(50% + 2.5vw);transform:translateX(-50%);white-space:nowrap;font-size:min(2.7vw,40px);line-height:1.15;font-weight:700;color:var(--ink)}
+  .hsr-body{display:block;width:max-content;position:relative;left:calc(50% + 2.5vw);transform:translateX(-50%);white-space:nowrap;margin:12px 0 0;font-size:min(1.8vw,26px);line-height:1.3;color:var(--ink)}
   /* (v96) "HoniOra's morning solution:" read too big against the tube/list trio it
      now sits above (moved here at v88), per a request to shrink it. Scoped to just
      this visible desktop duplicate -- .hero-solution-desktop .precede-solution --
@@ -2428,10 +2481,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .unit-line{white-space:normal;font-size:clamp(15px,4vw,19px);max-width:34ch}
 
   /* ingredient cards: two up, captions on */
-  .unit.static .iband-track{gap:22px 16px}
-  .unit.static .ishot{width:calc(50% - 8px)}
-  .unit.static .ishot.ishot-pomma{width:calc(50% - 8px)}
-  .unit.static .icap i{display:block;font-size:11px;max-width:none}
+  :is(.unit,.ibandhost).static .iband-track{gap:22px 16px}
+  :is(.unit,.ibandhost).static .ishot{width:calc(50% - 8px)}
+  :is(.unit,.ibandhost).static .ishot.ishot-pomma{width:calc(50% - 8px)}
+  :is(.unit,.ibandhost).static .icap i{display:block;font-size:11px;max-width:none}
 
   /* taste + about + store */
   .lwhy{grid-template-columns:1fr;gap:12px}
@@ -2615,7 +2668,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .lemonplus{margin-top:0}
 
 /* KIWIFRUIT GOLD TUBE-REVEAL BAND */
-.hero-lower{isolation:isolate}
 .tube-band{position:absolute;left:0;right:0;z-index:-1;pointer-events:none;
   background:linear-gradient(180deg,#EBCB58 0%,#E4BF41 55%,#DDB534 100%)}
 .hero-lower.has-tube-band .hero-img-col{background:transparent}
@@ -2630,7 +2682,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 #ritual.ritual-vid{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(90deg,rgb(220,210,186),rgb(234,224,200) 25%,rgb(245,236,209) 50%,rgb(249,241,217) 75%,rgb(250,251,239))}
 #ritual .ritual-bg{position:absolute;left:0;bottom:0;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;z-index:-2;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%);mask-image:linear-gradient(180deg,transparent 0,#000 22%)}
 #ritual .ritual-scrim{position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(24,15,2,0) 0%,rgba(24,15,2,0) 32%,rgba(24,15,2,.5) 50%,rgba(24,15,2,.72) 100%)}
+  background:linear-gradient(180deg,rgba(24,15,2,.62) 0%,rgba(24,15,2,.5) 26%,rgba(24,15,2,0) 46%),linear-gradient(90deg,rgba(24,15,2,0) 0%,rgba(24,15,2,0) 32%,rgba(24,15,2,.5) 50%,rgba(24,15,2,.72) 100%)}
+#ritual.ritual-vid .sec-head h2,#ritual.ritual-vid .sec-head .lede,#ritual.ritual-vid .sec-head .eyebrow{text-shadow:0 1px 14px rgba(24,15,2,.55)}
 #ritual.ritual-vid .eyebrow{color:#F6D77F}
 #ritual.ritual-vid .sec-head h2{color:#FFF8E6}
 #ritual.ritual-vid .sec-head h2 em{color:#F6D77F}
@@ -2644,7 +2697,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 #ritual.ritual-vid .timer span{color:rgba(255,248,230,.95)}
 #ritual.ritual-vid .timer .ring{border-color:rgba(246,215,127,.45)}
 @media(min-width:1001px){
-  #ritual.ritual-vid .wrap{width:min(50%,820px);max-width:none;margin-left:45.5%;margin-right:0;padding-left:0;padding-right:0}
+  #ritual.ritual-vid .wrap{width:100%;max-width:none;margin:0;padding-left:0;padding-right:0}
+  #ritual.ritual-vid .sec-head{width:min(92%,1040px);margin-left:auto;margin-right:auto;text-align:center}
+  #ritual.ritual-vid .sec-head h2.oneline{margin-left:auto;margin-right:auto}
+  #ritual.ritual-vid .sec-head .lede{max-width:min(100%,860px);margin-left:auto;margin-right:auto}
+  #ritual.ritual-vid .ritual-grid{width:min(50%,820px);margin-left:45.5%;margin-right:0}
   #ritual.ritual-vid .ritual-grid{gap:clamp(24px,3vw,48px)}
   #ritual.ritual-vid .timer{max-width:280px}
   #ritual.ritual-vid .sec-head h2.oneline{white-space:normal;font-size:clamp(30px,3.5vw,50px);line-height:1.08}
@@ -2658,7 +2715,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 /* ===== 03 MANUKA: honeycomb full-width hero, copy in translucent gold box, 3 hive bees ===== */
 #honey{padding-top:0}
-#honey .honey-rest{padding-top:clamp(40px,5vw,72px)}
+#honey .honey-rest{padding-top:0}
+#honey #coastPhoto{margin-top:0}
 .honey-hero{--hw:clamp(700px,53vw,900px);--bw:var(--hw);--bh:calc(var(--bw)*1.1547);--ap:calc(var(--bw)*.2887);--t:clamp(10px,1.1vw,16px);
   position:relative;overflow:hidden;min-height:calc(var(--bh) + 110px);display:flex;align-items:center;background:#6b4a08}
 .honey-hero picture{position:absolute;inset:0;display:block}
@@ -2757,9 +2815,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <a href="#rita" class="hexnav-item">RITA<br>ROCKS
       <span class="hexdrop"><span class="hexdrop-card"><b>Rita Rocks</b>Rita Ora talks longevity and her own wellness routine, in Women's Health.</span></span>
     </a>
-    <a href="#science" class="hexnav-item">DISSOLVE
-      <span class="hexdrop"><span class="hexdrop-card"><b>Dissolve, Then Drink</b>Fully dissolved in 60 seconds, fast to absorb, kind on your gut.</span></span>
-    </a>
     <a href="#singlepack" class="hexnav-item">TEST<br>TUBE
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, 14 tablets = one week, seven servings at $8.50 per day. Purchase price fully credited if you subscribe afterward.</span></span>
     </a>
@@ -2804,7 +2859,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#pomma">Pomma+</a>
       <a href="#triad">Four Systems</a>
       <a href="#glp1">Natural GLP-1</a>
-      <a href="#taste">Taste</a>
     </div>
     <div class="hexbtn-m nav-hex-mobile-left">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
@@ -2822,7 +2876,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropRight"><span></span><span></span></button>
     <div class="burger-drop burger-drop-right" id="burgerDropRight">
       <a href="#ritual">Protocol</a>
-      <a href="#science">Dissolve</a>
       <a href="#pack">Format</a>
       <a href="#rita">Rita Rocks</a>
       <a href="#lemon">Lemonwater?</a>
@@ -2873,6 +2926,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
+  <div class="taste-silk" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div>
   <div class="bubbles" id="bubbles"></div>
 
   <!-- top marquee + wax-seal: moved back out of .hero-lower to sit directly in
@@ -2956,6 +3010,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
+      <div class="hero-solution-right"><span class="hsr-lead">HoniOra's morning solution:</span><span class="hsr-body">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
       </div>
       <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
@@ -2984,6 +3039,48 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <a href="#matrix" class="btn">Explore HoniOra <span class="ar">&rarr;</span></a>
         <a href="#triad" class="btn ghost">Gut, heart, brain, power</a>
       </div>
+    </div>
+    </div>
+    <div class="ibandhost">
+    <div class="iband">
+      <div class="iband-vp">
+        <div class="iband-track" id="ibandTrack">
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.webp"><img width="820" height="820" src="manuka_crystal.webp" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF Crystals</b><s>1,500 mg NZ</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF high fibre matrix substrate feeds your beneficial gut barrier microbes, whose fermentation of that fibre also supports your own natural GLP-1.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.webp"><img width="820" height="820" src="creatine_HCL.webp" alt="Cr.01&trade; creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr.01&trade; Creatine Monohydrate</b><s>3,500 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01&trade;, SGS verified lot by lot, content assay 99.9%.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.webp"><img width="820" height="820" src="livaux_gold_kiwi.webp" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg NZ</s><i>Roughly doubled <em>F. prausnitzii</em> in 70% of trial participants within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="mitoq-lite.webp"><img width="820" height="820" src="mitoq.webp" alt="MitoQ mitoquinol mesylate" loading="lazy"></picture><figcaption class="icap"><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b><s>20 mg NZ</s><i>Mitochondria-targeted antioxidant from MitoQ, holder of over 60 patents globally. Designed to address cellular oxidative stress and support energy, vitality and healthy aging. In a placebo-controlled crossover trial of 20 adults aged 60 to 79, 20 mg a day for 6 weeks raised artery flow-mediated dilation by 42% over placebo.</i></figcaption></figure></div>
+          <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.webp"><img width="820" height="820" src="pomma_pomegranate.webp" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b><s>500 mg</s><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.webp"><img width="820" height="820" src="feijoa.webp" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg NZ</s><i>Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand. Two routes to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.webp"><img width="820" height="820" src="eriomin_lemon.webp" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract with its own pathway to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg NZ</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><s>100 mg NZ</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.webp"><img width="820" height="820" src="vasodrive_ap.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg NZ</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONIORA delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.5 billion CFU</s><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 15 mg</s><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.webp"><img width="820" height="820" src="passionfruit.webp" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.webp"><img width="820" height="786" src="thaumatin.webp" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
+        </div>
+      </div>
+    </div>
+    <div class="unit" id="tablet">
+    <div class="unit-vp">
+      <div class="unit-track">
+        <div class="upanel lead">HONIORA tablets each contain 5.1025 grams of full dose potent actives.</div>
+        <div class="upanel lead">Formulated for daily year-round use</div>
+        <div class="upanel">Naturally sourced actives</div>
+        <div class="upanel">Gluten Free</div>
+        <div class="upanel">No Palm oil</div>
+        <div class="upanel">No fillers</div>
+        <div class="upanel">No heavy metals</div>
+        <div class="upanel">No artificial flavours or colors</div>
+        <div class="upanel">Non-GMO</div>
+      </div>
+    </div>
     </div>
     </div>
     <div class="hero-pillars">
@@ -3028,53 +3125,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   <p class="manukapan-caption" id="manukapanCaption">FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD</p>
 </section>
 
-<!-- ================= THE UNIT : PINNED HORIZONTAL ================= -->
-<section class="unit" id="tablet">
-  <div class="unit-stage">
-    <div class="iband">
-      <div class="iband-vp">
-        <div class="iband-track" id="ibandTrack">
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.webp"><img width="820" height="820" src="manuka_crystal.webp" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF Crystals</b><s>1,500 mg NZ</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF high fibre matrix substrate feeds your beneficial gut barrier microbes, whose fermentation of that fibre also supports your own natural GLP-1.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.webp"><img width="820" height="820" src="creatine_HCL.webp" alt="Cr.01&trade; creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr.01&trade; Creatine Monohydrate</b><s>3,500 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01&trade;, SGS verified lot by lot, content assay 99.9%.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.webp"><img width="820" height="820" src="livaux_gold_kiwi.webp" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg NZ</s><i>Roughly doubled <em>F. prausnitzii</em> in 70% of trial participants within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="mitoq-lite.webp"><img width="820" height="820" src="mitoq.webp" alt="MitoQ mitoquinol mesylate" loading="lazy"></picture><figcaption class="icap"><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b><s>20 mg NZ</s><i>Mitochondria-targeted antioxidant from MitoQ, holder of over 60 patents globally. Designed to address cellular oxidative stress and support energy, vitality and healthy aging. In a placebo-controlled crossover trial of 20 adults aged 60 to 79, 20 mg a day for 6 weeks raised artery flow-mediated dilation by 42% over placebo.</i></figcaption></figure></div>
-          <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.webp"><img width="820" height="820" src="pomma_pomegranate.webp" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b><s>500 mg</s><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.webp"><img width="820" height="820" src="feijoa.webp" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg NZ</s><i>Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand. Two routes to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.webp"><img width="820" height="820" src="eriomin_lemon.webp" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract with its own pathway to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg NZ</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><s>100 mg NZ</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.webp"><img width="820" height="820" src="vasodrive_ap.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg NZ</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONIORA delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.5 billion CFU</s><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 15 mg</s><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.webp"><img width="820" height="820" src="passionfruit.webp" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.webp"><img width="820" height="786" src="thaumatin.webp" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="unit-vp">
-      <div class="unit-track">
-        <div class="upanel lead">HONIORA tablets each contain 5.1025 grams of full dose potent actives.</div>
-        <div class="upanel lead">Formulated for daily year-round use</div>
-        <div class="upanel">Naturally sourced actives</div>
-        <div class="upanel">Gluten Free</div>
-        <div class="upanel">No Palm oil</div>
-        <div class="upanel">No fillers</div>
-        <div class="upanel">No heavy metals</div>
-        <div class="upanel">No artificial flavours or colors</div>
-        <div class="upanel">Non-GMO</div>
-      </div>
-    </div>
-
-    <div class="unit-bar"><i></i></div>
-  </div>
-</section>
-
 <!-- ================= RITUAL ================= -->
 <section class="sec tinted ritual-vid" id="ritual">
   <video class="ritual-bg" autoplay muted loop playsinline preload="metadata" poster="ritual-bg-poster.jpg" aria-hidden="true"><source media="(max-width:1000px)" src="ritual-bg-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="ritual-bg-lite.mp4" type="video/mp4"><source src="ritual-bg.webm" type="video/webm"><source src="ritual-bg.mp4" type="video/mp4"></video>
@@ -3083,7 +3133,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">01 / The Ritual</p>
       <h2 class="serif oneline">Sixty seconds. <em>Then you own the day.</em></h2>
-      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop two tabs, let them fizz, and use the minute to set the day's first intention, before the phone, before the noise. Carpe diem starts small: one minute, chosen on purpose, every day.</p>
+      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop two tabs, let them fizz, and use the minute to set the day's first intention, before the phone, before the noise. <br>Carpe diem starts small: one minute, chosen on purpose, every day.</p>
     </div>
     <div class="ritual-grid">
       <div class="rv">
@@ -3451,35 +3501,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 })();
 </script>
   <div class="wrap honey-rest">
-    <div class="honey-photo-wrap">
-      <div class="mphoto rv">
-        <img width="2400" height="1160" src="manuka-bees.jpg" alt="Bees on honeycomb" loading="lazy">
-      </div>
-      <div class="pillars rv">
-        <div class="pillar">
-          <div class="pillar-inner">
-          <span class="n">i</span>
-          <h3>The compound behind the grade<span class="ing">Methylglyoxal (MGO)</span></h3>
-          <p>Methylglyoxal (MGO) is the compound MGO gradings actually measure. At MGO 850+, HONI<i>ORA</i> carries a therapeutic grade concentration (of MGO per Kg) in our ultra premium NZ M&#257;nuka honey crystal matrix.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/18210383/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 18210383 &nearr;</span></a></p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-inner">
-          <span class="n">ii</span>
-          <h3>A powerful and unique antioxidant <span class="ing">Leptosperin</span></h3>
-          <p>Most of M&#257;nuka honey's antioxidant power comes from Leptosperin, a compound unique to M&#257;nuka nectar. It works alongside the complete HoniOra stack of antioxidant actives to help your body manage everyday oxidative stress.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/31496237/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 31496237 &nearr;</span></a></p>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-inner">
-          <span class="n">iii</span>
-          <h3>Feeds your gut biome, without adding extra calories.<span class="ing">Prebiotic oligosaccharides</span></h3>
-          <p>M&#257;nuka honey carries prebiotic oligosaccharides, including panose, which feed beneficial gut bacteria rather than passing through as plain sugar. Most of the body's immune tissue sits in the gut lining, the Fiberest<sup class="rn">&reg;</sup> HF in our Honey crystals matrix and Livaux<sup class="rn">&reg;</sup> support them.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/35967810/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 35967810 &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/33753873/" target="_blank" rel="noopener noreferrer">Gut &amp; immune link <span>PMID 33753873 &nearr;</span></a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p class="lede" style="margin:clamp(28px,3.4vw,40px) auto 0;max-width:min(90vw,1100px);text-align:center;text-wrap:balance;font-size:clamp(22px,2.7vw,38px);line-height:1.45">The honey crystals dissolve into your morning water with the balance of our HONI<i>ORA</i> active matrix: same potent doses, every single day.</p>
     <div class="mphoto rv" id="coastPhoto">
       <picture class="mphoto-pic">
         <source media="(max-width:1000px)" srcset="manuka-coast-lite.jpg">
@@ -3703,70 +3724,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside VasoDrive-AP<sup class="rn">&reg;</sup>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant and Careflow<sup class="rn">&reg;</sup> so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
           <li><span class="x">05</span><div><strong>Electrolytes support creatine uptake.</strong> <span class="d">The creatine transporter depends on sodium and chloride, while potassium, magnesium and sodium together regulate the intracellular fluid balance and membrane potential that support nutrient uptake and muscle contraction during training. HONI<i>ORA</i>&rsquo;s Balanced Hydration Matrix supplies sodium, potassium and magnesium alongside the Cr.01&trade; Creatine dose.</span></div></li>
         </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= SOLUTION ================= -->
-<section class="sec" id="science">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow dim">06 / Dissolve, Then Drink</p>
-      <h2 class="serif">60s Dissolve &gt; <em>Drink.</em> Fully delicious and ready to drink.</h2>
-      <p class="lede">HONI<i>ORA</i> is Sixty seconds of theatre: golden bubbles and dancing tablets. Every Tab has three prebiotic fibres, Livaux<sup class="rn">&reg;</sup>, Fiberest<sup class="rn">&reg;</sup> HF and Feiolix<sup class="rn">&reg;</sup>, pairing with LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans, the spore probiotic dosed with them.</p>
-    </div>
-    <div class="pillars rv">
-      <div class="pillar">
-        <span class="n">i</span>
-        <h3>Pre-dissolved, so your gut stays calm</h3>
-        <p>Our actives arrive ready in solution, so there is no powder to mix and no loading phase. No compromise on dosages.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">ii</span>
-        <h3>Room for real doses:</h3>
-        <p>Our two 25 mm diameter tablets carry what two capsules cannot: 11,981.00 mg, enough to hold Cr.01&trade; Creatine Monohydrate at 3,500 mg, Livaux<sup class="rn">&reg;</sup> at 600 mg and Eriomin<sup class="rn">&reg;</sup> at 200 mg, full dosages, rather than the dusting that fits into a gummy or softgel.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">iii</span>
-        <h3>Natural fruit powders = Great flavour on almost no sugar</h3>
-        <p>A delicious natural yuzu, passionfruit and golden kiwi profile, carried on whole-fruit powders and M&#257;nuka honey rather than anything added on top. Thaumatin<sup class="rn">&reg;</sup> Pure Talin augments the sweetness and blocks the bitter receptors the botanical extracts would otherwise trip.</p>
-      </div>
-    </div>
-    <div class="sec-head rv" style="margin-top:clamp(54px,7.4vh,96px)">
-      <h2 class="serif">Fast-dissolving, <br><em>Easy to absorb.</em><br></h2>
-      <p class="lede">The 2 HONI<i>ORA</i> tablets actively dissolve in 350ml water, <br>creating a delicious, potent, and invigorating solution, <br>kind on and supporting your gut with efficient absorption of all the actives to quickly reach your bloodstream.</p>
-    </div>
-    <div class="pillars pillars4 rv">
-      <div class="pillar">
-        <span class="n">iv</span>
-        <h3>Better blood flow, better circulation <span class="ing">VasoDrive-AP<sup class="rn">&reg;</sup></span></h3>
-        <p>Special peptides relax your blood vessels and reduce arterial stiffness. This opens up circulation so oxygen, clean energy, and nutrients reach your muscles, brain, and organs quickly.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">v</span>
-        <h3>Immune and enzymatic cofactor support <span class="ing">Zinc Bisglycinate<sup class="rn">&reg;</sup></span></h3>
-        <p>A well-absorbed chelated zinc form. Zinc is a cofactor for hundreds of enzymes and sits behind normal immune function, paired here with Magnesium Malate for broader mineral cofactor coverage.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">vi</span>
-        <h3>Metabolic and micro-vascular stability</h3>
-        <p>Careflow<sup class="rn">&reg;</sup> and S7<sup class="rn">&reg;</sup> work the small-vessel end of the circulatory system, supporting steadier microvascular flow through the day.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">vii</span>
-        <h3>Complete dissolution, clean finish</h3>
-        <p>Creatine, active nutrients and precisely buffered effervescent salts dissolve fully in 60 seconds into a golden plume of natural fibre, leaving a smooth, delicious drink with no grit and no residue, effortless every morning.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">viii</span>
-        <h3>Stress response and recovery support <span class="ing">Landkind<sup class="rn">&reg;</sup> Pure Salidroside</span></h3>
-        <p>A precision-fermented Rhodiola rosea extract standardised to 98%+ salidroside. Functions as an adaptogen, helping the body regulate its response to everyday physical and mental stress.</p>
-      </div>
-      <div class="pillar">
-        <span class="n">ix</span>
-        <h3>Cognitive support and mood balance <span class="ing">Braincurrant<sup class="rn">&reg;</sup></span></h3>
-        <p>A whole-fruit New Zealand blackcurrant powder from Anagenix, carrying the anthocyanins and polyphenols the fruit is naturally rich in. Independent NZ blackcurrant research (not run on this specific branded ingredient) covers exercise recovery, metabolic health and visual fatigue; the supplier's own focus, memory and mood claims for Braincurrant<sup class="rn">&reg;</sup> specifically remain unconfirmed independently.</p>
       </div>
     </div>
   </div>
@@ -4584,8 +4541,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="closing-bee-wrap rv"><img src="honico-bee-logo.png" alt="HoniCo golden bee emblem, known as Napoleon&rsquo;s Golden Bee" class="closing-bee" width="468" height="546" loading="lazy"></div>
     <p class="eyebrow rv">Born in New Zealand &middot; Made in the USA</p>
     <h2 class="serif rv" style="margin-top:26px"><img src="honiora-logo.png" alt="HoniOra" class="closing-logo" width="1396" height="294"><br><em>Activated Nectar</em></h2>
-    <p class="serif rv" style="font-size:clamp(16px,1.5vw,20px);font-style:italic;letter-spacing:.03em;color:var(--ink-soft);margin:22px 0 26px">Golden health awakes.</p>
-    <div class="rv hexcta"><a href="#waitlist" class="hexcta-link"><b class="hexcta-shape" aria-hidden="true"></b><span>Join the<br>founding list <i class="ar">&rarr;</i></span></a></div>
+    <p class="serif rv" style="font-size:clamp(22px,2.4vw,34px);font-style:italic;letter-spacing:.03em;color:var(--ink-soft);margin:24px 0 28px">Golden health awakes.</p>
+    <div class="rv hexcta"><a href="#waitlist" class="hexcta-link"><b class="hexcta-shape" aria-hidden="true"></b><span>Join Our<br>Founding List</span></a></div>
   </div>
 </section>
 
@@ -6317,11 +6274,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   var barIn = document.querySelector('.unit-bar i');
   var iTrack = document.getElementById('ibandTrack');
   var iVp    = document.querySelector('.iband-vp');
+  var ibandHost = document.querySelector('.ibandhost');
   if (!unit || !track) return;
+  function setStatic(on){ unit.classList.toggle('static', on); if (ibandHost) ibandHost.classList.toggle('static', on); }
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function fallback(){ unit.classList.add('static'); markFocus(); }
+  function fallback(){ setStatic(true); markFocus(); }
 
 
   /* whichever image is nearest the centre of the frame takes focus */
@@ -6353,7 +6312,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     /* desktop / large tablet: pin the section and drive the track right-to-left */
     mm.add('(min-width: 1001px)', function(){
-      unit.classList.remove('static');
+      setStatic(false);
 
       var distance = function(){
         return Math.max(0, track.scrollWidth - vp.clientWidth);
@@ -6363,31 +6322,36 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         return iTrack && iVp ? Math.max(0, iTrack.scrollWidth - iVp.clientWidth) : 0;
       };
 
-      var tween = gsap.to(track, { x: function(){ return -distance(); }, ease: 'none' });
-
-      var st = ScrollTrigger.create({
-        trigger: unit,
-        start: 'top top+=120',
-        end: function(){ return '+=' + (distance() + window.innerHeight * 0.35); },
+      /* the ingredient photo strip is its own held screen (screen 3): the page pins it just
+         under the header, waits a beat, then slides the strip sideways one ingredient at a
+         time until the last one has passed, and only then lets the page move on. */
+      var IB_LEAD = function(){ return window.innerHeight * 0.45; };   /* dwell before the strip starts */
+      var IB_TAIL = function(){ return window.innerHeight * 0.30; };   /* dwell after the last ingredient */
+      var IB_SPAN = function(){ return Math.max(iDistance(), distance()) * 0.65; };          /* scroll distance spent sliding the strip */
+      var ist = (iTrack && ibandHost) ? ScrollTrigger.create({
+        trigger: ibandHost,
+        start: 'top top+=70',
+        end: function(){ return '+=' + (IB_SPAN() + IB_LEAD() + IB_TAIL()); },
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
         scrub: 0.8,
+        refreshPriority: 1,
         invalidateOnRefresh: true,
-        animation: tween,
         onUpdate: function(self){
-          if (barIn) gsap.set(barIn, { scaleX: self.progress });
-          /* the image band rides the same progress across its own width */
-          if (iTrack) gsap.set(iTrack, { x: -iDistance() * self.progress });
+          var total = IB_SPAN() + IB_LEAD() + IB_TAIL();
+          var px = self.progress * total;
+          var f = IB_SPAN() ? Math.min(1, Math.max(0, (px - IB_LEAD()) / IB_SPAN())) : 0;
+          gsap.set(iTrack, { x: -iDistance() * f });
+          gsap.set(track, { x: -distance() * f });
           queueFocus();
         }
-      });
+      }) : null;
 
       markFocus();
 
       return function(){          /* cleanup when the query stops matching */
-        st.kill();
-        tween.kill();
+        if (ist) ist.kill();
         gsap.set(track, { clearProps: 'transform' });
         if (iTrack) gsap.set(iTrack, { clearProps: 'transform' });
         if (barIn) gsap.set(barIn, { clearProps: 'transform' });
@@ -6396,8 +6360,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     /* phones / small tablets: no pinning, panels stack vertically */
     mm.add('(max-width: 1000px)', function(){
-      unit.classList.add('static');
-      return function(){ unit.classList.remove('static'); };
+      setStatic(true);
+      return function(){ setStatic(false); };
     });
 
     /* re-measure once fonts and lazy images have settled */
