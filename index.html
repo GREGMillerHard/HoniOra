@@ -119,11 +119,19 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 #rita{scroll-margin-top:67px}
 #ritual{scroll-margin-top:67px}
 #triad{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
+#nitric-oxide{scroll-margin-top:calc(80px - clamp(80px,11vw,152px))} /* eyebrow lands right under the nav bar */
 #glp1{scroll-margin-top:calc(88px - clamp(80px,11vw,152px))}
 #taste{scroll-margin-top:calc(81px - clamp(80px,11vw,152px))}
 
 /* 12 / The Taste: gold and white silk flow background (option E), pure CSS, slow 12s loop */
-#taste.sec.tinted,#protocol.sec,#glp1.sec.tinted{position:relative;isolation:isolate;overflow:hidden;background:#F8F5EC}
+#taste.sec.tinted,#protocol.sec,#glp1.sec.tinted,#matrix.sec{position:relative;isolation:isolate;overflow:hidden;background:#F8F5EC}
+/* 08 / The Stack: same gold and white silk flow (option E) as Taste and GLP-1. The section is
+   thousands of px tall, so the silk is a viewport-height pane that stays in view while the recipe
+   scrolls past, rather than three bands stretched over the whole section. overflow:clip (not hidden)
+   keeps position:sticky working inside the section. */
+#matrix.sec{overflow:hidden;overflow:clip}
+#matrix .silk-track{position:absolute;inset:0;z-index:-1;pointer-events:none}
+#matrix .taste-silk{position:sticky;top:0;bottom:auto;left:0;right:auto;width:100%;height:100vh;z-index:auto;-webkit-mask-image:none;mask-image:none}
 .taste-silk{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
 .taste-silk i{position:absolute;left:-30%;width:160%;height:46%;border-radius:50%;filter:blur(34px);opacity:.9;will-change:transform}
@@ -1085,6 +1093,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   font-weight:400;font-size:clamp(13px,1.3vw,17px);color:var(--ink);letter-spacing:-.012em;line-height:1.18}
 .icap s{display:block;text-decoration:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--gold-deep);font-weight:600;margin-top:6px}
+.icap u.ifn{display:block;text-decoration:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);font-weight:500;margin-top:3px}
 .icap i{display:block;font-style:normal;font-size:10.5px;line-height:1.4;color:var(--ink-2);
   margin-top:6px;max-width:25ch;margin-left:auto;margin-right:auto}
 /* static fallback */
@@ -1218,6 +1228,48 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .pillar h3 .ing{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-deep);font-weight:600;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;margin-top:6px}
 .pillar p{font-size:15px;color:var(--ink-2)}
+
+/* ---------- nitric oxide section ---------- */
+#nitric-oxide{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='700' viewBox='0 0 1440 700' preserveAspectRatio='none'><g fill='none' stroke='%23B21736' stroke-opacity='.16' stroke-width='1.6'><path d='M0 120C260 40 420 220 720 130S1180 40 1440 140'/><path d='M0 200C260 120 420 300 720 210S1180 120 1440 220'/><path d='M0 280C260 200 420 380 720 290S1180 200 1440 300'/><path d='M0 360C260 280 420 460 720 370S1180 280 1440 380'/><path d='M0 440C260 360 420 540 720 450S1180 360 1440 460'/><path d='M0 520C260 440 420 620 720 530S1180 440 1440 540'/></g></svg>") center top/100% 100% no-repeat,linear-gradient(#FFFFFF,#FBF3F2)}
+#nitric-oxide .sec-head{margin-bottom:clamp(34px,4.4vw,56px)}
+#nitric-oxide .sec-head{text-align:center}
+#nitric-oxide .sec-head h2{max-width:none;margin-left:auto;margin-right:auto}
+#nitric-oxide .sec-head .lede{margin-left:auto;margin-right:auto}
+.no-why{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.no-why-item{background:var(--paper);padding:clamp(24px,3vw,40px)}
+.no-n{display:block;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:15px;color:var(--gold);margin-bottom:18px}
+.no-why-item h3{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:21px;margin-bottom:10px}
+.no-why-item p{font-size:15px;color:var(--ink-2);margin:0}
+.no-nobel{max-width:none;margin:clamp(22px,2.6vw,32px) 0 0;font-size:14px;color:var(--ink-soft);line-height:1.7}
+.no-head{margin:clamp(54px,7vw,92px) 0 clamp(22px,3vw,34px)}
+.no-head{text-align:center}
+.no-head h3{font-size:clamp(26px,3.4vw,44px);max-width:none;margin:12px auto 0}
+@media(min-width:1001px){.no-head h3{white-space:nowrap}}
+.no-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,20px)}
+.no-card{position:relative;display:flex;flex-direction:column;padding:clamp(22px,2.2vw,32px);border-radius:4px;
+  background:linear-gradient(160deg,#C41E3F,#9A1230);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 14px 34px rgba(154,18,48,.28);
+  transition:transform .4s ease,box-shadow .4s ease}
+.no-card:hover{transform:translateY(-4px);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 20px 44px rgba(154,18,48,.40)}
+.no-route{align-self:flex-start;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#fff;
+  border:1px solid rgba(255,255,255,.7);border-radius:99px;padding:5px 11px;margin-bottom:18px}
+.no-route.sig{color:#9A1230;background:#fff;border-color:#fff}
+.no-card h4{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:20px;font-weight:600;margin:0 0 6px;line-height:1.2;color:#fff}
+.no-dose{display:block;font-size:14px;color:#fff;font-weight:600;margin-bottom:14px}
+.no-card p{font-size:14.5px;color:#fff;line-height:1.62;margin:0 0 16px;flex:1}
+.no-card .cite,.no-card .cite.sup{color:#fff;border-color:rgba(255,255,255,.55)}
+.no-card .cite:hover,.no-card .cite.sup:hover{color:#fff;border-color:#fff}
+.no-card .cite span{opacity:.85}
+.no-card .cite{align-self:stretch;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.no-total{margin:clamp(26px,3vw,40px) 0 0;font-size:clamp(18px,1.9vw,24px);color:var(--ink);text-align:center}
+.no-total b{color:var(--gold-deep);font-weight:600}
+.no-move{max-width:none;margin:14px 0 0;font-size:15.5px;color:var(--ink-2);line-height:1.7;text-align:center}
+.no-line{display:block}
+@media(min-width:1240px){.no-nobel,.no-line,.no-total{white-space:nowrap}}
+.no-nobel .cite{display:flex;width:max-content}
+@media(max-width:1100px){.no-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.no-why{grid-template-columns:1fr}.no-grid{grid-template-columns:1fr}}
 
 /* ---------- ikigai-style four-pillar diagram: four overlapping gold rings
    (Strength / Gut / Heart / Brain) converging on HoniOra at the centre ---------- */
@@ -1487,6 +1539,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* ---------- matrix ---------- */
 .matrix-banner-pic{display:contents}
 .matrix-banner{display:block;width:100%;height:auto;max-width:1040px;margin:0 auto clamp(32px,4.5vw,56px)}
+/* the banner is a JPEG on white: multiply drops the white so the silk background shows through */
+.matrix-banner{mix-blend-mode:multiply}
 /* ---------- pack section: ZOOMMASTER scroll-converge effect, replacing the
    former static horizontal tube shot at the user's request. Twelve ingredient
    badges fly in from the shoulders and converge into the real HONIORA tube as
@@ -2363,9 +2417,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    them instead of nearly meeting edge-to-edge in the middle. */
 .burger-drop-left{left:0}
 .burger-drop-right{right:0}
-.burger-drop a{font-size:18px;font-weight:700;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
+.burger-drop a{text-transform:uppercase;font-size:18px;font-weight:700;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;
   padding:9px 6px;border-bottom:1px solid rgba(94,47,0,.32);line-height:1.2;color:var(--ink);transition:color .3s,background .3s}
 .burger-drop a:last-child{border-bottom:0}
+@media(max-width:480px){.burger-drop a{font-size:16px}} /* all-caps labels need the smaller size to fit the narrow popup */
 /* click-pinned state: works at every width, hover-capable or not, so tapping a
    burger on a touch device opens and holds the popup the same way clicking it
    does with a mouse. */
@@ -2452,6 +2507,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   section[id],#honiblog-rachael{scroll-margin-top:104px}
   #problem{scroll-margin-top:14px} /* 78px target gap minus this breakpoint's flat 64px .sec padding-top */
   #pomma{scroll-margin-top:14px} /* same tight landing as #problem at this breakpoint */
+  #nitric-oxide{scroll-margin-top:6px} /* same tight landing at this breakpoint */
   #lemon{scroll-margin-top:14px}
   #science{scroll-margin-top:14px}
   #pack{scroll-margin-top:7px}
@@ -2858,6 +2914,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#livaux">Livaux</a>
       <a href="#pomma">Pomma+</a>
       <a href="#triad">Four Systems</a>
+      <a href="#nitric-oxide">Nitric Oxide</a>
       <a href="#glp1">Natural GLP-1</a>
     </div>
     <div class="hexbtn-m nav-hex-mobile-left">
@@ -2877,12 +2934,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="burger-drop burger-drop-right" id="burgerDropRight">
       <a href="#ritual">Protocol</a>
       <a href="#pack">Format</a>
+      <a href="#taste">Taste</a>
       <a href="#rita">Rita Rocks</a>
       <a href="#lemon">Lemonwater?</a>
       <a href="#honiblogtop">HoniBlog</a>
       <a href="javascript:void(0)" id="askHoniBtnBurgerDrop">Ask Honi</a>
       <a href="#abouttop">About HoniCo</a>
-      <a href="#waitlist">Join Founding List</a>
+      <a href="#waitlist">Founding List</a>
     </div>
   </div>
 </header>
@@ -3045,25 +3103,25 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="iband">
       <div class="iband-vp">
         <div class="iband-track" id="ibandTrack">
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.webp"><img width="820" height="820" src="manuka_crystal.webp" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF Crystals</b><s>1,500 mg NZ</s><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF high fibre matrix substrate feeds your beneficial gut barrier microbes, whose fermentation of that fibre also supports your own natural GLP-1.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.webp"><img width="820" height="820" src="creatine_HCL.webp" alt="Cr.01&trade; creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr.01&trade; Creatine Monohydrate</b><s>3,500 mg</s><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01&trade;, SGS verified lot by lot, content assay 99.9%.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.webp"><img width="820" height="820" src="livaux_gold_kiwi.webp" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg NZ</s><i>Roughly doubled <em>F. prausnitzii</em> in 70% of trial participants within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="mitoq-lite.webp"><img width="820" height="820" src="mitoq.webp" alt="MitoQ mitoquinol mesylate" loading="lazy"></picture><figcaption class="icap"><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b><s>20 mg NZ</s><i>Mitochondria-targeted antioxidant from MitoQ, holder of over 60 patents globally. Designed to address cellular oxidative stress and support energy, vitality and healthy aging. In a placebo-controlled crossover trial of 20 adults aged 60 to 79, 20 mg a day for 6 weeks raised artery flow-mediated dilation by 42% over placebo.</i></figcaption></figure></div>
-          <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.webp"><img width="820" height="820" src="pomma_pomegranate.webp" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b><s>500 mg</s><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.webp"><img width="820" height="820" src="feijoa.webp" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg NZ</s><i>Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand. Two routes to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.webp"><img width="820" height="820" src="eriomin_lemon.webp" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><i>A standardised eriocitrin extract with its own pathway to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg NZ</s><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><s>100 mg NZ</s><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.webp"><img width="820" height="820" src="vasodrive_ap.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg NZ</s><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONIORA delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.5 billion CFU</s><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 15 mg</s><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.webp"><img width="820" height="820" src="passionfruit.webp" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.webp"><img width="820" height="786" src="thaumatin.webp" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="manuka_crystal-lite.webp"><img width="820" height="820" src="manuka_crystal.webp" alt="MGO 850+ Manuka honey crystals" loading="lazy"></picture><figcaption class="icap"><b>MGO 850+ M&#257;nuka / Fiberest<sup class="rn">&reg;</sup> HF Crystals</b><s>1,500 mg NZ</s><u class="ifn">GUT HEALTH</u><i>The M&#257;nuka honey clears and the gluten free fibre rebuilds: clinical grade Methylglyoxal MGO 850+ M&#257;nuka selectively clears gut pathogens &amp; Fiberest<sup class="rn">&reg;</sup> HF high fibre matrix substrate feeds your beneficial gut barrier microbes, whose fermentation of that fibre also supports your own natural GLP-1.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.webp"><img width="820" height="820" src="creatine_HCL.webp" alt="Cr.01&trade; creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr.01&trade; Creatine Monohydrate</b><s>3,500 mg</s><u class="ifn">ENERGY &amp; STRENGTH</u><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01&trade;, SGS verified lot by lot, content assay 99.9%.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.webp"><img width="820" height="820" src="livaux_gold_kiwi.webp" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg NZ</s><u class="ifn">GUT HEALTH</u><i>Roughly doubled <em>F. prausnitzii</em> in 70% of trial participants within 28 days. A pectin matrix carrying 41 phenolics, fermented slowly.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="mitoq-lite.webp"><img width="820" height="820" src="mitoq.webp" alt="MitoQ mitoquinol mesylate" loading="lazy"></picture><figcaption class="icap"><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b><s>20 mg NZ</s><u class="ifn">MITOCHONDRIAL SUPPORT</u><i>Mitochondria-targeted antioxidant from MitoQ, holder of over 60 patents globally. Designed to address cellular oxidative stress and support energy, vitality and healthy aging. In a placebo-controlled crossover trial of 20 adults aged 60 to 79, 20 mg a day for 6 weeks raised artery flow-mediated dilation by 42% over placebo.</i></figcaption></figure></div>
+          <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.webp"><img width="820" height="820" src="pomma_pomegranate.webp" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b><s>500 mg</s><u class="ifn">ANTIOXIDANT SUPPORT</u><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.webp"><img width="820" height="820" src="feijoa.webp" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg NZ</s><u class="ifn">GLP-1 SUPPORT</u><i>Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand. Two routes to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.webp"><img width="820" height="820" src="eriomin_lemon.webp" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><u class="ifn">GLP-1 SUPPORT</u><i>A standardised eriocitrin extract with its own pathway to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg NZ</s><u class="ifn">FOCUS &amp; MOOD</u><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><s>100 mg NZ</s><u class="ifn">BRAIN FLOW</u><i>NZ-grown blackcurrants combined with bovine collagen. cGP regulates the body by freeing insulin-like growth factor 1 from its binding protein to keep it active when the brain needs it. cGP supports the growth and repair of delicate capillaries that feed brain cells and clear waste. High levels of endogenous cGP are linked to better memory and learning performance in adults.<br>cGP stimulates brain-derived neurotrophic factor, a key protein that helps brain cells grow and communicate.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><u class="ifn">MICROCIRCULATION</u><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.webp"><img width="820" height="820" src="vasodrive_ap.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg NZ</s><u class="ifn">ARTERIAL ELASTICITY</u><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><u class="ifn">BLOOD LIPID PROTECTION</u><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONIORA delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.5 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><u class="ifn">BARRIER &amp; IMMUNE SUPPORT</u><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><u class="ifn">STRESS RESPONSE</u><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 15 mg</s><u class="ifn">CITRUS AROMA</u><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.webp"><img width="820" height="820" src="passionfruit.webp" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><u class="ifn">TROPICAL AROMA</u><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.webp"><img width="820" height="786" src="thaumatin.webp" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><u class="ifn">NATURAL SWEETNESS</u><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
         </div>
       </div>
     </div>
@@ -3145,7 +3203,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="timer">
           <div class="ring"></div>
           <b id="cd">60</b>
-          <span>Seconds to full dissolution<br>&middot; no stirring</span>
+          <span>seconds<br>to full dissolution</span>
         </div>
       </div>
     </div>
@@ -3671,7 +3729,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>Magnesium Malate</i><b>500 mg</b></li>
           <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>55 mg</b></li>
         </ul>
-        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. This whole-fruit pomegranate extract carries punicalagins and ellagitannins which give antioxidant and polyphenol support to your cells. Your gut bacteria convert ellagitannins into urolithins, Urolithin A among them, so Pomma+<sup class="rn">&reg;</sup> links the gut to the vessels it feeds.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
+        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. This whole-fruit pomegranate extract carries punicalagins and ellagitannins which give antioxidant and polyphenol support to your cells. Your gut bacteria convert ellagitannins into urolithins, Urolithin A among them.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
       </div>
 
       <div class="tri" data-pillar="brain">
@@ -3693,6 +3751,78 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
 
     <p class="small rv" style="margin-top:22px">This describes the mechanistic rationale behind how the formula was built. The evidence sits with the individual branded ingredients, listed in full below. Ingredient-level evidence only, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>.</p>
+  </div>
+</section>
+
+<section class="sec" id="nitric-oxide">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow dim">Nitric Oxide &middot; The Vessel Signal</p>
+      <h2 class="serif">Wider vessels. <em>Better delivery.</em></h2>
+      <p class="lede">Nitric oxide (NO) is a signalling molecule. The endothelium, the single cell layer lining every blood vessel, makes NO on demand. NO tells the muscle around the vessel to relax. The vessel widens and blood moves more freely.</p>
+    </div>
+
+    <div class="no-why rv">
+      <div class="no-why-item">
+        <span class="no-n">01</span>
+        <h3>Blood flow</h3>
+        <p>Wider vessels carry more blood to muscle, brain and gut. NO sets that width, moment to moment.</p>
+      </div>
+      <div class="no-why-item">
+        <span class="no-n">02</span>
+        <h3>Arterial flexibility</h3>
+        <p>Healthy arteries stretch and recoil with each heartbeat. A well-working endothelium keeps them that way.</p>
+      </div>
+      <div class="no-why-item">
+        <span class="no-n">03</span>
+        <h3>Delivery</h3>
+        <p>Nutrients and oxygen travel by circulation. Good absorption means little without good delivery.</p>
+      </div>
+    </div>
+
+    <p class="no-nobel rv">NO as a signalling molecule in the cardiovascular system earned the 1998 Nobel Prize in Physiology or Medicine, shared by Robert Furchgott, Louis Ignarro and Ferid Murad. <a class="cite sup" href="https://www.nobelprize.org/prizes/medicine/1998/summary/" target="_blank" rel="noopener noreferrer">Nobel Prize <span>1998 summary &nearr;</span></a></p>
+
+    <div class="no-head rv">
+      <p class="eyebrow dim">In HONI<i>ORA</i></p>
+      <h3 class="serif">Four ingredients. Two routes to your own NO.</h3>
+    </div>
+
+    <div class="no-grid rv">
+      <div class="no-card">
+        <span class="no-route">Enzyme route</span>
+        <h4>VasoDrive-AP<sup class="rn">&reg;</sup></h4>
+        <b class="no-dose">508 mg</b>
+        <p>Casein tripeptides VPP and IPP. They support arterial flexibility by raising endothelial nitric oxide synthase (eNOS), the enzyme that makes NO, and by inhibiting angiotensin-converting enzyme. Contains milk.</p>
+        <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/23566677/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 23566677 &nearr;</span></a>
+      </div>
+      <div class="no-card">
+        <span class="no-route">Enzyme route</span>
+        <h4>Careflow<sup class="rn">&reg;</sup> Mango Fruit</h4>
+        <b class="no-dose">100 mg</b>
+        <p>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Blood flow through the smallest capillaries rises within hours of ingestion.</p>
+        <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/28187466/" target="_blank" rel="noopener noreferrer">Buchwald-Werner 2017 <span>Planta Med &middot; RCT &nearr;</span></a>
+      </div>
+      <div class="no-card">
+        <span class="no-route sig">Signal route</span>
+        <h4>S7<sup class="rn">&reg;</sup> Plant Blend</h4>
+        <b class="no-dose">50 mg</b>
+        <p>Seven plant extracts: green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale. S7<sup class="rn">&reg;</sup> acts on the cell&rsquo;s own redox signalling to raise the NO you already make, rather than supplying nitrate.</p>
+        <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38612462/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 38612462 &nearr;</span></a>
+      </div>
+      <div class="no-card">
+        <span class="no-route sig">Signal route</span>
+        <h4>Pomma+<sup class="rn">&reg;</sup> Pomegranate</h4>
+        <b class="no-dose">500 mg</b>
+        <p>Whole-fruit pomegranate extract carrying punicalagins and ellagitannins. Pomegranate polyphenols are studied for vascular function. We found no human trial of Pomma+ itself.</p>
+        <a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a>
+      </div>
+    </div>
+
+    <p class="no-total rv"><b>1,158 mg</b> of NO-pathway ingredients in every serving.</p>
+
+    <p class="no-move rv"><span class="no-line">Movement counts too. Regular walking creates shear stress against arterial walls, which prompts endothelial cells to produce NO.</span> <span class="no-line">HONI<i>ORA</i> works alongside your daily steps.</span></p>
+
+    <p class="small rv" style="margin-top:22px;max-width:78ch">Ingredient-level evidence only. No trial of the finished product exists, and individual response varies. See the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
   </div>
 </section>
 
@@ -3800,6 +3930,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <!-- ================= MATRIX ================= -->
 <section class="sec" id="matrix">
+  <div class="silk-track" aria-hidden="true"><div class="taste-silk"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div></div>
   <div class="wrap">
     <picture class="matrix-banner-pic">
       <source media="(max-width:1000px)" srcset="matrix-stack-header-lite.jpg">
@@ -3847,7 +3978,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">Pomma+<sup class="rn">&reg;</sup> Pomegranate Extract<i>Stauber USA (Whole Fruit Extract)</i></div>
         <div><span class="fn">Antioxidant<small>Polyphenol support</small></span></div>
         <div class="dose">500 mg</div>
-        <div class="mech">An upcycled, whole-fruit pomegranate extract carrying punicalagins and ellagitannins, the polyphenols pomegranate is best known for. Pomma+<sup class="rn">&reg;</sup> at 500mg delivers a therapeutic concentration driving pronounced nitric oxide output, endothelial protection, and robust circulatory support.<br><a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a></div>
+        <div class="mech">An upcycled, whole-fruit pomegranate extract carrying punicalagins and ellagitannins, the polyphenols pomegranate is best known for. Pomegranate polyphenols are studied for vascular function. We found no human trial of Pomma+<sup class="rn">&reg;</sup> itself, so we make no dose-response claim for the 500 mg.<br><a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
@@ -5401,6 +5532,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         }
         /* #mitoq: the dark box sits flush under the nav bar. Measured from the section
            (the box itself is a .rv block with a transient reveal transform). */
+        /* #nitric-oxide: eyebrow sits ~12px under the nav bar. */
+        if (hash === '#nitric-oxide'){
+          var npad = parseFloat(getComputedStyle(el).paddingTop) || 0;
+          return Math.max(0, el.getBoundingClientRect().top + window.scrollY + npad - (hdr.getBoundingClientRect().bottom + 12));
+        }
         if (hash === '#mitoq' || hash === '#livaux' || hash === '#pomma'){
           var mpad = parseFloat(getComputedStyle(el).paddingTop) || 0;
           return Math.max(0, el.getBoundingClientRect().top + window.scrollY + mpad - (hdr.getBoundingClientRect().bottom + 1));
