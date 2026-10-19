@@ -140,7 +140,13 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 .taste-silk .s3{top:56%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(214,168,60,.7),rgba(255,255,255,.9),rgba(236,201,110,.85),rgba(255,255,255,0));animation:tsE3 12s ease-in-out infinite}
 .taste-silk .veil{inset:0;left:0;width:100%;height:100%;border-radius:0;filter:none;opacity:1;animation:none;background:linear-gradient(180deg,rgba(250,247,240,.46),rgba(250,247,240,.34) 60%,rgba(250,247,240,.46))}
 /* home screen: same silk flow as Taste / Protocol / GLP-1, spread over the tall hero */
-.hero{isolation:isolate;background:#F8F5EC}
+/* hero background: "Pearl" -- airy near-white with a faint pale-gold silk shimmer (hero only; the
+   other silk sections keep the shared look) */
+.hero{isolation:isolate;background:#FFFEFA}
+.hero .taste-silk .s1{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(240,218,160,.55),rgba(255,255,255,.9),rgba(232,205,140,.45),rgba(255,255,255,0))}
+.hero .taste-silk .s2{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95),rgba(244,224,170,.5),rgba(255,255,255,.8),rgba(255,255,255,0))}
+.hero .taste-silk .s3{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(232,205,140,.45),rgba(255,255,255,.9),rgba(240,218,160,.55),rgba(255,255,255,0))}
+.hero .taste-silk .veil{background:linear-gradient(180deg,rgba(255,254,250,.6),rgba(255,254,250,.5) 60%,rgba(255,254,250,.6))}
 .hero .taste-silk i{height:min(46%,820px)}
 .hero .taste-silk .veil{height:100%}
 .hero .taste-silk .s1{top:1%}
@@ -539,6 +545,28 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .pillar-body{min-width:0}
 .pillar-icon{flex:0 0 auto;height:clamp(76px,8vw,124px);width:auto;object-fit:contain}
 .pillar-icon-origin{height:clamp(99px,10.4vw,161px)}
+/* Icons are static (pulse effects removed at user request). The span wrapper stays so the
+   existing .pillar-icon sizing, data-edge and .in reveal rules keep working. */
+.pillar-icon.pi-glow{display:block;position:relative;line-height:0}
+.pillar-icon.pi-glow>img{display:block;height:100%;width:auto}
+/* ICON MOTION (user option 3): each icon moves in a way that matches what it stands for.
+   Heart: lub-dub beat. Mitochondrion: slow organic wobble so the folds ripple in and out
+   (SVG displacement filter, #piMito). NZ: fine coastline shimmer (#piNZ). Water drop: rings
+   spread outward from the drop. All start after the icon has landed (.in) and stop for
+   reduced-motion visitors. */
+@keyframes piBeat{0%,50%,100%{transform:scale(1)}12%{transform:scale(1.07)}24%{transform:scale(1)}36%{transform:scale(1.045)}}
+.pillar-icon.pi-vascular.in>img{transform-origin:50% 58%;animation:piBeat 1.8s ease-in-out 2.4s infinite}
+.pillar-icon.pi-energy.in>img{filter:url(#piMito)}
+.pillar-icon.pi-origin.in>img{filter:url(#piNZ)}
+.pi-ripple{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.pi-ripple circle{fill:none;stroke:rgb(var(--gl));stroke-width:2;vector-effect:non-scaling-stroke;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.06)}
+@keyframes piRing{0%{transform:scale(.06);opacity:0}10%{opacity:.65}100%{transform:scale(1);opacity:0}}
+.pillar-icon.pi-hydration.in .pi-ripple circle{animation:piRing 4.2s ease-out infinite}
+.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(1){animation-delay:3s}
+.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(2){animation-delay:4.4s}
+.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(3){animation-delay:5.8s}
+@media(prefers-reduced-motion:reduce){.pillar-icon.pi-vascular.in>img{animation:none}.pillar-icon.pi-energy.in>img,.pillar-icon.pi-origin.in>img{filter:none}.pillar-icon.pi-hydration.in .pi-ripple circle{animation:none}}
+
 /* (user request) icons shown at 2x their visual size, but the layout box they
    occupy in the flex row stays at the original height/width above -- a
    transform (scale) is purely visual and never affects an element's layout
@@ -578,6 +606,11 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hero .ibandhost:not(.static) .ishot.ishot-pomma{width:min(clamp(280px,34vw,480px),34vh)}
   .hero .ibandhost:not(.static) .icap{left:-90%;right:-90%}
   .hero .ibandhost:not(.static) .icap i{max-width:52ch}
+  /* user request: lift the second text scroll (the tablet-facts ticker) off the bottom edge
+     to mid screen. Auto margins centre it in the free space under the ingredient strip. */
+  .hero .ibandhost:not(.static){justify-content:flex-start}
+  .hero .ibandhost:not(.static) .iband{margin-bottom:160px}  /* room for the ingredient caption that hangs below the strip */
+  .hero .ibandhost:not(.static) .unit{margin-top:auto;margin-bottom:auto}
 }
 .hero .ibandhost .iband{width:100vw;margin-top:0}
 .hero .ibandhost .unit{width:100vw;margin-top:clamp(16px,2.5vh,30px)}
@@ -680,6 +713,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   transition:opacity .3s ease,transform .35s cubic-bezier(.22,1,.36,1)}
 .hpop::after{content:"";position:absolute;bottom:100%;left:24px;border:7px solid transparent;border-bottom-color:var(--ink)}
 .hact:hover .hpop,.hact:focus-within .hpop{opacity:1;transform:translateY(0)}
+.icap i i{font-style:italic}
 .hact b{font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:300;
   font-size:clamp(17px,2vw,31px);letter-spacing:-.017em;color:var(--ink)}
 .hact s{text-decoration:none;font-size:clamp(10px,1.05vw,14px);letter-spacing:.12em;
@@ -1505,7 +1539,6 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 @media(prefers-reduced-motion:reduce){.fhex-card,.fhex-in p,.fg{transition-duration:.01s;transition-delay:0s}}
 @media(max-width:760px){
   .facts-band{--fw:min(calc((100vw - 80px) / 2),230px);margin:clamp(28px,5vw,44px) 0 0;padding:0}
-  #honey.sec{padding-bottom:clamp(40px,8vw,64px)}
   .facts-hexes{flex-wrap:wrap;gap:12px;max-width:calc(var(--fw)*2 + 13px);margin:0 auto;--pf:calc(var(--fw)*.047)}
   .fhex-in{width:66%}
 }
@@ -2078,9 +2111,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 /* ---------- Rita Rocks feature ---------- */
 .rita-feature{position:relative;width:100%;overflow:hidden;background:var(--paper)}
 .rita-feature img{width:100%;height:auto;display:block}
-.rita-copy{position:absolute;inset:0 auto 0 0;width:min(46%,600px);
+.rita-copy{position:absolute;inset:0 auto 0 0;width:min(28.5%,600px);
+  /* narrow left column: on laptop widths (MacBook Air etc.) the old 46% column ran across her
+     face, so the copy now stays inside the plain left 28.5% of the photo at every desktop width */
   display:flex;flex-direction:column;justify-content:center;gap:16px;
-  padding:clamp(24px,4vw,64px);
+  padding:clamp(20px,3vw,56px) clamp(12px,1.2vw,20px) clamp(20px,3vw,56px) clamp(20px,3.2vw,60px);
   background:linear-gradient(100deg,rgba(250,247,240,.97) 0%,rgba(250,247,240,.86) 55%,rgba(250,247,240,0) 100%)}
 .rita-quote{font-size:clamp(14px,1.25vw,17px);line-height:1.65;color:var(--ink);font-style:italic;margin:0}
 .rita-quote a{color:var(--gold);text-decoration:underline;font-style:normal}
@@ -2291,8 +2326,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      and keylines (which measure it) keep their positions. */
   .hero-solution-desktop{display:block;visibility:hidden}
   .hero-solution-right{display:block;margin-top:130px;text-align:center}
-  .hsr-lead{display:block;width:max-content;position:relative;left:calc(50% + 2.5vw);transform:translateX(-50%);white-space:nowrap;font-size:min(2.7vw,40px);line-height:1.15;font-weight:700;color:var(--ink)}
-  .hsr-body{display:block;width:max-content;position:relative;left:calc(50% + 2.5vw);transform:translateX(-50%);white-space:nowrap;margin:12px 0 0;font-size:min(1.8vw,26px);line-height:1.3;color:var(--ink)}
+  /* user request: all caps, same size/tracking as the "BORN IN NEW ZEALAND > MADE IN USA" line
+     above it (.hero .eyebrow: min(1.8vw,22px), .14em), centred directly under that line. The
+     tablet line is long in caps, so it is allowed to wrap onto two balanced lines. */
+  .hsr-lead,.hsr-body{display:block;position:static;width:auto;max-width:100%;transform:none;white-space:normal;text-wrap:balance;text-align:center;text-transform:uppercase;font-size:min(1.8vw,22px);letter-spacing:.14em;font-weight:600;line-height:1.35;color:var(--ink)}
+  .hsr-lead{position:relative;left:50%;transform:translateX(-50%);width:max-content;max-width:none;white-space:nowrap}
+  .hsr-lead i{font-style:italic}
+  .hsr-body{margin:10px 0 0}
   /* (v96) "HoniOra's morning solution:" read too big against the tube/list trio it
      now sits above (moved here at v88), per a request to shrink it. Scoped to just
      this visible desktop duplicate -- .hero-solution-desktop .precede-solution --
@@ -2725,7 +2765,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 /* KIWIFRUIT GOLD TUBE-REVEAL BAND */
 .tube-band{position:absolute;left:0;right:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(180deg,#EBCB58 0%,#E4BF41 55%,#DDB534 100%)}
+  background:linear-gradient(180deg,#FFF0C2 0%,#FFE49A 55%,#FBD777 100%)}
 .hero-lower.has-tube-band .hero-img-col{background:transparent}
 .hero-lower.has-tube-band .keyact.flat.hero-actives li{color:#2B2100}
 .hero-lower.has-tube-band .keyact.flat.hero-actives li::before{background:#5B4400}
@@ -2773,7 +2813,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 #honey{padding-top:0}
 #honey .honey-rest{padding-top:0}
 #honey #coastPhoto{margin-top:0}
-.honey-hero{--hw:clamp(700px,53vw,900px);--bw:var(--hw);--bh:calc(var(--bw)*1.1547);--ap:calc(var(--bw)*.2887);--t:clamp(10px,1.1vw,16px);
+.honey-hero{--hw:clamp(630px,47.7vw,810px);--bw:var(--hw);--bh:calc(var(--bw)*1.1547);--ap:calc(var(--bw)*.2887);--t:clamp(10px,1.1vw,16px);
   position:relative;overflow:hidden;min-height:calc(var(--bh) + 110px);display:flex;align-items:center;background:#6b4a08}
 .honey-hero picture{position:absolute;inset:0;display:block}
 .honey-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
@@ -2790,28 +2830,31 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 /* golden glass hexagon: regular pointy-top hexagon, same shape as the comb cells */
 .hexwrap{position:relative;width:var(--bw);height:var(--bh)}
 .hex-shadow{position:absolute;inset:0;pointer-events:none;filter:blur(15px);
-  clip-path:polygon(evenodd,-30% -30%,130% -30%,130% 130%,-30% 130%,-30% -30%,50% 0,100% var(--ap),100% calc(100% - var(--ap)),50% 100%,0 calc(100% - var(--ap)),0 var(--ap),50% 0,-30% -30%)}
-.hex-shadow::after{content:"";position:absolute;inset:0;background:rgba(40,20,0,.6);transform:translateY(14px);
-  clip-path:polygon(50% 0,100% var(--ap),100% calc(100% - var(--ap)),50% 100%,0 calc(100% - var(--ap)),0 var(--ap))}
+  clip-path:url(#hxCut);-webkit-clip-path:url(#hxCut)}
+.hex-shadow::after{content:"";position:absolute;inset:0;background:rgba(40,20,0,.42);transform:translateY(14px);
+  clip-path:url(#hxOuter);-webkit-clip-path:url(#hxOuter)}
 #honey .honey-box{position:absolute;inset:0;margin:0;max-width:none;box-sizing:border-box;text-align:center;
-  font-size:calc(var(--bw)/44);display:flex;flex-direction:column;justify-content:center;padding:0 19% 10%;
-  clip-path:polygon(50% 0,100% var(--ap),100% calc(100% - var(--ap)),50% 100%,0 calc(100% - var(--ap)),0 var(--ap));
-  -webkit-clip-path:polygon(50% 0,100% var(--ap),100% calc(100% - var(--ap)),50% 100%,0 calc(100% - var(--ap)),0 var(--ap))}
+  font-size:calc(var(--bw)/44);display:flex;flex-direction:column;justify-content:center;padding:0 19% 4%;
+  /* soft, wax-cell hexagon: rounded corners and a hair of irregularity, defined once as an SVG
+     clipPath in object-bounding-box units (see #hxOuter) so it scales with the box */
+  clip-path:url(#hxOuter);-webkit-clip-path:url(#hxOuter)}
 /* glass rim: a thin bright bevel drawn as outer hexagon minus inner hexagon */
 #honey .honey-box::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(135deg,#FFF6C2 0%,#F4C640 24%,#B97C06 50%,#F2C23A 74%,#FFF0A0 100%);opacity:.95;
-  clip-path:polygon(evenodd,50% 0,100% var(--ap),100% calc(100% - var(--ap)),50% 100%,0 calc(100% - var(--ap)),0 var(--ap),50% 0,
-    50% calc(var(--t)*1.1547),calc(0% + var(--t)) calc(var(--ap) + var(--t)*.5774),calc(0% + var(--t)) calc(100% - var(--ap) - var(--t)*.5774),50% calc(100% - var(--t)*1.1547),calc(100% - var(--t)) calc(100% - var(--ap) - var(--t)*.5774),calc(100% - var(--t)) calc(var(--ap) + var(--t)*.5774),50% calc(var(--t)*1.1547),50% 0)}
+  background:linear-gradient(135deg,#FFF6C2 0%,#F4C640 24%,#B97C06 50%,#F2C23A 74%,#FFF0A0 100%);opacity:.9;
+  clip-path:url(#hxRim);-webkit-clip-path:url(#hxRim)}
 #honey .honey-box>*:not(.hex-glass){position:relative;z-index:2}
 #honey .honey-box::before{z-index:3}
 /* glass body: a blurred copy of the comb photo, aligned to the real one by script, so the
    glass needs no backdrop-filter (which draws a hard seam inside large clipped boxes in some browsers) */
 #honey .hex-glass{position:absolute;inset:-28px;z-index:0;pointer-events:none;background-repeat:no-repeat;
-  background-color:#5a3a06;filter:blur(9px) saturate(1.3) brightness(.85)}
+  background-color:transparent;opacity:.88;filter:blur(7px) saturate(1.5) brightness(1.02)}
 #honey .honey-box::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    linear-gradient(118deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.08) 22%,rgba(255,255,255,0) 38%,rgba(255,255,255,.14) 58%,rgba(255,255,255,0) 70%),
-    linear-gradient(160deg,rgba(52,28,0,.70),rgba(36,19,0,.78) 48%,rgba(50,27,0,.72))}
+    radial-gradient(ellipse 60% 34% at 24% 9%,rgba(255,255,255,.42),rgba(255,255,255,0) 70%),
+    linear-gradient(118deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.06) 22%,rgba(255,255,255,0) 38%,rgba(255,255,255,.10) 58%,rgba(255,255,255,0) 70%),
+    radial-gradient(ellipse 70% 40% at 78% 98%,rgba(255,196,64,.30),rgba(255,196,64,0) 70%),
+    linear-gradient(160deg,rgba(58,31,0,.40),rgba(40,21,0,.50) 50%,rgba(52,28,0,.44))}
+#honey .honey-box .lede,#honey .honey-box h2,#honey .honey-box .eyebrow{text-shadow:0 1px 7px rgba(30,15,0,.55)}
 #honey .honey-box .eyebrow,#honey .honey-box .eyebrow.dim{color:#F6D77F;text-align:center;margin-top:0}
 #honey .honey-box h2{color:#FFF6DC;text-align:center;font-size:2.35em;line-height:1.08;white-space:nowrap}
 #honey .honey-box h2 em{color:#F6C94B}
@@ -2826,6 +2869,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .honey-hero .wrap{padding:clamp(150px,42vw,280px) 14px 22px}
   .hexwrap{height:auto}
   .hex-shadow::after{transform:translateY(10px)}
+  /* mobile: the box height follows the copy, so the bounding-box SVG shapes would stretch the
+     peaks. Same soft hexagon here built as a px/--ap polygon (30-degree slanted edges, rounded corners). */
+  #honey .honey-box{clip-path:polygon(calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px));-webkit-clip-path:polygon(calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px))}
+  #honey .honey-box::before{clip-path:polygon(evenodd,calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px),calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -26.0px) calc(0px + 25.4px),calc(50% + -13.0px) calc(0px + 19.8px),calc(50% + 0.0px) calc(0px + 17.9px),calc(50% + 13.0px) calc(0px + 19.8px),calc(50% + 26.0px) calc(0px + 25.4px),calc(100% + -35.0px) calc(var(--ap) + -9.8px),calc(100% + -23.6px) calc(var(--ap) + -1.4px),calc(100% + -15.5px) calc(var(--ap) + 8.9px),calc(100% + -10.6px) calc(var(--ap) + 21.1px),calc(100% + -9.0px) calc(var(--ap) + 35.2px),calc(100% + -9.0px) calc(calc(100% - var(--ap)) + -35.2px),calc(100% + -10.6px) calc(calc(100% - var(--ap)) + -21.1px),calc(100% + -15.5px) calc(calc(100% - var(--ap)) + -8.9px),calc(100% + -23.6px) calc(calc(100% - var(--ap)) + 1.4px),calc(100% + -35.0px) calc(calc(100% - var(--ap)) + 9.8px),calc(50% + 26.0px) calc(100% + -25.4px),calc(50% + 13.0px) calc(100% + -19.8px),calc(50% + 0.0px) calc(100% + -17.9px),calc(50% + -13.0px) calc(100% + -19.8px),calc(50% + -26.0px) calc(100% + -25.4px),calc(0% + 35.0px) calc(calc(100% - var(--ap)) + 9.8px),calc(0% + 23.6px) calc(calc(100% - var(--ap)) + 1.4px),calc(0% + 15.5px) calc(calc(100% - var(--ap)) + -8.9px),calc(0% + 10.6px) calc(calc(100% - var(--ap)) + -21.1px),calc(0% + 9.0px) calc(calc(100% - var(--ap)) + -35.2px),calc(0% + 9.0px) calc(var(--ap) + 35.2px),calc(0% + 10.6px) calc(var(--ap) + 21.1px),calc(0% + 15.5px) calc(var(--ap) + 8.9px),calc(0% + 23.6px) calc(var(--ap) + -1.4px),calc(0% + 35.0px) calc(var(--ap) + -9.8px));-webkit-clip-path:polygon(evenodd,calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px),calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -26.0px) calc(0px + 25.4px),calc(50% + -13.0px) calc(0px + 19.8px),calc(50% + 0.0px) calc(0px + 17.9px),calc(50% + 13.0px) calc(0px + 19.8px),calc(50% + 26.0px) calc(0px + 25.4px),calc(100% + -35.0px) calc(var(--ap) + -9.8px),calc(100% + -23.6px) calc(var(--ap) + -1.4px),calc(100% + -15.5px) calc(var(--ap) + 8.9px),calc(100% + -10.6px) calc(var(--ap) + 21.1px),calc(100% + -9.0px) calc(var(--ap) + 35.2px),calc(100% + -9.0px) calc(calc(100% - var(--ap)) + -35.2px),calc(100% + -10.6px) calc(calc(100% - var(--ap)) + -21.1px),calc(100% + -15.5px) calc(calc(100% - var(--ap)) + -8.9px),calc(100% + -23.6px) calc(calc(100% - var(--ap)) + 1.4px),calc(100% + -35.0px) calc(calc(100% - var(--ap)) + 9.8px),calc(50% + 26.0px) calc(100% + -25.4px),calc(50% + 13.0px) calc(100% + -19.8px),calc(50% + 0.0px) calc(100% + -17.9px),calc(50% + -13.0px) calc(100% + -19.8px),calc(50% + -26.0px) calc(100% + -25.4px),calc(0% + 35.0px) calc(calc(100% - var(--ap)) + 9.8px),calc(0% + 23.6px) calc(calc(100% - var(--ap)) + 1.4px),calc(0% + 15.5px) calc(calc(100% - var(--ap)) + -8.9px),calc(0% + 10.6px) calc(calc(100% - var(--ap)) + -21.1px),calc(0% + 9.0px) calc(calc(100% - var(--ap)) + -35.2px),calc(0% + 9.0px) calc(var(--ap) + 35.2px),calc(0% + 10.6px) calc(var(--ap) + 21.1px),calc(0% + 15.5px) calc(var(--ap) + 8.9px),calc(0% + 23.6px) calc(var(--ap) + -1.4px),calc(0% + 35.0px) calc(var(--ap) + -9.8px))}
+  .hex-shadow{clip-path:polygon(evenodd,-30% -30%,130% -30%,130% 130%,-30% 130%,-30% -30%,calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px),calc(50% + -34.6px) calc(0px + 20.0px),-30% -30%);-webkit-clip-path:polygon(evenodd,-30% -30%,130% -30%,130% 130%,-30% 130%,-30% -30%,calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px),calc(50% + -34.6px) calc(0px + 20.0px),-30% -30%)}
+  .hex-shadow::after{clip-path:polygon(calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px));-webkit-clip-path:polygon(calc(50% + -34.6px) calc(0px + 20.0px),calc(50% + -17.3px) calc(0px + 12.5px),calc(50% + 0.0px) calc(0px + 10.0px),calc(50% + 17.3px) calc(0px + 12.5px),calc(50% + 34.6px) calc(0px + 20.0px),calc(100% + -34.6px) calc(var(--ap) + -20.0px),calc(100% + -19.5px) calc(var(--ap) + -8.8px),calc(100% + -8.7px) calc(var(--ap) + 5.0px),calc(100% + -2.2px) calc(var(--ap) + 21.2px),calc(100% + 0.0px) calc(var(--ap) + 40.0px),calc(100% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(100% + -2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(100% + -8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(100% + -19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(100% + -34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(50% + 34.6px) calc(100% + -20.0px),calc(50% + 17.3px) calc(100% + -12.5px),calc(50% + 0.0px) calc(100% + -10.0px),calc(50% + -17.3px) calc(100% + -12.5px),calc(50% + -34.6px) calc(100% + -20.0px),calc(0% + 34.6px) calc(calc(100% - var(--ap)) + 20.0px),calc(0% + 19.5px) calc(calc(100% - var(--ap)) + 8.8px),calc(0% + 8.7px) calc(calc(100% - var(--ap)) + -5.0px),calc(0% + 2.2px) calc(calc(100% - var(--ap)) + -21.2px),calc(0% + 0.0px) calc(calc(100% - var(--ap)) + -40.0px),calc(0% + 0.0px) calc(var(--ap) + 40.0px),calc(0% + 2.2px) calc(var(--ap) + 21.2px),calc(0% + 8.7px) calc(var(--ap) + 5.0px),calc(0% + 19.5px) calc(var(--ap) + -8.8px),calc(0% + 34.6px) calc(var(--ap) + -20.0px))}
   #honey .honey-box{position:relative;inset:auto;font-size:16.5px;padding:calc(var(--ap)*.82) 11% calc(var(--ap)*.82)}
   #honey .honey-box h2{font-size:30px;white-space:normal}
 }
@@ -2852,9 +2901,31 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 }
 @keyframes lcPass{0%{opacity:.35}12%{opacity:0}74%{opacity:0}92%{opacity:.85}100%{opacity:.35}}
 @media(prefers-reduced-motion:reduce){.loopdiag4 .lc,.loopdiag4 .lc::before{animation:none}}
+/* mobile: the morning-solution pair moves under "BORN IN NEW ZEALAND > MADE IN USA", all caps, same size
+   and tracking as that line (.hero .eyebrow at this breakpoint), centred. The old pair higher up the
+   column is dropped so the text is not shown twice. */
+@media(max-width:1000px){
+  .hero-precede .precede-solution-wrap{display:none}
+  .hero-solution-right{display:block;margin:16px 0 0;text-align:center}
+  .hsr-lead,.hsr-body{display:block;text-align:center;text-transform:uppercase;font-size:clamp(12px,3.3vw,15px);letter-spacing:.16em;font-weight:600;line-height:1.4;color:var(--ink);text-wrap:balance}
+  .hsr-body{margin:8px 0 0}
+  .hsr-lead i{font-style:italic}
+}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <filter id="piMito" x="-6%" y="-4%" width="112%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.013" numOctaves="1" seed="3" result="n"><animate attributeName="baseFrequency" dur="11s" values="0.008 0.013;0.013 0.008;0.008 0.013" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="piNZ" x="-6%" y="-4%" width="112%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="1" seed="8" result="n"><animate attributeName="baseFrequency" dur="7s" values="0.02 0.017;0.016 0.024;0.02 0.017" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter>
+</defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="hxOuter" clipPathUnits="objectBoundingBox"><path d="M0.4161 0.0473 Q0.5040 0.0060 0.5911 0.0486 L0.9210 0.2098 Q0.9950 0.2460 0.9962 0.3196 L1.0017 0.6747 Q1.0030 0.7570 0.9194 0.7961 L0.5864 0.9518 Q0.4940 0.9950 0.4027 0.9500 L0.0815 0.7917 Q0.0050 0.7540 0.0038 0.6778 L-0.0018 0.3237 Q-0.0030 0.2440 0.0779 0.2060 Z"/></clipPath>
+    <clipPath id="hxRim" clipPathUnits="objectBoundingBox"><path clip-rule="evenodd" d="M0.4161 0.0473 Q0.5040 0.0060 0.5911 0.0486 L0.9210 0.2098 Q0.9950 0.2460 0.9962 0.3196 L1.0017 0.6747 Q1.0030 0.7570 0.9194 0.7961 L0.5864 0.9518 Q0.4940 0.9950 0.4027 0.9500 L0.0815 0.7917 Q0.0050 0.7540 0.0038 0.6778 L-0.0018 0.3237 Q-0.0030 0.2440 0.0779 0.2060 Z M0.4160 0.0620 Q0.5039 0.0205 0.5909 0.0633 L0.9042 0.2172 Q0.9782 0.2535 0.9793 0.3271 L0.9846 0.6672 Q0.9859 0.7494 0.9024 0.7887 L0.5865 0.9371 Q0.4942 0.9804 0.4031 0.9353 L0.0982 0.7843 Q0.0218 0.7465 0.0206 0.6703 L0.0153 0.3312 Q0.0141 0.2515 0.0949 0.2134 Z"/></clipPath>
+    <clipPath id="hxRimM" clipPathUnits="objectBoundingBox"><path clip-rule="evenodd" d="M0.4161 0.0473 Q0.5040 0.0060 0.5911 0.0486 L0.9210 0.2098 Q0.9950 0.2460 0.9962 0.3196 L1.0017 0.6747 Q1.0030 0.7570 0.9194 0.7961 L0.5864 0.9518 Q0.4940 0.9950 0.4027 0.9500 L0.0815 0.7917 Q0.0050 0.7540 0.0038 0.6778 L-0.0018 0.3237 Q-0.0030 0.2440 0.0779 0.2060 Z M0.4160 0.0732 Q0.5038 0.0317 0.5907 0.0745 L0.8914 0.2228 Q0.9653 0.2592 0.9664 0.3328 L0.9715 0.6614 Q0.9728 0.7436 0.8894 0.7830 L0.5866 0.9258 Q0.4944 0.9693 0.4033 0.9240 L0.1110 0.7787 Q0.0347 0.7408 0.0335 0.6646 L0.0284 0.3370 Q0.0272 0.2573 0.1079 0.2191 Z"/></clipPath>
+    <clipPath id="hxCut" clipPathUnits="objectBoundingBox"><path clip-rule="evenodd" d="M-0.3 -0.3L1.3 -0.3L1.3 1.3L-0.3 1.3Z M0.4161 0.0473 Q0.5040 0.0060 0.5911 0.0486 L0.9210 0.2098 Q0.9950 0.2460 0.9962 0.3196 L1.0017 0.6747 Q1.0030 0.7570 0.9194 0.7961 L0.5864 0.9518 Q0.4940 0.9950 0.4027 0.9500 L0.0815 0.7917 Q0.0050 0.7540 0.0038 0.6778 L-0.0018 0.3237 Q-0.0030 0.2440 0.0779 0.2060 Z"/></clipPath>
+  </defs>
+</svg>
 
 <header id="hdr">
   <div class="wrap navbar">
@@ -2862,7 +2933,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
          the exact order/labels from the reference mockup. The four that used
          to be image hex buttons (Reserve Honiora, Test Tube, Ask Honi, Join
          Honi) keep their hover dropdowns; everything else is a plain link. -->
-    <a href="#store" class="hexnav-item hexbtn-first">RESERVE<br>HONIORA
+    <a href="#store" class="hexnav-item hexbtn-first">RESERVE<br>HONI<i>ORA</i>
       <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $7.00 per day. Founding price is locked for life, skip or cancel anytime.</span></span>
     </a>
     <a href="#ritual" class="hexnav-item">PROTOCOL
@@ -2875,7 +2946,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, 14 tablets = one week, seven servings at $8.50 per day. Purchase price fully credited if you subscribe afterward.</span></span>
     </a>
     <a href="#matrix" class="hexnav-item">STACK
-      <span class="hexdrop"><span class="hexdrop-card"><b>The Stack</b>The full HONIORA recipe. Every active ingredient in the formula, dosed and explained.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>The Stack</b>The full HONI<i>ORA</i> recipe. Every active ingredient in the formula, dosed and explained.</span></span>
     </a>
     <a href="#problem" class="hexnav-item">CR.01<br>CREATINE
       <span class="hexdrop"><span class="hexdrop-card"><b>Cr.01 Creatine</b>Jenerise Cr.01&trade; Creatine Monohydrate, sourced from creatine pioneer Steve Jennings. Content assay 99.9%, SGS verified.</span></span>
@@ -2897,17 +2968,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <span class="hexdrop"><span class="hexdrop-card"><b>GLP-1</b>Four, natural pathways to boost your own GLP-1: Fiberest&reg; HF, Feiolix&reg; Feijoa x 2 and Eriomin&reg; Lemon Flavonoid.</span></span>
     </a>
     <button type="button" class="hexnav-item" id="askHoniBtn" aria-haspopup="dialog" aria-controls="askHoniModal">ASK<br>HONI
-      <span class="hexdrop"><span class="hexdrop-card"><b>Ask Honi</b>Chat with Honi, your HONIORA guide, for quick answers on ingredients, dosing, sourcing and the science.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>Ask Honi</b>Chat with Honi, your HONI<i>ORA</i> guide, for quick answers on ingredients, dosing, sourcing and the science.</span></span>
     </button>
     <a href="#honiblogtop" class="hexnav-item hexbtn-nextlast">HONI BLOG
-      <span class="hexdrop"><span class="hexdrop-card"><b>The HoniBlog</b>Stories and science behind HONIORA, from ingredients to origins.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>The HoniBlog</b>Stories and science behind HONI<i>ORA</i>, from ingredients to origins.</span></span>
     </a>
     <a href="#abouttop" class="hexnav-item hexbtn-last">ABOUT<br>HONICO
       <span class="hexdrop"><span class="hexdrop-card"><b>About HoniCo</b>A small NZ honey company in the Bay of Plenty. We pledge 1 percent of profits to bee welfare.</span></span>
     </a>
     <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropLeft"><span></span><span></span></button>
     <div class="burger-drop burger-drop-left" id="burgerDropLeft">
-      <a href="#matrix">HoniOra Stack</a>
+      <a href="#matrix">Honi<i>Ora</i> Stack</a>
       <a href="#honeytop">M&#257;nuka Honey</a>
       <a href="#problem">Cr.01 Creatine</a>
       <a href="#mitoq">MitoQ</a>
@@ -2997,7 +3068,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
           <div class="hrail-gap" aria-hidden="true"></div>
-          <div class="hmsg">INTRODUCING HONIORA ACTIVATED NECTAR : Honi Ora comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality.</div>
+          <div class="hmsg">INTRODUCING HONI<i>ORA</i> &nbsp; A NATURAL MORNING WELLNESS PROTOCOL OF ACTIVATED NECTAR with a Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, efficient vascular system delivery, and targeted micro-vascular brain support. Honi<i>Ora</i> comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality.</div>
           <div class="hmsg hcaps">SWAP OUT THE TEDIOUS AND MESSY POWDERS AND PILLS FOR OUR DELICIOUSLY SIMPLE AND POTENT MORNING PROTOCOL</div>
           <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Cr.01&trade; Creatine Monohydrate</b><i class="hpop">ATP energy &middot; Strength &amp; power</i><s>3,500 mg</s></div>
@@ -3029,7 +3100,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="hero-seal-backdrop" aria-hidden="true"></span>
         <svg class="hero-seal-ring" viewBox="0 0 300 300" aria-hidden="true">
           <defs><path id="heroSealPath" d="M150,22 a128,128 0 1,1 0,256 a128,128 0 1,1 0,-256"/></defs>
-          <text text-anchor="start" xml:space="preserve"><textPath href="#heroSealPath" startOffset="0" textLength="804" lengthAdjust="spacingAndGlyphs">LADIES AND GENTLEMEN START YOUR HoniOra DAILY UPGRADE                </textPath></text>
+          <text text-anchor="start" xml:space="preserve"><textPath href="#heroSealPath" startOffset="0" textLength="804" lengthAdjust="spacingAndGlyphs">LADIES AND GENTLEMEN START YOUR Honi<tspan font-style="italic">Ora</tspan> DAILY UPGRADE                </textPath></text>
         </svg>
         <picture>
           <source media="(max-width:1000px)" srcset="bee-seal-badge-lite.png">
@@ -3058,17 +3129,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
            rather than letting the tag/stats/CTA lines below it shift up to fill it.
            Mobile/lite (<=1000px) is untouched: this stays display:none there and
            the original pair renders normally, visible, in its usual spot. -->
-      <div class="hero-precede hero-solution-desktop"><span class="precede-solution" id="precedeSolutionDesktop">HoniOra's morning solution:</span><br><span class="precede-body precede-fit" id="precedeFitDesktop">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
+      <div class="hero-precede hero-solution-desktop"><span class="precede-solution" id="precedeSolutionDesktop">Honi<i>Ora</i>'s morning solution:</span><br><span class="precede-body precede-fit" id="precedeFitDesktop">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
       <img class="hero-tube-shot" src="hero-pack-tube-cutout.png" alt="HONIORA gold tube" width="1600" height="437" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">HoniOra's morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
-      <div class="hero-solution-right"><span class="hsr-lead">HoniOra's morning solution:</span><span class="hsr-body">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
+      <div class="hero-solution-right"><span class="hsr-lead">Honi<i>Ora</i>'s morning solution:</span><span class="hsr-body">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
       </div>
       <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
@@ -3094,7 +3165,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div><b>20</b><span>Full dose wellness actives</span></div>
       </div>
       <div class="hero-cta rv">
-        <a href="#matrix" class="btn">Explore HoniOra <span class="ar">&rarr;</span></a>
+        <a href="#matrix" class="btn">Explore Honi<i>Ora</i> <span class="ar">&rarr;</span></a>
         <a href="#triad" class="btn ghost">Gut, heart, brain, power</a>
       </div>
     </div>
@@ -3115,7 +3186,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><u class="ifn">MICROCIRCULATION</u><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.webp"><img width="820" height="820" src="vasodrive_ap.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg NZ</s><u class="ifn">ARTERIAL ELASTICITY</u><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><u class="ifn">BLOOD LIPID PROTECTION</u><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONIORA delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><u class="ifn">BLOOD LIPID PROTECTION</u><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONI<i>ORA</i> delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.5 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><u class="ifn">BARRIER &amp; IMMUNE SUPPORT</u><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><u class="ifn">STRESS RESPONSE</u><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
@@ -3128,7 +3199,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="unit" id="tablet">
     <div class="unit-vp">
       <div class="unit-track">
-        <div class="upanel lead">HONIORA tablets each contain 5.1025 grams of full dose potent actives.</div>
+        <div class="upanel lead">HONI<i>ORA</i> tablets each contain 5.1025 grams of full dose potent actives.</div>
         <div class="upanel lead">Formulated for daily year-round use</div>
         <div class="upanel">Naturally sourced actives</div>
         <div class="upanel">Gluten Free</div>
@@ -3143,28 +3214,28 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="hero-pillars">
       <div class="pillar" data-edge="l">
-        <img class="pillar-icon pillar-icon-origin" data-edge="l" src="pillar-icon-origin.png" alt="" loading="lazy">
+        <span class="pillar-icon pillar-icon-origin pi-glow pi-origin" data-edge="l" style="--gl:63,164,106"><img src="pillar-icon-origin.png" alt="" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Pure Origin : Born in NZ</h3>
           <p>Authenticity begins with provenance: We live at the source of our bioactives, all pure traceable botanicals, including <span class="kw">high-MGO New Zealand M&#257;nuka honey</span>, polyphenol-rich <span class="kw">gold Kiwifruit</span>, plus a curated global blend of proven beneficial botanical extracts, all full dose and processed strictly to clean-label standards.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
-        <img class="pillar-icon" data-edge="r" src="pillar-icon-energy.png" alt="" loading="lazy">
+        <span class="pillar-icon pi-glow pi-energy" data-edge="r" style="--gl:142,63,200"><img src="pillar-icon-energy.png" alt="" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Cellular Energy</h3>
           <p>HONI<i>ORA</i> delivers direct mitochondrial and metabolic support. A full clinical dose of premium <span class="kw">micronized creatine</span>, paired with <span class="kw">MitoQ</span> specialized cofactors that replenish <span class="kw">ATP</span> and support steady cellular energy all day.</p>
         </div>
       </div>
       <div class="pillar" data-edge="l">
-        <img class="pillar-icon" data-edge="l" src="pillar-icon-vascular.png" alt="" loading="lazy">
+        <span class="pillar-icon pi-glow pi-vascular" data-edge="l" style="--gl:190,40,60"><img src="pillar-icon-vascular.png" alt="" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Vascular Support<br>+<br>Natural<br>Nitric Oxide</h3>
           <p>Optimization drives systemic nutrient delivery. Utilizing multi-pathway bioactives including <span class="kw">peptide ACE inhibitors</span>, cerebral microvascular stimulators, <span class="kw">eNOS activators</span>, and <span class="kw">natural nitric oxide matrices</span>, HONI<i>ORA</i> promotes arterial elasticity, natural nitric oxide production and oxygen transport.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
-        <img class="pillar-icon" data-edge="r" src="pillar-icon-hydration.png" alt="" loading="lazy">
+        <span class="pillar-icon pi-glow pi-hydration" data-edge="r" style="--gl:176,134,40"><img src="pillar-icon-hydration.png" alt="" loading="lazy"><svg class="pi-ripple" viewBox="0 0 469 480" aria-hidden="true"><circle cx="132" cy="285" r="125"/><circle cx="132" cy="285" r="125"/><circle cx="132" cy="285" r="125"/></svg></span>
         <div class="pillar-body">
           <h3>Efficient Hydration</h3>
           <p>Sodium, potassium and magnesium dissolved and buffered, through <span class="kw">stoichiometric effervescent mineral carbonates</span> paired with <span class="kw">bioavailable electrolytes</span>. Every dose dissolved to reduce gut reaction and increase absorption.</p>
@@ -3377,8 +3448,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <span id="honeytop" class="bee-anchor"></span>
       <p class="eyebrow dim">03 / M&#257;nuka Honey</p>
       <h2 class="serif">M&#257;nuka Honey:<br><em>A biological powerhouse</em><br></h2>
-      <p class="lede">1,000&nbsp;mg of MGO 850+/UMF 20+ MONOFLORAL NZ M&#257;nuka Honey crystals built on a 500mg Fiberest<sup class="rn">&reg;</sup> HF matrix: A high fibre gluten free corn biobase. The crystallisation process removes 95% of the water naturally found in honey, it concentrates the honey's high MGO content and complex polyphenols into a stable, dry crystalline format with efficient super bioactives and significantly reduced honey sugars.</p>
-      <p class="lede">Fiberest<sup class="rn">&reg;</sup> HF does far more than stage the honey crystal matrix, it helps suppress the post-meal rise in blood sugar, improves blood triglycerides, and supports regular bowel movements. It is a resistant dextrin that ferments in the gut, releasing short-chain fatty acids that drive one of the four routes to your own GLP-1 (<a href="#glp1" style="color:inherit;text-decoration:underline">see below</a>), and feeds the gut microbiome alongside Livaux<sup class="rn">&reg;</sup> and Feiolix<sup class="rn">&reg;</sup> boosting the gut lining benefits of HONI<i>ORA</i>.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27028002/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27028002 &nearr;</span></a><a class="cite" href="https://doi.org/10.1093/femsec/fiad002" target="_blank" rel="noopener noreferrer">Gut ecology <span>Cheon et al. 2023 &nearr;</span></a></p>
+      <p class="lede">1,000&nbsp;mg of MGO 850+ NZ M&#257;nuka Honey crystals on a 500mg Fiberest<sup class="rn">&reg;</sup> HF matrix base: High fibre gluten free corn biobase. Crystallisation process removes 95% of the water naturally found in honey, and concentrates the high MGO and complex polyphenols into a stable, dry crystalline format with efficient super bioactives and significantly reduced honey sugars.</p>
+      <p class="lede">Fiberest<sup class="rn">&reg;</sup> HF helps suppress post-meal elevation in blood sugar, improves triglycerides, and supports regular bowel movements. It is a resistant dextrin that ferments in the gut, releasing short-chain fatty acids that drive one of the four routes to your own GLP-1 (<a href="#glp1" style="color:inherit;text-decoration:underline">see below</a>), feeding and boosting gut microbiomes alongside Livaux<sup class="rn">&reg;</sup> and Feiolix<sup class="rn">&reg;</sup>.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/27028002/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 27028002 &nearr;</span></a><a class="cite" href="https://doi.org/10.1093/femsec/fiad002" target="_blank" rel="noopener noreferrer">Gut ecology <span>Cheon et al. 2023 &nearr;</span></a></p>
     </div></div>
     </div>
   </div>
@@ -3566,76 +3637,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </picture>
       <span class="cap">M&#257;nuka bushes &middot; East Cape, New Zealand</span>
     </div>
-    <div class="facts-band">
-      <div class="facts-hexes rv">
-        <div class="fhex" tabindex="0" role="button" aria-expanded="false"><div class="fhex-card"><div class="fhex-shadow" aria-hidden="true"></div><div class="fhex-body"><div class="fg fg-rest" aria-hidden="true"></div><div class="fg fg-photo" aria-hidden="true"></div><div class="fhex-in"><b>1839</b><h4>New Zealand's first honeybees</h4><p>European honeybees didn't exist here until missionary Mary Bumby brought two hives ashore at the Mangungu Mission Station, Hokianga, in March 1839. Every M&#257;nuka harvest since traces back to bees descended from that one delivery.</p></div></div><div class="fhex-rim" aria-hidden="true"></div></div></div>
-        <div class="fhex" tabindex="0" role="button" aria-expanded="false"><div class="fhex-card"><div class="fhex-shadow" aria-hidden="true"></div><div class="fhex-body"><div class="fg fg-rest" aria-hidden="true"></div><div class="fg fg-photo" aria-hidden="true"></div><div class="fhex-in"><b>1981</b><h4>Where the science starts</h4><p>University of Waikato biochemist Peter Molan began investigating M&#257;nuka honey's antiseptic properties in 1981 and identified the non-peroxide antibacterial activity that MGO and UMF grading still measure today.</p></div></div><div class="fhex-rim" aria-hidden="true"></div></div></div>
-        <div class="fhex" tabindex="0" role="button" aria-expanded="false"><div class="fhex-card"><div class="fhex-shadow" aria-hidden="true"></div><div class="fhex-body"><div class="fg fg-rest" aria-hidden="true"></div><div class="fg fg-photo" aria-hidden="true"></div><div class="fhex-in"><b>2&ndash;6 weeks</b><h4>The entire flowering window</h4><p>M&#257;nuka blooms for only a few weeks each summer, peaking in mid-December, and beekeepers have to move hives into position before it opens. Miss it, and it's a full year until the next one.</p></div></div><div class="fhex-rim" aria-hidden="true"></div></div></div>
-        <div class="fhex" tabindex="0" role="button" aria-expanded="false"><div class="fhex-card"><div class="fhex-shadow" aria-hidden="true"></div><div class="fhex-body"><div class="fg fg-rest" aria-hidden="true"></div><div class="fg fg-photo" aria-hidden="true"></div><div class="fhex-in"><b>800+ years</b><h4>A tradition older than the honey</h4><p>Long before honeybees reached New Zealand, M&#257;ori boiled M&#257;nuka leaves and bark as a treatment for fever, inhaled the vapour for head colds, and applied it directly to scalds and burns.</p></div></div><div class="fhex-rim" aria-hidden="true"></div></div></div>
-      </div>
-      <script>
-      (function(){
-        var row=document.querySelector('.facts-hexes'), photo=document.getElementById('coastPhoto');
-        if(!row||!photo) return;
-        var hexes=[].slice.call(row.querySelectorAll('.fhex')), cur=null, pinned=false;
-        function measure(){
-          row.style.setProperty('--pw',photo.offsetWidth+'px');
-          row.style.setProperty('--ph',photo.offsetHeight+'px');
-          if(cur) aim(cur);
-        }
-        function aim(h){
-          var a=photo.getBoundingClientRect(), b=h.getBoundingClientRect();
-          h.style.setProperty('--dx',Math.round((a.left+a.width/2)-(b.left+b.width/2))+'px');
-          h.style.setProperty('--dy',Math.round((a.top+a.height/2)-(b.top+b.height/2))+'px');
-        }
-        function openHex(h){
-          if(cur===h) return;
-          if(cur) closeHex();
-          measure(); aim(h);
-          cur=h; h.classList.add('is-open'); h.setAttribute('aria-expanded','true');
-        }
-        function closeHex(){
-          if(!cur) return;
-          cur.classList.remove('is-open'); cur.setAttribute('aria-expanded','false');
-          cur=null; pinned=false;
-        }
-        hexes.forEach(function(h){
-          h.addEventListener('pointerenter',function(e){
-            if(e.pointerType==='touch') return;
-            if(cur!==h) pinned=false;
-            openHex(h);
-          });
-          h.addEventListener('click',function(){
-            if(cur===h && pinned){ closeHex(); return; }
-            openHex(h); pinned=true;
-          });
-          h.addEventListener('keydown',function(e){
-            if(e.key==='Enter'||e.key===' '){ e.preventDefault(); h.click(); }
-            else if(e.key==='Escape'){ closeHex(); }
-          });
-          h.addEventListener('focus',function(){
-            var fv=true; try{ fv=h.matches(':focus-visible'); }catch(_){}
-            if(fv){ pinned=false; openHex(h); }
-          });
-        });
-        row.addEventListener('pointerleave',function(e){
-          if(e.pointerType==='touch') return;
-          if(!pinned) closeHex();
-        });
-        row.addEventListener('focusout',function(e){
-          if(!pinned && !row.contains(e.relatedTarget)) closeHex();
-        });
-        document.addEventListener('click',function(e){
-          if(cur && !row.contains(e.target)) closeHex();
-        });
-        window.addEventListener('resize',measure);
-        window.addEventListener('load',measure);
-        var im=photo.querySelector('img'); if(im&&!im.complete) im.addEventListener('load',measure);
-        if(window.ResizeObserver) new ResizeObserver(measure).observe(photo);
-        measure();
-      })();
-      </script>
-    </div>
   </div>
 </section>
 
@@ -3682,7 +3683,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <text class="ikigai-label" data-pillar-label="gut" x="142" y="220" text-anchor="middle" dominant-baseline="central">Gut</text>
           <text class="ikigai-label" data-pillar-label="strength" x="280" y="358" text-anchor="middle" dominant-baseline="central">Strength</text>
           <text class="ikigai-label" data-pillar-label="heart" x="418" y="220" text-anchor="middle" dominant-baseline="central">Heart</text>
-          <text class="ikigai-center" id="ikigaiCenterLabel" x="280" y="220" text-anchor="middle" dominant-baseline="central">HoniOra</text>
+          <text class="ikigai-center" id="ikigaiCenterLabel" x="280" y="220" text-anchor="middle" dominant-baseline="central">Honi<tspan font-style="italic">Ora</tspan></text>
         </svg>
       </div>
       <p class="lede">Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, <br>efficient vascular system delivery, and targeted micro-vascular brain support.</p>
@@ -4120,7 +4121,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract<i>Alvinesa (Spain) / Water-Soluble, 2% Hydroxytyrosol</i></div>
         <div><span class="fn">Antioxidant<small>Olive polyphenol</small></span></div>
         <div class="dose">300 mg<small>6 mg hydroxytyrosol</small></div>
-        <div class="mech">A water-soluble olive fruit extract standardised to 2% natural hydroxytyrosol, made by Alvinesa from an olive-oil production by-product. At this dose HONIORA delivers 6 mg of hydroxytyrosol per serving, above the 5 mg/day figure tied to the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/40690822/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 40690822 &middot; Moratilla-Rivera 2025 &nearr;</span></a><a class="cite sup" href="https://www.alvinesa.com/en/hytolive-olive-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Alvinesa &nearr;</span></a></div>
+        <div class="mech">A water-soluble olive fruit extract standardised to 2% natural hydroxytyrosol, made by Alvinesa from an olive-oil production by-product. At this dose HONI<i>ORA</i> delivers 6 mg of hydroxytyrosol per serving, above the 5 mg/day figure tied to the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/40690822/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 40690822 &middot; Moratilla-Rivera 2025 &nearr;</span></a><a class="cite sup" href="https://www.alvinesa.com/en/hytolive-olive-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Alvinesa &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
@@ -4791,7 +4792,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
       <figure class="blogpost-fig">
         <img width="1600" height="1060" src="blog-founder-happy-place.jpg" alt="HoniOra Founder Greg Miller-Hard smiling on the shore beside his paddleboard, Ahab, at low tide" loading="lazy">
-        <figcaption>HoniOra Founder Greg Miller-Hard in his happy place at the end of his land</figcaption>
+        <figcaption>Honi<i>Ora</i> Founder Greg Miller-Hard in his happy place at the end of his land</figcaption>
       </figure>
 
       <div class="blogpost-body">
@@ -5067,7 +5068,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   };
 
   /* On desktop, "MĀNUKA CREATINE PROTOCOL" matches the exact rendered pixel
-     width of "HONIORA" above it. Both already scale with the viewport, but off
+     width of "HONI<i>ORA</i>" above it. Both already scale with the viewport, but off
      independent hand-tuned vw formulas in two different typefaces (a serif display
      face for the logo, a plain sans for the tag), so their widths only ever lined
      up by coincidence, not by design. Measuring instead of guessing a formula:
@@ -5106,7 +5107,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     /* (v48d) Safety net this function never had, now unconditional (not gated
        behind the >1400px check above, unlike the wordmark-matching it follows):
-       matching the tag's size to the HONIORA wordmark's width assumes the tag
+       matching the tag's size to the HONI<i>ORA</i> wordmark's width assumes the tag
        sits in a column roughly as wide as that wordmark -- true in the old
        side-by-side desktop layout, but not in the golden-hour hero's much
        narrower overlay card (.hero-copy-shift), where the wordmark itself
@@ -5142,7 +5143,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      nowhere near as wide as "MĀNUKA CREATINE PROTOCOL" above/below them in
      the same centred column. This grows each one to match .hero-tag's own
      rendered width (which matchHeroTagWidth above has already matched to the
-     HONIORA wordmark, so all three lines -- wordmark, tag, and these two --
+     HONI<i>ORA</i> wordmark, so all three lines -- wordmark, tag, and these two --
      end up the same width). Same measure-then-scale approach as
      matchHeroTagWidth, just against a live element's current box instead of
      an off-screen probe of a second element, since .hero-tag is already
@@ -5726,7 +5727,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
                {t:"Conti et al. 2004 · IGF-1 as a vascular protective factor",u:"https://doi.org/10.1161/01.CIR.0000144309.87183.FB"},
                {t:"Adasheva & Serebryanaya 2024 · IGF signalling in the heart",u:"https://doi.org/10.1134/S0006297924080042"}]},
       {k:["l-theanine","theanine","alphawave","calm","focus"],
-       a:"L-Theanine (AlphaWave brand) upregulates alpha-wave neural activity and GABA, keeping the formula read as calm focus rather than jittery stimulation. A 28-day randomised, double-blind trial found lower perceived stress and improved sleep and attention. A separate crossover trial at HONIORA's exact 200 mg dose found lower subjective stress and lower cortisol after a stressor, though it found no improvement on the cognitive task itself, and the alpha-wave rise it recorded showed up mainly in people with higher trait anxiety. It's dosed at 200 mg.",
+       a:"L-Theanine (AlphaWave brand) upregulates alpha-wave neural activity and GABA, keeping the formula read as calm focus rather than jittery stimulation. A 28-day randomised, double-blind trial found lower perceived stress and improved sleep and attention. A separate crossover trial at HONI<i>ORA</i>'s exact 200 mg dose found lower subjective stress and lower cortisol after a stressor, though it found no improvement on the cognitive task itself, and the alpha-wave rise it recorded showed up mainly in people with higher trait anxiety. It's dosed at 200 mg.",
        src:"Manufacturer: Ethical Naturals, Inc., headquartered in Novato, California, USA, an NSF GMP-certified ingredient manufacturer specialising in L-theanine and botanical extracts.",
        map:"https://www.google.com/maps/search/?api=1&query=Novato%2C+California%2C+USA",
        papers:[{t:"Moulin 2024",u:"https://pubmed.ncbi.nlm.nih.gov/38758503/"},{t:"Evans 2021, Neurol Ther",u:"https://doi.org/10.1007/s40120-021-00284-x"},{t:"White 2016, Nutrients · 200 mg dose match",u:"https://pubmed.ncbi.nlm.nih.gov/26797633/"}]},
@@ -5758,18 +5759,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Bay+of+Plenty%2C+New+Zealand",
        papers:[{t:"PMID 22075645",u:"https://pubmed.ncbi.nlm.nih.gov/22075645/"}]},
       {k:["eriomin","eriocitrin","lemon flavonoid","glycemic","blood sugar","prediabetes"],
-       a:"Eriomin is a standardised extract of eriocitrin, the dominant flavonoid in lemon, dosed at 200 mg and working a second, separate pathway onto your own GLP-1 alongside Feiolix rather than duplicating it. A crossover-randomised clinical trial at this same 200 mg/day dose raised GLP-1 levels and lowered hyperglycemia and systemic inflammation markers. An earlier double-blind trial reported reversal of prediabetes at the same dose, and a third double-blind trial linked it to improved gut microbiota composition in people with prediabetes. As with every branded ingredient here, these are trials of Eriomin itself at this exact dose, not of the finished HONIORA product.",
+       a:"Eriomin is a standardised extract of eriocitrin, the dominant flavonoid in lemon, dosed at 200 mg and working a second, separate pathway onto your own GLP-1 alongside Feiolix rather than duplicating it. A crossover-randomised clinical trial at this same 200 mg/day dose raised GLP-1 levels and lowered hyperglycemia and systemic inflammation markers. An earlier double-blind trial reported reversal of prediabetes at the same dose, and a third double-blind trial linked it to improved gut microbiota composition in people with prediabetes. As with every branded ingredient here, these are trials of Eriomin itself at this exact dose, not of the finished HONI<i>ORA</i> product.",
        src:"Manufacturer: Fytexia, Béziers, France, the same supplier behind Careflow. Eriomin is marketed in the US by Ingredients by Nature LLC.",
        map:"https://www.google.com/maps/search/?api=1&query=B%C3%A9ziers%2C+France",
        papers:[{t:"Ribeiro 2019, Phytotherapy Research · hyperglycemia and prediabetes reversal",u:"https://doi.org/10.1002/ptr.6386"},
                {t:"Cesar 2022, PMID 35796695 · GLP-1 and inflammation",u:"https://pubmed.ncbi.nlm.nih.gov/35796695/"},
                {t:"Ramos 2023, PMID 37242433 · gut microbiota",u:"https://pubmed.ncbi.nlm.nih.gov/37242433/"}]},
       {k:["probiotic","lactospore","bacillus","coagulans","spore","cfu","microbiome","mtcc"],
-       a:"LactoSpore is Bacillus coagulans, strain MTCC 5856, a spore-forming probiotic. Spores are tougher than most probiotic cells, so they are built to come through high-speed tableting and the tablet's own acid-base effervescent reaction. HONIORA doses it at 100 mg of raw material per serving, which is about 1.5 billion CFU at 15 billion spores per gram. It sits alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF.",
+       a:"LactoSpore is Bacillus coagulans, strain MTCC 5856, a spore-forming probiotic. Spores are tougher than most probiotic cells, so they are built to come through high-speed tableting and the tablet's own acid-base effervescent reaction. HONI<i>ORA</i> doses it at 100 mg of raw material per serving, which is about 1.5 billion CFU at 15 billion spores per gram. It sits alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF.",
        src:"Supplied as a spore powder, 15 billion spores per gram per the batch record. No supplier name is on file in this library, so I won't invent one. Ingredient science citation to be added.",
        papers:[]},
       {k:["mitoq","mitoquinol","mitochondria","mitochondrial"],
-       a:"MitoQ is mitoquinol mesylate, a mitochondria-targeted antioxidant. It concentrates in the mitochondrial membrane and works against mitochondrial reactive oxygen species. HONIORA carries 20 mg per serving, next to the creatine and magnesium malate that support cellular energy.",
+       a:"MitoQ is mitoquinol mesylate, a mitochondria-targeted antioxidant. It concentrates in the mitochondrial membrane and works against mitochondrial reactive oxygen species. HONI<i>ORA</i> carries 20 mg per serving, next to the creatine and magnesium malate that support cellular energy.",
        src:"Supplied form and supplier are not stated in this library, so I won't invent them. Ingredient science citation to be added.",
        papers:[]},
       {k:["vitamin a","retinyl","retinol","palmitate","rae"],
@@ -5777,8 +5778,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        src:"Supplied as a 250,000 IU per gram cold-water-soluble powder per the batch record. No supplier name is on file in this library. Ingredient science citation to be added.",
        papers:[]},
       {k:["manuka","fiberest","honey","mgo"],
-       a:"MGO stands for methylglyoxal, the compound identified as manuka honey's dominant antibacterial constituent, and 850+ marks a high-potency grade. In HONIORA it's paired with the Fiberest HF fibre matrix, which feeds beneficial gut barrier microbes and keeps the honey crystals stable through compression, on top of methylglyoxal's own pathogen-clearing effect. HONIORA's Mānuka honey is drawn from New Zealand's Mānuka belt across the East Cape, Bay of Plenty and Waikato: HoniCo itself is based in the Bay of Plenty, its most potent honey is harvested in the Mānuka forests of Te Urewera near the East Cape, and the team has ties to Waikato too. All three are genuine, recognised Mānuka-producing regions in New Zealand. MGO 850+ Mānuka honey crystals and Fiberest HF fibre are dosed together at 1,500 mg.",
-       src:"Supplier: HoniCo Direct, New Zealand, HONIORA's own Mānuka honey supply chain.",
+       a:"MGO stands for methylglyoxal, the compound identified as manuka honey's dominant antibacterial constituent, and 850+ marks a high-potency grade. In HONI<i>ORA</i> it's paired with the Fiberest HF fibre matrix, which feeds beneficial gut barrier microbes and keeps the honey crystals stable through compression, on top of methylglyoxal's own pathogen-clearing effect. HONI<i>ORA</i>'s Mānuka honey is drawn from New Zealand's Mānuka belt across the East Cape, Bay of Plenty and Waikato: HoniCo itself is based in the Bay of Plenty, its most potent honey is harvested in the Mānuka forests of Te Urewera near the East Cape, and the team has ties to Waikato too. All three are genuine, recognised Mānuka-producing regions in New Zealand. MGO 850+ Mānuka honey crystals and Fiberest HF fibre are dosed together at 1,500 mg.",
+       src:"Supplier: HoniCo Direct, New Zealand, HONI<i>ORA</i>'s own Mānuka honey supply chain.",
        map:"https://www.google.com/maps/search/?api=1&query=Te+Urewera%2C+New+Zealand",
        papers:[{t:"PMID 40293032 · Gut/fibre research",u:"https://pubmed.ncbi.nlm.nih.gov/40293032/"},{t:"Mavric 2008, PMID 18210383 · Methylglyoxal identified",u:"https://pubmed.ncbi.nlm.nih.gov/18210383/"},{t:"PMID 28901255 · Tissue regeneration review",u:"https://pubmed.ncbi.nlm.nih.gov/28901255/"}]},
       {k:["bee facts","honey bee","honeybee","bees","honeybees"],
@@ -5800,7 +5801,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       {k:["manufactur","made","factory","fda","cgmp","gmp"],
        a:"HONI<i>ORA</i> is manufactured in the USA in an NSF / USP certified GMP facility."},
       {k:["where is honiora from","provenance","new zealand","honico","who are you","born in"],
-       a:"HONI<i>ORA</i> is born in New Zealand and made in the USA. HoniCo, the company behind it, is a Mānuka honey business based in the Bay of Plenty, New Zealand's main kiwifruit and feijoa growing region. Its Mānuka honey is harvested further north in the forests of Te Urewera, near the East Cape. Ingredient suppliers span the globe: Tatua (VasoDrive-AP) in Morrinsville, Waikato NZ, Anagenix (Livaux, Feiolix, Braincurrant) and The cGP Lab (cGP-Pro) both in Auckland NZ, Fytexia (Careflow, Eriomin) in Béziers, France, FutureCeuticals (S7) in Momence, Illinois, Ethical Naturals (L-Theanine) in Novato, California, and Albion Minerals (magnesium, zinc) in Clearfield, Utah. New Zealand itself is a Pacific island nation of two main islands, North and South, home to around 5.3 million people, with Wellington as the capital and Auckland as the largest city. Māori culture and te reo Māori, one of the country's official languages, run through New Zealand's identity, HONIORA's own name included.",
+       a:"HONI<i>ORA</i> is born in New Zealand and made in the USA. HoniCo, the company behind it, is a Mānuka honey business based in the Bay of Plenty, New Zealand's main kiwifruit and feijoa growing region. Its Mānuka honey is harvested further north in the forests of Te Urewera, near the East Cape. Ingredient suppliers span the globe: Tatua (VasoDrive-AP) in Morrinsville, Waikato NZ, Anagenix (Livaux, Feiolix, Braincurrant) and The cGP Lab (cGP-Pro) both in Auckland NZ, Fytexia (Careflow, Eriomin) in Béziers, France, FutureCeuticals (S7) in Momence, Illinois, Ethical Naturals (L-Theanine) in Novato, California, and Albion Minerals (magnesium, zinc) in Clearfield, Utah. New Zealand itself is a Pacific island nation of two main islands, North and South, home to around 5.3 million people, with Wellington as the capital and Auckland as the largest city. Māori culture and te reo Māori, one of the country's official languages, run through New Zealand's identity, HONI<i>ORA</i>'s own name included.",
        map:"https://www.google.com/maps/search/?api=1&query=New+Zealand"},
       {k:["team","founder","who founded","ceo","staff"],
        a:"HONI<i>ORA</i> comes from a small team: Gregory Miller-Hard (Founder & CEO), Nicole Miller-Hard (Founder & Marketing), Laura Clinton (R&D + QA), Scott Smith (Medical Herbalist & Naturopath), and Odette Miller-Hard (Brand Design)."},
@@ -5821,11 +5822,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Waikato%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.7870,175.2793,0a,150000d,35y,0h,45t,0r"},
       {k:["east cape"],
-       a:"East Cape is the easternmost point of New Zealand's North Island, a remote stretch of the Gisborne District dominated by the Raukūmara Range and its native forest, with the local population overwhelmingly Māori and te reo Māori widely spoken. That remoteness and unbroken native bush make it prime Mānuka country, and it's where HONIORA's most potent Mānuka honey is harvested, in the forests of Te Urewera.",
+       a:"East Cape is the easternmost point of New Zealand's North Island, a remote stretch of the Gisborne District dominated by the Raukūmara Range and its native forest, with the local population overwhelmingly Māori and te reo Māori widely spoken. That remoteness and unbroken native bush make it prime Mānuka country, and it's where HONI<i>ORA</i>'s most potent Mānuka honey is harvested, in the forests of Te Urewera.",
        map:"https://www.google.com/maps/search/?api=1&query=East+Cape%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.688975,178.548134,0a,3000d,35y,0h,60t,0r"},
       {k:["canterbury"],
-       a:"Canterbury is New Zealand's largest region by area, on the central-eastern South Island, with Christchurch as its hub. Sitting in the rain shadow of the Southern Alps gives it warm, dry summers and cold winters, and it's the country's biggest horticultural region by land area, growing around half of New Zealand's berries, nuts and mushrooms. That's the growing belt, running from Ashburton down to Omihi, behind HONIORA's New Zealand blackcurrant in Braincurrant and cGP-Pro.",
+       a:"Canterbury is New Zealand's largest region by area, on the central-eastern South Island, with Christchurch as its hub. Sitting in the rain shadow of the Southern Alps gives it warm, dry summers and cold winters, and it's the country's biggest horticultural region by land area, growing around half of New Zealand's berries, nuts and mushrooms. That's the growing belt, running from Ashburton down to Omihi, behind HONI<i>ORA</i>'s New Zealand blackcurrant in Braincurrant and cGP-Pro.",
        map:"https://www.google.com/maps/search/?api=1&query=Canterbury%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-43.5321,172.6362,0a,200000d,35y,0h,45t,0r"},
       {k:["nelson"],
@@ -5833,7 +5834,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Nelson%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-41.2706,173.2840,0a,15000d,35y,0h,45t,0r"},
       {k:["auckland"],
-       a:"Auckland is New Zealand's largest city, sitting on a narrow isthmus between two harbours on the upper North Island, home to close to a third of the country's population. It's also the country's main economic hub, and the base for two of HONIORA's key ingredient makers, Anagenix (Livaux, Feiolix, Braincurrant) and The cGP Lab (cGP-Pro).",
+       a:"Auckland is New Zealand's largest city, sitting on a narrow isthmus between two harbours on the upper North Island, home to close to a third of the country's population. It's also the country's main economic hub, and the base for two of HONI<i>ORA</i>'s key ingredient makers, Anagenix (Livaux, Feiolix, Braincurrant) and The cGP Lab (cGP-Pro).",
        map:"https://www.google.com/maps/search/?api=1&query=Auckland%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-36.8485,174.7633,0a,25000d,35y,0h,45t,0r"},
       {k:["morrinsville"],
@@ -5845,7 +5846,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Hobbiton+Movie+Set%2C+Matamata%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.857567,175.680557,0a,900d,35y,0h,60t,0r"},
       {k:["whakamarama"],
-       a:"Whakamārama is a small rural community in the Western Bay of Plenty, tucked between Ōmokoroa and Te Puna on the way out of Tauranga. It's avocado country before anything else, orchard after orchard across its low hills, part of the same Bay of Plenty horticultural belt that HoniCo and HONIORA's kiwifruit and feijoa growers call home.",
+       a:"Whakamārama is a small rural community in the Western Bay of Plenty, tucked between Ōmokoroa and Te Puna on the way out of Tauranga. It's avocado country before anything else, orchard after orchard across its low hills, part of the same Bay of Plenty horticultural belt that HoniCo and HONI<i>ORA</i>'s kiwifruit and feijoa growers call home.",
        map:"https://www.google.com/maps/search/?api=1&query=Whakamarama%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.7333,176.0000,0a,8000d,35y,0h,45t,0r"},
       {k:["pahoia"],
@@ -5860,11 +5861,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Pahoia+Point%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.637741,176.011490,9.24a,10035.81d,35y,0h,22.69t,0r"},
       {k:["matakana island"],
-       a:"Matakana Island is a long, narrow barrier island in the Western Bay of Plenty, about 20 km end to end, that shelters the entrance to Tauranga Harbour. Its inner-harbour side is farmland and orchards, kiwifruit and avocado among them, while its ocean side is forest, another stretch of the same Bay of Plenty horticultural country behind HONIORA's Livaux and Feiolix.",
+       a:"Matakana Island is a long, narrow barrier island in the Western Bay of Plenty, about 20 km end to end, that shelters the entrance to Tauranga Harbour. Its inner-harbour side is farmland and orchards, kiwifruit and avocado among them, while its ocean side is forest, another stretch of the same Bay of Plenty horticultural country behind HONI<i>ORA</i>'s Livaux and Feiolix.",
        map:"https://www.google.com/maps/search/?api=1&query=Matakana+Island%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.5698,176.0804,0a,25000d,35y,0h,45t,0r"},
       {k:["te urewera"],
-       a:"Te Urewera is a vast, densely forested region inland between the Bay of Plenty and Hawke's Bay, historic home of the Tūhoe people. It was a national park until a 2014 settlement with Tūhoe gave it legal personhood in its own right, the first natural area in the world granted that status. Its remoteness and unbroken native bush are exactly what make it prime Mānuka country, and it's where HONIORA's most potent Mānuka honey is harvested.",
+       a:"Te Urewera is a vast, densely forested region inland between the Bay of Plenty and Hawke's Bay, historic home of the Tūhoe people. It was a national park until a 2014 settlement with Tūhoe gave it legal personhood in its own right, the first natural area in the world granted that status. Its remoteness and unbroken native bush are exactly what make it prime Mānuka country, and it's where HONI<i>ORA</i>'s most potent Mānuka honey is harvested.",
        map:"https://www.google.com/maps/search/?api=1&query=Te+Urewera%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-38.75,177.133,0a,150000d,35y,0h,45t,0r"},
       {k:["katikati"],
@@ -5981,7 +5982,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       if (m){
         ahAddMsg(m.a, 'bot', m.src, m.papers, m.map, m.earth);
       } else {
-        ahAddMsg("I don't have that one in the HONIORA library yet. Try asking about a specific active (VasoDrive-AP, Careflow, cGP-Pro, S7...), the dosing, manufacturing, or where an ingredient is sourced.", 'bot');
+        ahAddMsg("I don't have that one in the HONI<i>ORA</i> library yet. Try asking about a specific active (VasoDrive-AP, Careflow, cGP-Pro, S7...), the dosing, manufacturing, or where an ingredient is sourced.", 'bot');
       }
     }
     function ahAsk(text){
@@ -6005,7 +6006,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     function ahOpen(){
       amod.classList.add('open'); document.body.style.overflow = 'hidden';
       if (!athread.childNodes.length){
-        ahAddMsg("Hi, I'm Honi. Ask me about any ABOUT HONIORA tabs, our actives, their provenance, the science behind them, doses, efficacy, function or where HONI<i>ORA</i> is made and sourced.", 'bot');
+        ahAddMsg("Hi, I'm Honi. Ask me about any ABOUT HONI<i>ORA</i> tabs, our actives, their provenance, the science behind them, doses, efficacy, function or where HONI<i>ORA</i> is made and sourced.", 'bot');
       }
       setTimeout(function(){ ainput.focus(); }, 260);
     }
@@ -6903,7 +6904,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var cr = container.getBoundingClientRect();
     var bandTop, ar = actives.getBoundingClientRect();
     if (!lite && solutionText && getComputedStyle(solutionText).display !== 'none'){
+      solutionText.style.marginTop = '';
       var sr = solutionText.getBoundingClientRect();
+      /* user request: halve the empty background between the glass base and the gold band.
+         The hidden caption block (kept in layout for this maths) is pulled up by half the gap. */
+      var glassEl = container.querySelector('.hero-glass-img');
+      if (glassEl){
+        var gap = (sr.bottom + 28) - glassEl.getBoundingClientRect().bottom;
+        if (gap > 40){
+          solutionText.style.marginTop = (-Math.round(gap / 2)) + 'px';
+          sr = solutionText.getBoundingClientRect();
+        }
+      }
       bandTop = sr.bottom + 28;
       var need = (bandTop + 56) - ar.top;
       if (need > 0){
