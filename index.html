@@ -545,30 +545,27 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .pillar-body{min-width:0}
 .pillar-icon{flex:0 0 auto;height:clamp(76px,8vw,124px);width:auto;object-fit:contain}
 .pillar-icon-origin{height:clamp(99px,10.4vw,161px)}
-/* ICON GLOW (user request): each pillar icon is now a span wrapper (keeps every
-   existing .pillar-icon / data-edge / .in rule and the reveal JS working) around the
-   PNG. Two layers once the icon has landed: a slow colour-matched halo that breathes
-   around the line art, and a soft highlight that travels across the strokes only,
-   because it is a brightened copy of the icon clipped to a moving band. Staggered per icon. */
+/* Icons are static (pulse effects removed at user request). The span wrapper stays so the
+   existing .pillar-icon sizing, data-edge and .in reveal rules keep working. */
 .pillar-icon.pi-glow{display:block;position:relative;line-height:0}
 .pillar-icon.pi-glow>img{display:block;height:100%;width:auto}
-.pillar-icon.pi-glow>img.pi-hi{position:absolute;left:0;top:0;pointer-events:none;
-  filter:brightness(2.1) saturate(.55) drop-shadow(0 0 3px rgba(var(--gl),.95));
-  clip-path:polygon(-40% 0,-20% 0,-30% 100%,-50% 100%);opacity:0}
-@keyframes piHalo{0%,100%{filter:drop-shadow(0 0 0 rgba(var(--gl),0))}
-  50%{filter:drop-shadow(0 0 5px rgba(var(--gl),.55)) drop-shadow(0 0 14px rgba(var(--gl),.28))}}
-@keyframes piSweep{0%{clip-path:polygon(-40% 0,-18% 0,-28% 100%,-50% 100%);opacity:1}
-  55%{clip-path:polygon(118% 0,140% 0,130% 100%,108% 100%);opacity:1}
-  56%,100%{clip-path:polygon(118% 0,140% 0,130% 100%,108% 100%);opacity:0}}
-.pillar-icon.pi-glow.in{animation:piHalo 4.2s ease-in-out 2.4s infinite}
-.pillar-icon.pi-glow.in>img.pi-hi{animation:piSweep 6s ease-in-out 2.6s infinite}
-.pillar-icon.pi-energy.in{animation-duration:3.8s;animation-delay:3s}
-.pillar-icon.pi-energy.in>img.pi-hi{animation-delay:4.4s}
-.pillar-icon.pi-vascular.in{animation-duration:3.2s;animation-delay:3.4s}
-.pillar-icon.pi-vascular.in>img.pi-hi{animation-delay:5.2s}
-.pillar-icon.pi-hydration.in{animation-duration:4.6s;animation-delay:3.8s}
-.pillar-icon.pi-hydration.in>img.pi-hi{animation-delay:6s}
-@media(prefers-reduced-motion:reduce){.pillar-icon.pi-glow.in,.pillar-icon.pi-glow.in>img.pi-hi{animation:none}}
+/* ICON MOTION (user option 3): each icon moves in a way that matches what it stands for.
+   Heart: lub-dub beat. Mitochondrion: slow organic wobble so the folds ripple in and out
+   (SVG displacement filter, #piMito). NZ: fine coastline shimmer (#piNZ). Water drop: rings
+   spread outward from the drop. All start after the icon has landed (.in) and stop for
+   reduced-motion visitors. */
+@keyframes piBeat{0%,50%,100%{transform:scale(1)}12%{transform:scale(1.07)}24%{transform:scale(1)}36%{transform:scale(1.045)}}
+.pillar-icon.pi-vascular.in>img{transform-origin:50% 58%;animation:piBeat 1.8s ease-in-out 2.4s infinite}
+.pillar-icon.pi-energy.in>img{filter:url(#piMito)}
+.pillar-icon.pi-origin.in>img{filter:url(#piNZ)}
+.pi-ripple{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.pi-ripple circle{fill:none;stroke:rgb(var(--gl));stroke-width:2;vector-effect:non-scaling-stroke;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.06)}
+@keyframes piRing{0%{transform:scale(.06);opacity:0}10%{opacity:.65}100%{transform:scale(1);opacity:0}}
+.pillar-icon.pi-hydration.in .pi-ripple circle{animation:piRing 4.2s ease-out infinite}
+.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(1){animation-delay:3s}
+.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(2){animation-delay:4.4s}
+.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(3){animation-delay:5.8s}
+@media(prefers-reduced-motion:reduce){.pillar-icon.pi-vascular.in>img{animation:none}.pillar-icon.pi-energy.in>img,.pillar-icon.pi-origin.in>img{filter:none}.pillar-icon.pi-hydration.in .pi-ripple circle{animation:none}}
 
 /* (user request) icons shown at 2x their visual size, but the layout box they
    occupy in the flex row stays at the original height/width above -- a
@@ -609,6 +606,11 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hero .ibandhost:not(.static) .ishot.ishot-pomma{width:min(clamp(280px,34vw,480px),34vh)}
   .hero .ibandhost:not(.static) .icap{left:-90%;right:-90%}
   .hero .ibandhost:not(.static) .icap i{max-width:52ch}
+  /* user request: lift the second text scroll (the tablet-facts ticker) off the bottom edge
+     to mid screen. Auto margins centre it in the free space under the ingredient strip. */
+  .hero .ibandhost:not(.static){justify-content:flex-start}
+  .hero .ibandhost:not(.static) .iband{margin-bottom:160px}  /* room for the ingredient caption that hangs below the strip */
+  .hero .ibandhost:not(.static) .unit{margin-top:auto;margin-bottom:auto}
 }
 .hero .ibandhost .iband{width:100vw;margin-top:0}
 .hero .ibandhost .unit{width:100vw;margin-top:clamp(16px,2.5vh,30px)}
@@ -1307,11 +1309,13 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    (Strength / Gut / Heart / Brain) converging on HoniOra at the centre ---------- */
 .matrix-ikigai{display:flex;justify-content:center;margin:10px 0 clamp(22px,3.4vw,38px)}
 .matrix-ikigai svg{width:100%;max-width:840px;height:auto;display:block}
+/* Overlap colours: each of the 15 regions (1 to 4 circles) is painted by the ikigai script with the
+   paint mix (geometric mean) of ITS seen members, blended at 82% over the section colour. This
+   replaces the old per-circle multiply blend, which turned every 3 or 4 way overlap near black.
+   The circles themselves are now just the gold outline and the hover target. */
 .ikigai-fills{isolation:isolate}
-.ikigai-ring{fill:var(--ikigai-c,none);fill-opacity:0;stroke:var(--gold);stroke-width:2;
-  mix-blend-mode:multiply;pointer-events:all;cursor:pointer;
-  transition:fill-opacity .45s ease}
-.ikigai-ring.seen{fill-opacity:.82}
+.ikigai-reg{fill:transparent;transition:fill .45s ease}
+.ikigai-ring{fill:transparent;stroke:var(--gold);stroke-width:2;pointer-events:all;cursor:pointer}
 .ikigai-ring.ikigai-strength{--ikigai-c:#352477}
 .ikigai-ring.ikigai-gut{--ikigai-c:#F3701E}
 .ikigai-ring.ikigai-heart{--ikigai-c:#B21736}
@@ -2912,6 +2916,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <filter id="piMito" x="-6%" y="-4%" width="112%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.013" numOctaves="1" seed="3" result="n"><animate attributeName="baseFrequency" dur="11s" values="0.008 0.013;0.013 0.008;0.008 0.013" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="piNZ" x="-6%" y="-4%" width="112%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="1" seed="8" result="n"><animate attributeName="baseFrequency" dur="7s" values="0.02 0.017;0.016 0.024;0.02 0.017" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter>
+</defs></svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <clipPath id="hxOuter" clipPathUnits="objectBoundingBox"><path d="M0.4161 0.0473 Q0.5040 0.0060 0.5911 0.0486 L0.9210 0.2098 Q0.9950 0.2460 0.9962 0.3196 L1.0017 0.6747 Q1.0030 0.7570 0.9194 0.7961 L0.5864 0.9518 Q0.4940 0.9950 0.4027 0.9500 L0.0815 0.7917 Q0.0050 0.7540 0.0038 0.6778 L-0.0018 0.3237 Q-0.0030 0.2440 0.0779 0.2060 Z"/></clipPath>
@@ -3208,28 +3216,28 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="hero-pillars">
       <div class="pillar" data-edge="l">
-        <span class="pillar-icon pillar-icon-origin pi-glow pi-origin" data-edge="l" style="--gl:63,164,106"><img src="pillar-icon-origin.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-origin.png" alt="" aria-hidden="true" loading="lazy"></span>
+        <span class="pillar-icon pillar-icon-origin pi-glow pi-origin" data-edge="l" style="--gl:63,164,106"><img src="pillar-icon-origin.png" alt="" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Pure Origin : Born in NZ</h3>
           <p>Authenticity begins with provenance: We live at the source of our bioactives, all pure traceable botanicals, including <span class="kw">high-MGO New Zealand M&#257;nuka honey</span>, polyphenol-rich <span class="kw">gold Kiwifruit</span>, plus a curated global blend of proven beneficial botanical extracts, all full dose and processed strictly to clean-label standards.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
-        <span class="pillar-icon pi-glow pi-energy" data-edge="r" style="--gl:142,63,200"><img src="pillar-icon-energy.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-energy.png" alt="" aria-hidden="true" loading="lazy"></span>
+        <span class="pillar-icon pi-glow pi-energy" data-edge="r" style="--gl:142,63,200"><img src="pillar-icon-energy.png" alt="" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Cellular Energy</h3>
           <p>HONI<i>ORA</i> delivers direct mitochondrial and metabolic support. A full clinical dose of premium <span class="kw">micronized creatine</span>, paired with <span class="kw">MitoQ</span> specialized cofactors that replenish <span class="kw">ATP</span> and support steady cellular energy all day.</p>
         </div>
       </div>
       <div class="pillar" data-edge="l">
-        <span class="pillar-icon pi-glow pi-vascular" data-edge="l" style="--gl:190,40,60"><img src="pillar-icon-vascular.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-vascular.png" alt="" aria-hidden="true" loading="lazy"></span>
+        <span class="pillar-icon pi-glow pi-vascular" data-edge="l" style="--gl:190,40,60"><img src="pillar-icon-vascular.png" alt="" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Vascular Support<br>+<br>Natural<br>Nitric Oxide</h3>
           <p>Optimization drives systemic nutrient delivery. Utilizing multi-pathway bioactives including <span class="kw">peptide ACE inhibitors</span>, cerebral microvascular stimulators, <span class="kw">eNOS activators</span>, and <span class="kw">natural nitric oxide matrices</span>, HONI<i>ORA</i> promotes arterial elasticity, natural nitric oxide production and oxygen transport.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
-        <span class="pillar-icon pi-glow pi-hydration" data-edge="r" style="--gl:176,134,40"><img src="pillar-icon-hydration.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-hydration.png" alt="" aria-hidden="true" loading="lazy"></span>
+        <span class="pillar-icon pi-glow pi-hydration" data-edge="r" style="--gl:176,134,40"><img src="pillar-icon-hydration.png" alt="" loading="lazy"><svg class="pi-ripple" viewBox="0 0 469 480" aria-hidden="true"><circle cx="132" cy="285" r="125"/><circle cx="132" cy="285" r="125"/><circle cx="132" cy="285" r="125"/></svg></span>
         <div class="pillar-body">
           <h3>Efficient Hydration</h3>
           <p>Sodium, potassium and magnesium dissolved and buffered, through <span class="kw">stoichiometric effervescent mineral carbonates</span> paired with <span class="kw">bioavailable electrolytes</span>. Every dose dissolved to reduce gut reaction and increase absorption.</p>
@@ -3666,6 +3674,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <h2 class="serif">Four systems. <em>One loop.</em></h2>
       <div class="matrix-ikigai rv" id="ikigaiDiagram">
         <svg viewBox="0 0 560 460" role="img" aria-label="Four overlapping rings, one for each pillar of the formula, Strength, Gut, Heart and Brain, converging on HoniOra at the centre. Hover each ring to build its colour.">
+          <defs><clipPath id="ikc-brain"><circle cx="280" cy="140" r="130"></circle></clipPath><clipPath id="ikc-gut"><circle cx="200" cy="220" r="130"></circle></clipPath><clipPath id="ikc-strength"><circle cx="280" cy="300" r="130"></circle></clipPath><clipPath id="ikc-heart"><circle cx="360" cy="220" r="130"></circle></clipPath></defs>
+          <g class="ikigai-regions" aria-hidden="true"><g clip-path="url(#ikc-brain)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain"></rect></g><g clip-path="url(#ikc-gut)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="gut"></rect></g><g clip-path="url(#ikc-strength)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="strength"></rect></g><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="heart"></rect></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-gut)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,gut"></rect></g></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-strength)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,strength"></rect></g></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,heart"></rect></g></g><g clip-path="url(#ikc-gut)"><g clip-path="url(#ikc-strength)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="gut,strength"></rect></g></g><g clip-path="url(#ikc-gut)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="gut,heart"></rect></g></g><g clip-path="url(#ikc-strength)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="strength,heart"></rect></g></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-gut)"><g clip-path="url(#ikc-strength)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,gut,strength"></rect></g></g></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-gut)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,gut,heart"></rect></g></g></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-strength)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,strength,heart"></rect></g></g></g><g clip-path="url(#ikc-gut)"><g clip-path="url(#ikc-strength)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="gut,strength,heart"></rect></g></g></g><g clip-path="url(#ikc-brain)"><g clip-path="url(#ikc-gut)"><g clip-path="url(#ikc-strength)"><g clip-path="url(#ikc-heart)"><rect x="0" y="0" width="560" height="460" class="ikigai-reg" data-set="brain,gut,strength,heart"></rect></g></g></g></g></g>
           <g class="ikigai-fills">
             <circle class="ikigai-ring ikigai-brain" data-pillar="brain" cx="280" cy="140" r="130"></circle>
             <circle class="ikigai-ring ikigai-gut" data-pillar="gut" cx="200" cy="220" r="130"></circle>
@@ -3724,7 +3734,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>Magnesium Malate</i><b>500 mg</b></li>
           <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>55 mg</b></li>
         </ul>
-        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. This whole-fruit pomegranate extract carries punicalagins and ellagitannins which give antioxidant and polyphenol support to your cells. Your gut bacteria convert ellagitannins into urolithins, Urolithin A among them.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
+        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal, a pathway optimized in our formulation by pairing Pomma+<sup class="rn">&reg;</sup> directly with LactoSpore and our precision prebiotic matrix to ensure efficient biotransformation during the post-ingestion phase.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
       </div>
 
       <div class="tri" data-pillar="brain">
@@ -3808,7 +3818,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="no-route sig">Signal route</span>
         <h4>Pomma+<sup class="rn">&reg;</sup> Pomegranate</h4>
         <b class="no-dose">500 mg</b>
-        <p>Whole-fruit pomegranate extract carrying punicalagins and ellagitannins. Pomegranate polyphenols are studied for vascular function. We found no human trial of Pomma+ itself.</p>
+        <p>Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal, a pathway optimized in our formulation by pairing Pomma+<sup class="rn">&reg;</sup> directly with LactoSpore and our precision prebiotic matrix to ensure efficient biotransformation during the post-ingestion phase.</p>
         <a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a>
       </div>
     </div>
@@ -3973,7 +3983,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">Pomma+<sup class="rn">&reg;</sup> Pomegranate Extract<i>Stauber USA (Whole Fruit Extract)</i></div>
         <div><span class="fn">Antioxidant<small>Polyphenol support</small></span></div>
         <div class="dose">500 mg</div>
-        <div class="mech">An upcycled, whole-fruit pomegranate extract carrying punicalagins and ellagitannins, the polyphenols pomegranate is best known for. Pomegranate polyphenols are studied for vascular function. We found no human trial of Pomma+<sup class="rn">&reg;</sup> itself, so we make no dose-response claim for the 500 mg.<br><a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a></div>
+        <div class="mech">Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal, a pathway optimized in our formulation by pairing Pomma+<sup class="rn">&reg;</sup> directly with LactoSpore and our precision prebiotic matrix to ensure efficient biotransformation during the post-ingestion phase.<br><a class="cite sup" href="https://www.stauberusa.com/our-partners/pomma-powder-extract/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Stauber USA &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
@@ -6898,7 +6908,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var cr = container.getBoundingClientRect();
     var bandTop, ar = actives.getBoundingClientRect();
     if (!lite && solutionText && getComputedStyle(solutionText).display !== 'none'){
+      solutionText.style.marginTop = '';
       var sr = solutionText.getBoundingClientRect();
+      /* user request: halve the empty background between the glass base and the gold band.
+         The hidden caption block (kept in layout for this maths) is pulled up by half the gap. */
+      var glassEl = container.querySelector('.hero-glass-img');
+      if (glassEl){
+        var gap = (sr.bottom + 28) - glassEl.getBoundingClientRect().bottom;
+        if (gap > 40){
+          solutionText.style.marginTop = (-Math.round(gap / 2)) + 'px';
+          sr = solutionText.getBoundingClientRect();
+        }
+      }
       bandTop = sr.bottom + 28;
       var need = (bandTop + 56) - ar.top;
       if (need > 0){
@@ -7310,7 +7331,39 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     function labelFor(pillar){
       return wrap.querySelector('.ikigai-label[data-pillar-label="' + pillar + '"]');
     }
+    /* overlap colours: paint every region from the pillars currently seen */
+    var PILLAR_RGB = {brain:[8,114,130], gut:[243,112,30], strength:[53,36,119], heart:[178,23,54]};
+    var REG_ALPHA = .82;
+    var paper = [247,245,239];
+    (function(){
+      var el = wrap;
+      while (el){
+        var m = getComputedStyle(el).backgroundColor.match(/rgba?\(([^)]+)\)/);
+        if (m){ var v = m[1].split(',').map(parseFloat); if (v.length < 4 || v[3] === 1){ paper = v.slice(0,3); break; } }
+        el = el.parentElement;
+      }
+    })();
+    var regs = wrap.querySelectorAll('.ikigai-reg');
+    function mixColour(names){
+      var out = [0,0,0];
+      for (var c = 0; c < 3; c++){
+        var prod = 1;
+        names.forEach(function(n){ prod *= PILLAR_RGB[n][c]; });
+        var gm = Math.pow(prod, 1 / names.length);
+        out[c] = Math.round(paper[c] * (1 - REG_ALPHA) + gm * REG_ALPHA);
+      }
+      return 'rgb(' + out.join(',') + ')';
+    }
+    function paintRegions(){
+      var seenNames = {};
+      rings.forEach(function(r){ if (r.classList.contains('seen')) seenNames[r.getAttribute('data-pillar')] = 1; });
+      regs.forEach(function(rect){
+        var members = rect.getAttribute('data-set').split(',').filter(function(n){ return seenNames[n]; });
+        rect.style.fill = members.length ? mixColour(members) : 'transparent';
+      });
+    }
     function updateCenter(){
+      paintRegions();
       var allSeen = true;
       var anySeen = false;
       rings.forEach(function(r){
@@ -7333,6 +7386,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       });
       if (centerLabel) centerLabel.classList.remove('seen');
       if (core) core.classList.remove('seen');
+      paintRegions();
     }
 
     /* colours stay after the mouse leaves the diagram and are only reset when the
