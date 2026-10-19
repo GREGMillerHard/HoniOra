@@ -545,27 +545,30 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .pillar-body{min-width:0}
 .pillar-icon{flex:0 0 auto;height:clamp(76px,8vw,124px);width:auto;object-fit:contain}
 .pillar-icon-origin{height:clamp(99px,10.4vw,161px)}
-/* Icons are static (pulse effects removed at user request). The span wrapper stays so the
-   existing .pillar-icon sizing, data-edge and .in reveal rules keep working. */
+/* ICON GLOW (user request): each pillar icon is now a span wrapper (keeps every
+   existing .pillar-icon / data-edge / .in rule and the reveal JS working) around the
+   PNG. Two layers once the icon has landed: a slow colour-matched halo that breathes
+   around the line art, and a soft highlight that travels across the strokes only,
+   because it is a brightened copy of the icon clipped to a moving band. Staggered per icon. */
 .pillar-icon.pi-glow{display:block;position:relative;line-height:0}
 .pillar-icon.pi-glow>img{display:block;height:100%;width:auto}
-/* ICON MOTION (user option 3): each icon moves in a way that matches what it stands for.
-   Heart: lub-dub beat. Mitochondrion: slow organic wobble so the folds ripple in and out
-   (SVG displacement filter, #piMito). NZ: fine coastline shimmer (#piNZ). Water drop: rings
-   spread outward from the drop. All start after the icon has landed (.in) and stop for
-   reduced-motion visitors. */
-@keyframes piBeat{0%,50%,100%{transform:scale(1)}12%{transform:scale(1.07)}24%{transform:scale(1)}36%{transform:scale(1.045)}}
-.pillar-icon.pi-vascular.in>img{transform-origin:50% 58%;animation:piBeat 1.8s ease-in-out 2.4s infinite}
-.pillar-icon.pi-energy.in>img{filter:url(#piMito)}
-.pillar-icon.pi-origin.in>img{filter:url(#piNZ)}
-.pi-ripple{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-.pi-ripple circle{fill:none;stroke:rgb(var(--gl));stroke-width:2;vector-effect:non-scaling-stroke;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.06)}
-@keyframes piRing{0%{transform:scale(.06);opacity:0}10%{opacity:.65}100%{transform:scale(1);opacity:0}}
-.pillar-icon.pi-hydration.in .pi-ripple circle{animation:piRing 4.2s ease-out infinite}
-.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(1){animation-delay:3s}
-.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(2){animation-delay:4.4s}
-.pillar-icon.pi-hydration.in .pi-ripple circle:nth-child(3){animation-delay:5.8s}
-@media(prefers-reduced-motion:reduce){.pillar-icon.pi-vascular.in>img{animation:none}.pillar-icon.pi-energy.in>img,.pillar-icon.pi-origin.in>img{filter:none}.pillar-icon.pi-hydration.in .pi-ripple circle{animation:none}}
+.pillar-icon.pi-glow>img.pi-hi{position:absolute;left:0;top:0;pointer-events:none;
+  filter:brightness(2.1) saturate(.55) drop-shadow(0 0 3px rgba(var(--gl),.95));
+  clip-path:polygon(-40% 0,-20% 0,-30% 100%,-50% 100%);opacity:0}
+@keyframes piHalo{0%,100%{filter:drop-shadow(0 0 0 rgba(var(--gl),0))}
+  50%{filter:drop-shadow(0 0 5px rgba(var(--gl),.55)) drop-shadow(0 0 14px rgba(var(--gl),.28))}}
+@keyframes piSweep{0%{clip-path:polygon(-40% 0,-18% 0,-28% 100%,-50% 100%);opacity:1}
+  55%{clip-path:polygon(118% 0,140% 0,130% 100%,108% 100%);opacity:1}
+  56%,100%{clip-path:polygon(118% 0,140% 0,130% 100%,108% 100%);opacity:0}}
+.pillar-icon.pi-glow.in{animation:piHalo 4.2s ease-in-out 2.4s infinite}
+.pillar-icon.pi-glow.in>img.pi-hi{animation:piSweep 6s ease-in-out 2.6s infinite}
+.pillar-icon.pi-energy.in{animation-duration:3.8s;animation-delay:3s}
+.pillar-icon.pi-energy.in>img.pi-hi{animation-delay:4.4s}
+.pillar-icon.pi-vascular.in{animation-duration:3.2s;animation-delay:3.4s}
+.pillar-icon.pi-vascular.in>img.pi-hi{animation-delay:5.2s}
+.pillar-icon.pi-hydration.in{animation-duration:4.6s;animation-delay:3.8s}
+.pillar-icon.pi-hydration.in>img.pi-hi{animation-delay:6s}
+@media(prefers-reduced-motion:reduce){.pillar-icon.pi-glow.in,.pillar-icon.pi-glow.in>img.pi-hi{animation:none}}
 
 /* (user request) icons shown at 2x their visual size, but the layout box they
    occupy in the flex row stays at the original height/width above -- a
@@ -606,11 +609,6 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hero .ibandhost:not(.static) .ishot.ishot-pomma{width:min(clamp(280px,34vw,480px),34vh)}
   .hero .ibandhost:not(.static) .icap{left:-90%;right:-90%}
   .hero .ibandhost:not(.static) .icap i{max-width:52ch}
-  /* user request: lift the second text scroll (the tablet-facts ticker) off the bottom edge
-     to mid screen. Auto margins centre it in the free space under the ingredient strip. */
-  .hero .ibandhost:not(.static){justify-content:flex-start}
-  .hero .ibandhost:not(.static) .iband{margin-bottom:160px}  /* room for the ingredient caption that hangs below the strip */
-  .hero .ibandhost:not(.static) .unit{margin-top:auto;margin-bottom:auto}
 }
 .hero .ibandhost .iband{width:100vw;margin-top:0}
 .hero .ibandhost .unit{width:100vw;margin-top:clamp(16px,2.5vh,30px)}
@@ -2914,10 +2912,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-  <filter id="piMito" x="-6%" y="-4%" width="112%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.013" numOctaves="1" seed="3" result="n"><animate attributeName="baseFrequency" dur="11s" values="0.008 0.013;0.013 0.008;0.008 0.013" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter>
-  <filter id="piNZ" x="-6%" y="-4%" width="112%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="1" seed="8" result="n"><animate attributeName="baseFrequency" dur="7s" values="0.02 0.017;0.016 0.024;0.02 0.017" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter>
-</defs></svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <clipPath id="hxOuter" clipPathUnits="objectBoundingBox"><path d="M0.4161 0.0473 Q0.5040 0.0060 0.5911 0.0486 L0.9210 0.2098 Q0.9950 0.2460 0.9962 0.3196 L1.0017 0.6747 Q1.0030 0.7570 0.9194 0.7961 L0.5864 0.9518 Q0.4940 0.9950 0.4027 0.9500 L0.0815 0.7917 Q0.0050 0.7540 0.0038 0.6778 L-0.0018 0.3237 Q-0.0030 0.2440 0.0779 0.2060 Z"/></clipPath>
@@ -3214,28 +3208,28 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="hero-pillars">
       <div class="pillar" data-edge="l">
-        <span class="pillar-icon pillar-icon-origin pi-glow pi-origin" data-edge="l" style="--gl:63,164,106"><img src="pillar-icon-origin.png" alt="" loading="lazy"></span>
+        <span class="pillar-icon pillar-icon-origin pi-glow pi-origin" data-edge="l" style="--gl:63,164,106"><img src="pillar-icon-origin.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-origin.png" alt="" aria-hidden="true" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Pure Origin : Born in NZ</h3>
           <p>Authenticity begins with provenance: We live at the source of our bioactives, all pure traceable botanicals, including <span class="kw">high-MGO New Zealand M&#257;nuka honey</span>, polyphenol-rich <span class="kw">gold Kiwifruit</span>, plus a curated global blend of proven beneficial botanical extracts, all full dose and processed strictly to clean-label standards.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
-        <span class="pillar-icon pi-glow pi-energy" data-edge="r" style="--gl:142,63,200"><img src="pillar-icon-energy.png" alt="" loading="lazy"></span>
+        <span class="pillar-icon pi-glow pi-energy" data-edge="r" style="--gl:142,63,200"><img src="pillar-icon-energy.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-energy.png" alt="" aria-hidden="true" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Cellular Energy</h3>
           <p>HONI<i>ORA</i> delivers direct mitochondrial and metabolic support. A full clinical dose of premium <span class="kw">micronized creatine</span>, paired with <span class="kw">MitoQ</span> specialized cofactors that replenish <span class="kw">ATP</span> and support steady cellular energy all day.</p>
         </div>
       </div>
       <div class="pillar" data-edge="l">
-        <span class="pillar-icon pi-glow pi-vascular" data-edge="l" style="--gl:190,40,60"><img src="pillar-icon-vascular.png" alt="" loading="lazy"></span>
+        <span class="pillar-icon pi-glow pi-vascular" data-edge="l" style="--gl:190,40,60"><img src="pillar-icon-vascular.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-vascular.png" alt="" aria-hidden="true" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Vascular Support<br>+<br>Natural<br>Nitric Oxide</h3>
           <p>Optimization drives systemic nutrient delivery. Utilizing multi-pathway bioactives including <span class="kw">peptide ACE inhibitors</span>, cerebral microvascular stimulators, <span class="kw">eNOS activators</span>, and <span class="kw">natural nitric oxide matrices</span>, HONI<i>ORA</i> promotes arterial elasticity, natural nitric oxide production and oxygen transport.</p>
         </div>
       </div>
       <div class="pillar" data-edge="r">
-        <span class="pillar-icon pi-glow pi-hydration" data-edge="r" style="--gl:176,134,40"><img src="pillar-icon-hydration.png" alt="" loading="lazy"><svg class="pi-ripple" viewBox="0 0 469 480" aria-hidden="true"><circle cx="132" cy="285" r="125"/><circle cx="132" cy="285" r="125"/><circle cx="132" cy="285" r="125"/></svg></span>
+        <span class="pillar-icon pi-glow pi-hydration" data-edge="r" style="--gl:176,134,40"><img src="pillar-icon-hydration.png" alt="" loading="lazy"><img class="pi-hi" src="pillar-icon-hydration.png" alt="" aria-hidden="true" loading="lazy"></span>
         <div class="pillar-body">
           <h3>Efficient Hydration</h3>
           <p>Sodium, potassium and magnesium dissolved and buffered, through <span class="kw">stoichiometric effervescent mineral carbonates</span> paired with <span class="kw">bioavailable electrolytes</span>. Every dose dissolved to reduce gut reaction and increase absorption.</p>
@@ -6904,18 +6898,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     var cr = container.getBoundingClientRect();
     var bandTop, ar = actives.getBoundingClientRect();
     if (!lite && solutionText && getComputedStyle(solutionText).display !== 'none'){
-      solutionText.style.marginTop = '';
       var sr = solutionText.getBoundingClientRect();
-      /* user request: halve the empty background between the glass base and the gold band.
-         The hidden caption block (kept in layout for this maths) is pulled up by half the gap. */
-      var glassEl = container.querySelector('.hero-glass-img');
-      if (glassEl){
-        var gap = (sr.bottom + 28) - glassEl.getBoundingClientRect().bottom;
-        if (gap > 40){
-          solutionText.style.marginTop = (-Math.round(gap / 2)) + 'px';
-          sr = solutionText.getBoundingClientRect();
-        }
-      }
       bandTop = sr.bottom + 28;
       var need = (bandTop + 56) - ar.top;
       if (need > 0){
