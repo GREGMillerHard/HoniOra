@@ -142,7 +142,10 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 /* home screen: same silk flow as Taste / Protocol / GLP-1, spread over the tall hero */
 /* hero background: "Pearl" -- airy near-white with a faint pale-gold silk shimmer (hero only; the
    other silk sections keep the shared look) */
-.hero{isolation:isolate;background:#FFFEFA}
+.hero{isolation:isolate;background:#FFFFFF}
+/* (user request) screen 1 back to a 100% white background: silk shimmer layers off */
+.hero .taste-silk{display:none}
+.hero .hero-glass-img{filter:brightness(1.012)}   /* lifts the video's off-white (253) backdrop to true 255 so no box edge shows on pure white */
 .hero .taste-silk .s1{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(240,218,160,.55),rgba(255,255,255,.9),rgba(232,205,140,.45),rgba(255,255,255,0))}
 .hero .taste-silk .s2{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95),rgba(244,224,170,.5),rgba(255,255,255,.8),rgba(255,255,255,0))}
 .hero .taste-silk .s3{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(232,205,140,.45),rgba(255,255,255,.9),rgba(240,218,160,.55),rgba(255,255,255,0))}
@@ -164,10 +167,10 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 #pack{scroll-margin-top:calc(81px - clamp(80px,11vw,152px))} /* 13 / Format: same, 7px tighter */
 
 /* ---------- nav ---------- */
-header{position:fixed;top:0;left:0;right:0;z-index:100;transition:box-shadow .4s;border-bottom:1px solid var(--line-soft);
-  background-color:var(--paper);
-  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MS4wMCIgaGVpZ2h0PSIyOS40NCIgdmlld0JveD0iMCAwIDUxLjAwIDI5LjQ0Ij4KICA8ZyBmaWxsPSJub25lIiBzdHJva2U9IiNCMDgyMUYiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2Utb3BhY2l0eT0iMC4xNCI+CiAgICA8cG9seWdvbiBwb2ludHM9IjE3LjAwLC0yOS40NCA4LjUwLC0xNC43MiAtOC41MCwtMTQuNzIgLTE3LjAwLC0yOS40NCAtOC41MCwtNDQuMTcgOC41MCwtNDQuMTciIC8+CiAgICA8cG9seWdvbiBwb2ludHM9IjE3LjAwLDAuMDAgOC41MCwxNC43MiAtOC41MCwxNC43MiAtMTcuMDAsMC4wMCAtOC41MCwtMTQuNzIgOC41MCwtMTQuNzIiIC8+CiAgICA8cG9seWdvbiBwb2ludHM9IjE3LjAwLDI5LjQ0IDguNTAsNDQuMTcgLTguNTAsNDQuMTcgLTE3LjAwLDI5LjQ0IC04LjUwLDE0LjcyIDguNTAsMTQuNzIiIC8+CiAgICA8cG9seWdvbiBwb2ludHM9IjQyLjUwLC0xNC43MiAzNC4wMCwwLjAwIDE3LjAwLDAuMDAgOC41MCwtMTQuNzIgMTcuMDAsLTI5LjQ0IDM0LjAwLC0yOS40NCIgLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iNDIuNTAsMTQuNzIgMzQuMDAsMjkuNDQgMTcuMDAsMjkuNDQgOC41MCwxNC43MiAxNy4wMCwwLjAwIDM0LjAwLDAuMDAiIC8+CiAgICA8cG9seWdvbiBwb2ludHM9IjQyLjUwLDQ0LjE3IDM0LjAwLDU4Ljg5IDE3LjAwLDU4Ljg5IDguNTAsNDQuMTcgMTcuMDAsMjkuNDQgMzQuMDAsMjkuNDQiIC8+CiAgICA8cG9seWdvbiBwb2ludHM9IjY4LjAwLC0yOS40NCA1OS41MCwtMTQuNzIgNDIuNTAsLTE0LjcyIDM0LjAwLC0yOS40NCA0Mi41MCwtNDQuMTcgNTkuNTAsLTQ0LjE3IiAvPgogICAgPHBvbHlnb24gcG9pbnRzPSI2OC4wMCwwLjAwIDU5LjUwLDE0LjcyIDQyLjUwLDE0LjcyIDM0LjAwLDAuMDAgNDIuNTAsLTE0LjcyIDU5LjUwLC0xNC43MiIgLz4KICAgIDxwb2x5Z29uIHBvaW50cz0iNjguMDAsMjkuNDQgNTkuNTAsNDQuMTcgNDIuNTAsNDQuMTcgMzQuMDAsMjkuNDQgNDIuNTAsMTQuNzIgNTkuNTAsMTQuNzIiIC8+CiAgPC9nPgo8L3N2Zz4K");
-  background-repeat:repeat;background-size:51px 29.44px;background-position:center top}
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:box-shadow .4s;border-bottom:1px solid rgba(176,130,31,.35);
+  /* (user pick, option F) frosted glass: translucent white, content blurs through when scrolled */
+  background-color:rgba(255,255,255,.62);background-image:none;
+  -webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3)}
 header.stuck{box-shadow:0 1px 30px rgba(21,23,15,.08)}
 /* minmax(max-content,1fr) rather than a bare 1fr: a plain 1fr splits the leftover
    space evenly WITHOUT first guaranteeing each side room for its own content, so
@@ -3121,7 +3124,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
            text isn't shown twice. Desktop is untouched -- this stays display:none
            above 1000px and the original headline renders in its usual spot in the
            copy column. */ -->
-      <div class="hero-precede hero-precede-mobile"><span class="precede-lead" id="precedeLeadMobile">NOURISH <span class="precede-lead-gold">YR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YR</span> WELLNESS</span></div>
+      <div class="hero-precede hero-precede-mobile"><span class="precede-lead" id="precedeLeadMobile">NOURISH <span class="precede-lead-gold">YOUR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YOUR</span> WELLNESS</span></div>
       <!-- desktop-only duplicate of "HoniOra's morning solution:" / "2 effervescent
            tablets & 1 glass of water & 60 sec.", moved here (between the video and
            the tube shot, centred under the video) at >=1001px only. The original
@@ -3137,7 +3140,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YOUR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YOUR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &gt; Made in USA</p>
