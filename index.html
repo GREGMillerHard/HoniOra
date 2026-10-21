@@ -413,7 +413,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 
 /* ---------- hero wax-seal badge: top-right corner, just below the actives
    scroller ribbon, links to #store (same target as RESERVE HONIORA) -- a
-   medallion with the bee wax-seal photo (fixed, rotated 20deg clockwise) at
+   medallion with the bee wax-seal photo (fixed, rotated 16deg clockwise) at
    its centre and a slowly-rotating Romanesque-caps ring of text (Cinzel)
    running the full circumference. Lives inside .hrail (position:relative
    already) so top:100% places it flush under the ribbon's own bottom edge
@@ -442,8 +442,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .hero-seal-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
   animation:heroSealSpin 34s linear infinite}
 .hero-seal-ring text{font-family:'Cinzel',Georgia,'Times New Roman',serif;font-weight:600;
-  font-size:18.5px;letter-spacing:2.6px;fill:#7a5717}
-.hero-seal-img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(20deg);
+  font-size:23px;letter-spacing:3.4px;fill:#7a5717}
+.hero-seal-img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(16deg);
   width:64%;height:64%;border-radius:50%;display:block;
   filter:drop-shadow(0 6px 16px rgba(35,23,4,.35))}
 @keyframes heroSealSpin{to{transform:rotate(-360deg)}}
@@ -3099,13 +3099,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     <!-- wax-seal medallion, top-right corner just below this ribbon -- links to #store,
          same target as the RESERVE HONIORA nav item -- static Romanesque-caps ring
-         (Cinzel) around the bee wax-seal photo, rotated 20deg clockwise, at its centre. -->
+         (Cinzel) around the bee wax-seal photo, rotated 16deg clockwise, at its centre. -->
     <a href="#store" class="hero-seal" aria-label="Reserve HoniOra">
       <span class="hero-seal-inner">
         <span class="hero-seal-backdrop" aria-hidden="true"></span>
         <svg class="hero-seal-ring" viewBox="0 0 300 300" aria-hidden="true">
           <defs><path id="heroSealPath" d="M150,22 a128,128 0 1,1 0,256 a128,128 0 1,1 0,-256"/></defs>
-          <text text-anchor="start" xml:space="preserve"><textPath href="#heroSealPath" startOffset="0" textLength="804" lengthAdjust="spacingAndGlyphs">LADIES AND GENTLEMEN START YOUR Honi<tspan font-style="italic">Ora</tspan> DAILY UPGRADE                </textPath></text>
+          <text text-anchor="start" xml:space="preserve"><textPath href="#heroSealPath" startOffset="0" textLength="690" lengthAdjust="spacingAndGlyphs">START YOUR DAYS WITH THE HONI<tspan font-style="italic">ORA</tspan> UPGRADE</textPath></text>
         </svg>
         <picture>
           <source media="(max-width:1000px)" srcset="bee-seal-badge-lite.png">
