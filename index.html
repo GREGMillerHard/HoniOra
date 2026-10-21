@@ -2466,6 +2466,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   padding:9px 6px;border-bottom:1px solid rgba(94,47,0,.32);line-height:1.2;color:var(--ink);transition:color .3s,background .3s}
 .burger-drop a:last-child{border-bottom:0}
 @media(max-width:480px){.burger-drop a{font-size:16px}} /* all-caps labels need the smaller size to fit the narrow popup */
+/* one line always: every label stays on a single line and the type scales with the popup width
+   (popup = min(230px,45vw); 62px = tray border + padding + link padding; 8.7 = widest label (HONIORA STACK, 8.36) in ems plus margin) */
+.burger-drop a{white-space:nowrap;font-size:min(16px,calc((min(230px,45vw) - 62px) / 8.7))}
 /* click-pinned state: works at every width, hover-capable or not, so tapping a
    burger on a touch device opens and holds the popup the same way clicking it
    does with a mouse. */
@@ -2958,7 +2961,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </a>
     <a href="#top" class="hexnav-logo"><img src="honiora-logo.png" alt="HONIORA" class="brand-logo" width="1396" height="294"></a>
     <a href="#honeytop" class="hexnav-item">M&#257;NUKA<br>HONI
-      <span class="hexdrop"><span class="hexdrop-card"><b>M&#257;nuka Honey</b>1,000 mg of MGO 850+ / UMF 20+ M&#257;nuka Honey Crystals in every dose, built on a crystal biobase.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>M&#257;nuka Honi</b>1,000 mg of MGO 850+ / UMF 20+ M&#257;nuka Honey Crystals in every dose, built on a crystal biobase.</span></span>
     </a>
     <a href="#livaux" class="hexnav-item">LIVAUX
       <span class="hexdrop"><span class="hexdrop-card"><b>Livaux Gold Kiwifruit</b>600 mg of Livaux gold kiwifruit. Roughly doubled F. prausnitzii in 70% of trial participants within 28 days.</span></span>
@@ -2984,7 +2987,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <button class="burger burger-left" id="burgerLeft" aria-label="Open the Protocol menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropLeft"><span></span><span></span></button>
     <div class="burger-drop burger-drop-left" id="burgerDropLeft">
       <a href="#matrix">Honi<i>Ora</i> Stack</a>
-      <a href="#honeytop">M&#257;nuka Honey</a>
+      <a href="#honeytop">M&#257;nuka Honi</a>
       <a href="#problem">Cr.01 Creatine</a>
       <a href="#mitoq">MitoQ</a>
       <a href="#livaux">Livaux</a>
