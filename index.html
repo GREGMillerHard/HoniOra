@@ -145,6 +145,18 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 .hero{isolation:isolate;background:#FFFFFF}
 /* (user request) screen 1 back to a 100% white background: silk shimmer layers off */
 .hero .taste-silk{display:none}
+/* hero first screen: same treatment as the 01 / The Ritual section (looping glass video, dark scrim, light copy), glass video removed */
+.hero .hero-bg{position:absolute;left:0;top:0;width:100%;height:var(--herobg-h,100svh);min-height:640px;object-fit:cover;z-index:-2;pointer-events:none}
+.hero .hero-bg-scrim{position:absolute;left:0;top:0;width:100%;height:var(--herobg-h,100svh);min-height:640px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(24,15,2,.55) 0%,rgba(24,15,2,.42) 40%,rgba(24,15,2,.55) 100%)}
+.hero-img-col{mix-blend-mode:normal !important}
+.hero .hero-copy-shift .hero-logo,.hero .hero-copy-shift .hero-precede .precede-lead,.hero .hero-copy-shift .hero-tag,.hero-img-col .hero-precede .precede-solution,.hero-img-col .hero-precede .precede-body,.hero .hero-solution-right,.hero .hero-solution-right span{color:#FFF8E6;text-shadow:0 1px 14px rgba(24,15,2,.55)}
+.hero .hero-copy-shift .hero-logo span,.hero .hero-copy-shift .precede-lead-gold,.hero .hero-copy-shift .eyebrow,.hero .hero-copy-shift #bornMadeLine{color:#F6D77F;text-shadow:0 1px 14px rgba(24,15,2,.55)}
+.hero .hrail{border-color:rgba(255,248,230,.28)}
+.hero .hrail::before{background:linear-gradient(to right,rgba(24,15,2,.7),rgba(24,15,2,0))}
+.hero .hrail::after{background:linear-gradient(to left,rgba(24,15,2,.7),rgba(24,15,2,0))}
+.hero .hrail .hmsg,.hero .hrail .hact b{color:#FFF8E6;text-shadow:0 1px 10px rgba(24,15,2,.6)}
+.hero .hrail .hact s{color:#F6D77F}
 .hero .hero-glass-img{filter:brightness(1.012)}   /* lifts the video's off-white (253) backdrop to true 255 so no box edge shows on pure white */
 .hero .taste-silk .s1{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(240,218,160,.55),rgba(255,255,255,.9),rgba(232,205,140,.45),rgba(255,255,255,0))}
 .hero .taste-silk .s2{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95),rgba(244,224,170,.5),rgba(255,255,255,.8),rgba(255,255,255,0))}
@@ -2803,6 +2815,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 .hero-lower.has-tube-band .hero-meta span{color:#1F1800}
 
 /* RITUAL: looping glass video as the section background, all copy to the right of the glass */
+/* ritual: no video, one huge centred 60 second counter */
+#ritual .sec-head .lede{max-width:min(94vw,980px)}
+#ritual .ritual-grid{grid-template-columns:1fr;justify-items:center;margin-top:clamp(10px,2vw,30px)}
+#ritual .ritual-grid>div{width:100%}
+#ritual{padding-top:clamp(50px,6vh,80px);padding-bottom:clamp(60px,8vh,110px)}
+#ritual .timer{max-width:min(86vw,640px,54vh);border-width:2px}
+#ritual .timer .ring{inset:-22px}
+#ritual .timer b{font-size:clamp(110px,min(24vw,28vh),300px);letter-spacing:-.02em}
+#ritual .timer span{font-size:clamp(12px,1.3vw,17px);margin-top:clamp(8px,1.4vw,22px)}
 #ritual.ritual-vid{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(90deg,rgb(220,210,186),rgb(234,224,200) 25%,rgb(245,236,209) 50%,rgb(249,241,217) 75%,rgb(250,251,239))}
 #ritual .ritual-bg{position:absolute;left:0;bottom:0;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;z-index:-2;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%);mask-image:linear-gradient(180deg,transparent 0,#000 22%)}
 #ritual .ritual-scrim{position:absolute;inset:0;z-index:-1;pointer-events:none;
@@ -3083,6 +3104,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
+  <video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="ritual-bg-poster.jpg" aria-hidden="true"><source media="(max-width:1000px)" src="ritual-bg-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="ritual-bg-lite.mp4" type="video/mp4"><source src="ritual-bg.webm" type="video/webm"><source src="ritual-bg.mp4" type="video/mp4"></video>
+  <div class="hero-bg-scrim" aria-hidden="true"></div>
   <div class="taste-silk" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div>
   <div class="bubbles" id="bubbles"></div>
 
@@ -3140,7 +3163,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
   <div class="hero-lower">
     <div class="hero-img-col">
-      <video class="hero-glass-img" id="heroGlassVideo" autoplay muted loop playsinline preload="auto" poster="hero-glass-poster.jpg" aria-label="HONIORA tablets fizzing in a glass, embossed with the HoniCo gold bee emblem"><source media="(max-width:1000px)" src="hero-glass-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="hero-glass-lite.mp4" type="video/mp4"><source src="hero-glass.webm" type="video/webm"><source src="hero-glass.mp4" type="video/mp4"></video>
+
       <!-- mobile-only duplicate of the "UPGRADE YOUR WELLBEING" headline, shown here
            (between the video and the tube shot) at <=1000px only; the original inline
            copy below (#precedeLeadInline) is hidden at that same breakpoint so the
@@ -3283,21 +3306,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 </section>
 
 <!-- ================= RITUAL ================= -->
-<section class="sec tinted ritual-vid" id="ritual">
-  <video class="ritual-bg" autoplay muted loop playsinline preload="metadata" poster="ritual-bg-poster.jpg" aria-hidden="true"><source media="(max-width:1000px)" src="ritual-bg-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="ritual-bg-lite.mp4" type="video/mp4"><source src="ritual-bg.webm" type="video/webm"><source src="ritual-bg.mp4" type="video/mp4"></video>
-  <div class="ritual-scrim" aria-hidden="true"></div>
+<section class="sec tinted" id="ritual">
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow dim">01 / The Ritual</p>
       <h2 class="serif oneline">Sixty seconds. <em>Then you own the day.</em></h2>
-      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop three tabs, let them fizz, and use the minute to set the day's first intention, before the phone, before the noise. <br>Carpe diem starts small: one minute, chosen on purpose, every day.</p>
+      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop three tabs, let them fizz, <br>and use the minute to set the day's first intention, before the phone, before the noise.<br>Carpe diem starts small: one minute, chosen on purpose, every day.</p>
     </div>
     <div class="ritual-grid">
-      <div class="rv">
-        <div class="step"><span class="k">01</span><div><h3>Drop 3 tabs</h3><p>Into 400 ml of cold water. No scoop, no shaker, no measuring, and no mess.</p></div></div>
-        <div class="step"><span class="k">02</span><div><h3>Let it FIZZ and take the time to plan your day</h3><p>The effervescent engine self-mixes the entire matrix. Complete disintegration in sixty seconds without mechanical stirring.</p></div></div>
-        <div class="step"><span class="k">03</span><div><h3>Drink it cold</h3><p>Natural yuzu, passionfruit and golden kiwi. Compatible with fasted and low-glycemic protocols.</p></div></div>
-      </div>
       <div class="rv">
         <div class="timer">
           <div class="ring"></div>
@@ -6133,16 +6149,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      One-time check at load, matching this file's other lite-only layout
      branches (e.g. the hero-keylines mqLite check above), which also don't
      re-run on a later resize across the breakpoint. */
-  (function(){
-    if (!(window.matchMedia && window.matchMedia('(max-width:1000px)').matches)) return;
-    var head = document.querySelector('#ritual .sec-head');
-    var heading = head && head.querySelector('h2.oneline');
-    var timer = document.querySelector('#ritual .timer');
-    if (!head || !heading || !timer) return;
-    var oldWrap = timer.parentNode;
-    head.insertBefore(timer, heading);
-    if (oldWrap) oldWrap.style.display = 'none';
-  })();
 
   var cd = document.getElementById('cd');
   if (cd && 'IntersectionObserver' in window){
@@ -6942,6 +6948,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         }
       }
       bandTop = sr.bottom + 28;
+      /* glass video removed: keep the gold band below the first screen (ritual video backdrop) */
+      var heroTop = container.parentElement.getBoundingClientRect().top;
+      var solR = container.querySelector('.hero-solution-right');
+      var solB = (solR && getComputedStyle(solR).display !== 'none') ? solR.getBoundingClientRect().bottom + 44 : 0;
+      bandTop = Math.max(bandTop, solB, heroTop + Math.max(window.innerHeight, 640) - 20);
+      container.parentElement.style.setProperty('--herobg-h', Math.round(bandTop - heroTop + 2) + 'px');
       var need = (bandTop + 56) - ar.top;
       if (need > 0){
         actives.style.marginTop = (parseFloat(getComputedStyle(actives).marginTop) + need) + 'px';
@@ -7740,6 +7752,26 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     new IntersectionObserver(function(en){ vis = en[0].isIntersecting && !document.hidden; if (vis) go(); }, {threshold:0.05}).observe(cv);
   } else { vis = true; go(); }
   document.addEventListener('visibilitychange', function(){ vis = vis && !document.hidden; if (!document.hidden) { var r = cv.getBoundingClientRect(); vis = r.bottom > 0 && r.top < innerHeight; go(); } });
+})();
+</script>
+<script>
+/* hero copy centred on the page (desktop): measure the block unshifted, then move it to the viewport centre */
+(function(){
+  var mq=window.matchMedia('(max-width:1000px)');
+  function centre(){
+    var el=document.querySelector('.hero-copy-shift');
+    if(!el) return;
+    el.style.transform='';
+    if(mq.matches) return;
+    el.style.transform='none';
+    var r=el.getBoundingClientRect();
+    var d=(document.documentElement.clientWidth/2)-(r.left+r.width/2);
+    el.style.transform='translateX('+Math.round(d)+'px)';
+  }
+  window.addEventListener('load',function(){centre();setTimeout(centre,400);setTimeout(centre,1500);});
+  window.addEventListener('resize',centre,{passive:true});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(centre);
+  centre();
 })();
 </script>
 </body>
