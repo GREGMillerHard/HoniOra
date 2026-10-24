@@ -16,10 +16,10 @@
 })();
 </script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="2 tabs, 350 ml of cold water, sixty seconds. An 11,481 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="3 tabs, 400 ml of cold water, sixty seconds. An 12,675 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
-<meta property="og:description" content="2 tabs. 350 ml of cold water. Sixty seconds.">
+<meta property="og:description" content="3 tabs. 400 ml of cold water. Sixty seconds.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1090,9 +1090,10 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 /* full-bleed: the clip box is the whole window, not the centred content column, so the
    tablets enter from the true screen edges instead of an invisible wall at the column edge */
 .tablet-roll{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
-.tablet-roll-l,.tablet-roll-r{display:block;flex:none;width:clamp(122px,16vw,230px);height:auto;
+.tablet-roll-l,.tablet-roll-m,.tablet-roll-r{display:block;flex:none;width:clamp(122px,16vw,230px);height:auto;
   object-fit:contain;mix-blend-mode:multiply;opacity:1}
-.tablet-roll-r{margin-left:clamp(-30px,-3.6vw,-14px)}
+.tablet-roll-m,.tablet-roll-r{margin-left:clamp(-30px,-3.6vw,-14px)}
+/* three tablets: two roll in from the left (l, m) and one from the right (r) */
 
 /* ---------- ingredient image banner (scroll-linked, centre-focus) ---------- */
 /* (v97) per a request to move the ingredient scroller down 10px -- added flat on top
@@ -1300,7 +1301,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .no-head{text-align:center}
 .no-head h3{font-size:clamp(26px,3.4vw,44px);max-width:none;margin:12px auto 0}
 @media(min-width:1001px){.no-head h3{white-space:nowrap}}
-.no-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,20px)}
+.no-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,20px)}
 .no-card{position:relative;display:flex;flex-direction:column;padding:clamp(22px,2.2vw,32px);border-radius:4px;
   background:linear-gradient(160deg,#C41E3F,#9A1230);
   border:1px solid rgba(255,255,255,.22);
@@ -1394,7 +1395,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 }
 
 /* ---------- stats (dark band) ---------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,153,48,.22);border:1px solid rgba(196,153,48,.22)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,153,48,.22);border:1px solid rgba(196,153,48,.22)}
 .stat{background:var(--ink);padding:clamp(32px,4vw,50px) clamp(18px,2.4vw,30px)}
 .stat b{display:block;font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-size:clamp(42px,5.2vw,70px);color:#E8C468;line-height:1;letter-spacing:-.02em}
 .stat h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:18px 0 10px;font-weight:600}
@@ -2964,13 +2965,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <span class="hexdrop"><span class="hexdrop-card"><b>Monthly Protocol</b>Five tubes a month (four plus one free) at $7.00 per day. Founding price is locked for life, skip or cancel anytime.</span></span>
     </a>
     <a href="#ritual" class="hexnav-item">PROTOCOL
-      <span class="hexdrop"><span class="hexdrop-card"><b>The Protocol</b>Two tablets a day, dissolved in water. The dose compounds over time, built on a natural active Antipodean matrix.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>The Protocol</b>Three tablets a day, dissolved in water. The dose compounds over time, built on a natural active Antipodean matrix.</span></span>
     </a>
     <a href="#rita" class="hexnav-item">RITA<br>ROCKS
       <span class="hexdrop"><span class="hexdrop-card"><b>Rita Rocks</b>Rita Ora talks longevity and her own wellness routine, in Women's Health.</span></span>
     </a>
     <a href="#singlepack" class="hexnav-item">TEST<br>TUBE
-      <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, 14 tablets = one week, seven servings at $8.50 per day. Purchase price fully credited if you subscribe afterward.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, 21 tablets = one week, seven servings at $8.50 per day. Purchase price fully credited if you subscribe afterward.</span></span>
     </a>
     <a href="#matrix" class="hexnav-item">STACK
       <span class="hexdrop"><span class="hexdrop-card"><b>The Stack</b>The full HONI<i>ORA</i> recipe. Every active ingredient in the formula, dosed and explained.</span></span>
@@ -3026,7 +3027,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#singlepack" class="hexbtn-m-link" aria-label="Reserve a Single Pack test tube">
         <span class="hexbtn-hex" aria-hidden="true"><span class="hexbtn-hex-in"><span>RESERVE</span><span>TEST TUBE</span></span></span>
       </a>
-      <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, 14 tablets = one week, seven servings at $8.50 per day. Purchase price fully credited if you subscribe afterward.</span></span>
+      <span class="hexdrop"><span class="hexdrop-card"><b>Single Pack</b>One tube, 21 tablets = one week, seven servings at $8.50 per day. Purchase price fully credited if you subscribe afterward.</span></span>
     </div>
     <button class="burger burger-right" id="burgerRight" aria-label="Open the Founding menu" aria-haspopup="true" aria-expanded="false" aria-controls="burgerDropRight"><span></span><span></span></button>
     <div class="burger-drop burger-drop-right" id="burgerDropRight">
@@ -3099,22 +3100,22 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="hmsg hcaps">SWAP OUT THE TEDIOUS AND MESSY POWDERS AND PILLS FOR OUR DELICIOUSLY SIMPLE AND POTENT MORNING PROTOCOL</div>
           <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Cr.01&trade; Creatine Monohydrate</b><i class="hpop">ATP energy &middot; Strength &amp; power</i><s>3,000 mg</s></div>
-          <div class="hact"><b>Balanced Hydration Matrix</b><i class="hpop">Mineral salts &middot; Na &middot; K &middot; Mg</i><s>1,400 mg</s></div>
+          <div class="hact"><b>Balanced Hydration Matrix</b><i class="hpop">Mineral salts &middot; Na &middot; K &middot; Mg</i><s>2,190 mg</s></div>
           <div class="hact"><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b><i class="hpop">Mitochondrial antioxidant</i><s>20 mg</s></div>
           <div class="hact"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><i class="hpop">Prebiotic &middot; Gut health matrix</i><s>600 mg</s></div>
           <div class="hact"><b>Pomma+<sup class="rn">&reg;</sup> Pomegranate Extract</b><i class="hpop">Antioxidant &middot; Polyphenol support</i><s>500 mg</s></div>
           <div class="hact"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><i class="hpop">Metabolic &middot; GLP-1 support</i><s>600 mg</s></div>
-          <div class="hact"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><i class="hpop">Spore probiotic &middot; Gut microbiome</i><s>1.5B CFU</s></div>
-          <div class="hact"><b>VasoDrive-AP<sup class="rn">&reg;</sup> AmealPeptide</b><i class="hpop">Endothelial &middot; Vascular support</i><s>508 mg</s></div>
-          <div class="hact"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><i class="hpop">Micro-vascular &middot; Brain flow</i><s>100 mg</s></div>
+          <div class="hact"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><i class="hpop">Spore probiotic &middot; Gut microbiome</i><s>1.8B CFU</s></div>
           <div class="hact"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><i class="hpop">Metabolic &middot; GLP-1 &amp; glycemic support</i><s>200 mg</s></div>
           <div class="hact"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><i class="hpop">Micro-vascular flow</i><s>100 mg</s></div>
-          <div class="hact"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><i class="hpop">Endogenous nitric oxide</i><s>50 mg</s></div>
+          <div class="hact"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><i class="hpop">Endogenous nitric oxide</i><s>60 mg</s></div>
+          <div class="hact"><b>BioAstin<sup class="rn">&reg;</sup> Astaxanthin</b><i class="hpop">Antioxidant &middot; Carotenoid</i><s>12 mg</s></div>
+          <div class="hact"><b>NMN</b><i class="hpop">NAD+ precursor &middot; Cellular energy</i><s>750 mg</s></div>
           <div class="hact"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><i class="hpop">Antioxidant &middot; Blood lipid protection</i><s>300 mg</s></div>
           <div class="hact"><b>Landkind<sup class="rn">&reg;</sup> Rhodiola Rosea</b><i class="hpop">Adaptogen &middot; Stress response</i><s>60 mg</s></div>
           <div class="hact"><b>Braincurrant<sup class="rn">&reg;</sup></b><i class="hpop">Cognitive &middot; Mood &amp; focus</i><s>300 mg</s></div>
-          <div class="hact"><b>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</b><i class="hpop">Alpha-wave &middot; Calm focus</i><s>200 mg</s></div>
-          <div class="hact"><b>Vitamin A Retinyl Palmitate</b><i class="hpop">Mucosal barrier &middot; Immune support</i><s>900 mcg RAE</s></div>
+          <div class="hact"><b>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</b><i class="hpop">Alpha-wave &middot; Calm focus</i><s>450 mg</s></div>
+          <div class="hact"><b>Vitamin A Retinyl Palmitate</b><i class="hpop">Mucosal barrier &middot; Immune support</i><s>1,800 mcg RAE</s></div>
         </div>
       </div>
     </div>
@@ -3156,17 +3157,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
            rather than letting the tag/stats/CTA lines below it shift up to fill it.
            Mobile/lite (<=1000px) is untouched: this stays display:none there and
            the original pair renders normally, visible, in its usual spot. -->
-      <div class="hero-precede hero-solution-desktop"><span class="precede-solution" id="precedeSolutionDesktop">Honi<i>Ora</i>'s morning solution:</span><br><span class="precede-body precede-fit" id="precedeFitDesktop">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
+      <div class="hero-precede hero-solution-desktop"><span class="precede-solution" id="precedeSolutionDesktop">Honi<i>Ora</i>'s morning solution:</span><br><span class="precede-body precede-fit" id="precedeFitDesktop">3 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
       <img class="hero-tube-shot" src="hero-pack-tube-cutout.png" alt="HONIORA gold tube" width="1600" height="437" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YOUR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YOUR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YOUR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YOUR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">3 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &amp; Made in USA</p>
-      <div class="hero-solution-right"><span class="hsr-lead">Honi<i>Ora</i>'s morning solution:</span><span class="hsr-body">2 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
+      <div class="hero-solution-right"><span class="hsr-lead">Honi<i>Ora</i>'s morning solution:</span><span class="hsr-body">3 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
       </div>
       <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
@@ -3178,14 +3179,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li>Feiolix<sup class="rn">&reg;</sup> feijoa</li>
         <li>Braincurrant<sup class="rn">&reg;</sup></li>
         <li>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</li>
-        <li>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</li>
-        <li>VasoDrive-AP<sup class="rn">&reg;</sup> peptide</li>
         <li>Careflow<sup class="rn">&reg;</sup> mango</li>
         <li>Eriomin<sup class="rn">&reg;</sup> lemon</li>
         <li>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</li>
         <li>Landkind<sup class="rn">&reg;</sup> Rhodiola rosea</li>
         <li>Hytolive<sup class="rn">&reg;</sup> olive extract</li>
         <li>S7<sup class="rn">&reg;</sup> Plant Matrix</li>
+        <li>BioAstin<sup class="rn">&reg;</sup> astaxanthin</li>
+        <li>NMN (nicotinamide mononucleotide)</li>
         <li>Vitamin A Retinyl Palmitate</li>
       </ul>
       <div class="hero-meta rv">
@@ -3205,21 +3206,21 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="creatine_HCL-lite.webp"><img width="820" height="820" src="creatine_HCL.webp" alt="Cr.01&trade; creatine crystals" loading="lazy"></picture><figcaption class="icap"><b>Cr.01&trade; Creatine Monohydrate</b><s>3,000 mg</s><u class="ifn">ENERGY &amp; STRENGTH</u><i>Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength and healthy aging. Sourced as Jenerise Cr.01&trade;, SGS verified lot by lot, content assay 99.9%.</i></figcaption></figure></div>
           <div class="ishot ishot-livaux"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="livaux_gold_kiwi-lite.webp"><img width="820" height="820" src="livaux_gold_kiwi.webp" alt="Livaux gold kiwifruit" loading="lazy"></picture><figcaption class="icap"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><s>600 mg NZ</s><u class="ifn">GUT HEALTH</u><i>Doubled <em>F. prausnitzii</em> in 70% of trial participants within 28 days, lifting butyrate for the colonic lining. A pectin matrix carrying 41 phenolics, fermented slowly along the full colon instead of spiking gas at the top. Its soluble pectins add full-bodied tropical fruit texture through the mid palate, boosted by a natural golden kiwi flavour.</i></figcaption></figure></div>
           <div class="ishot ishot-feijoa"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.webp"><img width="820" height="820" src="feijoa.webp" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg NZ</s><u class="ifn">GLP-1 SUPPORT</u><i>Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand. Its abscisic acid acts on the L-cells in your gut, shown in lab and animal models to raise GLP-1. Its fibre ferments into propionate, which prompts the same release by a second route. Both aim at your own GLP-1, not a synthetic analogue. Your own GLP-1 slows gastric emptying and supports steadier glucose handling. Two routes, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="cGP-Pro New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b><s>100 mg NZ</s><u class="ifn">BRAIN FLOW</u><i>Supports the delicate capillaries which feed brain cells and clear waste. Stimulates brain-derived neurotrophic factor, a key protein helping brain cells grow and communicate. Higher endogenous cGP is linked to better memory and learning in adults.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="mitoq-lite.webp"><img width="820" height="820" src="mitoq.webp" alt="MitoQ mitoquinol mesylate" loading="lazy"></picture><figcaption class="icap"><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b><s>20 mg NZ</s><u class="ifn">MITOCHONDRIAL SUPPORT</u><i>Mitochondria-targeted antioxidant from MitoQ, holder of over 60 patents globally. Designed to address cellular oxidative stress and support energy, vitality and healthy aging. In a placebo-controlled crossover trial of 20 adults aged 60 to 79, 20 mg a day for 6 weeks raised artery flow-mediated dilation by 42% over placebo.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="vasodrive_ap-lite.webp"><img width="820" height="820" src="vasodrive_ap.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></picture><figcaption class="icap"><b>VasoDrive-AP<sup class="rn">&reg;</sup></b><s>508 mg NZ</s><u class="ifn">ARTERIAL ELASTICITY</u><i>A milk-derived tripeptide that blocks ACE, supporting arterial elasticity. Backed by 30 or more published studies, including over a dozen double-blind, placebo-controlled human trials.</i></figcaption></figure></div>
           <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.webp"><img width="820" height="820" src="pomma_pomegranate.webp" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b><s>500 mg</s><u class="ifn">ANTIOXIDANT SUPPORT</u><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.webp"><img width="820" height="820" src="eriomin_lemon.webp" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><u class="ifn">GLP-1 SUPPORT</u><i>A standardised eriocitrin extract with its own pathway to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg NZ</s><u class="ifn">FOCUS &amp; MOOD</u><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>50 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 50 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>60 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 60 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="zanthin-lite.webp"><img width="820" height="820" src="zanthin.webp" alt="Natural astaxanthin" loading="lazy"></picture><figcaption class="icap"><b>BioAstin<sup class="rn">&reg;</sup> Astaxanthin</b><s>12 mg</s><u class="ifn">ANTIOXIDANT SUPPORT</u><i>Natural astaxanthin from Haematococcus pluvialis microalgae grown in Kailua-Kona, Hawaii by Cyanotech and extracted on site with supercritical CO2, without solvents. A carotenoid antioxidant at 12 mg per serving.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="NMN nicotinamide mononucleotide powder" loading="lazy"></picture><figcaption class="icap"><b>NMN Nicotinamide Mononucleotide</b><s>750 mg</s><u class="ifn">CELLULAR ENERGY</u><i>Nicotinamide mononucleotide is a direct precursor the body uses to make NAD+, a coenzyme involved in cellular energy metabolism. At 750 mg per serving it sits beside creatine and MitoQ on the Power axis.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><u class="ifn">MICROCIRCULATION</u><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><u class="ifn">BLOOD LIPID PROTECTION</u><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONI<i>ORA</i> delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.5 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><u class="ifn">BARRIER &amp; IMMUNE SUPPORT</u><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.8 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>1,800 mcg RAE</s><u class="ifn">BARRIER &amp; IMMUNE SUPPORT</u><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><u class="ifn">STRESS RESPONSE</u><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 15 mg</s><u class="ifn">CITRUS AROMA</u><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.webp"><img width="820" height="820" src="passionfruit.webp" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 40 mg</s><u class="ifn">TROPICAL AROMA</u><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.webp"><img width="820" height="786" src="thaumatin.webp" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>40 mg</s><u class="ifn">NATURAL SWEETNESS</u><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 13 mg</s><u class="ifn">CITRUS AROMA</u><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="passionfruit-lite.webp"><img width="820" height="820" src="passionfruit.webp" alt="Passionfruit" loading="lazy"></picture><figcaption class="icap"><b>Natural Passionfruit Flavor</b><s>Flavour system &middot; 33 mg</s><u class="ifn">TROPICAL AROMA</u><i>A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that fills in underneath the yuzu and rounds the finish.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="thaumatin-lite.webp"><img width="820" height="786" src="thaumatin.webp" alt="Katemfe fruit, source of Pure Talin thaumatin" loading="lazy"></picture><figcaption class="icap"><b>Thaumatin<sup class="rn">&reg;</sup> Pure Talin</b><s>29 mg</s><u class="ifn">NATURAL SWEETNESS</u><i>It is protein, not a sugar, harvested from the African katemfe fruit, 2,000 to 3,000 times sweeter than sugar (hence the tiny amount).</i></figcaption></figure></div>
         </div>
       </div>
     </div>
@@ -3289,11 +3290,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">01 / The Ritual</p>
       <h2 class="serif oneline">Sixty seconds. <em>Then you own the day.</em></h2>
-      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop two tabs, let them fizz, and use the minute to set the day's first intention, before the phone, before the noise. <br>Carpe diem starts small: one minute, chosen on purpose, every day.</p>
+      <p class="lede">HONI<i>ORA</i> turns sixty seconds into a daily pause. Drop three tabs, let them fizz, and use the minute to set the day's first intention, before the phone, before the noise. <br>Carpe diem starts small: one minute, chosen on purpose, every day.</p>
     </div>
     <div class="ritual-grid">
       <div class="rv">
-        <div class="step"><span class="k">01</span><div><h3>Drop 2 tabs</h3><p>Into 350 ml of cold water. No scoop, no shaker, no measuring, and no mess.</p></div></div>
+        <div class="step"><span class="k">01</span><div><h3>Drop 3 tabs</h3><p>Into 400 ml of cold water. No scoop, no shaker, no measuring, and no mess.</p></div></div>
         <div class="step"><span class="k">02</span><div><h3>Let it FIZZ and take the time to plan your day</h3><p>The effervescent engine self-mixes the entire matrix. Complete disintegration in sixty seconds without mechanical stirring.</p></div></div>
         <div class="step"><span class="k">03</span><div><h3>Drink it cold</h3><p>Natural yuzu, passionfruit and golden kiwi. Compatible with fasted and low-glycemic protocols.</p></div></div>
       </div>
@@ -3314,13 +3315,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="unit-head">
       <div class="tablet-roll">
         <img width="1024" height="1024" class="tablet-roll-l" src="honifizz-tablet-single.jpg" alt="A HONIORA effervescent tablet, 25 mm round flat-faced bevel-edged, embossed with the HONIORA name">
+        <img width="1024" height="1024" class="tablet-roll-m" src="honifizz-tablet-single.jpg" alt="" aria-hidden="true">
         <img width="1024" height="1024" class="tablet-roll-r" src="honifizz-tablet-single.jpg" alt="" aria-hidden="true">
       </div>
       <h2 class="serif rv">A <em>Natural Active Antipodean Matrix</em></h2>
     </div>
     <div class="sec-head rv">
       <p class="eyebrow dim">02 / The Protocol</p>
-      <h2 class="serif oneline long">2 tabs. Every day. <em>It compounds.</em></h2>
+      <h2 class="serif oneline long">3 tabs. Every day. <em>It compounds.</em></h2>
       <p class="lede">You feel something within the first glass. Mostly it is cumulative : a good habit, HONI<i>ORA</i>  supports and boosts your health with daily, continual use combined with diet and exercise.</p>
     </div>
 
@@ -3346,7 +3348,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><b>Livaux<sup class="rn">&reg;</sup> gold kiwifruit</b><em>F. prausnitzii</em> roughly doubled in 70% of trial participants within 28 days, lifting butyrate for the colonic lining.</li>
           <li><b>Feiolix<sup class="rn">&reg;</sup> feijoa</b>Your own GLP-1 released at every serving, not a synthetic analogue.</li>
           <li><b>MGO 850+ M&#257;nuka &amp; Fiberest<sup class="rn">&reg;</sup> HF</b>Prebiotic fibre and methylglyoxal support a settled, well-fed gut lining.</li>
-          <li><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b>1.5 billion CFU of spore probiotic arrive in every glass, alongside the prebiotic fibres they are dosed with.</li>
+          <li><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b>1.8 billion CFU of spore probiotic arrive in every glass, alongside the prebiotic fibres they are dosed with.</li>
         </ul>
       </div>
 
@@ -3356,8 +3358,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p class="when">Weeks 4 to 12</p>
         <ul>
           <li><b>Cr.01&trade; Creatine</b>Sustained daily dosing is how muscle creatine stores are built and held at saturation over time.</li>
-          <li><b>VasoDrive-AP<sup class="rn">&reg;</sup></b>ACE inhibition supporting arterial elasticity, behind 30 or more double-blind studies.</li>
-          <li><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b>Free IGF-1 mobilised to support microcapillary architecture through the loop.</li>
+          <li><b>BioAstin<sup class="rn">&reg;</sup> Astaxanthin</b>A natural carotenoid antioxidant from Hawaiian-grown microalgae, at 12 mg per serving.</li>
         </ul>
       </div>
 
@@ -3370,13 +3371,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><b>Mānuka and Fiberest<sup class="rn">&reg;</sup> HF</b>The gut barrier held, day after day, rather than rebuilt from scratch.</li>
           <li><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b>6 mg hydroxytyrosol a serving, above the 5 mg EFSA threshold for protecting blood lipids from oxidative stress.</li>
           <li><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b>Whole-fruit polyphenols added to the daily antioxidant load.</li>
-          <li><b>Vitamin A Retinyl Palmitate</b>900 mcg RAE a serving for epithelial barriers and mucosal immunity.</li>
+          <li><b>Vitamin A Retinyl Palmitate</b>1,800 mcg RAE a serving for epithelial barriers and mucosal immunity.</li>
           <li><b>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</b>20 mg a serving of mitochondria-targeted antioxidant, beside the daily creatine.</li>
+          <li><b>NMN</b>750 mg a serving of an NAD+ precursor, supporting cellular energy metabolism with daily use.</li>
         </ul>
       </div>
     </div>
 
-    <p class="small protonote rv">Timings follow each ingredient&rsquo;s published mechanism at the doses a two-tablet HONI<i>ORA</i> serving delivers. Ingredient-level evidence only, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>.</p>
+    <p class="small protonote rv">Timings follow each ingredient&rsquo;s published mechanism at the doses a three-tablet HONI<i>ORA</i> serving delivers. Ingredient-level evidence only, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>.</p>
   </div>
 </section>
 
@@ -3387,7 +3389,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="sec-head rv">
         <p class="eyebrow">Pre-launch &middot; Reserve now</p>
         <h2 class="serif">HONI FOUNDERS LIMITED <em>OFFER</em>.</h2>
-        <p class="lede">Choose the tier you want and we will reserve it for you, with no charge until launch and with free USA shipping always. <br>One test tube = one week = fourteen tablets. <br> Sign up for our HONI<i>ORA</i> protocol as a monthly subscriber and receive five tubes for the price of four every month, plus <button type="button" class="gift-link js-gift-trigger" aria-haspopup="dialog" aria-controls="giftLightbox">your free limited edition* HONI<i>ORA</i> founders gift pack</button>.</p>
+        <p class="lede">Choose the tier you want and we will reserve it for you, with no charge until launch and with free USA shipping always. <br>One test tube = one week = twenty-one tablets. <br> Sign up for our HONI<i>ORA</i> protocol as a monthly subscriber and receive five tubes for the price of four every month, plus <button type="button" class="gift-link js-gift-trigger" aria-haspopup="dialog" aria-controls="giftLightbox">your free limited edition* HONI<i>ORA</i> founders gift pack</button>.</p>
       </div>
       <picture class="store-pack-pic">
         <source media="(max-width:1000px)" srcset="hero-packshot-cutout-lite.png">
@@ -3409,7 +3411,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <img class="plan-img" src="plan-tube-single.jpg" alt="HONIORA single test tube, gold cap, HoniOra printed down the side" width="270" height="907" loading="lazy">
         </div>
         <ul class="plan-list">
-          <li>1 tube &middot; 14 tablets &middot; 7 daily servings</li>
+          <li>1 tube &middot; 21 tablets &middot; 7 daily servings</li>
           <li>The whole 20-active matrix, full dose</li>
           <li>$59.50 credited to subscription</li>
           <li>Free USA shipping, always</li>
@@ -3425,7 +3427,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p class="plan-what">Four tubes every month, plus an extra free tube (Five total). Enjoy your bonus or share the love.</p>
         <button type="button" class="gift-trigger js-gift-trigger" id="giftTrigger" aria-haspopup="dialog" aria-controls="giftLightbox">Free Founders gift pack <span class="ar">&rarr;</span></button>
         <ul class="plan-list">
-          <li>5 tubes &middot; 70 tablets &middot; 35 daily servings</li>
+          <li>5 tubes &middot; 105 tablets &middot; 35 daily servings</li>
           <li>The extra tube ships every month, not just the first</li>
           <li>Founding price locked for life</li>
           <li>Skip, pause or cancel any time</li>
@@ -3726,6 +3728,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <ul>
           <li><i>Cr.01&trade; Creatine Monohydrate</i><b>3,000 mg</b></li>
           <li><i>MitoQ<sup class="rn">&reg;</sup> Mitoquinol</i><b>20 mg</b></li>
+          <li><i>NMN</i><b>750 mg</b></li>
         </ul>
         <p>Cr.01&trade; Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP, your cells&rsquo; basic energy currency, during short, intense effort. This is the mechanism behind creatine&rsquo;s strength and power research base, and grounds its place in healthy aging.<br><br>MitoQ<sup class="rn">&reg;</sup> works super efficiently inside your mitochondria beside creatine. It is a unique groundbreaking, mitochondria-targeted antioxidant invented in New Zealand, holding over 60 patents globally.</p>
       </div>
@@ -3739,8 +3742,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</i><b>1,500 mg</b></li>
           <li><i>Feiolix<sup class="rn">&reg;</sup> Feijoa</i><b>600 mg</b></li>
           <li><i>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</i><b>200 mg</b></li>
-          <li><i>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</i><b>1.5 billion CFU</b></li>
-          <li><i>Vitamin A Retinyl Palmitate</i><b>900 mcg RAE</b></li>
+          <li><i>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</i><b>1.8 billion CFU</b></li>
+          <li><i>Vitamin A Retinyl Palmitate</i><b>1,800 mcg RAE</b></li>
         </ul>
         <p>Livaux<sup class="rn">&reg;</sup> Gold Kiwi powder feeds <em>F. prausnitzii</em> in your gut, which produces butyrate that nourishes the colonic lining and repairs tight junctions.<br><br>M&#257;nuka&rsquo;s high methylglyoxal clears pathogens out of the way so the beneficial population has room to grow.<br><br>The Fiberest<sup class="rn">&reg;</sup> HF fibre matrix, keeps the honey crystals stable and adds fermentable substrate of its own.<br><br>LactoSpore<sup class="rn">&reg;</sup> <em>Bacillus coagulans</em> fills the room. Its spore coat carries the bacteria through stomach acid, they germinate in the intestine and produce lactic acid, and arrive in a gut already supplied with fermentable fibre by Livaux<sup class="rn">&reg;</sup> and Fiberest<sup class="rn">&reg;</sup>.<br><br>Vitamin A as retinyl palmitate supports the mucous membranes lining the gut, so the butyrate-fed lining and the new bacteria meet maintained tissue.<br><br>Feiolix<sup class="rn">&reg;</sup> and Eriomin<sup class="rn">&reg;</sup> add to your own GLP-1 (<a href="#glp1" style="color:inherit;text-decoration:underline">four routes</a>). A barrier which holds absorbs, and everything downstream depends on this.</p>
       </div>
@@ -3751,15 +3754,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <p class="role">The transport network</p>
         <ul>
           <li><i>Pomma+<sup class="rn">&reg;</sup> Pomegranate</i><b>500 mg</b></li>
-          <li><i>VasoDrive-AP<sup class="rn">&reg;</sup></i><b>508 mg</b></li>
           <li><i>Careflow<sup class="rn">&reg;</sup> mango fruit</i><b>100 mg</b></li>
-          <li><i>S7<sup class="rn">&reg;</sup> Plant Blend</i><b>50 mg</b></li>
+          <li><i>S7<sup class="rn">&reg;</sup> Plant Blend</i><b>60 mg</b></li>
           <li><i>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</i><b>300 mg</b></li>
-          <li><i>Taurine</i><b>1,000 mg</b></li>
-          <li><i>Magnesium Malate</i><b>500 mg</b></li>
-          <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>55 mg</b></li>
+          <li><i>BioAstin<sup class="rn">&reg;</sup> Astaxanthin</i><b>12 mg</b></li>
+          <li><i>Taurine</i><b>500 mg</b></li>
+          <li><i>Magnesium Malate</i><b>1,050 mg</b></li>
+          <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>105 mg</b></li>
         </ul>
-        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal, a pathway optimized in our formulation by pairing Pomma+<sup class="rn">&reg;</sup> directly with LactoSpore and our precision prebiotic matrix to ensure efficient biotransformation during the post-ingestion phase.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
+        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal, a pathway optimized in our formulation by pairing Pomma+<sup class="rn">&reg;</sup> directly with LactoSpore and our precision prebiotic matrix to ensure efficient biotransformation during the post-ingestion phase.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>BioAstin<sup class="rn">&reg;</sup> adds a natural astaxanthin carotenoid to the antioxidant load.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
       </div>
 
       <div class="tri" data-pillar="brain">
@@ -3767,17 +3770,16 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <h3>Use</h3>
         <p class="role">The destination</p>
         <ul>
-          <li><i>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</i><b>100 mg</b></li>
-          <li><i>L-Theanine</i><b>200 mg</b></li>
+          <li><i>L-Theanine</i><b>450 mg</b></li>
           <li><i>Braincurrant<sup class="rn">&reg;</sup></i><b>300 mg</b></li>
         </ul>
-        <p>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant. cGP-Pro<sup class="rn">&reg;</sup> is the world&rsquo;s only standardised cGP ingredient. Derived from New Zealand blackcurrant cultivars and combined with collagen, it is produced in NZ using a proprietary process which delivers cGP in stable, standardised form. Backed by science and validated through rigorous independent testing, cGP-Pro<sup class="rn">&reg;</sup> helps replenish and maintain optimal cGP levels in the body and brain, supporting vitality, cognitive health and graceful ageing.<br><br>L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes more New Zealand blackcurrant anthocyanins for enhanced focus, memory and mood balance.</p>
+        <p>L-Theanine upregulates alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes New Zealand blackcurrant anthocyanins for enhanced focus, memory and mood balance.</p>
       </div>
     </div>
 
     <div class="loop rv">
       <div class="loopdiag4" role="img" aria-label="Strength, Gut, Heart and Brain as one loop, passing energy from circle to circle"><span class="lc lc-brain">Brain</span><span class="lc lc-gut">Gut</span><span class="lc lc-heart">Heart</span><span class="lc lc-strength">Strength</span></div>
-      <p><strong>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant closes the loop.</strong><br>It frees IGF-1 from its binding protein, and free IGF-1 drives angiogenesis in the cerebral capillary bed, at 100&nbsp;mg per serving.<br>Magnesium and Zinc run underneath as enzymatic cofactors, holding cellular processes steady.</p>
+      <p><strong>Braincurrant<sup class="rn">&reg;</sup> closes the loop.</strong><br>New Zealand blackcurrant anthocyanins finish the chain with support for focus, memory and mood balance, at 300&nbsp;mg per serving.<br>Magnesium and Zinc run underneath as enzymatic cofactors, holding cellular processes steady.</p>
     </div>
 
     <p class="small rv" style="margin-top:22px">This describes the mechanistic rationale behind how the formula was built. The evidence sits with the individual branded ingredients, listed in full below. Ingredient-level evidence only, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>.</p>
@@ -3814,17 +3816,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     <div class="no-head rv">
       <p class="eyebrow dim">In HONI<i>ORA</i></p>
-      <h3 class="serif">Four ingredients. Two routes to your own NO.</h3>
+      <h3 class="serif">Three ingredients. Two routes to your own NO.</h3>
     </div>
 
     <div class="no-grid rv">
-      <div class="no-card">
-        <span class="no-route">Enzyme route</span>
-        <h4>VasoDrive-AP<sup class="rn">&reg;</sup></h4>
-        <b class="no-dose">508 mg</b>
-        <p>Casein tripeptides VPP and IPP. They support arterial flexibility by raising endothelial nitric oxide synthase (eNOS), the enzyme that makes NO, and by inhibiting angiotensin-converting enzyme. Contains milk.</p>
-        <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/23566677/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 23566677 &nearr;</span></a>
-      </div>
       <div class="no-card">
         <span class="no-route">Enzyme route</span>
         <h4>Careflow<sup class="rn">&reg;</sup> Mango Fruit</h4>
@@ -3835,7 +3830,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="no-card">
         <span class="no-route sig">Signal route</span>
         <h4>S7<sup class="rn">&reg;</sup> Plant Blend</h4>
-        <b class="no-dose">50 mg</b>
+        <b class="no-dose">60 mg</b>
         <p>Seven plant extracts: green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale. S7<sup class="rn">&reg;</sup> acts on the cell&rsquo;s own redox signalling to raise the NO you already make, rather than supplying nitrate.</p>
         <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38612462/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 38612462 &nearr;</span></a>
       </div>
@@ -3848,7 +3843,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
 
-    <p class="no-total rv"><b>1,158 mg</b> of NO-pathway ingredients in every serving.</p>
+    <p class="no-total rv"><b>660 mg</b> of NO-pathway ingredients in every serving.</p>
 
     <p class="no-move rv"><span class="no-line">Movement counts too. Regular walking creates shear stress against arterial walls, which prompts endothelial cells to produce NO.</span> <span class="no-line">HONI<i>ORA</i> works alongside your daily steps.</span></p>
 
@@ -3881,7 +3876,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><span class="x">01</span><div><strong>Optimal vitality at every age</strong><br> <span class="d">The clinical record for creatine monohydrate spans more than 40 years and 680 peer-reviewed studies. Jenerise Cr.01&trade; positions that record where consumer demand is heading next: not just athletic output, but long-term and full-body.</span></div></li>
           <li><span class="x">02</span><div><strong>ATP, regenerated faster.</strong> <span class="d">Creatine is stored in muscle as phosphocreatine, which rapidly donates a phosphate group to rebuild ATP during short, intense effort. That is the mechanism behind its strength and power research base.</span></div></li>
           <li><span class="x">03</span><div><strong>HONI<i>ORA</i> delivers 3,000 mg per serving:</strong> <span class="d">A well-studied, well-tolerated daily dose backed by extensive research.</span></div></li>
-          <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside VasoDrive-AP<sup class="rn">&reg;</sup>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant and Careflow<sup class="rn">&reg;</sup> so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
+          <li><span class="x">04</span><div><strong>Paired with the vascular and gut stack.</strong> <span class="d">Creatine works alongside Careflow<sup class="rn">&reg;</sup> and S7<sup class="rn">&reg;</sup> for blood flow, and NMN for cellular energy, so the muscle getting the energy substrate also gets the blood flow to use it.</span></div></li>
           <li><span class="x">05</span><div><strong>Electrolytes support creatine uptake.</strong> <span class="d">The creatine transporter depends on sodium and chloride, while potassium, magnesium and sodium together regulate the intracellular fluid balance and membrane potential that support nutrient uptake and muscle contraction during training. HONI<i>ORA</i>&rsquo;s Balanced Hydration Matrix supplies sodium, potassium and magnesium alongside the Cr.01&trade; Creatine dose.</span></div></li>
         </ul>
       </div>
@@ -3936,16 +3931,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="src">Livaux<sup class="rn">&reg;</sup> · 600 mg per serving</span>
       </div>
       <div class="stat">
-        <b data-count="26" data-suffix="%">26%</b>
+        <b data-count="24" data-suffix="%">24%</b>
         <h4>Of the formula, by mass</h4>
-        <p>Cr.01&trade; Creatine is the single largest active in the tablet, roughly 26 percent of the entire compression blend by weight.</p>
+        <p>Cr.01&trade; Creatine is the single largest active in the tablet, roughly 24 percent of the entire compression blend by weight.</p>
         <span class="src">Cr.01&trade; Creatine Monohydrate · 3,000 mg per serving</span>
-      </div>
-      <div class="stat">
-        <b data-count="30" data-prefix="+" data-suffix="">30+</b>
-        <h4>Peer-reviewed VasoDrive-AP trials</h4>
-        <p>More than 30 published double-blind studies sit behind the ACE-inhibiting VPP and IPP casein lactotripeptides.</p>
-        <span class="src">VasoDrive-AP<sup class="rn">&reg;</sup> · 508 mg per serving</span>
       </div>
       <div class="stat">
         <b data-count="20" data-suffix="">20</b>
@@ -3969,7 +3958,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="sec-head rv">
       <p class="eyebrow dim">08 TheStack /</p>
       <h2 class="serif">The HONI<i>ORA</i> recipe</h2>
-      <p class="lede">This is the entire stack, the mechanism behind them and the published research, each is full dose delivered in a two-tablet serving.</p>
+      <p class="lede">This is the entire stack, the mechanism behind them and the published research, each is full dose delivered in a three-tablet serving.</p>
     </div>
     <div class="matrix rv">
       <div class="rowhead mgrid"><span>Active</span><span>Function</span><span>Per serving</span><span>Mechanism</span></div>
@@ -4028,30 +4017,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid">
         <div class="name">LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans<i>MTCC 5856 &middot; 15B spores/g</i></div>
         <div><span class="fn">Spore probiotic<small>Gut microbiome</small></span></div>
-        <div class="dose">1.5 billion CFU<small>100 mg raw material</small></div>
+        <div class="dose">1.8 billion CFU<small>120 mg raw material</small></div>
         <div class="mech">A spore-forming probiotic that withstands high-speed compression and the tablet's own acid-base effervescent reconstitution, so viable spores reach the gut. Dosed with the formula's Livaux<sup class="rn">&reg;</sup> and MGO M&#257;nuka/Fiberest<sup class="rn">&reg;</sup> prebiotic fibres.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
       <div class="row mgrid">
         <div class="name">Vitamin A Retinyl Palmitate CWS<i>250,000 IU/g &middot; Cold-water-soluble</i></div>
         <div><span class="fn">Barrier &amp; immune<small>Mucosal support</small></span></div>
-        <div class="dose">900 mcg RAE<small>12 mg raw material</small></div>
-        <div class="mech">Cold-water-soluble vitamin A ester (12 mg of powder per serving, 3,000 IU). Supports epithelial barrier integrity and mucosal immunity, reinforcing the gut-lining focus of the prebiotic and probiotic lines.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
+        <div class="dose">1,800 mcg RAE<small>24 mg raw material</small></div>
+        <div class="mech">Cold-water-soluble vitamin A ester (24 mg of powder per serving, 6,000 IU). Supports epithelial barrier integrity and mucosal immunity, reinforcing the gut-lining focus of the prebiotic and probiotic lines.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
-      <div class="row mgrid">
-        <div class="name">VasoDrive-AP<sup class="rn">&reg;</sup> Tripeptides<i>Tatua Dairy Co (NZ) &middot; Contains milk</i></div>
-        <div><span class="fn">Vascular<small>Endothelial support</small></span></div>
-        <div class="dose">508 mg</div>
-        <div class="mech">Casein lactotripeptides VPP and IPP inhibit angiotensin-converting enzyme, preventing the vasoconstriction that stiffens arteries. More than 30 peer-reviewed double-blind studies sit behind this ingredient.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/23566677/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 23566677 &nearr;</span></a><a class="cite sup" href="https://www.maypro.com/products/vasodrive-ap" target="_blank" rel="noopener noreferrer">Ingredient science <span>Maypro &nearr;</span></a></div>
-      </div>
 
-      <div class="row mgrid">
-        <div class="name">cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant<i>Cyclic Glycine-Proline &middot; The cGP Lab Ltd (NZ)</i></div>
-        <div><span class="fn">Micro-vascular<small>Cyclic glycine-proline</small></span></div>
-        <div class="dose">100 mg</div>
-        <div class="mech">A stable lipophilic dipeptide that crosses the blood-brain barrier and competitively displaces IGF-1 from its binding protein IGFBP-3, freeing active IGF-1 to reach receptors and support microcapillary architecture.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/29865234/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 29865234 &nearr;</span></a><a class="cite sup" href="https://www.cgp-health.com/cgp-pro" target="_blank" rel="noopener noreferrer">Ingredient science <span>The cGP Lab &nearr;</span></a></div>
-      </div>
 
       <!-- ---- cognitive & cellular ---- -->
       <div class="grouphead"><b>Cognitive &amp; cellular support</b><i>Calm focus and osmoregulation</i><span class="ln"></span></div>
@@ -4059,14 +4036,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid">
         <div class="name">AlphaWave<sup class="rn">&reg;</sup> L-Theanine<i>Ethical Naturals / USP Direct Compression Grade</i></div>
         <div><span class="fn">Alpha-wave anchor<small>Calm focus</small></span></div>
-        <div class="dose">200 mg</div>
-        <div class="mech">Upregulates alpha-wave neural activity and stimulates GABA, which is what keeps the creatine and vascular actives reading as clarity rather than agitation. A 28-day randomised, double-blind, placebo-controlled trial of AlphaWave<sup class="rn">&reg;</sup> L-Theanine found lower perceived stress and improved sleep quality and cognitive attention; an earlier single-dose crossover trial recorded higher frontal alpha brainwave power after 200 mg. A third randomised, double-blind, placebo-controlled crossover trial, at this same 200 mg dose, found lower subjective stress and lower cortisol after a multitasking stressor; it found no cognitive-performance gain on that task itself, and its posterior alpha-wave increase showed up mainly in participants with higher trait anxiety.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38758503/" target="_blank" rel="noopener noreferrer">Moulin 2024 <span>PMID 38758503 &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s40120-021-00284-x" target="_blank" rel="noopener noreferrer">Evans 2021 <span>Neurol Ther &middot; Crossover &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/26797633/" target="_blank" rel="noopener noreferrer">White 2016 <span>Nutrients &middot; 200 mg dose match &nearr;</span></a><a class="cite sup" href="https://ethicalnaturals.com/products-manufacturing-services/alphawave-l-theanine/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Ethical Naturals &nearr;</span></a></div>
+        <div class="dose">450 mg</div>
+        <div class="mech">Upregulates alpha-wave neural activity and stimulates GABA, which is what keeps the creatine and vascular actives reading as clarity rather than agitation. A 28-day randomised, double-blind, placebo-controlled trial of AlphaWave<sup class="rn">&reg;</sup> L-Theanine found lower perceived stress and improved sleep quality and cognitive attention; an earlier single-dose crossover trial recorded higher frontal alpha brainwave power after 200 mg, a dose below the 450 mg in HONI<i>ORA</i>. A third randomised, double-blind, placebo-controlled crossover trial, also at 200 mg, found lower subjective stress and lower cortisol after a multitasking stressor; it found no cognitive-performance gain on that task itself, and its posterior alpha-wave increase showed up mainly in participants with higher trait anxiety.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38758503/" target="_blank" rel="noopener noreferrer">Moulin 2024 <span>PMID 38758503 &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s40120-021-00284-x" target="_blank" rel="noopener noreferrer">Evans 2021 <span>Neurol Ther &middot; Crossover &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/26797633/" target="_blank" rel="noopener noreferrer">White 2016 <span>Nutrients &middot; 200 mg dose &nearr;</span></a><a class="cite sup" href="https://ethicalnaturals.com/products-manufacturing-services/alphawave-l-theanine/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Ethical Naturals &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
         <div class="name">Taurine<i>USP Crystalline / Granular DC</i></div>
         <div><span class="fn">Cellular energy<small>Osmoregulation</small></span></div>
-        <div class="dose">1,000 mg</div>
+        <div class="dose">500 mg</div>
         <div class="mech">An organic osmolyte that holds cellular fluid balance while supporting energy metabolism, working alongside the magnesium and potassium load rather than competing with it.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
@@ -4097,52 +4074,68 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid compact">
         <div class="name">S7<sup class="rn">&reg;</sup> Plant-Based NO Matrix<i>FutureCeuticals / Clinically Standardized</i></div>
         <div><span class="fn">Nitric oxide<small>Endogenous trigger</small></span></div>
-        <div class="dose">50 mg</div>
+        <div class="dose">60 mg</div>
         <div class="mech">A low-dose blend of seven plant extracts that acts on the cell's own redox signalling to raise endogenous nitric oxide, rather than supplying nitrate for conversion.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38612462/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 38612462 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Magnesium Malate Reacted<i>Albion Minerals / USP</i></div>
         <div><span class="fn">Mineral active<small>Mg</small></span></div>
-        <div class="dose">500 mg<small>&asymp;95 mg elemental Mg</small></div>
+        <div class="dose">1,050 mg<small>&asymp;200 mg elemental Mg</small></div>
         <div class="mech">Magnesium bound to malic acid, a salt that dissolves clean in water. Malate is a natural Krebs cycle intermediate, and magnesium is a cofactor for the enzymes that use ATP.</div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Zinc Bisglycinate<sup class="rn">&reg;</sup> TRAACS<i>Albion Minerals / USP, 20% elemental</i></div>
         <div><span class="fn">Immune<small>Enzymatic cofactor</small></span></div>
-        <div class="dose">55 mg<small>&asymp;11 mg elemental Zn</small></div>
+        <div class="dose">105 mg<small>&asymp;21 mg elemental Zn</small></div>
         <div class="mech">A chelated, well-absorbed zinc form. Zinc is a cofactor for hundreds of enzymes and sits behind normal immune function.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
       <!-- ---- engine ---- -->
+      <div class="grouphead"><b>Cellular energy &amp; antioxidant</b><i>NAD+ precursor and natural astaxanthin</i><span class="ln"></span></div>
+
+      <div class="row mgrid">
+        <div class="name">NMN Nicotinamide Mononucleotide<i>Supplier and grade to be confirmed</i></div>
+        <div><span class="fn">Cellular energy<small>NAD+ precursor</small></span></div>
+        <div class="dose">750 mg</div>
+        <div class="mech">A direct precursor in the pathway the body uses to make NAD+, a coenzyme involved in cellular energy metabolism. It sits beside creatine and MitoQ on the Power axis.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
+      </div>
+
+      <div class="row mgrid">
+        <div class="name">BioAstin<sup class="rn">&reg;</sup> Hawaiian Astaxanthin<i>Cyanotech (Hawaii, USA) &middot; Natural Haematococcus pluvialis, 5% oleoresin</i></div>
+        <div><span class="fn">Antioxidant<small>Carotenoid</small></span></div>
+        <div class="dose">12 mg<small>&asymp;240 mg 5% oleoresin</small></div>
+        <div class="mech">Natural astaxanthin from Haematococcus pluvialis microalgae grown in Kailua-Kona, Hawaii and extracted on site with supercritical CO2, without solvents. A carotenoid antioxidant that sits beside the other Heart-axis actives.<br><a class="cite sup" href="https://www.cyanotech.com/astaxanthin/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Cyanotech &nearr;</span></a></div>
+      </div>
+
       <div class="grouphead"><b>Effervescent &amp; organoleptic system</b><i>What makes it dissolve and taste of something</i><span class="ln"></span></div>
 
       <div class="row mgrid compact">
         <div class="name">Citric Acid Anhydrous<i>Jungbunzlauer / USP Fine Granular</i></div>
         <div><span class="fn">Effervescent<small>Acid engine</small></span></div>
-        <div class="dose">590 mg</div>
+        <div class="dose">750 mg</div>
         <div class="mech">The acid half of the reaction. Granular rather than powdered, which slows the reaction just enough to give an even fizz instead of a violent one.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/40955524/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 40955524 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Malic Acid Anhydrous<i>USP / Fine Granular DC</i></div>
         <div><span class="fn">Effervescent<small>Acid engine</small></span></div>
-        <div class="dose">70 mg</div>
+        <div class="dose">90 mg</div>
         <div class="mech">A second organic acid alongside citric acid, and a Krebs cycle intermediate in its own right. It rounds out the acid engine's profile and softens the tartness a single acid source would leave on the palate.</div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Sodium Bicarbonate Low-Moist<i>Church &amp; Dwight / USP Coarse Granular</i></div>
         <div><span class="fn">Effervescent<small>Alkaline base</small></span></div>
-        <div class="dose">550 mg<small>&asymp;150 mg elemental Na</small></div>
+        <div class="dose">750 mg<small>&asymp;205 mg elemental Na</small></div>
         <div class="mech">The alkaline half. Low-moisture grade is non-negotiable, because residual water would start the reaction inside the tube.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/22864738/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 22864738 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Potassium Bicarbonate<i>Armand Products / USP DC Grade</i></div>
         <div><span class="fn">Effervescent base<small>Potassium electrolyte</small></span></div>
-        <div class="dose">350 mg<small>&asymp;137 mg elemental K</small></div>
+        <div class="dose">390 mg<small>&asymp;152 mg elemental K</small></div>
         <div class="mech">A second alkaline base alongside sodium bicarbonate. It drives the same carbon dioxide reaction while delivering potassium rather than more sodium, which shifts the electrolyte balance of the finished drink.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/41243115/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 41243115 &nearr;</span></a></div>
       </div>
 
@@ -4156,54 +4149,54 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid compact">
         <div class="name">Thaumatin<sup class="rn">&reg;</sup> Pure Talin<i>Naturex / Standardized High-Potency</i></div>
         <div><span class="fn">Organoleptic<small>Sweetener and blocker</small></span></div>
-        <div class="dose">40 mg</div>
+        <div class="dose">29 mg</div>
         <div class="mech">A natural protein from the aril of the katemfe fruit (<em>Thaumatococcus daniellii</em>) of West Africa, roughly 2,000 to 3,000 times sweeter than sugar and a bitterness blocker as well as a sweetener. Digested as dietary protein rather than as a sugar.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38577158/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 38577158 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">De-ammoniated Glycyrrhizin<i>Standardized Licorice Extract</i></div>
         <div><span class="fn">Organoleptic<small>Flavour &amp; sweetness</small></span></div>
-        <div class="dose">10 mg</div>
+        <div class="dose">7 mg</div>
         <div class="mech">A standardised licorice extract used in the flavour system at a low dose, working alongside the thaumatin to round out sweetness and mask residual botanical bitterness.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Natural Passionfruit Flavor<i>High-Ester Spray-Dried</i></div>
         <div><span class="fn">Organoleptic<small>Flavour system</small></span></div>
-        <div class="dose">40 mg</div>
+        <div class="dose">33 mg</div>
         <div class="mech">A South American vine fruit, now grown across New Zealand and the subtropics. Musky, almost fermented sweetness with a tart edge that rounds out the citrus top notes.</div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Natural Golden Kiwi Flavor<i>Spray-Dried Terpene System</i></div>
         <div><span class="fn">Organoleptic<small>Flavour system</small></span></div>
-        <div class="dose">35 mg</div>
+        <div class="dose">29 mg</div>
         <div class="mech">A separate flavour note from the whole-fruit Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit ingredient above: a spray-dried terpene system carrying the fruit's aromatic profile without the prebiotic fibre load.</div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Natural Japanese Yuzu Flavor<i>High-Impact Spray-Dried Terpenes</i></div>
         <div><span class="fn">Organoleptic<small>Flavour core</small></span></div>
-        <div class="dose">15 mg</div>
+        <div class="dose">13 mg</div>
         <div class="mech">The primary aromatic top note. Yuzu carries acidity well, which suits a drink already built around citric acid.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/34500811/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 34500811 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">PEG 6000 Micronized<i>Clariant / NF Grade Lubricant</i></div>
         <div><span class="fn">Processing aid<small>Die lubricant</small></span></div>
-        <div class="dose">55 mg</div>
+        <div class="dose">33 mg</div>
         <div class="mech">Water-soluble die lubricant. Listed here for completeness rather than benefit, though the water-soluble choice avoids the oily film magnesium stearate would leave on the surface of the drink.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/41335364/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 41335364 &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
         <div class="name">Sodium Stearyl Fumarate<sup class="rn">&reg;</sup> Pruv<i>JRS Pharma / USP Boundary Lubricant</i></div>
         <div><span class="fn">Processing aid<small>Boundary lubricant</small></span></div>
-        <div class="dose">21 mg</div>
+        <div class="dose">12 mg</div>
         <div class="mech">The punch-face boundary lubricant, listed here for completeness rather than benefit, ensuring clean ejection from the compression tooling without organic solvent residues.</div>
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 20 actives and 11 excipients, at the dose delivered in a two-tablet serving. Doses are the per-tablet figures from batch record MBR-HNR-V8.9.3-140K doubled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
+    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 20 actives and 11 excipients, at the dose delivered in a three-tablet serving. Doses are the per-tablet figures from batch record MBR V8.9.16 tripled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
   </div>
 </section>
 
@@ -4221,7 +4214,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li><span class="x">02</span><div><strong>Grown in the Bay of Plenty.</strong> <span class="d">Livaux<sup class="rn">&reg;</sup> is made from 100% New Zealand gold kiwifruit, the Zespri Gold3 variety, is grown mainly in the same North Island region as HoniCo's base.<br><a class="cite" href="https://livaux.com/golden-kiwifruit/" target="_blank" rel="noopener noreferrer">Ingredient sourcing <span>livaux.com &nearr;</span></a></span></div></li>
         <li><span class="x">03</span><div><strong>A whole-fruit matrix, not one isolated fibre.</strong> <span class="d">The ingredient's manufacturer reports 41 distinct bioactive phenolic compounds across 27 classes in the whole-fruit powder, against 9 compounds across 7 classes in plain inulin fibre, a common single-fibre prebiotic. Its maker calls Livaux<sup class="rn">&reg;</sup> a 3rd-generation prebiotic, combining fibre, polyphenols and vitamins in one whole-fruit matrix.<br><a class="cite" href="https://livaux.com/the-science-of-livaux/" target="_blank" rel="noopener noreferrer">Ingredient science <span>livaux.com &nearr;</span></a></span></div></li>
         <li><span class="x">04</span><div><strong>Built to work alongside a live culture.</strong> <span class="d">The manufacturer's own testing puts as little as 25 to 50 mg of Livaux<sup class="rn">&reg;</sup> per billion CFU as enough to support probiotic growth and activity, well under the 600 mg full serving HONI<i>ORA</i> delivers.</span></div></li>
-        <li><span class="x">05</span><div><strong>Paired with a named probiotic, not left to chance.</strong> <span class="d">HONI<i>ORA</i> also carries LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans (1.5 billion CFU) and Fiberest<sup class="rn">&reg;</sup> HF fibre alongside Livaux<sup class="rn">&reg;</sup>. The prebiotic fibres feed the gut population that produces butyrate, which nourishes the colonic lining and helps repair tight junctions, while M&#257;nuka's own methylglyoxal clears space in the gut for that population to grow into. The lines are dosed as one connected system, not separate additions.</span></div></li>
+        <li><span class="x">05</span><div><strong>Paired with a named probiotic, not left to chance.</strong> <span class="d">HONI<i>ORA</i> also carries LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans (1.8 billion CFU) and Fiberest<sup class="rn">&reg;</sup> HF fibre alongside Livaux<sup class="rn">&reg;</sup>. The prebiotic fibres feed the gut population that produces butyrate, which nourishes the colonic lining and helps repair tight junctions, while M&#257;nuka's own methylglyoxal clears space in the gut for that population to grow into. The lines are dosed as one connected system, not separate additions.</span></div></li>
         <li><span class="x">06</span><div><strong>An award-winning ingredient.</strong> <span class="d">Livaux<sup class="rn">&reg;</sup> won Ingredient of the Year for microbiome modulation at the 2026 NutraIngredients-Asia Awards.<br><a class="cite" href="https://www.nutraingredients.com/Article/2026/10/05/3rd-gen-prebiotic-whole-fruit-kiwi-extracts-benefits-lie-beyond-fiber/" target="_blank" rel="noopener noreferrer">NutraIngredients <span>nutraingredients.com &nearr;</span></a></span></div></li>
       </ul>
 
@@ -4317,13 +4310,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="lemonrow">
         <div><b>Organic acid drive and gastric priming</b></div>
         <div class="was">Natural citric and malic acid, in whatever quantity that lemon happened to hold.</div>
-        <div class="now"><em>Citric acid anhydrous 590 mg</em> and malic acid anhydrous 70 mg. Stimulates the cephalic-gastric reflex and gastrin secretion.</div>
+        <div class="now"><em>Citric acid anhydrous 750 mg</em> and malic acid anhydrous 90 mg. Stimulates the cephalic-gastric reflex and gastrin secretion.</div>
       </div>
 
       <div class="lemonrow">
         <div><b>Alkaline buffering</b></div>
         <div class="was">Free citric acid, with no buffer.</div>
-        <div class="now"><em>Sodium bicarbonate 550 mg</em> and potassium bicarbonate 350 mg neutralise the acids in the glass, leaving sodium and potassium citrate and malate.</div>
+        <div class="now"><em>Sodium bicarbonate 750 mg</em> and potassium bicarbonate 390 mg neutralise the acids in the glass, leaving sodium and potassium citrate and malate.</div>
       </div>
 
       <div class="lemonrow">
@@ -4335,7 +4328,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="lemonrow">
         <div><b>Vascular protection and circulation</b></div>
         <div class="was">About 18 mg of vitamin C.</div>
-        <div class="now"><em>VasoDrive-AP<sup class="rn">&reg;</sup> 508 mg</em>, cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant 100 mg and Careflow<sup class="rn">&reg;</sup> 100 mg. Micro-vascular support, rather than basic ascorbic acid.</div>
+        <div class="now"><em>Careflow<sup class="rn">&reg;</sup> 100 mg</em> and S7<sup class="rn">&reg;</sup> 60 mg. Micro-vascular support, rather than basic ascorbic acid.</div>
       </div>
     </div>
 
@@ -4502,26 +4495,36 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           </div>
         </div>
         <div class="pconv-item" data-img="7">
-          <img class="pconv-photo" src="pconv-06-cgp-pro-blackcurrant.webp" alt="cGP-Pro® Blackcurrant" loading="lazy">
-          <div class="pconv-badge">
-            <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
-            <div class="pconv-text">
-              <div class="pconv-title">cGP-Pro® Blackcurrant</div>
-              <div class="pconv-desc">Micro-vascular · Brain flow</div><div class="pconv-dose">100 mg</div>
-            </div>
-          </div>
-        </div>
-        <div class="pconv-item" data-img="8">
           <img class="pconv-photo" src="pconv-07-s7-plant-blend.webp" alt="S7® Plant Blend" loading="lazy">
           <div class="pconv-badge">
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
             <div class="pconv-text">
               <div class="pconv-title">S7® Plant Blend</div>
-              <div class="pconv-desc">Endogenous nitric oxide</div><div class="pconv-dose">50 mg</div>
+              <div class="pconv-desc">Endogenous nitric oxide</div><div class="pconv-dose">60 mg</div>
+            </div>
+          </div>
+        </div>
+        <div class="pconv-item" data-img="8">
+          <img class="pconv-photo" src="pconv-13-zanthin.webp" alt="Natural astaxanthin" loading="lazy">
+          <div class="pconv-badge">
+            <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
+            <div class="pconv-text">
+              <div class="pconv-title">BioAstin® Astaxanthin</div>
+              <div class="pconv-desc">Antioxidant · Carotenoid</div><div class="pconv-dose">12 mg</div>
             </div>
           </div>
         </div>
         <div class="pconv-item" data-img="9">
+          <img class="pconv-photo" src="pconv-14-nmn.webp" alt="NMN" loading="lazy">
+          <div class="pconv-badge">
+            <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
+            <div class="pconv-text">
+              <div class="pconv-title">NMN</div>
+              <div class="pconv-desc">NAD+ precursor · Cellular energy</div><div class="pconv-dose">750 mg</div>
+            </div>
+          </div>
+        </div>
+        <div class="pconv-item" data-img="10">
           <img class="pconv-photo" src="pconv-08-careflow-mango.webp" alt="Careflow® Mango Fruit" loading="lazy">
           <div class="pconv-badge">
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
@@ -4531,7 +4534,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             </div>
           </div>
         </div>
-        <div class="pconv-item" data-img="10">
+        <div class="pconv-item" data-img="11">
           <img class="pconv-photo" src="pconv-09-hytolive-olive.webp" alt="Hytolive® Bev Olive Extract" loading="lazy">
           <div class="pconv-badge">
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
@@ -4541,17 +4544,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             </div>
           </div>
         </div>
-        <div class="pconv-item" data-img="11">
+        <div class="pconv-item" data-img="12">
           <img class="pconv-photo" src="pconv-10-lactospore.webp" alt="LactoSpore Bacillus coagulans" loading="lazy">
           <div class="pconv-badge">
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
             <div class="pconv-text">
               <div class="pconv-title">LactoSpore® Bacillus coagulans</div>
-              <div class="pconv-desc">Spore probiotic · Gut microbiome</div><div class="pconv-dose">1.5 billion CFU</div>
+              <div class="pconv-desc">Spore probiotic · Gut microbiome</div><div class="pconv-dose">1.8 billion CFU</div>
             </div>
           </div>
         </div>
-        <div class="pconv-item" data-img="12">
+        <div class="pconv-item" data-img="13">
           <img class="pconv-photo" src="pconv-11-landkind-salidroside.webp" alt="Landkind® Pure Salidroside" loading="lazy">
           <div class="pconv-badge">
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
@@ -4561,13 +4564,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             </div>
           </div>
         </div>
-        <div class="pconv-item" data-img="13">
+        <div class="pconv-item" data-img="14">
           <img class="pconv-photo" src="pconv-13-retinyl-palmitate.webp" alt="Vitamin A retinyl palmitate" loading="lazy">
           <div class="pconv-badge">
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
             <div class="pconv-text">
               <div class="pconv-title">Vitamin A Retinyl Palmitate</div>
-              <div class="pconv-desc">Mucosal barrier · Immune support</div><div class="pconv-dose">900 mcg RAE</div>
+              <div class="pconv-desc">Mucosal barrier · Immune support</div><div class="pconv-dose">1,800 mcg RAE</div>
             </div>
           </div>
         </div>
@@ -4634,7 +4637,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div style="margin-top:34px">
             <button type="submit" class="btn">Join the founding list <span class="ar">&rarr;</span></button>
           </div>
-          <p class="formnote">Joining the list does not create an order or a commitment. We will contact you once before launch and once at launch. Your details are not sold or shared. Contains milk derivative. Not suitable for anyone with a dairy allergy.</p>
+          <p class="formnote">Joining the list does not create an order or a commitment. We will contact you once before launch and once at launch. Your details are not sold or shared.</p>
         </form>
 
         <div class="success" id="ok">
@@ -4943,7 +4946,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <p><b>This site.</b> &copy; 2026 HoniCo NZ Ltd. All text, photography, formulation descriptions, layout and code on this site are our property or used under licence. You may not copy, republish or use them commercially without written permission.</p>
           <p><b>Our marks.</b> HONI<i>ORA</i> and HoniCo are unregistered trade marks of HoniCo NZ Ltd, claimed and used in the course of trade. Applications are [not yet filed / pending, application number and date]. We rely on common-law rights, including passing off and the Fair Trading Act 1986 in New Zealand, and equivalent protection in other markets. Nothing on this site should be read as a claim of registration.</p>
           <p><b>The formulation.</b> The HONI<i>ORA</i> formulation, its ratios and the specification behind them are confidential and proprietary. Publishing a full bill of materials does not place it in the public domain or grant any licence to reproduce it.</p>
-          <p><b>Third-party marks.</b> Livaux, Feiolix, Eriomin, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Pomma+, LactoSpore, MitoQ, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
+          <p><b>Third-party marks.</b> Livaux, Feiolix, Eriomin, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Pomma+, LactoSpore, MitoQ, BioAstin, Hawaiian Astaxanthin, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trade marks of their respective owners and are used to identify the ingredients we buy from them. Their owners do not endorse HONI<i>ORA</i>.</p>
           <p><b>Cited research.</b> Papers linked from the provenance matrix belong to their authors and publishers. We link to public records and reproduce no full text.</p>
           <p><b>Infringement.</b> Email <a href="mailto:legal@honi.co.nz">legal@honi.co.nz</a> with details and we will respond within [period].</p>
         </div>
@@ -4956,7 +4959,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <p><b>Not a medicine.</b> HONI<i>ORA</i> is a dietary supplement, not a drug. It is not a substitute for prescribed medication, medical advice, or a varied diet.</p>
           <p><b>About the research on this site.</b> Every clinical figure quoted comes from a published trial of an individual branded ingredient at the dose stated. HONI<i>ORA</i> has not been trialled as a finished product, and no claim is made that these findings transfer to it. Doses, formats and populations in the linked studies differ from ours. Some references are reviews or preclinical work rather than human trials.</p>
           <p><b>Manufacture.</b> Made in the USA in an NSF / USP certified GMP facility, with New Zealand-sourced Mānuka honey, gold kiwifruit, feijoa and blackcurrant. Batch tested by ICP-MS for heavy metals below California Proposition 65 limits. Certified gluten-free below 5.0 ppm.</p>
-          <p><b>Allergen.</b> Contains milk derivative (VasoDrive-AP&reg; casein lactotripeptides). Not suitable for anyone with a dairy allergy.</p>
+          <p><b>Allergen.</b> [Allergen statement to be confirmed against final supplier specifications before launch.]</p>
           <p><b>Who should not use it.</b> Anyone under 18, and anyone pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor first. Stop use and seek advice if you have an adverse reaction.</p>
           <p><b>Other markets.</b> This product is sold in the United States. Regulatory status, permitted claims and ingredient approvals differ elsewhere. [Confirm the position for each market before selling into it, including New Zealand and Australia under the TGA.]</p>
         </div>
@@ -5002,10 +5005,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     </div>
     <div class="legal">
       <p><strong>These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</strong></p>
-      <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration: contains milk derivative</strong> (VasoDrive-AP<sup class="rn">&reg;</sup> casein lactotripeptides). Certified gluten-free below 5.0 ppm. Manufactured in the USA in an NSF / USP certified GMP facility. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, cGP-Pro, VasoDrive-AP, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Pomma+, LactoSpore, MitoQ, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
+      <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration to be confirmed against final supplier specifications before launch.</strong> Certified gluten-free below 5.0 ppm. Manufactured in the USA in an NSF / USP certified GMP facility. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Pomma+, LactoSpore, MitoQ, BioAstin, Hawaiian Astaxanthin, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
       <div class="footbottom">
         <span>&copy; 2026 HoniCo New Zealand. All rights reserved.</span>
-        <span>MBR-HNR-V8.9.3-140K</span>
+        <span>MBR V8.9.16 (draft)</span>
       </div>
     </div>
   </div>
@@ -5716,62 +5719,46 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 20 named actives into one effervescent serving, 11,481 mg total. They run across four systems: <b>Strength</b> (creatine for power, MitoQ), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (VasoDrive-AP, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 20 named actives into one effervescent serving, 12,675 mg total. They run across four systems: <b>Strength</b> (creatine for power, MitoQ, NMN), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (Careflow, S7, Hytolive, Pomma+, BioAstin, taurine, magnesium, zinc) and <b>Brain</b> (L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
-       a:"Drop 2 tablets into 350 ml of cold water. The effervescent engine fully dissolves in 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
+       a:"Drop 3 tablets into 400 ml of cold water. The effervescent engine fully dissolves in 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
        a:"Cr.01&trade; Creatine rapidly regenerates ATP through the phosphocreatine system, your cells' basic energy currency, supporting muscle strength, healthy aging and cognitive function, not just athletic performance. It's dosed at 3,000 mg creatine monohydrate, a full daily serving.",
        src:"Raw material: Jenerise Cr.01&trade; (jenerise.com), a creatine innovation company founded by Steve Jennings, who also launched Ergomax C150 in 1992, the first creatine monohydrate product; he now runs Jenerise alongside his daughter Rachael. Each lot is verified by SGS, with a creatine content assay of 99.9% or better on a dried basis. Creatine is one of the most studied and trusted nutrients for cellular energy and healthy aging."},
-      {k:["vasodrive","vasodrive-ap","vasodrive ap"],
-       a:"VasoDrive-AP is a milk-derived tripeptide (casein lactotripeptides VPP and IPP) that blocks ACE, the enzyme behind vessel-tightening angiotensin II, supporting arterial elasticity. More than 30 published studies back it, including over a dozen double-blind, placebo-controlled human trials. It's dosed at 508 mg.",
-       src:"Manufacturer: Tatua Co-operative Dairy Company, a family-farmer-owned dairy co-op in Tatuanui, Morrinsville, Waikato, New Zealand, whose roughly 100 supplying farms all sit within 12 km of the factory. Marketed internationally by Maypro Industries (Purchase, New York, USA, est. 1977). Contains milk.",
-       map:"https://www.google.com/maps/search/?api=1&query=Tatua+Co-operative+Dairy+Company%2C+Morrinsville%2C+New+Zealand",
-       papers:[{t:"PMID 23566677",u:"https://pubmed.ncbi.nlm.nih.gov/23566677/"}]},
+      {k:["bioastin","astaxanthin","cyanotech","hawaiian astaxanthin"],
+       a:"BioAstin is a natural astaxanthin from Haematococcus pluvialis microalgae grown in Kailua-Kona, Hawaii by Cyanotech and extracted on site with supercritical CO2, without solvents. HONI<i>ORA</i> carries 12 mg of astaxanthin per serving. Cyanotech names no clinical dose on its ingredient page, so this page makes no dose-response claim for it.",
+       src:"Manufacturer: Cyanotech Corporation, Kailua-Kona, Hawaii, USA.",
+       map:"https://www.google.com/maps/search/?api=1&query=Kailua-Kona%2C+Hawaii%2C+USA"},
+      {k:["nmn","nicotinamide mononucleotide","nad+"],
+       a:"NMN (nicotinamide mononucleotide) is a direct precursor the body uses to make NAD+, a coenzyme involved in cellular energy metabolism. HONI<i>ORA</i> carries 750 mg per serving.",
+       src:"Supplier and grade are still to be confirmed before launch."},
       {k:["careflow","mango","mangiferin"],
        a:"Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS, boosting blood flow through the smallest capillaries within hours of the first dose. Mango itself (Mangifera indica) is native to South Asia, especially Myanmar and eastern India, cultivated there for thousands of years before spreading through the tropical world. It's a member of the cashew family, and mangiferin is one of the polyphenols the fruit and its peel are naturally rich in. Careflow Mango Fruit is dosed at 100 mg.",
        src:"Manufacturer: Fytexia, headquartered in Béziers, in the south of France, now part of the Biotexia group alongside ABbiotek Health and Anzchem. They don't publish an exact mango growing region, so I won't guess at one.",
        map:"https://www.google.com/maps/search/?api=1&query=B%C3%A9ziers%2C+France",
        papers:[{t:"Buchwald-Werner 2017, Planta Med",u:"https://pubmed.ncbi.nlm.nih.gov/28187466/"},{t:"Gerstgrasser 2015, Planta Med",u:"https://pubmed.ncbi.nlm.nih.gov/26584454/"}]},
       {k:["s7","nitric oxide","no matrix","seven plant","seven plants"],
-       a:"S7 is a blend of seven plant extracts: green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale. Rather than supplying nitrate directly, it acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind study reported a 230% rise in circulating nitric oxide over baseline. It's a global blend rather than a single-origin crop: seven different plants sourced across multiple countries, so there's no one growing region to point to. It's dosed at 50 mg.",
+       a:"S7 is a blend of seven plant extracts: green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale. Rather than supplying nitrate directly, it acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind study reported a 230% rise in circulating nitric oxide over baseline. It's a global blend rather than a single-origin crop: seven different plants sourced across multiple countries, so there's no one growing region to point to. It's dosed at 60 mg.",
        src:"Manufacturer: FutureCeuticals, headquartered in Momence, Illinois, USA, part of the Van Drunen Family of companies, which specialises in whole fruit, vegetable and plant-based ingredients.",
        map:"https://www.google.com/maps/search/?api=1&query=Momence%2C+Illinois%2C+USA",
        papers:[{t:"PMID 38612462",u:"https://pubmed.ncbi.nlm.nih.gov/38612462/"}]},
-      {k:["cgp-pro","cgp pro","cgp","cyclic glycine proline","igf-1","igf1"],
-       a:"cGP-Pro is a stable dipeptide that crosses the blood-brain barrier and competitively displaces IGF-1 from its binding protein IGFBP-3, freeing active IGF-1 to reach receptors throughout the brain and body. In the brain, that freed IGF-1 supports the growth and repair of the smallest blood vessels feeding brain cells, while cGP itself raises BDNF (brain-derived neurotrophic factor) and activates AMPA and TrkB receptors, both central to learning, memory and mood. Published studies link higher cGP levels to better memory in older adults, faster recovery after stroke, and, in an Alzheimer's mouse model, reduced amyloid plaque load alongside improved memory. Outside the brain, the same freed IGF-1 supports flexible, healthy blood vessels and nitric oxide availability, the vascular mechanism behind circulation and everyday energy. Made from New Zealand blackcurrants (grown in Canterbury, on the South Island) combined with bovine collagen. It's dosed at 100 mg.",
-       src:"Manufacturer: The cGP Lab Ltd, Auckland, New Zealand. Founded in 2020 by Jim Grierson and David Eder after a chance meeting with Dr Jian Guan, who had already spent three decades researching cGP; the company says it's the only one making a standardised-dose cGP product.",
-       map:"https://www.google.com/maps/search/?api=1&query=Canterbury%2C+New+Zealand",
-       papers:[{t:"Guan 2018, PMID 29865234",u:"https://pubmed.ncbi.nlm.nih.gov/29865234/"},
-               {t:"Guan 2014, PMID 24633053 · IGFBP-3 mechanism",u:"https://pubmed.ncbi.nlm.nih.gov/24633053/"},
-               {t:"Fan 2019, PMID 31019991 · stroke recovery",u:"https://pubmed.ncbi.nlm.nih.gov/31019991/"},
-               {t:"Fan 2020, PMID 32671179 · Parkinson's cognitive status",u:"https://pubmed.ncbi.nlm.nih.gov/32671179/"},
-               {t:"Arora & Sharma 2023, PMID 36909366 · Alzheimer's model, memory and plaque",u:"https://pubmed.ncbi.nlm.nih.gov/36909366/"},
-               {t:"Gudasheva 2016, PMID 28058675 · AMPA receptor modulation",u:"https://www.ncbi.nlm.nih.gov/pubmed/28058675"},
-               {t:"Gudasheva 2016 · raises BDNF in neuronal cells",u:"https://link.springer.com/article/10.1134/S1607672916040104"},
-               {t:"Abdullina 2022 · antidepressant-like effect and BDNF",u:"https://journals.sagepub.com/doi/abs/10.1177/02698811211069101"},
-               {t:"Singh-Mallah 2016, PMID 27355491 · novelty recognition",u:"https://pubmed.ncbi.nlm.nih.gov/27355491/"},
-               {t:"Morel et al. 2017 · hippocampal neurogenesis",u:"https://www.tandfonline.com/doi/full/10.1080/23262133.2016.1259709"},
-               {t:"Graff et al. 2021 · ageing cerebral microvasculature",u:"https://pmc.ncbi.nlm.nih.gov/articles/PMC8374868/"},
-               {t:"Fan & Guan 2018, Nutrients · blackcurrant anthocyanins raise CSF cGP",u:"https://doi.org/10.3390/nu10060714"},
-               {t:"Conti et al. 2004 · IGF-1 as a vascular protective factor",u:"https://doi.org/10.1161/01.CIR.0000144309.87183.FB"},
-               {t:"Adasheva & Serebryanaya 2024 · IGF signalling in the heart",u:"https://doi.org/10.1134/S0006297924080042"}]},
       {k:["l-theanine","theanine","alphawave","calm","focus"],
-       a:"L-Theanine (AlphaWave brand) upregulates alpha-wave neural activity and GABA, keeping the formula read as calm focus rather than jittery stimulation. A 28-day randomised, double-blind trial found lower perceived stress and improved sleep and attention. A separate crossover trial at HONI<i>ORA</i>'s exact 200 mg dose found lower subjective stress and lower cortisol after a stressor, though it found no improvement on the cognitive task itself, and the alpha-wave rise it recorded showed up mainly in people with higher trait anxiety. It's dosed at 200 mg.",
+       a:"L-Theanine (AlphaWave brand) upregulates alpha-wave neural activity and GABA, keeping the formula read as calm focus rather than jittery stimulation. A 28-day randomised, double-blind trial found lower perceived stress and improved sleep and attention. A separate crossover trial at 200 mg (below the 450 mg in HONI<i>ORA</i>) found lower subjective stress and lower cortisol after a stressor, though it found no improvement on the cognitive task itself, and the alpha-wave rise it recorded showed up mainly in people with higher trait anxiety. It's dosed at 450 mg.",
        src:"Manufacturer: Ethical Naturals, Inc., headquartered in Novato, California, USA, an NSF GMP-certified ingredient manufacturer specialising in L-theanine and botanical extracts.",
        map:"https://www.google.com/maps/search/?api=1&query=Novato%2C+California%2C+USA",
-       papers:[{t:"Moulin 2024",u:"https://pubmed.ncbi.nlm.nih.gov/38758503/"},{t:"Evans 2021, Neurol Ther",u:"https://doi.org/10.1007/s40120-021-00284-x"},{t:"White 2016, Nutrients · 200 mg dose match",u:"https://pubmed.ncbi.nlm.nih.gov/26797633/"}]},
+       papers:[{t:"Moulin 2024",u:"https://pubmed.ncbi.nlm.nih.gov/38758503/"},{t:"Evans 2021, Neurol Ther",u:"https://doi.org/10.1007/s40120-021-00284-x"},{t:"White 2016, Nutrients · 200 mg dose",u:"https://pubmed.ncbi.nlm.nih.gov/26797633/"}]},
       {k:["braincurrant","blackcurrant","mood"],
        a:"Braincurrant is a freeze-dried whole New Zealand blackcurrant powder, naturally rich in anthocyanins. It's grown in Canterbury, on the South Island, in the belt running from Ashburton down to Omihi, where cool nights off the Southern Alps and long sunshine hours are what the growers credit for the fruit's colour and anthocyanin load. NZ blackcurrant carries real independent research: improved endothelial function, better exercise recovery, improved insulin sensitivity, and eased visual fatigue, each in separate human studies (though the Braincurrant brand itself hasn't been independently trialled, and the supplier's own focus/memory/mood claim isn't independently confirmed). Blackcurrant itself (Ribes nigrum) is native to temperate northern Eurasia, a small, near-black berry naturally high in vitamin C, and it's the anthocyanin pigments giving it that colour that draw most of the research interest. It's dosed at 300 mg.",
        src:"Manufacturer: Anagenix, headquartered in Auckland, New Zealand, built on their Target Bio-Lock whole-fruit science.",
        map:"https://www.google.com/maps/search/?api=1&query=Canterbury%2C+New+Zealand",
        papers:[{t:"PMID 24742818 · Endothelial function",u:"https://pubmed.ncbi.nlm.nih.gov/24742818/"},{t:"PMID 34445035 · Exercise recovery",u:"https://pubmed.ncbi.nlm.nih.gov/34445035/"},{t:"Frontiers Nutr 2019 · Neutrophil function",u:"https://doi.org/10.3389/fnut.2019.00073"},{t:"PMID 32648022 · Insulin sensitivity",u:"https://pubmed.ncbi.nlm.nih.gov/32648022/"},{t:"PMID 11134978 · Dark adaptation",u:"https://pubmed.ncbi.nlm.nih.gov/11134978/"}]},
       {k:["hytolive","olive","hydroxytyrosol","olive extract","olive polyphenol"],
-       a:"Hytolive Bev is a water-soluble olive fruit extract standardised to 2% natural hydroxytyrosol, made from an olive-oil production by-product. It's dosed at 300 mg per serving (150 mg/tab), delivering 6 mg of hydroxytyrosol, above the 5 mg/day EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.",
+       a:"Hytolive Bev is a water-soluble olive fruit extract standardised to 2% natural hydroxytyrosol, made from an olive-oil production by-product. It's dosed at 300 mg per serving (100 mg/tab), delivering 6 mg of hydroxytyrosol, above the 5 mg/day EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.",
        src:"Manufacturer: Alvinesa Natural Ingredients, based in Daimiel, in the Ciudad Real province of Spain, which makes Hytolive from a by-product of its own olive oil production.",
        map:"https://www.google.com/maps/search/?api=1&query=Daimiel%2C+Ciudad+Real%2C+Spain",
        papers:[{t:"Moratilla-Rivera 2025, Clinical Nutrition · PMID 40690822",u:"https://pubmed.ncbi.nlm.nih.gov/40690822/"}]},
       {k:["pomma","pomegranate","punicalagin","ellagitannin","pomma+"],
-       a:"Pomma+ is an upcycled, certified whole-fruit pomegranate extract, made from the fruit left over after commercial pomegranate juicing rather than fresh-pressed fruit grown just for the extract. It carries punicalagins and ellagitannins, the polyphenols pomegranate is best known for, and contributes to the antioxidant load every serving carries. It's dosed at 500 mg per serving (250 mg/tab). Stauber doesn't publish a standardisation percentage or a study specific to this extract, so I'm not attaching a dose-response claim to it, only its polyphenol category and upcycled sourcing.",
+       a:"Pomma+ is an upcycled, certified whole-fruit pomegranate extract, made from the fruit left over after commercial pomegranate juicing rather than fresh-pressed fruit grown just for the extract. It carries punicalagins and ellagitannins, the polyphenols pomegranate is best known for, and contributes to the antioxidant load every serving carries. It's dosed at 500 mg per serving (about 167 mg/tab). Stauber doesn't publish a standardisation percentage or a study specific to this extract, so I'm not attaching a dose-response claim to it, only its polyphenol category and upcycled sourcing.",
        src:"Manufacturer: Stauber USA, a natural-ingredients supplier and distributor. Stauber doesn't publish the extract's own growing region, so I won't guess at one."},
       {k:["landkind","salidroside","rhodiola","adaptogen"],
        a:"Landkind Pure Salidroside is a Rhodiola rosea extract made by precision fermentation rather than field harvesting, standardised to 98%+ purity versus roughly 1% in conventional root extracts, functioning as an adaptogen for everyday stress. It's dosed at 60 mg.",
@@ -5795,7 +5782,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
                {t:"Cesar 2022, PMID 35796695 · GLP-1 and inflammation",u:"https://pubmed.ncbi.nlm.nih.gov/35796695/"},
                {t:"Ramos 2023, PMID 37242433 · gut microbiota",u:"https://pubmed.ncbi.nlm.nih.gov/37242433/"}]},
       {k:["probiotic","lactospore","bacillus","coagulans","spore","cfu","microbiome","mtcc"],
-       a:"LactoSpore is Bacillus coagulans, strain MTCC 5856, a spore-forming probiotic. Spores are tougher than most probiotic cells, so they are built to come through high-speed tableting and the tablet's own acid-base effervescent reaction. HONI<i>ORA</i> doses it at 100 mg of raw material per serving, which is about 1.5 billion CFU at 15 billion spores per gram. It sits alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF.",
+       a:"LactoSpore is Bacillus coagulans, strain MTCC 5856, a spore-forming probiotic. Spores are tougher than most probiotic cells, so they are built to come through high-speed tableting and the tablet's own acid-base effervescent reaction. HONI<i>ORA</i> doses it at 120 mg of raw material per serving, which is about 1.8 billion CFU at 15 billion spores per gram. It sits alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF.",
        src:"Supplied as a spore powder, 15 billion spores per gram per the batch record. No supplier name is on file in this library, so I won't invent one. Ingredient science citation to be added.",
        papers:[]},
       {k:["mitoq","mitoquinol","mitochondria","mitochondrial"],
@@ -5803,7 +5790,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        src:"Supplied form and supplier are not stated in this library, so I won't invent them. Ingredient science citation to be added.",
        papers:[]},
       {k:["vitamin a","retinyl","retinol","palmitate","rae"],
-       a:"Vitamin A comes as cold-water-soluble retinyl palmitate, 12 mg of powder per serving, which delivers 3,000 IU or 900 mcg RAE. Vitamin A supports epithelial barrier integrity and mucosal immunity, which fits the gut-lining focus of the prebiotic and probiotic lines.",
+       a:"Vitamin A comes as cold-water-soluble retinyl palmitate, 24 mg of powder per serving, which delivers 6,000 IU or 1,800 mcg RAE. Vitamin A supports epithelial barrier integrity and mucosal immunity, which fits the gut-lining focus of the prebiotic and probiotic lines.",
        src:"Supplied as a 250,000 IU per gram cold-water-soluble powder per the batch record. No supplier name is on file in this library. Ingredient science citation to be added.",
        papers:[]},
       {k:["manuka","fiberest","honey","mgo"],
@@ -5815,22 +5802,22 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        a:"A few real ones. European honeybees didn't even exist here until missionary Mary Bumby brought two hives ashore at the Mangungu Mission Station, Hokianga, in March 1839, and every Mānuka harvest since traces back to bees descended from that one delivery. Mānuka itself only blooms for two to six weeks each summer, peaking in mid-December, so beekeepers have to get hives into position before the window opens or it's a full year's wait for the next one. The science is newer than the honey: University of Waikato biochemist Peter Molan began investigating Mānuka honey's antiseptic properties in 1981, identifying the non-peroxide antibacterial activity that MGO and UMF grading still measure today. And centuries before any of that, Māori were already boiling Mānuka leaves and bark as a fever treatment and applying it to burns and scalds, well over 800 years of use before the honey itself became the focus.<br><br>A few more amazing ones, beyond Mānuka. Foragers dance to tell the rest of the hive where to fly: the direction of the waggle run encodes the food source's angle relative to the sun, and how long each run lasts encodes the distance, a spatial communication system with no real match elsewhere in the insect world. A colony holds its brood nest at a near-constant 93&deg;F no matter what it's doing outside, workers fan their wings to cool it or cluster together and shiver to warm it. A single hive can run 20,000 to 60,000 bees strong at its summer peak, with the queen laying up to 1,500 eggs a day during spring build-up. And honey barely ages at all: pots found in ancient Egyptian tombs, roughly 3,000 years old, have been opened still perfectly edible, since honey's low water content and trace natural hydrogen peroxide make it inhospitable to the bacteria that spoil almost everything else.",
        src:"Waggle dance: NC State Extension, \"The Honey Bee Dance Language.\" Colony size, queen egg-laying rate and brood temperature: Purdue Agriculture Extension, \"The Complex Life of the Honey Bee\" (PPP-116-POL-91). Ancient honey preservation: corroborated across multiple historical sources, though none name the specific tomb, so I haven't invented one."},
       {k:["taurine"],
-       a:"Taurine is an organic osmolyte that holds cellular fluid balance and supports energy metabolism alongside the magnesium and electrolyte load. It's dosed at 1,000 mg."},
+       a:"Taurine is an organic osmolyte that holds cellular fluid balance and supports energy metabolism alongside the magnesium and electrolyte load. It's dosed at 500 mg."},
       {k:["magnesium"],
        a:"Magnesium Malate runs underneath the other actives as an enzymatic cofactor for cellular processes. It's dosed at 500 mg.",
        src:"Manufacturer: Albion Minerals (a Balchem brand), headquartered in Clearfield, Utah, USA, the company that pioneered mineral amino acid chelate technology back in 1956.",
        map:"https://www.google.com/maps/search/?api=1&query=Clearfield%2C+Utah%2C+USA"},
       {k:["zinc"],
-       a:"Zinc Bisglycinate (TRAACS chelated form) runs as an enzymatic cofactor alongside magnesium. It's dosed at 55 mg.",
+       a:"Zinc Bisglycinate (TRAACS chelated form) runs as an enzymatic cofactor alongside magnesium. It's dosed at 105 mg.",
        src:"Manufacturer: Albion Minerals (a Balchem brand), Clearfield, Utah, USA.",
        map:"https://www.google.com/maps/search/?api=1&query=Clearfield%2C+Utah%2C+USA"},
       {k:["yuzu","passionfruit","thaumatin","flavor","flavour","taste","sweetener"],
-       a:"The taste system layers Japanese yuzu (top note), South American passionfruit (mid-palate), gold kiwifruit and Mānuka crystals (texture), and Thaumatin Pure Talin, a protein sweetener from the African katemfe fruit 2,000 to 3,000 times sweeter than sugar. Yuzu (Citrus junos) is a cold-hardy citrus native to central China and Tibet, carried into Japan over a thousand years ago and prized there for its zest rather than eaten whole. Passionfruit (Passiflora edulis) is native to southern Brazil, Paraguay and northern Argentina, a climbing vine whose tough rind turns deep purple or gold around the fragrant pulp as it ripens. Thaumatin is dosed at just 40 mg, so there's no added sugar.",
+       a:"The taste system layers Japanese yuzu (top note), South American passionfruit (mid-palate), gold kiwifruit and Mānuka crystals (texture), and Thaumatin Pure Talin, a protein sweetener from the African katemfe fruit 2,000 to 3,000 times sweeter than sugar. Yuzu (Citrus junos) is a cold-hardy citrus native to central China and Tibet, carried into Japan over a thousand years ago and prized there for its zest rather than eaten whole. Passionfruit (Passiflora edulis) is native to southern Brazil, Paraguay and northern Argentina, a climbing vine whose tough rind turns deep purple or gold around the fragrant pulp as it ripens. Thaumatin is dosed at just 29 mg, so there's no added sugar.",
        src:"Thaumatin Pure Talin is supplied by Naturex, a natural-ingredients specialist."},
       {k:["manufactur","made","factory","fda","cgmp","gmp"],
        a:"HONI<i>ORA</i> is manufactured in the USA in an NSF / USP certified GMP facility."},
       {k:["where is honiora from","provenance","new zealand","honico","who are you","born in"],
-       a:"HONI<i>ORA</i> is born in New Zealand and made in the USA. HoniCo, the company behind it, is a Mānuka honey business based in the Bay of Plenty, New Zealand's main kiwifruit and feijoa growing region. Its Mānuka honey is harvested further north in the forests of Te Urewera, near the East Cape. Ingredient suppliers span the globe: Tatua (VasoDrive-AP) in Morrinsville, Waikato NZ, Anagenix (Livaux, Feiolix, Braincurrant) and The cGP Lab (cGP-Pro) both in Auckland NZ, Fytexia (Careflow, Eriomin) in Béziers, France, FutureCeuticals (S7) in Momence, Illinois, Ethical Naturals (L-Theanine) in Novato, California, and Albion Minerals (magnesium, zinc) in Clearfield, Utah. New Zealand itself is a Pacific island nation of two main islands, North and South, home to around 5.3 million people, with Wellington as the capital and Auckland as the largest city. Māori culture and te reo Māori, one of the country's official languages, run through New Zealand's identity, HONI<i>ORA</i>'s own name included.",
+       a:"HONI<i>ORA</i> is born in New Zealand and made in the USA. HoniCo, the company behind it, is a Mānuka honey business based in the Bay of Plenty, New Zealand's main kiwifruit and feijoa growing region. Its Mānuka honey is harvested further north in the forests of Te Urewera, near the East Cape. Ingredient suppliers span the globe: Anagenix (Livaux, Feiolix, Braincurrant) in Auckland NZ, Fytexia (Careflow, Eriomin) in Béziers, France, Cyanotech (BioAstin) in Kailua-Kona, Hawaii, FutureCeuticals (S7) in Momence, Illinois, Ethical Naturals (L-Theanine) in Novato, California, and Albion Minerals (magnesium, zinc) in Clearfield, Utah. New Zealand itself is a Pacific island nation of two main islands, North and South, home to around 5.3 million people, with Wellington as the capital and Auckland as the largest city. Māori culture and te reo Māori, one of the country's official languages, run through New Zealand's identity, HONI<i>ORA</i>'s own name included.",
        map:"https://www.google.com/maps/search/?api=1&query=New+Zealand"},
       {k:["team","founder","who founded","ceo","staff"],
        a:"HONI<i>ORA</i> comes from a small team: Gregory Miller-Hard (Founder & CEO), Nicole Miller-Hard (Founder & Marketing), Laura Clinton (R&D + QA), Scott Smith (Medical Herbalist & Naturopath), and Odette Miller-Hard (Brand Design)."},
@@ -5839,7 +5826,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       {k:["blood pressure medication","blood pressure meds","medication blood pressure","bp medication","blood pressure interaction","interact blood pressure"],
        a:"If you take prescription medication, especially for blood pressure, talk to your doctor before use. These statements haven't been evaluated by the FDA and the product isn't intended to diagnose, treat, cure or prevent any disease."},
       {k:["safe","allerg","pregnan","blood pressure","medication","side effect","milk","dairy","gluten"],
-       a:"HONI<i>ORA</i> contains a milk derivative (VasoDrive-AP casein lactotripeptides), so it isn't suitable for a dairy allergy, and it's certified gluten-free below 5.0 ppm. It's not intended for anyone under 18, or anyone pregnant or breastfeeding. If you take prescription medication, especially for blood pressure, talk to your doctor before use. These statements haven't been evaluated by the FDA and the product isn't intended to diagnose, treat, cure or prevent any disease."},
+       a:"Allergen details are still being confirmed against final supplier specifications, so check back before launch. It's certified gluten-free below 5.0 ppm. It's not intended for anyone under 18, or anyone pregnant or breastfeeding. If you take prescription medication, especially for blood pressure, talk to your doctor before use. These statements haven't been evaluated by the FDA and the product isn't intended to diagnose, treat, cure or prevent any disease."},
       {k:["meaning","name","what does honiora mean","te reo","maori"],
        a:"HONI<i>ORA</i> comes from te reo Māori. 'Honi' means honey, and 'Ora' means life, health and vitality, read together as living vitality grounded in New Zealand nature."},
       {k:["bay of plenty"],
@@ -5847,7 +5834,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Bay+of+Plenty%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.6878,176.1651,0a,120000d,35y,0h,45t,0r"},
       {k:["waikato"],
-       a:"Waikato covers the upper North Island, from the Coromandel Peninsula down to the slopes of Mount Ruapehu, named for the Waikato River, Māori for 'flowing water'. Hamilton is its largest city. Dairy farming has driven the regional economy since the late 1800s, and that dairy heritage is exactly why Tatua Co-operative, maker of VasoDrive-AP, is based here, in the town of Morrinsville.",
+       a:"Waikato covers the upper North Island, from the Coromandel Peninsula down to the slopes of Mount Ruapehu, named for the Waikato River, Māori for 'flowing water'. Hamilton is its largest city. Dairy farming has driven the regional economy since the late 1800s.",
        map:"https://www.google.com/maps/search/?api=1&query=Waikato%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.7870,175.2793,0a,150000d,35y,0h,45t,0r"},
       {k:["east cape"],
@@ -5855,7 +5842,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=East+Cape%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.688975,178.548134,0a,3000d,35y,0h,60t,0r"},
       {k:["canterbury"],
-       a:"Canterbury is New Zealand's largest region by area, on the central-eastern South Island, with Christchurch as its hub. Sitting in the rain shadow of the Southern Alps gives it warm, dry summers and cold winters, and it's the country's biggest horticultural region by land area, growing around half of New Zealand's berries, nuts and mushrooms. That's the growing belt, running from Ashburton down to Omihi, behind HONI<i>ORA</i>'s New Zealand blackcurrant in Braincurrant and cGP-Pro.",
+       a:"Canterbury is New Zealand's largest region by area, on the central-eastern South Island, with Christchurch as its hub. Sitting in the rain shadow of the Southern Alps gives it warm, dry summers and cold winters, and it's the country's biggest horticultural region by land area, growing around half of New Zealand's berries, nuts and mushrooms. That's the growing belt, running from Ashburton down to Omihi, behind HONI<i>ORA</i>'s New Zealand blackcurrant in Braincurrant.",
        map:"https://www.google.com/maps/search/?api=1&query=Canterbury%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-43.5321,172.6362,0a,200000d,35y,0h,45t,0r"},
       {k:["nelson"],
@@ -5863,15 +5850,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Nelson%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-41.2706,173.2840,0a,15000d,35y,0h,45t,0r"},
       {k:["auckland"],
-       a:"Auckland is New Zealand's largest city, sitting on a narrow isthmus between two harbours on the upper North Island, home to close to a third of the country's population. It's also the country's main economic hub, and the base for two of HONI<i>ORA</i>'s key ingredient makers, Anagenix (Livaux, Feiolix, Braincurrant) and The cGP Lab (cGP-Pro).",
+       a:"Auckland is New Zealand's largest city, sitting on a narrow isthmus between two harbours on the upper North Island, home to close to a third of the country's population. It's also the country's main economic hub, and the base for one of HONI<i>ORA</i>'s key ingredient makers, Anagenix (Livaux, Feiolix, Braincurrant).",
        map:"https://www.google.com/maps/search/?api=1&query=Auckland%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-36.8485,174.7633,0a,25000d,35y,0h,45t,0r"},
       {k:["morrinsville"],
-       a:"Morrinsville is a dairy service town in the Waikato, at the centre of one of the richest dairy farming districts in the world, with one of the highest concentrations of dairy cattle in New Zealand. It's fittingly the hometown of Tatua Co-operative Dairy Company, maker of VasoDrive-AP.",
+       a:"Morrinsville is a dairy service town in the Waikato, at the centre of one of the richest dairy farming districts in the world, with one of the highest concentrations of dairy cattle in New Zealand.",
        map:"https://www.google.com/maps/search/?api=1&query=Morrinsville%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.6494,175.5322,0a,8000d,35y,0h,45t,0r"},
       {k:["hobbiton","lord of the rings","the shire","movie set"],
-       a:"Yes! Hobbiton is the real, still-standing film set for The Lord of the Rings and The Hobbit trilogies, built into a working sheep farm near Matamata, in the Waikato, the same region that's home to Tatua Co-operative, maker of HONI<i>ORA</i>'s VasoDrive-AP. It's one of New Zealand's most visited attractions, with 44 hobbit holes, the Green Dragon Inn and Bag End all open for guided tours on the farm where they were built and the films were shot.",
+       a:"Yes! Hobbiton is the real, still-standing film set for The Lord of the Rings and The Hobbit trilogies, built into a working sheep farm near Matamata, in the Waikato. It's one of New Zealand's most visited attractions, with 44 hobbit holes, the Green Dragon Inn and Bag End all open for guided tours on the farm where they were built and the films were shot.",
        map:"https://www.google.com/maps/search/?api=1&query=Hobbiton+Movie+Set%2C+Matamata%2C+New+Zealand",
        earth:"https://earth.google.com/web/@-37.857567,175.680557,0a,900d,35y,0h,60t,0r"},
       {k:["whakamarama"],
@@ -5916,7 +5903,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       "Tell me more about Feiolix and how it can support my metabolism and GLP-1?",
       "What's in HONIORA?",
       "Where is it manufactured?",
-      "Where does VasoDrive-AP come from?",
+      "Tell me more about BioAstin?",
       "How much creatine per serving?",
       "Is it safe with blood pressure medication?"
     ];
@@ -6011,7 +5998,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       if (m){
         ahAddMsg(m.a, 'bot', m.src, m.papers, m.map, m.earth);
       } else {
-        ahAddMsg("I don't have that one in the HONI<i>ORA</i> library yet. Try asking about a specific active (VasoDrive-AP, Careflow, cGP-Pro, S7...), the dosing, manufacturing, or where an ingredient is sourced.", 'bot');
+        ahAddMsg("I don't have that one in the HONI<i>ORA</i> library yet. Try asking about a specific active (Careflow, S7, BioAstin, NMN...), the dosing, manufacturing, or where an ingredient is sourced.", 'bot');
       }
     }
     function ahAsk(text){
@@ -6537,7 +6524,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     }
     /* (v98) was a single .unit-tab image here; now the two rolling-tablet images --
        same reasoning, their load timing can still shift page height below them. */
-    document.querySelectorAll('.tablet-roll-l,.tablet-roll-r').forEach(function(img){
+    document.querySelectorAll('.tablet-roll-l,.tablet-roll-m,.tablet-roll-r').forEach(function(img){
       if (!img.complete){
         img.addEventListener('load', function(){ ScrollTrigger.refresh(); });
       }
@@ -6603,8 +6590,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   'use strict';
   var wrap = document.querySelector('.tablet-roll');
   var l = document.querySelector('.tablet-roll-l');
+  var m = document.querySelector('.tablet-roll-m');
   var r = document.querySelector('.tablet-roll-r');
-  if (!wrap || !l || !r) return;
+  if (!wrap || !l || !m || !r) return;
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -6620,11 +6608,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        offsetParent rather than assuming it's wrap is what makes this correct
        regardless of how the surrounding markup is nested. */
     var lBase = l.offsetParent ? l.offsetParent.getBoundingClientRect().left : 0;
+    var mBase = m.offsetParent ? m.offsetParent.getBoundingClientRect().left : 0;
     var rBase = r.offsetParent ? r.offsetParent.getBoundingClientRect().left : 0;
     var lLeft = lBase + l.offsetLeft, lWidth = l.offsetWidth;
+    var mLeft = mBase + m.offsetLeft, mWidth = m.offsetWidth;
     var rLeft = rBase + r.offsetLeft;
     return {
-      l: -(lLeft + lWidth),                 /* left tablet's right edge -> window's left edge */
+      /* middle tablet leads in from the left: its right edge starts flush on the window's left edge */
+      m: -(mLeft + mWidth),
+      /* outer-left tablet trails it by a tablet width plus a gap, so the two arrive as a train
+         and never cross: the order at rest (l, m, r) is the order they enter */
+      l: -(lLeft + lWidth) - lWidth * 1.1,
       r: (window.innerWidth - rLeft)        /* right tablet's left edge -> window's right edge */
     };
   }
@@ -6657,12 +6651,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
          (angle = distance / radius), until they meet in place by the time the block
          reaches ~30% down the window. Scrolling back up rolls them back out. */
       var rad = (l.offsetWidth || 200) / 2;
-      var degL = off.l / rad * 57.2958;     /* negative: left tablet starts left of rest */
+      var degL = off.l / rad * 57.2958;     /* negative: left tablets start left of rest */
+      var degM = off.m / rad * 57.2958;
       var degR = off.r / rad * 57.2958;     /* positive: right tablet starts right of rest */
       tl = gsap.timeline({ paused: true, defaults: { ease: 'power1.out' } });
       tl.fromTo(l, { x: off.l, rotation: degL }, { x: 0, rotation: 0, duration: 1 }, 0);
+      tl.fromTo(m, { x: off.m, rotation: degM }, { x: 0, rotation: 0, duration: 1 }, 0);
       tl.fromTo(r, { x: off.r, rotation: degR }, { x: 0, rotation: 0, duration: 1 }, 0);
-      tl.fromTo([l, r], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: 'none' }, 0);
+      tl.fromTo([l, m, r], { opacity: 0 }, { opacity: 1, duration: 0.12, ease: 'none' }, 0);
       tl.progress(0);
 
       st = ScrollTrigger.create({
@@ -7559,7 +7555,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       { side: -1, y0: '-7vh', edgeX: 42, startScale: 3.2, midDy:  0.3 },
       { side:  1, y0:  '4vh', edgeX: 40, startScale: 3.0, midDy:  0.3 },
       { side: -1, y0: '-5vh', edgeX: 44, startScale: 3.2, midDy: -0.3 },
-      { side:  1, y0:  '6vh', edgeX: 42, startScale: 2.8, midDy:  0.4 }
+      { side:  1, y0:  '6vh', edgeX: 42, startScale: 2.8, midDy:  0.4 },
+      { side: -1, y0: '-4vh', edgeX: 44, startScale: 3.0, midDy: -0.3 }
     ];
 
     var tl = gsap.timeline({
