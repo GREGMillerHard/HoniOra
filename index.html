@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="3 tabs, 400 ml of cold water, sixty seconds. An 12,675 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="3 tabs, 400 ml of cold water, sixty seconds. An 12,702 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
 <meta property="og:description" content="3 tabs. 400 ml of cold water. Sixty seconds.">
@@ -438,7 +438,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    previously cut off before "UPGRADE"; starting exactly where the path
    itself starts avoids that. ---------- */
 .hero-seal{position:absolute;top:calc(100% + 14px);right:var(--pad);z-index:40;
-  display:block;width:clamp(96px,10vw,150px);height:clamp(96px,10vw,150px);text-decoration:none}
+  display:block;width:clamp(120px,12.5vw,187.5px);height:clamp(120px,12.5vw,187.5px);text-decoration:none}
 .hero-seal-inner{display:block;position:relative;width:100%;height:100%;transition:transform .3s ease}
 /* z-index bumped past the fixed header's (100) on hover/focus so the doubled
    badge floats above it instead of being clipped by it -- the seal sits just
@@ -450,13 +450,16 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    40px down-left shift regardless of the 2x growth, rather than that shift
    itself getting doubled. */
 .hero-seal:hover .hero-seal-inner,.hero-seal:focus-visible .hero-seal-inner{transform:translate(-40px,40px) scale(2)}
-.hero-seal-backdrop{position:absolute;inset:-6%;border-radius:50%;
+.hsr-alive-in .mb{display:none}
+.hsr-alive-in{display:inline-block;transform-origin:50% 50%;will-change:transform,opacity}
+.hero-seal-backdrop{display:none;position:absolute;inset:-6%;border-radius:50%;
   background:radial-gradient(circle,rgba(255,252,240,.9) 0%,rgba(255,252,240,.55) 62%,rgba(255,252,240,0) 78%);
   filter:blur(1px)}
 .hero-seal-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
   animation:heroSealSpin 34s linear infinite}
 .hero-seal-ring text{font-family:'Cinzel',Georgia,'Times New Roman',serif;font-weight:600;
-  font-size:19px;letter-spacing:2.8px;fill:#7a5717}
+  font-size:19px;letter-spacing:2.8px;fill:#fff}
+.hero-seal-ring{filter:drop-shadow(0 1px 3px rgba(24,15,2,.65))}
 .hero-seal-img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(16deg);
   width:64%;height:64%;border-radius:50%;display:block;
   filter:drop-shadow(0 6px 16px rgba(35,23,4,.35))}
@@ -705,6 +708,33 @@ footer .brand{font-size:15px;letter-spacing:.42em}
    when JS is on and reduced motion is off, so the plain text is the fallback. */
 .manukapan-caption .tw-c{opacity:0;transition:opacity .14s linear}
 .manukapan-caption .tw-c.on{opacity:1}
+/* third scroller: sits along the bottom of the beekeeper image (screen 5). On desktop the page pins the
+   image and the scroll slides the text; below 1001px (nothing pinned) it drifts on its own. */
+.hbot{position:absolute;left:0;right:0;bottom:0;z-index:3;overflow:hidden;line-height:1.2;
+  padding:clamp(12px,1.6vw,22px) 0;background:linear-gradient(to top,rgba(14,9,2,.72),rgba(14,9,2,.5));
+  border-top:1px solid rgba(255,248,230,.3)}
+.hbot-track{display:flex;width:max-content;padding-left:50vw;animation:hbotScroll 150s linear infinite;will-change:transform}
+.hbot:hover .hbot-track{animation-play-state:paused}
+.hbot.scrub .hbot-track{animation:none;padding-left:0}
+.hbot.scrub .hbot-dup{display:none}
+.hbot.scrub .hbot-txt{padding-left:50vw;padding-right:8vw}
+.hbot-txt{flex:none;white-space:nowrap;padding-right:clamp(60px,8vw,140px);
+  font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;font-weight:300;
+  font-size:clamp(15px,1.6vw,24px);letter-spacing:-.01em;color:#fff;line-height:1.2;
+  text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hbot-txt i{font-style:italic}
+/* the track opens with 50vw of padding so the first word starts mid-screen; -50% of the box is 25vw + one copy, so add 25vw back to travel exactly one copy */
+@keyframes hbotScroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% + 25vw))}}
+@media(prefers-reduced-motion:reduce){
+  .hbot-track{animation:none;width:100%;display:block;padding-left:0}
+  .hbot-txt{white-space:normal;display:block;text-align:center;padding:0 var(--pad)}
+  .hbot-txt[aria-hidden]{display:none}
+}
+/* desktop: the section is one held screen under the header (70px), image cropped to fill it */
+@media(min-width:1001px){
+  .manukapan{height:calc(100svh - 70px);overflow:hidden}
+  .manukapan img{height:100%;object-fit:cover;object-position:center}
+}
 
 /* ---------- top marquee : the pain point, the promise, then every active, looping ----------
    two identical sets sit side by side and the track slides exactly one set width,
@@ -2362,14 +2392,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
      column. The old copy under the glass stays in layout, invisible, so the gold band
      and keylines (which measure it) keep their positions. */
   .hero-solution-desktop{display:block;visibility:hidden}
-  .hero-solution-right{display:block;margin-top:130px;text-align:center}
+  .hero-solution-right{display:block;margin-top:44px;text-align:center}
   /* user request: all caps, same size/tracking as the "BORN IN NEW ZEALAND > MADE IN USA" line
      above it (.hero .eyebrow: min(1.8vw,22px), .14em), centred directly under that line. The
      tablet line is long in caps, so it is allowed to wrap onto two balanced lines. */
-  .hsr-lead,.hsr-body{display:block;position:static;width:auto;max-width:100%;transform:none;white-space:normal;text-wrap:balance;text-align:center;text-transform:uppercase;font-size:min(1.8vw,22px);letter-spacing:.14em;font-weight:600;line-height:1.35;color:var(--ink)}
+  .hsr-lead,.hsr-body{display:block;position:static;width:auto;max-width:100%;transform:none;white-space:normal;text-wrap:balance;text-align:center;text-transform:uppercase;font-size:min(1.8vw,22px);letter-spacing:.14em;font-weight:600;line-height:1.25;color:var(--ink)}
   .hsr-lead{position:relative;left:50%;transform:translateX(-50%);width:max-content;max-width:none;white-space:nowrap}
   .hsr-lead i{font-style:italic}
-  .hsr-body{margin:10px 0 0}
+  .hsr-body{margin:10px 0 0;position:relative;left:50%;transform:translateX(-50%);width:max-content;max-width:none;white-space:nowrap}
+  .hsr-alive{display:block;margin:16px 0 0;position:relative;left:50%;transform:translateX(-50%);width:max-content;white-space:nowrap;text-align:center;font-size:min(5.2vw,68px);letter-spacing:.16em;font-weight:700;line-height:1.15;text-transform:uppercase}
   /* (v96) "HoniOra's morning solution:" read too big against the tube/list trio it
      now sits above (moved here at v88), per a request to shrink it. Scoped to just
      this visible desktop duplicate -- .hero-solution-desktop .precede-solution --
@@ -2959,6 +2990,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hsr-lead,.hsr-body{display:block;text-align:center;text-transform:uppercase;font-size:clamp(12px,3.3vw,15px);letter-spacing:.16em;font-weight:600;line-height:1.4;color:var(--ink);text-wrap:balance}
   .hsr-body{margin:8px 0 0}
   .hsr-lead i{font-style:italic}
+  @media(max-width:360px){.hsr-body{letter-spacing:.08em;font-size:11.5px}}
+  .hsr-alive-in .mb{display:inline}
+  .hsr-alive{display:block;margin:12px 0 0;text-align:center;font-size:clamp(36px,10.8vw,52px);letter-spacing:.08em;font-weight:700;line-height:1.1;text-transform:uppercase}
 }
 </style>
 </head>
@@ -3104,7 +3138,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
-  <video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="ritual-bg-poster.jpg" aria-hidden="true"><source media="(max-width:1000px)" src="ritual-bg-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="ritual-bg-lite.mp4" type="video/mp4"><source src="ritual-bg.webm" type="video/webm"><source src="ritual-bg.mp4" type="video/mp4"></video>
+  <video class="hero-bg" autoplay muted loop playsinline preload="auto" poster="ritual-bg-poster.jpg" aria-hidden="true"><source media="(max-width:1000px)" src="ritual-bg-lite.webm" type="video/webm"><source media="(max-width:1000px)" src="ritual-bg-lite.mp4" type="video/mp4"><source src="ritual-bg.webm" type="video/webm"><source src="ritual-bg.mp4" type="video/mp4"></video>
   <div class="hero-bg-scrim" aria-hidden="true"></div>
   <div class="taste-silk" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="veil"></i></div>
   <div class="bubbles" id="bubbles"></div>
@@ -3128,7 +3162,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="hact"><b>Livaux<sup class="rn">&reg;</sup> Gold Kiwifruit</b><i class="hpop">Prebiotic &middot; Gut health matrix</i><s>600 mg</s></div>
           <div class="hact"><b>Pomma+<sup class="rn">&reg;</sup> Pomegranate Extract</b><i class="hpop">Antioxidant &middot; Polyphenol support</i><s>500 mg</s></div>
           <div class="hact"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><i class="hpop">Metabolic &middot; GLP-1 support</i><s>600 mg</s></div>
-          <div class="hact"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><i class="hpop">Spore probiotic &middot; Gut microbiome</i><s>1.8B CFU</s></div>
+          <div class="hact"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><i class="hpop">Spore probiotic &middot; Gut microbiome</i><s>2B CFU</s></div>
           <div class="hact"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><i class="hpop">Metabolic &middot; GLP-1 &amp; glycemic support</i><s>200 mg</s></div>
           <div class="hact"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><i class="hpop">Micro-vascular flow</i><s>100 mg</s></div>
           <div class="hact"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><i class="hpop">Endogenous nitric oxide</i><s>60 mg</s></div>
@@ -3180,17 +3214,17 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
            rather than letting the tag/stats/CTA lines below it shift up to fill it.
            Mobile/lite (<=1000px) is untouched: this stays display:none there and
            the original pair renders normally, visible, in its usual spot. -->
-      <div class="hero-precede hero-solution-desktop"><span class="precede-solution" id="precedeSolutionDesktop">Honi<i>Ora</i>'s morning solution:</span><br><span class="precede-body precede-fit" id="precedeFitDesktop">3 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
+      <div class="hero-precede hero-solution-desktop"><span class="precede-solution" id="precedeSolutionDesktop">Honi<i>Ora</i>'s morning solution:</span><br><span class="precede-body precede-fit" id="precedeFitDesktop">3 effervescent tablets &amp; 1 BIG glass of water &amp; 60 sec.</span></div>
       <img class="hero-tube-shot" src="hero-pack-tube-cutout.png" alt="HONIORA gold tube" width="1600" height="437" loading="lazy">
     </div>
     <div class="wrap hero-grid">
     <div>
       <div class="hero-copy-shift">
-      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YOUR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YOUR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">3 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
+      <div class="hero-precede rv"><table class="precede-table" role="presentation"><tbody><tr><td><span class="precede-rest"><span class="precede-lead-inline" id="precedeLeadInline"><span class="precede-lead" id="precedeLead">NOURISH <span class="precede-lead-gold">YOUR</span> BODY<br>UPGRADE <span class="precede-lead-gold">YOUR</span> WELLNESS</span> <br></span><span class="precede-solution-wrap"> <span class="precede-solution">Honi<i>Ora</i>'s morning solution:</span> <br> <span class="precede-body precede-fit" id="precedeFit">3 effervescent tablets &amp; 1 BIG glass of water &amp; 60 sec.</span></span></span></td></tr></tbody></table></div>
       <h1 class="serif rv hero-logo" id="heroWordmark">HONI<span>ORA</span></h1>
       <p class="hero-tag rv">M&#256;NUKA CREATINE PROTOCOL</p>
       <p class="eyebrow rv" id="bornMadeLine" style="margin-top:22px">Born in New Zealand &amp; Made in USA</p>
-      <div class="hero-solution-right"><span class="hsr-lead">Honi<i>Ora</i>'s morning solution:</span><span class="hsr-body">3 effervescent tablets &amp; 1 glass of water &amp; 60 sec.</span></div>
+      <div class="hero-solution-right"><span class="hsr-lead">Honi<i>Ora</i>'s morning solution:</span><span class="hsr-body">3 effervescent tablets<br>&amp;<br>1 BIG glass of water<br>&amp;<br>60 sec.</span><span class="hsr-alive"><span class="hsr-alive-in" id="aliveZoom">ALIVE<br class="mb"> LIKE<br class="mb"> YOU!</span></span></div>
       </div>
       <ul class="keyact flat hero-actives">
         <li>MGO 850+ M&#257;nuka Honey crystals</li>
@@ -3216,7 +3250,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div><b>20</b><span>Full dose wellness actives</span></div>
       </div>
       <div class="hero-cta rv">
-        <a href="#matrix" class="btn">Explore Honi<i>Ora</i> <span class="ar">&rarr;</span></a>
+        <a href="#matrix" class="btn ghost"><span class="btn-t">Explore Honi<i>Ora</i></span> <span class="ar">&rarr;</span></a>
         <a href="#triad" class="btn ghost">Gut, heart, brain, power</a>
       </div>
     </div>
@@ -3238,7 +3272,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="NMN nicotinamide mononucleotide powder" loading="lazy"></picture><figcaption class="icap"><b>NMN Nicotinamide Mononucleotide</b><s>750 mg</s><u class="ifn">CELLULAR ENERGY</u><i>Nicotinamide mononucleotide is a direct precursor the body uses to make NAD+, a coenzyme involved in cellular energy metabolism. At 750 mg per serving it sits beside creatine and MitoQ on the Power axis.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><u class="ifn">MICROCIRCULATION</u><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><u class="ifn">BLOOD LIPID PROTECTION</u><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONI<i>ORA</i> delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>1.8 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>2 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>1,800 mcg RAE</s><u class="ifn">BARRIER &amp; IMMUNE SUPPORT</u><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="landkind_pure_salidroside-lite.webp"><img width="820" height="820" src="landkind_pure_salidroside.webp" alt="Landkind Pure Salidroside, 98 percent pure" loading="lazy"></picture><figcaption class="icap"><b>Landkind<sup class="rn">&reg;</sup> Pure Salidroside</b><s>60 mg</s><u class="ifn">STRESS RESPONSE</u><i>Precision-fermented Rhodiola rosea, standardised to 98%+ purity. An adaptogen that helps the body regulate its response to everyday stress.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="yuzu-lite.webp"><img width="820" height="820" src="yuzu.webp" alt="Yuzu" loading="lazy"></picture><figcaption class="icap"><b>Natural Japanese Yuzu Flavor</b><s>Flavour system &middot; 13 mg</s><u class="ifn">CITRUS AROMA</u><i>An Asian citrus grown in Japan and prized for its rind. Sharper than lemon, floral like mandarin, and it holds that delicious top note through acid and cold.</i></figcaption></figure></div>
@@ -3303,6 +3337,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <img width="1600" height="1067" src="MANUKA_PAN.jpg" alt="Beekeepers tending hives on a clifftop over the New Zealand m&#257;nuka coast, ocean below">
   </picture>
   <p class="manukapan-caption" id="manukapanCaption">FROM AOTEAROA : THE LAND OF THE LONG WHITE CLOUD</p>
+  <div class="hbot" id="hbot" aria-label="100% dose transparency across all 20 premium bioactives, delivering full payloads of NMN, Creatine Monohydrate, MitoQ, BioAstin Astaxanthin, Stable LactoSpore probiotics, and unique native New Zealand botanicals including MGO850+ Manuka Honi crystals and Livaux Gold Kiwi.">
+    <div class="hbot-track" id="hbotTrack"><span class="hbot-txt">100% dose transparency across all 20 premium bioactives, delivering full payloads of NMN, Creatine Monohydrate, MitoQ, BioAstin Astaxanthin, Stable LactoSpore probiotics, and unique native New Zealand botanicals including MGO850+ M&#257;nuka Honi crystals and Livaux Gold Kiwi.</span><span class="hbot-txt hbot-dup" aria-hidden="true">100% dose transparency across all 20 premium bioactives, delivering full payloads of NMN, Creatine Monohydrate, MitoQ, BioAstin Astaxanthin, Stable LactoSpore probiotics, and unique native New Zealand botanicals including MGO850+ M&#257;nuka Honi crystals and Livaux Gold Kiwi.</span></div>
+  </div>
 </section>
 
 <!-- ================= RITUAL ================= -->
@@ -3364,7 +3401,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><b>Livaux<sup class="rn">&reg;</sup> gold kiwifruit</b><em>F. prausnitzii</em> roughly doubled in 70% of trial participants within 28 days, lifting butyrate for the colonic lining.</li>
           <li><b>Feiolix<sup class="rn">&reg;</sup> feijoa</b>Your own GLP-1 released at every serving, not a synthetic analogue.</li>
           <li><b>MGO 850+ M&#257;nuka &amp; Fiberest<sup class="rn">&reg;</sup> HF</b>Prebiotic fibre and methylglyoxal support a settled, well-fed gut lining.</li>
-          <li><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b>1.8 billion CFU of spore probiotic arrive in every glass, alongside the prebiotic fibres they are dosed with.</li>
+          <li><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b>2 billion CFU of spore probiotic arrive in every glass, alongside the prebiotic fibres they are dosed with.</li>
         </ul>
       </div>
 
@@ -3758,7 +3795,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</i><b>1,500 mg</b></li>
           <li><i>Feiolix<sup class="rn">&reg;</sup> Feijoa</i><b>600 mg</b></li>
           <li><i>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</i><b>200 mg</b></li>
-          <li><i>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</i><b>1.8 billion CFU</b></li>
+          <li><i>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</i><b>2 billion CFU</b></li>
           <li><i>Vitamin A Retinyl Palmitate</i><b>1,800 mcg RAE</b></li>
         </ul>
         <p>Livaux<sup class="rn">&reg;</sup> Gold Kiwi powder feeds <em>F. prausnitzii</em> in your gut, which produces butyrate that nourishes the colonic lining and repairs tight junctions.<br><br>M&#257;nuka&rsquo;s high methylglyoxal clears pathogens out of the way so the beneficial population has room to grow.<br><br>The Fiberest<sup class="rn">&reg;</sup> HF fibre matrix, keeps the honey crystals stable and adds fermentable substrate of its own.<br><br>LactoSpore<sup class="rn">&reg;</sup> <em>Bacillus coagulans</em> fills the room. Its spore coat carries the bacteria through stomach acid, they germinate in the intestine and produce lactic acid, and arrive in a gut already supplied with fermentable fibre by Livaux<sup class="rn">&reg;</sup> and Fiberest<sup class="rn">&reg;</sup>.<br><br>Vitamin A as retinyl palmitate supports the mucous membranes lining the gut, so the butyrate-fed lining and the new bacteria meet maintained tissue.<br><br>Feiolix<sup class="rn">&reg;</sup> and Eriomin<sup class="rn">&reg;</sup> add to your own GLP-1 (<a href="#glp1" style="color:inherit;text-decoration:underline">four routes</a>). A barrier which holds absorbs, and everything downstream depends on this.</p>
@@ -4033,7 +4070,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid">
         <div class="name">LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans<i>MTCC 5856 &middot; 15B spores/g</i></div>
         <div><span class="fn">Spore probiotic<small>Gut microbiome</small></span></div>
-        <div class="dose">1.8 billion CFU<small>120 mg raw material</small></div>
+        <div class="dose">2 billion CFU<small>133 mg raw material</small></div>
         <div class="mech">A spore-forming probiotic that withstands high-speed compression and the tablet's own acid-base effervescent reconstitution, so viable spores reach the gut. Dosed with the formula's Livaux<sup class="rn">&reg;</sup> and MGO M&#257;nuka/Fiberest<sup class="rn">&reg;</sup> prebiotic fibres.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
@@ -4212,7 +4249,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 20 actives and 11 excipients, at the dose delivered in a three-tablet serving. Doses are the per-tablet figures from batch record MBR V8.9.16 tripled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
+    <p class="small rv" style="margin-top:26px">That is the complete bill of materials, all 20 actives and 11 excipients, at the dose delivered in a three-tablet serving. Doses are the per-tablet figures from batch record MBR V8.9.17 tripled. Where a raw material is standardised, the active yield is shown beneath the material weight.</p>
   </div>
 </section>
 
@@ -4230,7 +4267,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li><span class="x">02</span><div><strong>Grown in the Bay of Plenty.</strong> <span class="d">Livaux<sup class="rn">&reg;</sup> is made from 100% New Zealand gold kiwifruit, the Zespri Gold3 variety, is grown mainly in the same North Island region as HoniCo's base.<br><a class="cite" href="https://livaux.com/golden-kiwifruit/" target="_blank" rel="noopener noreferrer">Ingredient sourcing <span>livaux.com &nearr;</span></a></span></div></li>
         <li><span class="x">03</span><div><strong>A whole-fruit matrix, not one isolated fibre.</strong> <span class="d">The ingredient's manufacturer reports 41 distinct bioactive phenolic compounds across 27 classes in the whole-fruit powder, against 9 compounds across 7 classes in plain inulin fibre, a common single-fibre prebiotic. Its maker calls Livaux<sup class="rn">&reg;</sup> a 3rd-generation prebiotic, combining fibre, polyphenols and vitamins in one whole-fruit matrix.<br><a class="cite" href="https://livaux.com/the-science-of-livaux/" target="_blank" rel="noopener noreferrer">Ingredient science <span>livaux.com &nearr;</span></a></span></div></li>
         <li><span class="x">04</span><div><strong>Built to work alongside a live culture.</strong> <span class="d">The manufacturer's own testing puts as little as 25 to 50 mg of Livaux<sup class="rn">&reg;</sup> per billion CFU as enough to support probiotic growth and activity, well under the 600 mg full serving HONI<i>ORA</i> delivers.</span></div></li>
-        <li><span class="x">05</span><div><strong>Paired with a named probiotic, not left to chance.</strong> <span class="d">HONI<i>ORA</i> also carries LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans (1.8 billion CFU) and Fiberest<sup class="rn">&reg;</sup> HF fibre alongside Livaux<sup class="rn">&reg;</sup>. The prebiotic fibres feed the gut population that produces butyrate, which nourishes the colonic lining and helps repair tight junctions, while M&#257;nuka's own methylglyoxal clears space in the gut for that population to grow into. The lines are dosed as one connected system, not separate additions.</span></div></li>
+        <li><span class="x">05</span><div><strong>Paired with a named probiotic, not left to chance.</strong> <span class="d">HONI<i>ORA</i> also carries LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans (2 billion CFU) and Fiberest<sup class="rn">&reg;</sup> HF fibre alongside Livaux<sup class="rn">&reg;</sup>. The prebiotic fibres feed the gut population that produces butyrate, which nourishes the colonic lining and helps repair tight junctions, while M&#257;nuka's own methylglyoxal clears space in the gut for that population to grow into. The lines are dosed as one connected system, not separate additions.</span></div></li>
         <li><span class="x">06</span><div><strong>An award-winning ingredient.</strong> <span class="d">Livaux<sup class="rn">&reg;</sup> won Ingredient of the Year for microbiome modulation at the 2026 NutraIngredients-Asia Awards.<br><a class="cite" href="https://www.nutraingredients.com/Article/2026/10/05/3rd-gen-prebiotic-whole-fruit-kiwi-extracts-benefits-lie-beyond-fiber/" target="_blank" rel="noopener noreferrer">NutraIngredients <span>nutraingredients.com &nearr;</span></a></span></div></li>
       </ul>
 
@@ -4566,7 +4603,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             <img class="pconv-badge-photo" src="pconv-hexbadge.png" alt="" loading="lazy">
             <div class="pconv-text">
               <div class="pconv-title">LactoSpore® Bacillus coagulans</div>
-              <div class="pconv-desc">Spore probiotic · Gut microbiome</div><div class="pconv-dose">1.8 billion CFU</div>
+              <div class="pconv-desc">Spore probiotic · Gut microbiome</div><div class="pconv-dose">2 billion CFU</div>
             </div>
           </div>
         </div>
@@ -5024,7 +5061,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <p style="margin-top:12px">Clinical figures cited on this page derive from published trials of the individual branded ingredients at the doses stated, and not from a clinical trial of the finished HONI<i>ORA</i> product. <strong>Allergen declaration to be confirmed against final supplier specifications before launch.</strong> Certified gluten-free below 5.0 ppm. Manufactured in the USA in an NSF / USP certified GMP facility. Not intended for use by anyone under 18, or by people who are pregnant or breastfeeding. If you take prescription medication, particularly for blood pressure, speak with your doctor before use. Livaux, Feiolix, Eriomin, Careflow, Fiberest, Landkind, Braincurrant, Hytolive, Pomma+, LactoSpore, MitoQ, BioAstin, Hawaiian Astaxanthin, Zinc Bisglycinate TRAACS, Thaumatin Pure Talin and Sodium Stearyl Fumarate Pruv are trademarks of their respective owners.</p>
       <div class="footbottom">
         <span>&copy; 2026 HoniCo New Zealand. All rights reserved.</span>
-        <span>MBR V8.9.16 (draft)</span>
+        <span>MBR V8.9.17 (draft)</span>
       </div>
     </div>
   </div>
@@ -5735,7 +5772,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 20 named actives into one effervescent serving, 12,675 mg total. They run across four systems: <b>Strength</b> (creatine for power, MitoQ, NMN), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (Careflow, S7, Hytolive, Pomma+, BioAstin, taurine, magnesium, zinc) and <b>Brain</b> (L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 20 named actives into one effervescent serving, 12,702 mg total. They run across four systems: <b>Strength</b> (creatine for power, MitoQ, NMN), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (Careflow, S7, Hytolive, Pomma+, BioAstin, taurine, magnesium, zinc) and <b>Brain</b> (L-Theanine, Braincurrant). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 3 tablets into 400 ml of cold water. The effervescent engine fully dissolves in 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -5798,7 +5835,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
                {t:"Cesar 2022, PMID 35796695 · GLP-1 and inflammation",u:"https://pubmed.ncbi.nlm.nih.gov/35796695/"},
                {t:"Ramos 2023, PMID 37242433 · gut microbiota",u:"https://pubmed.ncbi.nlm.nih.gov/37242433/"}]},
       {k:["probiotic","lactospore","bacillus","coagulans","spore","cfu","microbiome","mtcc"],
-       a:"LactoSpore is Bacillus coagulans, strain MTCC 5856, a spore-forming probiotic. Spores are tougher than most probiotic cells, so they are built to come through high-speed tableting and the tablet's own acid-base effervescent reaction. HONI<i>ORA</i> doses it at 120 mg of raw material per serving, which is about 1.8 billion CFU at 15 billion spores per gram. It sits alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF.",
+       a:"LactoSpore is Bacillus coagulans, strain MTCC 5856, a spore-forming probiotic. Spores are tougher than most probiotic cells, so they are built to come through high-speed tableting and the tablet's own acid-base effervescent reaction. HONI<i>ORA</i> doses it at 133 mg of raw material per serving, which is about 2 billion CFU at 15 billion spores per gram. It sits alongside the prebiotic fibres already in the formula, Livaux Gold Kiwifruit and MGO Mānuka/Fiberest HF.",
        src:"Supplied as a spore powder, 15 billion spores per gram per the batch record. No supplier name is on file in this library, so I won't invent one. Ingredient science citation to be added.",
        papers:[]},
       {k:["mitoq","mitoquinol","mitochondria","mitochondrial"],
@@ -6509,7 +6546,36 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
       markFocus();
 
+      /* screen 5: hold the beekeeper image (with the scroller along its foot) until the whole line has slid through */
+      var bee = document.querySelector('.manukapan'), hbot = document.getElementById('hbot'), hbTrack = document.getElementById('hbotTrack');
+      var hbDistance = function(){
+        if (!hbot || !hbTrack) return 0;
+        var t = hbTrack.querySelector('.hbot-txt');
+        return t ? Math.max(0, t.offsetWidth - hbot.clientWidth) : 0;
+      };
+      var HB_SPAN = function(){ return hbDistance() * 0.6; };
+      var HB_TAIL = function(){ return window.innerHeight * 0.2; };
+      if (hbot) hbot.classList.add('scrub');
+      var hst = (bee && hbot && hbTrack) ? ScrollTrigger.create({
+        trigger: bee,
+        start: 'top top+=70',
+        end: function(){ return '+=' + (HB_SPAN() + HB_TAIL()); },
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: 0.8,
+        invalidateOnRefresh: true,
+        onUpdate: function(self){
+          var total = HB_SPAN() + HB_TAIL();
+          var f = HB_SPAN() ? Math.min(1, (self.progress * total) / HB_SPAN()) : 0;
+          gsap.set(hbTrack, { x: -hbDistance() * f });
+        }
+      }) : null;
+
       return function(){          /* cleanup when the query stops matching */
+        if (hst) hst.kill();
+        if (hbot) hbot.classList.remove('scrub');
+        if (hbTrack) gsap.set(hbTrack, { clearProps: 'transform' });
         if (ist) ist.kill();
         gsap.set(track, { clearProps: 'transform' });
         if (iTrack) gsap.set(iTrack, { clearProps: 'transform' });
@@ -7772,6 +7838,35 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   window.addEventListener('resize',centre,{passive:true});
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(centre);
   centre();
+})();
+</script>
+<script>
+(function(){var v=document.querySelector('.hero .hero-bg');if(!v)return;var R=0.5;
+function s(){try{v.defaultPlaybackRate=R;v.playbackRate=R;}catch(e){}}
+s();['loadedmetadata','loadeddata','play','playing','ratechange'].forEach(function(e){v.addEventListener(e,function(){if(v.playbackRate!==R)s();});});
+})();
+</script>
+<script>
+/* ALIVE LIKE YOU! zooms toward the viewer and fades as screen 1 scrolls out to screen 2 */
+(function(){
+  var el=document.getElementById('aliveZoom'),hero=document.querySelector('#top .hero-bg');
+  if(!el||!hero)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var ticking=false;
+  function upd(){
+    ticking=false;
+    var vh=window.innerHeight||800,b=hero.getBoundingClientRect().bottom;
+    var p=(vh-b)/(vh*0.7);
+    p=p<0?0:(p>1?1:p);
+    if(p<=0.001){el.style.transform='';el.style.opacity='';return;}
+    var sc=1+p*1.6+p*p*2.4;
+    el.style.transform='scale('+sc.toFixed(3)+')';
+    el.style.opacity=Math.max(0,1-p*1.15).toFixed(3);
+  }
+  function req(){if(!ticking){ticking=true;requestAnimationFrame(upd);}}
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',req);
+  upd();
 })();
 </script>
 </body>
