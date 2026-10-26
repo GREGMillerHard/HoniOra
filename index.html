@@ -2986,6 +2986,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
    column is dropped so the text is not shown twice. */
 @media(max-width:1000px){
   .hero-precede .precede-solution-wrap{display:none}
+  /* mobile: drop the actives list, the "20 full dose wellness actives" line and its two buttons, so the
+     page goes straight from the hero into the ingredient icons */
+  .hero .hero-actives,.hero .hero-meta,.hero .hero-cta{display:none}
   .hero-solution-right{display:block;margin:16px 0 0;text-align:center}
   .hsr-lead,.hsr-body{display:block;text-align:center;text-transform:uppercase;font-size:clamp(12px,3.3vw,15px);letter-spacing:.16em;font-weight:600;line-height:1.4;color:var(--ink);text-wrap:balance}
   .hsr-body{margin:8px 0 0}
