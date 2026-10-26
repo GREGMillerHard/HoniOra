@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <script>
 /* Always open on screen one (the hero) on lite/mobile widths. Runs synchronously,
    before the browser restores any previous scroll position or jumps to a URL hash,
@@ -151,6 +151,8 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
   background:linear-gradient(180deg,rgba(24,15,2,.55) 0%,rgba(24,15,2,.42) 40%,rgba(24,15,2,.55) 100%)}
 .hero-img-col{mix-blend-mode:normal !important}
 .hero .hero-copy-shift .hero-logo,.hero .hero-copy-shift .hero-precede .precede-lead,.hero .hero-copy-shift .hero-tag,.hero-img-col .hero-precede .precede-solution,.hero-img-col .hero-precede .precede-body,.hero .hero-solution-right,.hero .hero-solution-right span{color:#FFF8E6;text-shadow:0 1px 14px rgba(24,15,2,.55)}
+.hero .hero-precede-mobile .precede-lead{color:#FFF8E6;text-shadow:0 1px 14px rgba(24,15,2,.55)}
+.hero .hero-precede-mobile .precede-lead-gold{color:#F6D77F}
 .hero .hero-copy-shift .hero-logo span,.hero .hero-copy-shift .precede-lead-gold,.hero .hero-copy-shift .eyebrow,.hero .hero-copy-shift #bornMadeLine{color:#F6D77F;text-shadow:0 1px 14px rgba(24,15,2,.55)}
 .hero .hrail{border-color:rgba(255,248,230,.28)}
 .hero .hrail::before{background:linear-gradient(to right,rgba(24,15,2,.7),rgba(24,15,2,0))}
@@ -2988,7 +2990,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   .hero-precede .precede-solution-wrap{display:none}
   /* mobile: drop the actives list, the "20 full dose wellness actives" line and its two buttons, so the
      page goes straight from the hero into the ingredient icons */
-  .hero .hero-actives,.hero .hero-meta,.hero .hero-cta{display:none}
+  .hero .hero-actives,.hero .hero-meta,.hero .hero-cta,.hero .tube-band{display:none}
+  /* phone: nothing may push the page wider than the screen (that shrinks the page and leaves a white strip down the right edge) */
+  html{overflow-x:hidden}
+  /* centre the hero type on the screen: .hero-lower reserves --pad on its right only, which left every line
+     half a --pad left of centre. The text column and the video column are nudged back by that half. */
+  .hero-lower .hero-grid{margin-left:calc(var(--pad) / 2);margin-right:calc(var(--pad) / -2)}
+  .hero-img-col{margin-left:0}
   .hero-solution-right{display:block;margin:16px 0 0;text-align:center}
   .hsr-lead,.hsr-body{display:block;text-align:center;text-transform:uppercase;font-size:clamp(12px,3.3vw,15px);letter-spacing:.16em;font-weight:600;line-height:1.4;color:var(--ink);text-wrap:balance}
   .hsr-body{margin:8px 0 0}
@@ -7870,6 +7878,24 @@ s();['loadedmetadata','loadeddata','play','playing','ratechange'].forEach(functi
   window.addEventListener('scroll',req,{passive:true});
   window.addEventListener('resize',req);
   upd();
+})();
+</script>
+<script>
+/* phone: the video background runs down behind "ALIVE LIKE YOU!" as well */
+(function(){
+  var hero=document.getElementById('top'),a=document.querySelector('.hero-solution-right .hsr-alive');
+  if(!hero||!a)return;
+  function fit(){
+    if(window.innerWidth>1000)return;
+    var h=a.getBoundingClientRect().bottom-hero.getBoundingClientRect().top+40;
+    hero.style.setProperty('--herobg-h',Math.round(h)+'px');
+  }
+  fit();
+  window.addEventListener('load',fit);
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  setTimeout(fit,600);setTimeout(fit,2000);
 })();
 </script>
 </body>
