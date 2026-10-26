@@ -732,10 +732,13 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   .hbot-txt{white-space:normal;display:block;text-align:center;padding:0 var(--pad)}
   .hbot-txt[aria-hidden]{display:none}
 }
-/* desktop: the section is one held screen under the header (70px), image cropped to fill it */
+/* desktop: the section is one held screen under the header (70px). The photo fills the full width at its true
+   proportions. On screens shorter than the photo the held frame pans from the top of the photo to the bottom as
+   the scroller slides, so the whole picture is seen with no bars and no permanent crop. */
 @media(min-width:1001px){
-  .manukapan{height:calc(100svh - 70px);overflow:hidden}
-  .manukapan img{height:100%;object-fit:cover;object-position:center}
+  .manukapan{height:min(calc(100svh - 70px),calc(100vw * 1067 / 1600));overflow:hidden}
+  .manukapan img{height:100%;object-fit:cover;object-position:50% 0%}
+  .manukapan.is-sticky{position:sticky;top:70px;z-index:2}
 }
 
 /* ---------- top marquee : the pain point, the promise, then every active, looping ----------
@@ -6640,25 +6643,38 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       };
       var HB_SPAN = function(){ return hbDistance() * 0.6; };
       var HB_TAIL = function(){ return window.innerHeight * 0.2; };
-      if (hbot) hbot.classList.add('scrub');
-      var hst = (bee && hbot && hbTrack) ? ScrollTrigger.create({
-        trigger: bee,
+      /* the hold is native CSS position:sticky inside a tall wrapper (no JS pin switching fixed/relative,
+         so there is no jump when the page lets go). ScrollTrigger only reads the scroll and slides the text. */
+      var hbWrap = null, hbSize = null, beeImg = bee ? bee.querySelector('img') : null;
+      if (bee && hbot && hbTrack && bee.parentNode) {
+        hbot.classList.add('scrub');
+        hbWrap = document.createElement('div');
+        hbWrap.className = 'manuka-hold';
+        bee.parentNode.insertBefore(hbWrap, bee);
+        hbWrap.appendChild(bee);
+        bee.classList.add('is-sticky');
+        hbSize = function(){ hbWrap.style.height = (bee.offsetHeight + HB_SPAN() + HB_TAIL()) + 'px'; };
+        hbSize();
+        ScrollTrigger.addEventListener('refreshInit', hbSize);
+      }
+      var hst = hbWrap ? ScrollTrigger.create({
+        trigger: hbWrap,
         start: 'top top+=70',
         end: function(){ return '+=' + (HB_SPAN() + HB_TAIL()); },
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 0.8,
         invalidateOnRefresh: true,
         onUpdate: function(self){
           var total = HB_SPAN() + HB_TAIL();
           var f = HB_SPAN() ? Math.min(1, (self.progress * total) / HB_SPAN()) : 0;
           gsap.set(hbTrack, { x: -hbDistance() * f });
+          if (beeImg) beeImg.style.objectPosition = '50% ' + (f * 100) + '%';
         }
       }) : null;
 
       return function(){          /* cleanup when the query stops matching */
         if (hst) hst.kill();
+        if (hbSize) ScrollTrigger.removeEventListener('refreshInit', hbSize);
+        if (hbWrap && hbWrap.parentNode) { bee.classList.remove('is-sticky'); hbWrap.parentNode.insertBefore(bee, hbWrap); hbWrap.parentNode.removeChild(hbWrap); }
+        if (beeImg) beeImg.style.objectPosition = '';
         if (hbot) hbot.classList.remove('scrub');
         if (hbTrack) gsap.set(hbTrack, { clearProps: 'transform' });
         if (ist) ist.kill();
