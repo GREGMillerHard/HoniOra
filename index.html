@@ -1391,7 +1391,7 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .no-grid{--cw:calc((min(1500px,98vw) - 36px)/4);display:flex;justify-content:center;align-items:center;gap:12px;max-width:none;
   width:min(1500px,98vw);margin-left:calc((100% - min(1500px,98vw))/2);margin-right:0}
 .no-card{flex:0 0 var(--cw);width:var(--cw);height:var(--cw);box-sizing:border-box;border-radius:50%;
-  padding:calc(var(--cw)*.13) calc(var(--cw)*.165);align-items:center;justify-content:center;text-align:center}
+  padding:calc(var(--cw)*.16) calc(var(--cw)*.165) calc(var(--cw)*.13);align-items:center;justify-content:flex-start;text-align:center}
 .no-route{align-self:center;font-size:calc(var(--cw)*.026);padding:calc(var(--cw)*.012) calc(var(--cw)*.03);margin-bottom:calc(var(--cw)*.028)}
 .no-card h4{font-size:calc(var(--cw)*.047);margin:0 0 calc(var(--cw)*.01)}
 .no-dose{font-size:calc(var(--cw)*.036);margin-bottom:calc(var(--cw)*.022)}
@@ -3958,14 +3958,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     <div class="no-grid rv">
       <div class="no-card">
-        <span class="no-route">Enzyme route</span>
+        <span class="no-route sig">Enzyme route</span>
         <h4>VasoDrive-AP<sup class="rn">&reg;</sup></h4>
         <b class="no-dose">508 mg</b>
         <p>Casein tripeptides VPP and IPP. They support arterial flexibility by raising endothelial nitric oxide synthase (eNOS), the enzyme that makes NO, and by inhibiting angiotensin-converting enzyme. Contains milk.</p>
         <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/23566677/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 23566677 &nearr;</span></a>
       </div>
       <div class="no-card">
-        <span class="no-route">Enzyme route</span>
+        <span class="no-route sig">Enzyme route</span>
         <h4>Careflow<sup class="rn">&reg;</sup> Mango Fruit</h4>
         <b class="no-dose">100 mg</b>
         <p>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Blood flow through the smallest capillaries rises within hours of ingestion.</p>
@@ -3979,10 +3979,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/38612462/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 38612462 &nearr;</span></a>
       </div>
       <div class="no-card">
-        <span class="no-route">Nitrate route</span>
+        <span class="no-route sig">Nitrate route</span>
         <h4>OxyStorm<sup class="rn">&reg;</sup> Red Spinach</h4>
         <b class="no-dose">600 mg</b>
-        <p>Red spinach leaf extract standardised by the supplier to at least 9% nitrate. The body converts dietary nitrate to nitrite and then to nitric oxide. No trial of OxyStorm is cited here.</p>
+        <p>Red spinach leaf extract standardised by the supplier to at least 9% nitrate. The body converts dietary nitrate to nitrite and then to nitric oxide. In a 15-person trial, 1,000 mg raised plasma nitrate. Blood pressure did not change.</p>
+        <a class="cite" href="https://doi.org/10.3390/sports5040080" target="_blank" rel="noopener noreferrer">Moore 2017 <span>Sports &middot; RCT &nearr;</span></a>
       </div>
     </div>
 
@@ -4148,7 +4149,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">OxyStorm<sup class="rn">&reg;</sup> Red Spinach Extract<i>PLT Health Solutions</i></div>
         <div><span class="fn">Vascular<small>Plant nitrate</small></span></div>
         <div class="dose">600 mg<small>about 54 mg nitrate</small></div>
-        <div class="mech">Leaf extract of red spinach (<em>Amaranthus dubius</em>), standardised by the supplier to a minimum of 9% nitrate. 600 mg supplies about 54 mg of nitrate, which the body converts to nitrite and then to nitric oxide. The supplier describes a 100% water-soluble, sugar-free powder. No trial of OxyStorm is cited here.<br><a class="cite" href="https://www.plthealth.com/oxystorm" target="_blank" rel="noopener noreferrer">Ingredient science <span>PLT Health &nearr;</span></a></div>
+        <div class="mech">Leaf extract of red spinach (<em>Amaranthus dubius</em>), standardised by the supplier to a minimum of 9% nitrate. 600 mg supplies about 54 mg of nitrate, which the body converts to nitrite and then to nitric oxide. The supplier describes a 100% water-soluble, sugar-free powder. Human data: two reports from one 15-person crossover trial of a 1,000 mg dose (about 90 mg nitrate), higher than the 600 mg here. Plasma nitrate rose and blood pressure did not change.<br><a class="cite" href="https://doi.org/10.3390/sports5040080" target="_blank" rel="noopener noreferrer">Moore 2017 <span>Sports &middot; RCT &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s00421-016-3478-8" target="_blank" rel="noopener noreferrer">Haun 2016 <span>Eur J Appl Physiol &middot; RCT &nearr;</span></a><a class="cite sup" href="https://www.plthealth.com/oxystorm" target="_blank" rel="noopener noreferrer">Ingredient science <span>PLT Health &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
@@ -4447,7 +4448,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li><span class="x">04</span><div><strong>100% Free of oxalate.</strong> <span class="d">OxyStorm contains no oxalate, the compound found in beetroot powders. Oxalate is the main building block of kidney stones.</span></div></li>
       </ul>
 
-      <p class="small" style="margin-top:30px;max-width:78ch">Ingredient-level information, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. The 9% nitrate figure and the other properties are supplier specifications, to be confirmed on a certificate of analysis. No trial of OxyStorm is cited here, and none is a trial of the finished HONI<i>ORA</i> tablet. OxyStorm is a trade mark of PLT Health Solutions.</p>
+      <p class="small" style="margin-top:30px;max-width:78ch">Ingredient-level information, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. The 9% nitrate figure and the other properties are supplier specifications, to be confirmed on a certificate of analysis. The cited trial gave 1,000 mg of red spinach extract (about 90 mg nitrate) to 15 healthy adults, which is more than the 600 mg here, and no cited trial is of the finished HONI<i>ORA</i> tablet. <a href="https://doi.org/10.3390/sports5040080" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Moore 2017</a> and <a href="https://doi.org/10.1007/s00421-016-3478-8" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Haun 2016</a>. OxyStorm is a trade mark of PLT Health Solutions.</p>
     </div>
   </div>
 </section>
@@ -6061,8 +6062,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        src:"Manufacturer: Gnosis by Lesaffre, part of the Lesaffre Group, headquartered in France with over 170 years in fermentation and biotechnology.",
        map:"https://www.google.com/maps/search/?api=1&query=France"},
       {k:["oxystorm","red spinach","spinach","nitrate","amaranth"],
-       a:"OxyStorm is a red spinach leaf extract (Amaranthus dubius) sold by PLT Health Solutions and standardised by the supplier to at least 9% nitrate, which is 90 mg of nitrate per gram. HONI<i>ORA</i> carries 600 mg per serving, about 54 mg of nitrate. The body converts dietary nitrate to nitrite and then to nitric oxide. That amount is a fraction of the nitrate used in published exercise studies, so I won't call it a performance dose, and I have no trial of OxyStorm itself to cite. The supplier states that OxyStorm contains no oxalate.",
-       src:"Supplier: PLT Health Solutions. The supplier sheet gives no country of origin, and the nitrate figure is the supplier's own specification."},
+       a:"OxyStorm is a red spinach leaf extract (Amaranthus dubius) sold by PLT Health Solutions and standardised by the supplier to at least 9% nitrate, which is 90 mg of nitrate per gram. HONI<i>ORA</i> carries 600 mg per serving, about 54 mg of nitrate. The body converts dietary nitrate to nitrite and then to nitric oxide. That amount is a fraction of the nitrate used in published exercise studies, so I won't call it a performance dose. The published human data are two reports (Haun 2016, Moore 2017) from one 15-person crossover trial of a 1,000 mg dose, about 90 mg nitrate: plasma nitrate rose, blood pressure did not change, and oxygen use at the ventilatory threshold was higher. The supplier states that OxyStorm contains no oxalate.",
+       src:"Supplier: PLT Health Solutions. The supplier sheet gives no country of origin, and the nitrate figure is the supplier's own specification.",
+       papers:[{t:"Haun 2016 · Eur J Appl Physiol",u:"https://doi.org/10.1007/s00421-016-3478-8"},
+               {t:"Moore 2017 · Sports",u:"https://doi.org/10.3390/sports5040080"}]},
       {k:["livaux","gold kiwifruit","kiwifruit","kiwi"],
        a:"Livaux Gold Kiwifruit is a pectin matrix carrying 41 phenolics, fermented slowly, and in a 2025 trial roughly doubled F. prausnitzii, a butyrate-producing gut bacterium, in 70% of participants within 28 days. New Zealand's kiwifruit industry is centred on the Bay of Plenty, home to Te Puke, often called the kiwifruit capital of the world; Anagenix says all its ingredients are traceable to their growing region but doesn't publish Livaux's specific orchard location, so I'll leave it at that rather than assume it's the same. Gold kiwifruit itself is Actinidia chinensis, bred from Chinese germplasm New Zealand imported in the late 1970s. The Zespri SunGold variety reached the market in the late 1990s, sweeter and smoother-skinned than the older green Hayward kiwifruit, and the Bay of Plenty now grows most of New Zealand's crop. It's dosed at 600 mg.",
        src:"Manufacturer: Anagenix, headquartered in Auckland, New Zealand (co-distributed in the US by AIDP).",
