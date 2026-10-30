@@ -177,7 +177,7 @@ section[id],div[id="about"],#honiblog-rachael{scroll-margin-top:160px}
 @keyframes tsE3{0%,100%{transform:translate(-4%,0) rotate(2deg) scaleY(.9)}50%{transform:translate(5%,-6%) rotate(-4deg) scaleY(1.2)}}
 @media (max-width:1000px){.taste-silk i{filter:blur(22px)}}
 @media (prefers-reduced-motion:reduce){.taste-silk i{animation:none}}
-#livaux,#cgp,#feiolix,#oxystorm,#vasodrive{scroll-margin-top:calc(70px - clamp(80px,11vw,152px))}
+#livaux,#cgp,#feiolix,#oxystorm,#vasodrive,#careflow{scroll-margin-top:calc(70px - clamp(80px,11vw,152px))}
 #pack{scroll-margin-top:calc(81px - clamp(80px,11vw,152px))} /* 13 / Format: same, 7px tighter */
 
 /* ---------- nav ---------- */
@@ -1296,6 +1296,11 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 .vaso-allergy{display:block;margin-top:10px;font-size:13.5px;line-height:1.6;opacity:.85}
 @media(max-width:1000px){
   #vasodrive{background-image:url("vasodrive_bg-lite.jpg")}
+}
+/* (user request) Careflow section: full-bleed mango backdrop, same treatment as #pomma. */
+#careflow{background-image:url("careflow_bg.jpg");background-size:cover;background-position:center}
+@media(max-width:1000px){
+  #careflow{background-image:url("careflow_bg-lite.jpg")}
 }
 /* (user request) cGP-Pro section: full-bleed blackcurrant backdrop, same treatment as #livaux. */
 #cgp{background-image:url("cgp_bg.jpg");background-size:cover;background-position:center}
@@ -3171,6 +3176,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#pomma">Pomma+</a>
       <a href="#eriomin">Eriomin Lemon</a>
       <a href="#mitoq">Ubiquinol</a>
+      <a href="#careflow">Careflow</a>
       <a href="#nitric-oxide">Nitric Oxide</a>
     </div>
     <div class="hexbtn-m nav-hex-mobile-left">
@@ -4530,6 +4536,26 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 </section>
 
+<!-- ================= CAREFLOW MANGO ================= -->
+<section class="sec" id="careflow">
+  <div class="wrap">
+    <div class="livaux-box rv">
+      <p class="eyebrow dim">Careflow<sup class="rn">&reg;</sup> &middot; Microcirculation</p>
+      <h2 class="serif">Careflow<sup class="rn">&reg;</sup>: <em>Organic mango fruit for your smallest vessels.</em></h2>
+      <p class="lede">HONI<i>ORA</i> carries 100 mg of Careflow<sup class="rn">&reg;</sup> per serving, the supplier's recommended daily dose. Careflow is a patented, organic and standardised mango fruit powder from Fytexia, part of the Biotexia group in France.<br><a class="cite" href="https://www.ingredientsnetwork.com/careflow-microcirculation-prod1293841.html" target="_blank" rel="noopener noreferrer">Ingredient listing <span>Ingredients Network &nearr;</span></a><a class="cite sup" href="https://www.biotexia.com/en/dietary-supplements/metabolic-health/careflow-microcirculation/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Biotexia &nearr;</span></a></p>
+
+      <ul class="prob-list">
+        <li><span class="x">01</span><div><strong>Aimed at microcirculation.</strong> <span class="d">The supplier states that Careflow activates the key metabolic enzymes SIRT1 and eNOS, to improve microcirculation and vascular function. eNOS is the enzyme that makes nitric oxide.</span></div></li>
+        <li><span class="x">02</span><div><strong>One acute and one chronic trial.</strong> <span class="d">The supplier lists one acute and one chronic published clinical trial. The trials cited here are <a href="https://pubmed.ncbi.nlm.nih.gov/28187466/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Buchwald-Werner 2017</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/26584454/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">Gerstgrasser 2015</a>, both in Planta Medica.</span></div></li>
+        <li><span class="x">03</span><div><strong>Part of the vascular stack.</strong> <span class="d">Careflow works with VasoDrive-AP<sup class="rn">&reg;</sup> on the enzyme route, S7<sup class="rn">&reg;</sup> on cell redox signalling and OxyStorm<sup class="rn">&reg;</sup> on the nitrate route.</span></div></li>
+      </ul>
+
+      <p class="small" style="margin-top:30px;max-width:78ch">Ingredient-level information, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. The mechanism, the organic status and the trial count are supplier statements from the Ingredients Network listing, to be confirmed on a certificate of analysis. The listing gives no mangiferin content or mango species. No cited trial is of the finished HONI<i>ORA</i> tablet. Careflow is a trade mark of its owner.</p>
+    </div>
+  </div>
+</section>
+
+
 <!-- ================= MORNING LEMON WATER ================= -->
 <section class="sec" id="lemon">
   <div class="wrap">
@@ -5884,7 +5910,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           var npad = parseFloat(getComputedStyle(el).paddingTop) || 0;
           return Math.max(0, el.getBoundingClientRect().top + window.scrollY + npad - (hdr.getBoundingClientRect().bottom + 12));
         }
-        if (hash === '#mitoq' || hash === '#livaux' || hash === '#cgp' || hash === '#feiolix' || hash === '#oxystorm' || hash === '#vasodrive' || hash === '#pomma'){
+        if (hash === '#mitoq' || hash === '#livaux' || hash === '#cgp' || hash === '#feiolix' || hash === '#oxystorm' || hash === '#vasodrive' || hash === '#careflow' || hash === '#pomma'){
           var mpad = parseFloat(getComputedStyle(el).paddingTop) || 0;
           return Math.max(0, el.getBoundingClientRect().top + window.scrollY + mpad - (hdr.getBoundingClientRect().bottom + 1));
         }
