@@ -1285,16 +1285,18 @@ footer .brand{font-size:15px;letter-spacing:.42em}
   border-left:2px solid var(--gold);border-radius:4px;
   padding:clamp(32px,5vw,64px) clamp(26px,5vw,72px);max-width:920px;margin:0 auto}
 
-/* (user request) VasoDrive-AP section: plain white background, photo from the ingredient scroller beside the copy. */
-#vasodrive{background:#fff}
-.vaso-box{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,3vw,44px);align-items:center;max-width:1260px;margin:0 auto;padding:clamp(8px,2vw,24px) 0}
-.vaso-photo{margin:0}
-.vaso-photo img{display:block;width:100%;height:auto}
-.vaso-copy .lede{max-width:60ch}
-.vaso-lactose{margin-top:26px;padding:18px 22px;border-left:2px solid var(--gold);background:rgba(0,0,0,.03);border-radius:4px;font-size:15px;line-height:1.65}
-.vaso-allergy{display:block;margin-top:10px;font-size:13.5px;line-height:1.6;opacity:.85}
+/* (user request) VasoDrive-AP section: same treatment as #pomma, milk splash full-bleed and centred behind the frosted gold-edged box. */
+#vasodrive{background-color:#fff;background-image:url("vasodrive_bg.jpg");background-repeat:no-repeat;background-size:contain;background-position:center}
+#vasodrive{min-height:min(calc(100vw / 1.16),1400px);display:flex;align-items:center}
+#vasodrive .wrap{width:100%}
+/* the splash is pale, so this box is lighter and unblurred than the others, otherwise it hides the image */
+#vasodrive .livaux-box{background:rgba(255,255,255,.5);backdrop-filter:none;-webkit-backdrop-filter:none}
+.vaso-lactose{margin-top:26px;padding:18px 22px;border-left:2px solid var(--gold);background:rgba(0,0,0,.04);border-radius:4px;font-size:15px;line-height:1.65}
 .vaso-lactose b{display:block;margin-bottom:4px;letter-spacing:.08em;text-transform:uppercase;font-size:11px}
-@media(max-width:800px){.vaso-box{grid-template-columns:1fr}.vaso-photo{max-width:100%;margin:0 auto}}
+.vaso-allergy{display:block;margin-top:10px;font-size:13.5px;line-height:1.6;opacity:.85}
+@media(max-width:1000px){
+  #vasodrive{background-image:url("vasodrive_bg-lite.jpg")}
+}
 /* (user request) cGP-Pro section: full-bleed blackcurrant backdrop, same treatment as #livaux. */
 #cgp{background-image:url("cgp_bg.jpg");background-size:cover;background-position:center}
 @media(max-width:1000px){
@@ -4471,9 +4473,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 <!-- ================= VASODRIVE-AP AMEALPEPTIDE ================= -->
 <section class="sec" id="vasodrive">
   <div class="wrap">
-    <div class="vaso-box rv">
-      <figure class="vaso-photo"><img width="524" height="604" src="vasodrive_ap_crop.webp" alt="VasoDrive-AP milk-derived tripeptide" loading="lazy"></figure>
-      <div class="vaso-copy">
+    <div class="livaux-box rv">
         <p class="eyebrow dim">09e / VasoDrive-AP<sup class="rn">&reg;</sup> AmealPeptide<sup class="rn">&reg;</sup></p>
         <h2 class="serif">VasoDrive-AP<sup class="rn">&reg;</sup>: <em>Two milk tripeptides for arterial elasticity.</em></h2>
         <p class="lede">HONI<i>ORA</i> carries 508 mg of VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) per serving. It is derived from milk protein through a proprietary enzymatic process. It supplies the lactotripeptides VPP (valyl-prolyl-proline) and IPP (isoleucyl-prolyl-proline), which occur in very small amounts in casein. Made in Waikato, NZ by Tatua Dairy Co-op.<br><a class="cite" href="https://www.maypro.com/products/vasodrive-ap" target="_blank" rel="noopener noreferrer">Ingredient science <span>Maypro &nearr;</span></a><a class="cite sup" href="https://pubmed.ncbi.nlm.nih.gov/23566677/" target="_blank" rel="noopener noreferrer">Supporting research <span>PMID 23566677 &nearr;</span></a></p>
@@ -4486,7 +4486,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
         <p class="vaso-lactose"><b>Lactose</b>While it is made from milk protein, the lactose levels in VasoDrive-AP (AmealPeptide) are undetectable (under .05%), so it is considered safe for those with lactose intolerance.*<span class="vaso-allergy">Lactose intolerance and milk allergy are different conditions. Lactose is a milk sugar. An allergy is a reaction to milk protein, and VasoDrive-AP is made from casein, a milk protein. It is not suitable for anyone with a milk or dairy allergy.</span></p>
         <p class="small" style="margin-top:22px;max-width:78ch">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Figures are supplier statements from Maypro, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. No cited trial is of the finished HONI<i>ORA</i> tablet. VasoDrive-AP and AmealPeptide are trade marks of their owner.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -5889,12 +5888,12 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           var mpad = parseFloat(getComputedStyle(el).paddingTop) || 0;
           return Math.max(0, el.getBoundingClientRect().top + window.scrollY + mpad - (hdr.getBoundingClientRect().bottom + 1));
         }
-        /* #eriomin: the PLUS the power of kicker sits ~24px under the nav bar. */
+        /* #eriomin: land with the lemon photo (the .lemon-roll above the Eriomin copy) ~43px under the nav bar. */
         if (hash === '#eriomin'){
-          /* the block is a .rv reveal with a transient translateY, so take it out of the measurement */
-          var ety = 0;
-          try { var etf = getComputedStyle(el).transform; ety = (etf && etf !== 'none') ? new DOMMatrix(etf).m42 : 0; } catch(_){ ety = 0; }
-          return Math.max(0, el.getBoundingClientRect().top - ety + window.scrollY - (hdr.getBoundingClientRect().bottom + 24));
+          var lr = el.previousElementSibling && el.previousElementSibling.classList.contains('lemon-roll') ? el.previousElementSibling : el;
+          var lty = 0;
+          try { var ltf = getComputedStyle(lr).transform; lty = (ltf && ltf !== 'none') ? new DOMMatrix(ltf).m42 : 0; } catch(_){ lty = 0; }
+          return Math.max(0, lr.getBoundingClientRect().top - lty + window.scrollY - (hdr.getBoundingClientRect().bottom + 43));
         }
         /* #honeytop: the honeycomb hero photo starts flush under the nav bar. */
         if (hash === '#honeytop'){
