@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HONIORA Effervescent Creatine Stack with NZ Super Actives</title>
-<meta name="description" content="3 tabs, 400 ml of cold water. Ready in 60 seconds. A 16,502 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
+<meta name="description" content="3 tabs, 400 ml of cold water. Ready in 60 seconds. A 17,022 mg daily serving led by 3,000 mg of creatine monohydrate, built on New Zealand bioactives. Born in NZ, made in the USA. Join the 2026 founding list.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="HONIORA Effervescent Creatine Stack with NZ Super Actives">
 <meta property="og:description" content="3 tabs. 400 ml of cold water. Ready in 60 seconds.">
@@ -1206,6 +1206,8 @@ footer .brand{font-size:15px;letter-spacing:.42em}
 :is(.unit,.ibandhost).static .iband-track{flex-wrap:wrap;justify-content:center;width:100%;padding:0 var(--pad);transform:none !important;gap:24px 20px}
 :is(.unit,.ibandhost).static .ishot{opacity:1;width:clamp(208px,52vw,288px)}
 :is(.unit,.ibandhost).static .ishot.ishot-pomma{width:clamp(280px,68vw,380px)}
+/* (user request) Pomma+ cut-out only fills about two thirds of its square, so on the icon grid it read smaller than the others; scaled up to match. */
+:is(.unit,.ibandhost).static .ishot.ishot-pomma img{transform:rotate(30deg) scale(1.3)}
 :is(.unit,.ibandhost).static .ishot figure{transform:none}
 :is(.unit,.ibandhost).static .icap{position:static;top:auto;margin-top:12px;opacity:1;transform:none}
 :is(.unit,.ibandhost).static .icap i{display:none}
@@ -2929,6 +2931,19 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 /* KIWIFRUIT GOLD TUBE-REVEAL BAND */
 .tube-band{position:absolute;left:0;right:0;z-index:-1;pointer-events:none;
   background:linear-gradient(180deg,#FFF0C2 0%,#FFE49A 55%,#FBD777 100%)}
+/* (user request) screen 2: typewriter-on-scroll origin-of-the-name line, sat above the tube
+   where the user marked it. Desktop only; positioned live from the tube's own box by the
+   script below so it holds at any width. Characters keep their layout (opacity only), so the
+   text never reflows while it types. */
+.hero-reo{position:absolute;left:0;top:0;width:0;z-index:2;pointer-events:none;text-align:center;
+  transform:translateY(-50%);opacity:0;transition:opacity .25s;color:#2B2100;font-weight:700;
+  font-family:Arial,'Helvetica Neue',Helvetica,'Liberation Sans',sans-serif;line-height:1.35;letter-spacing:.012em}
+.hero-reo.placed{opacity:1}
+.hero-reo .reo-w{white-space:nowrap}
+.hero-reo .reo-c{position:relative;opacity:0}
+.hero-reo .reo-c.on{opacity:1}
+.hero-reo .reo-c.cur::after{content:"";position:absolute;right:-.07em;top:.12em;width:.07em;height:.95em;background:#5B4400}
+@media (max-width:1000px){.hero-reo{display:none}}
 .hero-lower.has-tube-band .hero-img-col{background:transparent}
 .hero-lower.has-tube-band .keyact.flat.hero-actives li{color:#2B2100}
 .hero-lower.has-tube-band .keyact.flat.hero-actives li::before{background:#5B4400}
@@ -3177,7 +3192,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <a href="#eriomin">Eriomin Lemon</a>
       <a href="#mitoq">Ubiquinol</a>
       <a href="#careflow">Careflow</a>
-      <a href="#nitric-oxide">Nitric Oxide</a>
     </div>
     <div class="hexbtn-m nav-hex-mobile-left">
       <a href="#store" class="hexbtn-m-link" aria-label="Reserve the Monthly Protocol">
@@ -3196,6 +3210,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="burger-drop burger-drop-right" id="burgerDropRight">
       <a href="#ritual">Protocol</a>
       <a href="#glp1">Natural GLP-1</a>
+      <a href="#nitric-oxide">Nitric Oxide</a>
       <a href="#triad">Four Systems</a>
       <a href="#taste">Taste</a>
       <a href="#pack">Format</a>
@@ -3262,8 +3277,8 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="hrail-track" id="railTrack">
         <div class="hrail-set">
           <div class="hrail-gap" aria-hidden="true"></div>
-          <div class="hmsg">INTRODUCING HONI<i>ORA</i> &nbsp; A NATURAL MORNING WELLNESS PROTOCOL OF ACTIVATED NECTAR with a Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, efficient vascular system delivery, and targeted micro-vascular brain support. Honi<i>Ora</i> comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality.</div>
-          <div class="hmsg hcaps">SWAP OUT THE TEDIOUS AND MESSY POWDERS AND PILLS FOR OUR DELICIOUSLY SIMPLE AND POTENT MORNING PROTOCOL</div>
+          <div class="hmsg hcaps">SWAP OUT THE TEDIOUS AND MESSY POWDERS AND PILLS FOR OUR DELICIOUSLY SIMPLE AND NATURALLY POTENT MORNING PROTOCOL,</div>
+          <div class="hmsg">INTRODUCING HONI<i>ORA</i>, A MORNING WELLNESS PROTOCOL OF ACTIVATED NECTAR of creatine-driven cellular energy, maximised gut absorption, efficient vascular system delivery, and targeted micro-vascular brain support.</div>
           <div class="hact"><b>MGO 850+ M&#257;nuka Honey / Fiberest<sup class="rn">&reg;</sup> HF</b><i class="hpop">Bioactive honey &middot; Prebiotic fibre</i><s>1,500 mg</s></div>
           <div class="hact"><b>Cr.01&trade; Creatine Monohydrate</b><i class="hpop">ATP energy &middot; Strength &amp; power</i><s>3,000 mg</s></div>
           <div class="hact"><b>Balanced Hydration Matrix</b><i class="hpop">Mineral salts &middot; Na &middot; K &middot; Mg</i><s>3,591 mg</s></div>
@@ -3282,7 +3297,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="hact"><b>Landkind<sup class="rn">&reg;</sup> Rhodiola Rosea</b><i class="hpop">Adaptogen &middot; Stress response</i><s>60 mg</s></div>
           <div class="hact"><b>Braincurrant<sup class="rn">&reg;</sup></b><i class="hpop">Cognitive &middot; Mood &amp; focus</i><s>300 mg</s></div>
           <div class="hact"><b>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</b><i class="hpop">Alpha-wave &middot; Calm focus</i><s>450 mg</s></div>
-          <div class="hact"><b>Taurine</b><i class="hpop">Cellular hydration &middot; Osmolyte</i><s>500 mg</s></div>
+          <div class="hact"><b>Taurine</b><i class="hpop">Cellular hydration &middot; Osmolyte</i><s>1,020 mg</s></div>
           <div class="hact"><b>Citicoline</b><i class="hpop">Brain cell signalling &middot; Attention</i><s>255 mg</s></div>
           <div class="hact"><b>Vitamin A Retinyl Palmitate</b><i class="hpop">Mucosal barrier &middot; Immune support</i><s>900 mcg RAE</s></div>
         </div>
@@ -3308,6 +3323,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
   </div>
 
   <div class="hero-lower">
+    <div class="hero-reo" id="heroReo" role="note" aria-label="HoniOra comes from te reo M&#257;ori. Honi means honey, and Ora means life, health, and vitality."><span class="reo-t" aria-hidden="true">Honi<i>Ora</i> comes from te reo M&#257;ori.<br>Honi means honey,<br>and Ora means life, health, and vitality.</span></div>
     <div class="hero-img-col">
 
       <!-- mobile-only duplicate of the "UPGRADE YOUR WELLBEING" headline, shown here
@@ -3381,14 +3397,14 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <div class="ishot ishot-feijoa"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="feijoa-lite.webp"><img width="820" height="820" src="feijoa.webp" alt="Feiolix feijoa" loading="lazy"></picture><figcaption class="icap"><b>Feiolix<sup class="rn">&reg;</sup> Feijoa</b><s>600 mg NZ</s><u class="ifn">GLP-1 SUPPORT</u><i>Feijoa (Pineapple Guava) is a delicious fruit with cult status in New Zealand. Its abscisic acid acts on the L-cells in your gut, shown in lab and animal models to raise GLP-1. Its fibre ferments into propionate, which prompts the same release by a second route. Both aim at your own GLP-1, not a synthetic analogue. Your own GLP-1 slows gastric emptying and supports steadier glucose handling. Two routes, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="Kaneka Ubiquinol" loading="lazy"></picture><figcaption class="icap"><b>Kaneka Ubiquinol<sup class="rn">&reg;</sup></b><s>100 mg</s><u class="ifn">MITOCHONDRIAL SUPPORT</u><i>Ubiquinol is the reduced form of coenzyme Q10, a compound found in the mitochondrial membrane where cells make energy. Supplied by Kaneka as a 30% ubiquinol powder, microencapsulated for air stability.</i></figcaption></figure></div>
           <div class="ishot ishot-pomma"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="pomma_pomegranate-lite.webp"><img width="820" height="820" src="pomma_pomegranate.webp" alt="Pomma+ whole-fruit pomegranate extract" loading="lazy"></picture><figcaption class="icap"><b>Pomma+<sup class="rn">&reg;</sup> Whole-Fruit Pomegranate</b><s>300 mg</s><u class="ifn">ANTIOXIDANT SUPPORT</u><i>An upcycled, whole-fruit extract carrying pomegranate's punicalagins and ellagitannins, the polyphenols behind its antioxidant reputation.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="oxystorm-lite.webp"><img width="820" height="820" src="oxystorm.webp" alt="OxyStorm red spinach leaves" loading="lazy"></picture><figcaption class="icap"><b>OxyStorm<sup class="rn">&reg;</sup> Red Spinach</b><s>600 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>High potency red spinach extract, standardised by the producer to 9%+ nitrate. <br>Beetroot powder, in comparison, is typically 0.6 to 1.6%. <br>Nitrate in, nitric oxide out.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="oxystorm-lite.webp"><img width="820" height="820" src="oxystorm.webp" alt="OxyStorm red spinach leaves" loading="lazy"></picture><figcaption class="icap"><b>OxyStorm<sup class="rn">&reg;</sup> Red Spinach</b><s>600 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>Red spinach extract, standardised by the producer to 9%+ nitrate. <br>600 mg supplies about 54 mg of nitrate. <br>A supporting nitrate route to nitric oxide.</i></figcaption></figure></div>
 <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="eriomin_lemon-lite.webp"><img width="820" height="820" src="eriomin_lemon.webp" alt="Eriomin lemon flavonoid extract" loading="lazy"></picture><figcaption class="icap"><b>Eriomin<sup class="rn">&reg;</sup> Lemon Flavonoid</b><s>200 mg</s><u class="ifn">GLP-1 SUPPORT</u><i>A standardised eriocitrin extract with its own pathway to your own GLP-1, <a href="#glp1" style="color:inherit;text-decoration:underline">see how</a>.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="cGP-Pro_blackcurrant-lite.webp"><img width="820" height="820" src="cGP-Pro_blackcurrant.webp" alt="Braincurrant New Zealand blackcurrant" loading="lazy"></picture><figcaption class="icap"><b>Braincurrant<sup class="rn">&reg;</sup></b><s>300 mg NZ</s><u class="ifn">FOCUS &amp; MOOD</u><i>A freeze-dried whole New Zealand blackcurrant powder from Anagenix, naturally rich in anthocyanins. Natural support for focus, memory and mood balance.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="L-Theanine powder" loading="lazy"></picture><figcaption class="icap"><b>AlphaWave<sup class="rn">&reg;</sup> L-Theanine</b><s>450 mg</s><u class="ifn">CALM FOCUS</u><i>Upregulates alpha-wave neural activity and stimulates GABA, so the result reads as calm focus rather than agitation. A 28-day placebo-controlled trial of AlphaWave L-Theanine found lower perceived stress and improved sleep quality and attention.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="Taurine powder" loading="lazy"></picture><figcaption class="icap"><b>Taurine</b><s>500 mg</s><u class="ifn">CELLULAR HYDRATION</u><i>An organic osmolyte that holds cellular fluid balance and supports energy metabolism, alongside the magnesium and electrolyte load.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="Taurine powder" loading="lazy"></picture><figcaption class="icap"><b>Taurine</b><s>1,020 mg</s><u class="ifn">CELLULAR HYDRATION</u><i>An organic osmolyte that holds cellular fluid balance and supports energy metabolism, alongside the magnesium and electrolyte load.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="nmn-lite.webp"><img width="820" height="820" src="nmn.webp" alt="Citicoline" loading="lazy"></picture><figcaption class="icap"><b>Citicoline</b><s>255 mg</s><u class="ifn">FOCUS &amp; ATTENTION</u><i>Supplies building blocks for brain cell membranes and neuronal signalling. A 28-day placebo-controlled trial of 250 mg a day in healthy women aged 40 to 60 found fewer attention errors than placebo.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="s7_leaf-lite.webp"><img width="820" height="820" src="s7_leaf.webp" alt="S7 plant-based blend" loading="lazy"></picture><figcaption class="icap"><b>S7<sup class="rn">&reg;</sup> Plant Blend</b><s>60 mg</s><u class="ifn">NITRIC OXIDE SUPPORT</u><i>Green coffee bean, green tea, turmeric, tart cherry, blueberry, broccoli and kale extracts at a low 60 mg dose. Rather than supplying nitrates directly, S7 acts on the cell's own redox signalling to raise the nitric oxide you already make. The supplier's 90-day double-blind clinical study reported a 230% increase in circulating nitric oxide over baseline, sustained with once-daily use.</i></figcaption></figure></div>
-          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><u class="ifn">MICROCIRCULATION</u><i>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Boosting blood flow through the smallest capillaries within hours.</i></figcaption></figure></div>
+          <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="careflow_mango-lite.webp"><img width="820" height="820" src="careflow_mango.webp" alt="Careflow organic mango fruit powder" loading="lazy"></picture><figcaption class="icap"><b>Careflow<sup class="rn">&reg;</sup> Mango Fruit</b><s>100 mg</s><u class="ifn">MICROCIRCULATION</u><i>Organic, standardised mango fruit powder. The supplier says it activates SIRT1 and eNOS. Skin blood flow rose in a small pilot study.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="hytolive_bev_olive-lite.webp"><img width="820" height="820" src="hytolive_bev_olive.webp" alt="Hytolive Bev olive fruit extract" loading="lazy"></picture><figcaption class="icap"><b>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</b><s>300 mg</s><u class="ifn">BLOOD LIPID PROTECTION</u><i>A water-soluble olive fruit extract from Alvinesa in Spain, standardised to 2% hydroxytyrosol. At this dose HONI<i>ORA</i> delivers 6&nbsp;mg of hydroxytyrosol per serving, above the 5&nbsp;mg/day threshold behind the EFSA claim that olive polyphenols help protect blood lipids from oxidative stress.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="lactospore-lite.webp"><img width="820" height="820" src="lactospore.webp" alt="LactoSpore Bacillus coagulans probiotic, colourised micrograph" loading="lazy"></picture><figcaption class="icap"><b>LactoSpore<sup class="rn">&reg;</sup> Bacillus coagulans</b><s>2 billion CFU</s><u class="ifn">GUT MICROBIOME</u><i>A spore-forming probiotic (strain MTCC 5856) built to survive high-speed compression and the tablet&#39;s effervescent dissolution, so live spores reach the gut. Dosed alongside the Livaux and M&#257;nuka prebiotic fibres.</i></figcaption></figure></div>
           <div class="ishot"><figure><picture class="ishot-pic"><source media="(max-width:1000px)" srcset="retinyl_palmitate-lite.webp"><img width="820" height="820" src="retinyl_palmitate.webp" alt="Vitamin A as cold-water-soluble retinyl palmitate" loading="lazy"></picture><figcaption class="icap"><b>Vitamin A Retinyl Palmitate</b><s>900 mcg RAE</s><u class="ifn">BARRIER &amp; IMMUNE SUPPORT</u><i>Cold-water-soluble vitamin A that disperses cleanly in the glass. Vitamin A supports the integrity of the body&#39;s epithelial barriers and mucosal immunity, including the gut lining.</i></figcaption></figure></div>
@@ -3402,7 +3418,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="unit" id="tablet">
     <div class="unit-vp">
       <div class="unit-track">
-        <div class="upanel lead"><span>HONI<i>ORA</i> tablets each contain 3.71 grams of full dose potent actives.</span></div>
+        <div class="upanel lead"><span>HONI<i>ORA</i> tablets each contain 3.89 grams of full dose potent actives.</span></div>
         <div class="upanel lead">Formulated for daily year-round use</div>
         <div class="upanel">Naturally sourced actives</div>
         <div class="upanel">Gluten Free</div>
@@ -3747,7 +3763,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <ul>
           <li><b>Cr.01&trade; Creatine</b>Sustained daily dosing is how muscle creatine stores are built and held at saturation over time.</li>
           <li><b>VasoDrive-AP<sup class="rn">&reg;</sup></b>ACE inhibition supporting arterial elasticity, behind 30 or more double-blind studies.</li>
-          <li><b>OxyStorm<sup class="rn">&reg;</sup> red spinach</b>Plant nitrate feeds the nitrate to nitric oxide route, beside the enzyme and redox routes.</li>
+          <li><b>OxyStorm<sup class="rn">&reg;</sup> red spinach</b>About 54 mg of plant nitrate supports the nitrate to nitric oxide route, beside the enzyme and redox routes.</li>
           <li><b>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant</b>Free IGF-1 mobilised to support microcapillary architecture through the loop.</li>
         </ul>
       </div>
@@ -3874,7 +3890,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <text class="ikigai-center" id="ikigaiCenterLabel" x="280" y="220" text-anchor="middle" dominant-baseline="central">Honi<tspan font-style="italic">Ora</tspan></text>
         </svg>
       </div>
-      <p class="lede">Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, <br>efficient vascular system delivery, and targeted micro-vascular brain support.</p>
+      <p class="lede">Quadraxial formula matrix: creatine-driven cellular energy, maximised gut absorption, <br>efficient vascular system delivery, and targeted micro-vascular brain support.<br>Absorption without circulation is a wasted nutrient that never arrives.</p>
     </div>
 
     <div class="triad rv">
@@ -3915,11 +3931,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>Careflow<sup class="rn">&reg;</sup> mango fruit</i><b>100 mg</b></li>
           <li><i>S7<sup class="rn">&reg;</sup> Plant Blend</i><b>60 mg</b></li>
           <li><i>Hytolive<sup class="rn">&reg;</sup> Bev Olive Extract</i><b>300 mg</b></li>
-          <li><i>Taurine</i><b>500 mg</b></li>
+          <li><i>Taurine</i><b>1,020 mg</b></li>
           <li><i>Magnesium Malate</i><b>1,050 mg</b></li>
           <li><i>Zinc Bisglycinate<sup class="rn">&reg;</sup></i><b>105 mg</b></li>
         </ul>
-        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal. How much converts varies from person to person, and no trial has measured it for this tablet.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>OxyStorm<sup class="rn">&reg;</sup> red spinach adds plant nitrate, which the body converts to nitrite and then to nitric oxide.<br><br>Careflow<sup class="rn">&reg;</sup> works at the capillary ends, activating AMPK and raising microvascular flow, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.<br><br>Absorption without circulation is a wasted nutrient that never arrives.</p>
+        <p>Pomma+<sup class="rn">&reg;</sup> leads the column. Pomma+<sup class="rn">&reg;</sup> supplies standardized pomegranate ellagitannins that act as the direct biochemical precursor for natural endo-metabolite synthesis, breaking down in the gastrointestinal tract into ellagic acid which the microbiome converts into Urolithin A to stimulate cellular mitophagy and mitochondrial renewal. How much converts varies from person to person, and no trial has measured it for this tablet.<br><br>VasoDrive-AP<sup class="rn">&reg;</sup> (AmealPeptide<sup class="rn">&reg;</sup>) is one of the most researched tripeptide ingredients for cardiovascular health. It helps improve arterial flexibility by increasing the production of endothelial nitric oxide synthase (eNOS). VasoDrive-AP<sup class="rn">&reg;</sup> occurs in very small amounts in dairy casein as tripeptides that support arterial elasticity by inhibiting an enzyme which leads to the constriction of blood vessels.<br><br>OxyStorm<sup class="rn">&reg;</sup> red spinach adds plant nitrate, which the body converts to nitrite and then to nitric oxide.<br><br>Careflow<sup class="rn">&reg;</sup> supports microcirculation through SIRT1 and eNOS activation, while S7<sup class="rn">&reg;</sup> acts on cell redox signalling to raise endogenous nitric oxide.<br><br>Taurine holds cellular fluid balance as an osmolyte, and magnesium and zinc run underneath as enzymatic cofactors.</p>
       </div>
 
       <div class="tri" data-pillar="brain">
@@ -3932,7 +3948,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
           <li><i>Braincurrant<sup class="rn">&reg;</sup></i><b>300 mg</b></li>
           <li><i>Citicoline</i><b>255 mg</b></li>
         </ul>
-        <p>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant. cGP-Pro<sup class="rn">&reg;</sup> is the world&rsquo;s only standardised cGP ingredient. Derived from New Zealand blackcurrant cultivars and combined with collagen, it is produced in NZ using a proprietary process which delivers cGP in stable, standardised form. Backed by science and validated through rigorous independent testing, cGP-Pro<sup class="rn">&reg;</sup> helps replenish and maintain optimal cGP levels in the body and brain, supporting vitality, cognitive health and graceful ageing.<br><br>L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes New Zealand blackcurrant anthocyanins for enhanced focus, memory and mood balance. Citicoline supplies building blocks for brain cell membranes and signalling, for attention.</p>
+        <p>cGP-Pro<sup class="rn">&reg;</sup> Blackcurrant. cGP-Pro<sup class="rn">&reg;</sup> helps replenish and maintain optimal cGP levels in the body and brain, supporting vitality, cognitive health and graceful ageing. cGP-Pro<sup class="rn">&reg;</sup> is the world&rsquo;s only standardised cGP ingredient. Derived from New Zealand blackcurrant cultivars and combined with collagen, it is produced in NZ using a proprietary process which delivers cGP in stable, standardised form. Backed by science and validated through rigorous independent testing.<br><br>L-Theanine works alongside it, upregulating alpha-wave neural activity so the result reads as calm focus rather than agitation, while Braincurrant<sup class="rn">&reg;</sup> contributes New Zealand blackcurrant anthocyanins for enhanced focus, memory and mood balance. Citicoline supplies building blocks for brain cell membranes and signalling, for attention.</p>
       </div>
     </div>
 
@@ -3990,7 +4006,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="no-route sig">Enzyme route</span>
         <h4>Careflow<sup class="rn">&reg;</sup> Mango Fruit</h4>
         <b class="no-dose">100 mg</b>
-        <p>Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS. Blood flow through the smallest capillaries rises within hours of ingestion.</p>
+        <p>Organic, standardised mango fruit powder. The supplier says it activates SIRT1 and eNOS. Skin blood flow rose in a small pilot study.</p>
         <a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/28187466/" target="_blank" rel="noopener noreferrer">Buchwald-Werner 2017 <span>Planta Med &middot; RCT &nearr;</span></a>
       </div>
       <div class="no-card">
@@ -4004,7 +4020,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="no-route sig">Nitrate route</span>
         <h4>OxyStorm<sup class="rn">&reg;</sup> Red Spinach</h4>
         <b class="no-dose">600 mg</b>
-        <p>Red spinach leaf extract standardised by the producer Arjuna Natural to at least 9% nitrate. The body converts dietary nitrate to nitrite and then to nitric oxide.</p>
+        <p>Red spinach leaf extract standardised by the producer Arjuna Natural to at least 9% nitrate. 600 mg supplies about 54 mg of nitrate, a supporting amount. The body converts dietary nitrate to nitrite and then to nitric oxide.</p>
         <a class="cite" href="https://doi.org/10.3390/sports5040080" target="_blank" rel="noopener noreferrer">Moore 2017 <span>Sports &middot; RCT &nearr;</span></a>
         <a class="cite sup" href="https://arjunanatural.com/oxystorm/" target="_blank" rel="noopener noreferrer" style="margin-top:calc(var(--cw)*.012)">Ingredient science <span>Arjuna Natural &nearr;</span></a>
       </div>
@@ -4099,9 +4115,9 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <span class="src">Livaux<sup class="rn">&reg;</sup> · 600 mg per serving</span>
       </div>
       <div class="stat">
-        <b data-count="24" data-suffix="%">24%</b>
+        <b data-count="18" data-suffix="%">18%</b>
         <h4>Of the formula, by mass</h4>
-        <p>Cr.01&trade; Creatine is the single largest active in the tablet, roughly 24 percent of the entire compression blend by weight.</p>
+        <p>Cr.01&trade; Creatine is the single largest active in the tablet, roughly 18 percent of the entire compression blend by weight.</p>
         <span class="src">Cr.01&trade; Creatine Monohydrate · 3,000 mg per serving</span>
       </div>
       <div class="stat">
@@ -4172,7 +4188,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">OxyStorm<sup class="rn">&reg;</sup> Red Spinach Extract<i>PLT Health Solutions</i></div>
         <div><span class="fn">Vascular<small>Plant nitrate</small></span></div>
         <div class="dose">600 mg<small>about 54 mg nitrate</small></div>
-        <div class="mech">Leaf extract of red spinach (<em>Amaranthus dubius</em>), standardised by the supplier to a minimum of 9% nitrate. 600 mg supplies about 54 mg of nitrate, which the body converts to nitrite and then to nitric oxide. The supplier describes a 100% water-soluble, sugar-free powder.<br><a class="cite" href="https://doi.org/10.3390/sports5040080" target="_blank" rel="noopener noreferrer">Moore 2017 <span>Sports &middot; RCT &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s00421-016-3478-8" target="_blank" rel="noopener noreferrer">Haun 2016 <span>Eur J Appl Physiol &middot; RCT &nearr;</span></a><a class="cite sup" href="https://www.plthealth.com/oxystorm" target="_blank" rel="noopener noreferrer">Ingredient science <span>PLT Health &nearr;</span></a></div>
+        <div class="mech">Leaf extract of red spinach (<em>Amaranthus dubius</em>), standardised by the supplier to a minimum of 9% nitrate. 600 mg supplies about 54 mg of nitrate, a supporting amount. The body converts nitrate to nitrite and then to nitric oxide. The supplier describes a 100% water-soluble, sugar-free powder.<br><a class="cite" href="https://doi.org/10.3390/sports5040080" target="_blank" rel="noopener noreferrer">Moore 2017 <span>Sports &middot; RCT &nearr;</span></a><a class="cite" href="https://doi.org/10.1007/s00421-016-3478-8" target="_blank" rel="noopener noreferrer">Haun 2016 <span>Eur J Appl Physiol &middot; RCT &nearr;</span></a><a class="cite sup" href="https://www.plthealth.com/oxystorm" target="_blank" rel="noopener noreferrer">Ingredient science <span>PLT Health &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid">
@@ -4237,7 +4253,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
       <div class="row mgrid">
         <div class="name">Taurine<i>USP Crystalline / Granular DC</i></div>
         <div><span class="fn">Cellular energy<small>Osmoregulation</small></span></div>
-        <div class="dose">500 mg</div>
+        <div class="dose">1,020 mg</div>
         <div class="mech">An organic osmolyte that holds cellular fluid balance while supporting energy metabolism, working alongside the magnesium and potassium load rather than competing with it.<br><span class="cite sup" style="cursor:default">Ingredient science citation to be added &middot; verify before launch</span></div>
       </div>
 
@@ -4269,7 +4285,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <div class="name">Careflow<sup class="rn">&reg;</sup> Mango Fruit<i>Fytexia / Standardized Microcirculation</i></div>
         <div><span class="fn">Micro-vascular<small>Flow support</small></span></div>
         <div class="dose">100 mg</div>
-        <div class="mech">Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS, boosting blood flow through the smallest capillaries within hours of ingestion.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/28187466/" target="_blank" rel="noopener noreferrer">Buchwald-Werner 2017 <span>Planta Med &middot; RCT &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/26584454/" target="_blank" rel="noopener noreferrer">Gerstgrasser 2015 <span>Planta Med &middot; RCT &nearr;</span></a><a class="cite sup" href="https://www.biotexia.com/en/dietary-supplements/metabolic-health/careflow-microcirculation/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Biotexia &nearr;</span></a></div>
+        <div class="mech">Organic, standardised mango fruit powder. The supplier says it activates SIRT1 and eNOS, which supports microcirculation. In a small pilot study of the supplier&rsquo;s mango powder at 100 mg, skin blood flow rose in healthy women.<br><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/28187466/" target="_blank" rel="noopener noreferrer">Buchwald-Werner 2017 <span>Planta Med &middot; RCT &nearr;</span></a><a class="cite" href="https://pubmed.ncbi.nlm.nih.gov/26584454/" target="_blank" rel="noopener noreferrer">Gerstgrasser 2015 <span>Planta Med &middot; RCT &nearr;</span></a><a class="cite sup" href="https://www.biotexia.com/en/dietary-supplements/metabolic-health/careflow-microcirculation/" target="_blank" rel="noopener noreferrer">Ingredient science <span>Biotexia &nearr;</span></a></div>
       </div>
 
       <div class="row mgrid compact">
@@ -4462,11 +4478,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
     <div class="livaux-box rv">
       <p class="eyebrow dim">09d / OxyStorm<sup class="rn">&reg;</sup> Red Spinach</p>
       <h2 class="serif">OxyStorm<sup class="rn">&reg;</sup> Red Spinach: <em>Plant nitrate for your own nitric oxide.</em></h2>
-      <p class="lede">HONI<i>ORA</i> carries 600 mg of OxyStorm<sup class="rn">&reg;</sup> red spinach extract per serving. OxyStorm is made from the leaves of red spinach (<em>Amaranthus dubius</em>). Standardised to a minimum of 9% nitrate, so 600 mg supplies about 54 mg of nitrate.<br><a class="cite" href="https://www.plthealth.com/oxystorm" target="_blank" rel="noopener noreferrer">Ingredient science <span>PLT Health &nearr;</span></a></p>
+      <p class="lede">HONI<i>ORA</i> carries 600 mg of OxyStorm<sup class="rn">&reg;</sup> red spinach extract per serving. OxyStorm is made from the leaves of red spinach (<em>Amaranthus dubius</em>). Standardised to a minimum of 9% nitrate, so 600 mg supplies about 54 mg of nitrate. That is a supporting amount, not a performance dose. It sits beside the other nitric oxide actives and does not replace them.<br><a class="cite" href="https://www.plthealth.com/oxystorm" target="_blank" rel="noopener noreferrer">Ingredient science <span>PLT Health &nearr;</span></a></p>
 
       <ul class="prob-list">
-        <li><span class="x">01</span><div><strong>Nitrate in &gt; nitric oxide out.</strong> <span class="d">The nitrates in OxyStorm<sup class="rn">&reg;</sup> are converted by your body to nitrite and then to nitric oxide, the molecule that relaxes blood vessels.</span></div></li>
-        <li><span class="x">02</span><div><strong>A third route to NO.</strong> <span class="d">VasoDrive-AP<sup class="rn">&reg;</sup> and Careflow<sup class="rn">&reg;</sup> work on the enzyme route and S7<sup class="rn">&reg;</sup> on cell redox signalling. OxyStorm feeds the nitrate route.</span></div></li>
+        <li><span class="x">01</span><div><strong>Nitrate in &gt; nitric oxide out.</strong> <span class="d">Your body converts the nitrate in OxyStorm<sup class="rn">&reg;</sup> to nitrite and then to nitric oxide, the molecule that relaxes blood vessels. At about 54 mg of nitrate per serving, this route supports the others and does not carry them.</span></div></li>
+        <li><span class="x">02</span><div><strong>A third, supporting route to NO.</strong> <span class="d">VasoDrive-AP<sup class="rn">&reg;</sup> and Careflow<sup class="rn">&reg;</sup> work on the enzyme route and S7<sup class="rn">&reg;</sup> on cell redox signalling. OxyStorm feeds the nitrate route.</span></div></li>
         <li><span class="x">03</span><div><strong>Water soluble and sugar free.</strong> <span class="d">OxyStorm is a 100% water-soluble, sugar-free powder with a neutral pH.</span></div></li>
         <li><span class="x">04</span><div><strong>100% Free of oxalate.</strong> <span class="d">OxyStorm contains no oxalate, the compound found in beetroot powders. Oxalate is the main building block of kidney stones.</span></div></li>
       </ul>
@@ -4550,7 +4566,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
         <li><span class="x">03</span><div><strong>Part of the vascular stack.</strong> <span class="d">Careflow works with VasoDrive-AP<sup class="rn">&reg;</sup> on the enzyme route, S7<sup class="rn">&reg;</sup> on cell redox signalling and OxyStorm<sup class="rn">&reg;</sup> on the nitrate route.</span></div></li>
       </ul>
 
-      <p class="small" style="margin-top:30px;max-width:78ch">Ingredient-level information, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. The mechanism, the organic status and the trial count are supplier statements from the Ingredients Network listing, to be confirmed on a certificate of analysis. The listing gives no mangiferin content or mango species. No cited trial is of the finished HONI<i>ORA</i> tablet. Careflow is a trade mark of its owner.</p>
+      <p class="small" style="margin-top:30px;max-width:78ch">Ingredient-level information, see the <a href="#evidence-note" style="color:inherit;text-decoration:underline">evidence note</a>. The mechanism, the organic status and the trial count are supplier statements from the Ingredients Network listing, to be confirmed on a certificate of analysis. The listing gives no mangiferin content or mango species. The cited studies tested a related mango fruit powder from the same supplier group (sold as Careless), and confirmation that it is the same material as Careflow is pending. No cited trial is of the finished HONI<i>ORA</i> tablet. Careflow is a trade mark of its owner.</p>
     </div>
   </div>
 </section>
@@ -4880,7 +4896,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             <img class="pconv-badge-photo" src="nav-hex-tray.png" alt="" loading="lazy">
             <div class="pconv-text">
               <div class="pconv-title">OxyStorm<sup class="rn">&reg;</sup> Red Spinach</div>
-              <div class="pconv-desc long">High potency red spinach extract, standardised by the producer to 9%+ nitrate. <br>Beetroot powder, in comparison, is typically 0.6 to 1.6%. <br>Nitrate in, nitric oxide out.</div><div class="pconv-dose">600 mg</div>
+              <div class="pconv-desc long">Red spinach extract, standardised by the producer to 9%+ nitrate. <br>600 mg supplies about 54 mg of nitrate. <br>A supporting nitrate route to nitric oxide.</div><div class="pconv-dose">600 mg</div>
             </div>
           </div>
         </div>
@@ -4900,7 +4916,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
             <img class="pconv-badge-photo" src="nav-hex-tray.png" alt="" loading="lazy">
             <div class="pconv-text">
               <div class="pconv-title">Taurine</div>
-              <div class="pconv-desc">Cellular hydration · Osmolyte</div><div class="pconv-dose">500 mg</div>
+              <div class="pconv-desc">Cellular hydration · Osmolyte</div><div class="pconv-dose">1,020 mg</div>
             </div>
           </div>
         </div>
@@ -6066,7 +6082,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
 
     var AH_KB = [
       {k:["what is honiora","whats in honiora","ingredients","actives","formula","in honiora"],
-       a:"HONI<i>ORA</i> packs 20 named wellness actives and a balanced electrolyte matrix into one effervescent serving, 16,502 mg total. They run across four systems: <b>Strength</b> (creatine for power, ubiquinol), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (VasoDrive-AP, OxyStorm, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant, Citicoline). Ask me about any one by name, or about who makes it and where."},
+       a:"HONI<i>ORA</i> packs 20 named wellness actives and a balanced electrolyte matrix into one effervescent serving, 17,022 mg total. They run across four systems: <b>Strength</b> (creatine for power, ubiquinol), <b>Gut</b> (Livaux, Fiberest / Mānuka, Feiolix, Eriomin, LactoSpore Bacillus coagulans, vitamin A retinyl palmitate), <b>Heart</b> (VasoDrive-AP, OxyStorm, Careflow, S7, Hytolive, Pomma+, taurine, magnesium, zinc) and <b>Brain</b> (cGP-Pro, L-Theanine, Braincurrant, Citicoline). Ask me about any one by name, or about who makes it and where."},
       {k:["how do i take it","dosing","how to use","serving size","ritual","how many tablets","how often","directions"],
        a:"Drop 3 tablets into 400 ml of cold water. Ready in 60 seconds, no stirring needed. Take it once a day: most of the benefit is cumulative, alongside diet and exercise."},
       {k:["creatine","cr-01","cr 01","power","strength","atp"],
@@ -6078,7 +6094,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        map:"https://www.google.com/maps/search/?api=1&query=Tatua+Co-operative+Dairy+Company%2C+Morrinsville%2C+New+Zealand",
        papers:[{t:"PMID 23566677",u:"https://pubmed.ncbi.nlm.nih.gov/23566677/"}]},
       {k:["careflow","mango","mangiferin"],
-       a:"Mangiferin from organic mango fruit switches on AMPK, which in turn triggers eNOS, boosting blood flow through the smallest capillaries within hours of the first dose. Mango itself (Mangifera indica) is native to South Asia, especially Myanmar and eastern India, cultivated there for thousands of years before spreading through the tropical world. It's a member of the cashew family, and mangiferin is one of the polyphenols the fruit and its peel are naturally rich in. Careflow Mango Fruit is dosed at 100 mg.",
+       a:"Careflow is an organic, standardised mango fruit powder from Fytexia, part of the Biotexia group in France. The supplier says it activates SIRT1 and eNOS, which supports microcirculation. In a small pilot study of the supplier's mango powder at 100 mg, skin blood flow rose in healthy women. Mango itself (Mangifera indica) is native to South Asia, especially Myanmar and eastern India, cultivated there for thousands of years before spreading through the tropical world. It's a member of the cashew family, and mangiferin is one of the polyphenols the fruit and its peel are naturally rich in. Careflow Mango Fruit is dosed at 100 mg.",
        src:"Manufacturer: Fytexia, headquartered in Béziers, in the south of France, now part of the Biotexia group alongside ABbiotek Health and Anzchem. They don't publish an exact mango growing region, so I won't guess at one.",
        map:"https://www.google.com/maps/search/?api=1&query=B%C3%A9ziers%2C+France",
        papers:[{t:"Buchwald-Werner 2017, Planta Med",u:"https://pubmed.ncbi.nlm.nih.gov/28187466/"},{t:"Gerstgrasser 2015, Planta Med",u:"https://pubmed.ncbi.nlm.nih.gov/26584454/"}]},
@@ -6137,7 +6153,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        papers:[{t:"Haun 2016 · Eur J Appl Physiol",u:"https://doi.org/10.1007/s00421-016-3478-8"},
                {t:"Moore 2017 · Sports",u:"https://doi.org/10.3390/sports5040080"}]},
       {k:["livaux","gold kiwifruit","kiwifruit","kiwi"],
-       a:"Livaux Gold Kiwifruit is a pectin matrix carrying 41 phenolics, fermented slowly, and in a 2025 trial roughly doubled F. prausnitzii, a butyrate-producing gut bacterium, in 70% of participants within 28 days. New Zealand's kiwifruit industry is centred on the Bay of Plenty, home to Te Puke, often called the kiwifruit capital of the world; Anagenix says all its ingredients are traceable to their growing region but doesn't publish Livaux's specific orchard location, so I'll leave it at that rather than assume it's the same. Gold kiwifruit itself is Actinidia chinensis, bred from Chinese germplasm New Zealand imported in the late 1970s. The Zespri SunGold variety reached the market in the late 1990s, sweeter and smoother-skinned than the older green Hayward kiwifruit, and the Bay of Plenty now grows most of New Zealand's crop. It's dosed at 600 mg.",
+       a:"Livaux Gold Kiwifruit is a pectin matrix carrying 41 phenolics, fermented slowly, and in a 2025 trial roughly doubled F. prausnitzii, a butyrate-producing gut bacterium, in 70% of participants within 28 days. New Zealand's kiwifruit industry is centred on the Bay of Plenty, the kiwifruit capital of the world. Gold kiwifruit itself is Actinidia chinensis. The Zespri SunGold variety is sweeter and smoother-skinned than the green kiwifruit. It's dosed at 600 mg.",
        src:"Manufacturer: Anagenix, headquartered in Auckland, New Zealand (co-distributed in the US by AIDP).",
        map:"https://www.google.com/maps/search/?api=1&query=Bay+of+Plenty%2C+New+Zealand",
        papers:[{t:"PMID 33485721",u:"https://pubmed.ncbi.nlm.nih.gov/33485721/"}]},
@@ -6174,7 +6190,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:70px 0 4
        a:"A few real ones. European honeybees didn't even exist here until missionary Mary Bumby brought two hives ashore at the Mangungu Mission Station, Hokianga, in March 1839, and every Mānuka harvest since traces back to bees descended from that one delivery. Mānuka itself only blooms for two to six weeks each summer, peaking in mid-December, so beekeepers have to get hives into position before the window opens or it's a full year's wait for the next one. The science is newer than the honey: University of Waikato biochemist Peter Molan began investigating Mānuka honey's antiseptic properties in 1981, identifying the non-peroxide antibacterial activity that MGO and UMF grading still measure today. And centuries before any of that, Māori were already boiling Mānuka leaves and bark as a fever treatment and applying it to burns and scalds, well over 800 years of use before the honey itself became the focus.<br><br>A few more amazing ones, beyond Mānuka. Foragers dance to tell the rest of the hive where to fly: the direction of the waggle run encodes the food source's angle relative to the sun, and how long each run lasts encodes the distance, a spatial communication system with no real match elsewhere in the insect world. A colony holds its brood nest at a near-constant 93&deg;F no matter what it's doing outside, workers fan their wings to cool it or cluster together and shiver to warm it. A single hive can run 20,000 to 60,000 bees strong at its summer peak, with the queen laying up to 1,500 eggs a day during spring build-up. And honey barely ages at all: pots found in ancient Egyptian tombs, roughly 3,000 years old, have been opened still perfectly edible, since honey's low water content and trace natural hydrogen peroxide make it inhospitable to the bacteria that spoil almost everything else.",
        src:"Waggle dance: NC State Extension, \"The Honey Bee Dance Language.\" Colony size, queen egg-laying rate and brood temperature: Purdue Agriculture Extension, \"The Complex Life of the Honey Bee\" (PPP-116-POL-91). Ancient honey preservation: corroborated across multiple historical sources, though none name the specific tomb, so I haven't invented one."},
       {k:["taurine"],
-       a:"Taurine is an organic osmolyte that holds cellular fluid balance and supports energy metabolism alongside the magnesium and electrolyte load. It's dosed at 500 mg."},
+       a:"Taurine is an organic osmolyte that holds cellular fluid balance and supports energy metabolism alongside the magnesium and electrolyte load. It's dosed at 1,020 mg per serving (340 mg per tablet)."},
       {k:["magnesium"],
        a:"Magnesium Malate runs underneath the other actives as an enzymatic cofactor for cellular processes. It's dosed at 500 mg.",
        src:"Manufacturer: Albion Minerals (a Balchem brand), headquartered in Clearfield, Utah, USA, the company that pioneered mineral amino acid chelate technology back in 1956.",
@@ -8220,6 +8236,84 @@ s();['loadedmetadata','loadeddata','play','playing','ratechange'].forEach(functi
   window.addEventListener('orientationchange',fit);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
   setTimeout(fit,600);setTimeout(fit,2000);
+})();
+</script>
+<script>
+/* (user request) screen 2: "HoniOra comes from te reo Maori ..." types in as you scroll, above the tube.
+   Placement is measured off the tube's own rendered box and re-measured every frame, since other
+   hero scripts nudge the band after load. */
+(function(){
+  try {
+    var box = document.getElementById('heroReo');
+    var cont = document.querySelector('.hero-lower');
+    var tube = cont && cont.querySelector('.hero-tube-shot');
+    var actives = cont && cont.querySelector('.hero-actives');
+    var root = box && box.querySelector('.reo-t');
+    if (!box || !cont || !tube || !root) return;
+    var mqLite = window.matchMedia('(max-width:1000px)');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function split(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(c){
+        if (c.nodeType === 3){
+          var frag = document.createDocumentFragment();
+          c.nodeValue.split(/(\s+)/).forEach(function(part){
+            if (!part) return;
+            if (/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(' ')); return; }
+            var w = document.createElement('span'); w.className = 'reo-w';
+            Array.from(part).forEach(function(ch){
+              var s = document.createElement('span'); s.className = 'reo-c'; s.textContent = ch; w.appendChild(s);
+            });
+            frag.appendChild(w);
+          });
+          c.parentNode.replaceChild(frag, c);
+        } else if (c.nodeType === 1) split(c);
+      });
+    }
+    split(root);
+    var chars = box.querySelectorAll('.reo-c'), N = chars.length, shown = 0;
+    function place(){
+      if (mqLite.matches) return false;
+      var tr = tube.getBoundingClientRect(), cr0 = cont.getBoundingClientRect(), W = tr.width;
+      if (!W) return false;
+      var o = {x: tr.left - cr0.left, y: tr.top - cr0.top};
+      var bw = W * 1.411, left = o.x - W * 0.1675;
+      var cr = cont.getBoundingClientRect(), ar = actives ? actives.getBoundingClientRect() : null;
+      var maxRight = ar ? (ar.left - cr.left) - W * 0.2 : left + bw;
+      if (left < 12){ left = 12; }
+      if (left + bw > maxRight){ bw = Math.max(260, maxRight - left); }
+      var top = o.y - W * 0.276;
+      box.style.left = Math.round(left) + 'px';
+      box.style.top = Math.round(top) + 'px';
+      box.style.width = Math.round(bw) + 'px';
+      box.style.fontSize = Math.max(14, Math.min(30, bw * 0.0308)).toFixed(1) + 'px';
+      box.classList.add('placed');
+      return true;
+    }
+    function show(k){
+      if (k === shown) return;
+      var i;
+      if (k > shown){ for (i = shown; i < k; i++) chars[i].classList.add('on'); }
+      else { for (i = shown - 1; i >= k; i--) chars[i].classList.remove('on'); }
+      var prev = box.querySelector('.reo-c.cur'); if (prev) prev.classList.remove('cur');
+      if (k > 0 && k < N && !reduced) chars[k - 1].classList.add('cur');
+      shown = k;
+    }
+    function tick(){
+      if (!place()) return;
+      if (reduced){ show(N); return; }
+      var r = box.getBoundingClientRect(), vh = window.innerHeight;
+      var p = (vh * 0.88 - r.top) / (vh * 0.88 - vh * 0.42);
+      p = p < 0 ? 0 : (p > 1 ? 1 : p);
+      show(Math.round(p * N));
+    }
+    var queued = false;
+    function req(){ if (queued) return; queued = true; requestAnimationFrame(function(){ queued = false; tick(); }); }
+    window.addEventListener('scroll', req, {passive:true});
+    window.addEventListener('resize', req);
+    window.addEventListener('load', req);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(req);
+    req();
+  } catch (e) { console.warn('[hero-reo] skipped', e); }
 })();
 </script>
 </body>
